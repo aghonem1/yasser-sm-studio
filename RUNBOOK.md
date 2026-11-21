@@ -28,7 +28,9 @@ Pull each verse with `python3 quran/verse.py S:V i0 i1 --save S:V` (refuses if t
 - Fetch the wav through the relay (the workspace cannot reach HeyGen hosts):
   `tools/fetch_audio.sh "<audio_url>" epNN.wav $EP_DIR/src.wav`  (pushes to branch `audio`; GitHub Action downloads; ~1 min)
 - Check Arabic words: `python3 tools/asr.py $EP_DIR/src.wav ar <start> <end>`; English: `python3 tools/asr.py $EP_DIR/src.wav en`.
-  If an Arabic word is clearly wrong, generate that word alone once (language "ar") and splice it in at the same timing.
+  If an Arabic word is clearly wrong, generate that word alone once (language "ar", speed 0.85, text ending with a full stop), fetch it,
+  and splice it in at the original onset. Take the take's audio from ~0.2 s BEFORE its first timestamp: the first syllable (e.g. لِ) starts
+  earlier than HeyGen's timing says. Update that word's times in words.json, re-run split.py, and re-check with asr.py on the isolated word.
 
 ## 4. Timeline
 `EP_DIR=... python3 scripts/split.py` — edit its LINES list first: (display text, first spoken-token index, last index).
