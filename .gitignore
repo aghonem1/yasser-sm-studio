@@ -2,3 +2,6 @@ node_modules/
 remotion/out/
 __pycache__/
 *.pyc
+# per-episode build intermediates and exports (delivered via the session, not stored in git)
+episodes/*/*.wav
+episodes/*/export/
