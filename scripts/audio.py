@@ -1,7 +1,6 @@
 import os
 """Episode 3 v2 audio: studio voice chain, real CC0 SFX (wyzowl/sfx-kit), CC0 ambient bed (alvana-audio, HoliznaCC0 'Cave 1').
-Output: mix_v2_v3.wav — ONE version, voice + music + SFX (48 kHz, -14 LUFS stereo, true peak <= -1 dBTP).
-EPISODE-SPECIFIC (edit per episode): VERSE windows, A_END / B_START, PAYOFF_*, the SFX cue list."""
+Outputs mix_v2_music.wav and mix_v2_nomusic.wav (48 kHz, -14 LUFS, true peak <= -1 dBTP)."""
 import json, subprocess, numpy as np, soundfile as sf, pyloudnorm as pyln
 from pedalboard import Pedalboard, HighpassFilter, PeakFilter, HighShelfFilter, LowShelfFilter, Compressor, Reverb, Gain, Limiter
 
@@ -58,10 +57,10 @@ act = np.repeat(act, fr)[:N]
 
 # ---------------- music bed ----------------
 # Track: HeyGen music library "Astral 1dca6f4f" — warm cinematic ambient, oud + modern synths, building to an emotional payoff (48 s)
-TRACK = os.environ.get("MUSIC", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets", "music", "heygen_1dca6f4f_oud-rise.wav"))
+TRACK = os.environ.get("MUSIC", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets", "music", "heygen_6a3acd43_hijaz-vocal-ahs.wav"))  # HeyGen library: a cappella vocal ahs, Hijaz/Bayati maqam, no instruments, no words
 mt = load(TRACK)
-mt = Pedalboard([HighpassFilter(cutoff_frequency_hz=40), PeakFilter(cutoff_frequency_hz=2600, gain_db=-3.5, q=0.8)])(mt.astype(np.float32), SR).astype(np.float64)
-mt = norm(mt, -19.5)
+mt = Pedalboard([HighpassFilter(cutoff_frequency_hz=90), PeakFilter(cutoff_frequency_hz=1800, gain_db=-3.0, q=0.7), PeakFilter(cutoff_frequency_hz=3500, gain_db=-4.0, q=0.9), Reverb(room_size=0.7, damping=0.5, wet_level=0.22, dry_level=0.85, width=1.0), Compressor(threshold_db=-30, ratio=4, attack_ms=40, release_ms=400)])(mt.astype(np.float32), SR).astype(np.float64)
+mt = norm(mt, -17.0)
 t = np.arange(N) / SR
 # Quran rule: NO music while a verse is being read. Verse windows = narration lines that read the Qur'an.
 VERSE = [(ST[4] - 0.3, ST[7] - 0.1), (ST[10] - 0.3, ST[11] - 0.1)]
@@ -72,18 +71,18 @@ m = np.zeros(N)
 def lay(v0, v1, tr0):
     i0, i1 = int(v0 * SR), min(N, int(v1 * SR)); j0 = int(tr0 * SR)
     seg = mt[j0:j0 + (i1 - i0)]; m[i0:i0 + len(seg)] = seg
-lay(0.0, A_END, 3.0)
-lay(B_START, TOTAL, PAYOFF_TRACK - (PAYOFF_VIDEO - B_START))
+lay(0.0, A_END, 13.5)
+lay(B_START, TOTAL, 2.0)
 g = np.ones(N)
 g *= np.clip(t / 0.25, 0, 1)
 g *= np.where(t < A_END, np.clip((A_END - t) / 0.35, 0, 1), 1.0)                       # quick cut-out before the verse
 g *= np.where((t >= A_END) & (t < B_START), 0.0, 1.0)
 g *= np.where(t >= B_START, np.clip((t - B_START) / 0.12, 0, 1), 1.0)                   # punchy re-entry
 for q0, q1 in VERSE: g *= np.where((t > q0 - 0.05) & (t < q1), 0.0, 1.0)               # hard guarantee
-duck = 10 ** (-5 / 20); g *= (1 - act) + act * duck
+duck = 10 ** (-6 / 20); g *= (1 - act) + act * duck
 hp = np.where(t < ST[14] - 0.3, 1.0, np.where(t < wt(16, 'differ') + 0.35, 0.55, 0.72))  # the hard part: pull back, then lift
 hp = np.convolve(hp, np.ones(int(0.4 * SR)) / int(0.4 * SR), mode="same"); g *= hp
-g *= np.where(t < A_END, 10 ** (5.5 / 20), 1.0)                                        # the track's intro is quiet: lift the hook
+g *= np.where(t < A_END, 10 ** (1.0 / 20), 1.0)                                        # the track's intro is quiet: lift the hook
 g *= np.clip((TOTAL - 0.15 - t) / 1.0, 0, 1)
 m *= g
 
@@ -102,30 +101,37 @@ def place(sid, at, adj=0.0, sync=True):
     if i0 < 0: x = x[-i0:]; i0 = 0
     e = min(N, i0 + len(x)); sfx[i0:e] += x[:e - i0]
 
+HS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets", "heygen_sfx")   # HeyGen SFX library (peak offsets from the catalogue)
+HPEAK = {"deep_boom": 0.305, "whoosh_impact": 2.405, "low_boom": 0.08, "heartbeat": 0.41, "low_riser": 5.29, "sub_hit": 0.42}
+hcache = {}
+def hplace(name, at, db):
+    if name not in hcache: hcache[name] = norm(load(f"{HS}/{name}.mp3"), -20.0)
+    x = hcache[name] * 10 ** ((db - 6) / 20)
+    i0 = int((at - HPEAK[name]) * SR)
+    if i0 < 0: x = x[-i0:]; i0 = 0
+    e = min(N, i0 + len(x)); sfx[i0:e] += x[:e - i0]
 tB, tE = ST[2], ST[3] + 0.15
-place("boom-hit-medium", 0.0, +2); place("shimmer-long-soft", 0.05, -2)
-place("shimmer-short-soft", tB, -1); place("shimmer-short-soft", tE, -1)
-place("whoosh-slow-soft", ST[4] - 0.35, 0)                           # sweep into tribes
-place("appear-materialise", wt(4, 'peoples') - 0.5, -1)
-place("reverse-whoosh-medium-soft", ST[5] - 0.2, -1); place("boom-hit-soft", ST[5] - 0.2, +1); place("shimmer-long-bright", ST[5] - 0.05, -3)
-place("shimmer-medium-soft", wt(6, 'know') - 0.35, -3)
-place("whoosh-medium-soft", ST[7] - 0.15, -3)                        # card in
-place("boom-hit-soft", wt(9, 'know'), 0); place("shimmer-long-sparkle", wt(9, 'know'), -4)
+hplace("deep_boom", 0.0, -2)                                           # frame-1 hit under the hook
+place("shimmer-short-soft", tB, -3); place("shimmer-short-soft", tE, -3)
+place("whoosh-slow-soft", ST[4] - 0.35, 0)                             # into the verse (non-tonal only from here)
+place("whoosh-medium-soft", ST[5] - 0.25, -3)
+place("whoosh-medium-soft", ST[7] - 0.15, -3)                          # card in
+hplace("low_boom", wt(7, 'despise'), -5); hplace("low_boom", wt(8, 'fight'), -4)
+hplace("sub_hit", wt(9, 'know'), -3)                                   # star completes
 place("whoosh-slow-soft", ST[10] - 0.35, -1)
-place("shimmer-medium-bright", wt(10, 'honoured') - 0.1, -4)
-place("reverse-whoosh-medium-soft", B_START, -1); place("boom-hit-medium", B_START, 0)
-place("tone-ding-low", ST[11] + 0.3, -4); place("tone-ding-mid", ST[12] - 0.05, -3)
-place("sting-bright-short", ST[13] + 0.1, -2)
-place("bass-sub-drop-medium", ST[14] - 0.1, +2)                       # the hard part
-tK = wt(15, 'kind') - 0.1
-for j, sid in enumerate(["tone-step-1", "tone-step-2", "tone-step-3"]): place(sid, tK + j * 0.24, -6)
+place("reverse-whoosh-medium-soft", B_START, -1); hplace("sub_hit", B_START, -1)   # vocal bed returns
+place("whoosh-fast-soft", ST[11] - 0.05, -4); place("whoosh-fast-soft", ST[12] - 0.05, -4)
+hplace("deep_boom", ST[13] + 0.1, -5)
+place("bass-sub-drop-medium", ST[14] - 0.1, +1)                         # the hard part
 tT, tD = wt(16, 'test') - 0.1, wt(16, 'differ')
-place("riser-2s-soft", tD + 0.35, -2)                                  # peaks as the arc lands
-place("boom-hit-medium", tD + 0.35, 0); place("shimmer-long-soft", tD + 0.35, -3)
+hb = ST[14] + 0.5
+while hb < tD - 0.2: hplace("heartbeat", hb, -6 + 4 * (hb - ST[14]) / max(tD - ST[14], 1)); hb += 0.95
+hplace("low_riser", tD + 0.35, -6)
+hplace("deep_boom", tD + 0.35, -1)
 place("whoosh-medium-soft", ST[17] - 0.35, -3)
-place("shimmer-medium-soft", wt(18, 'wrong') + 0.3, -3)
-place("shimmer-short-soft", ST[19] - 0.05, -2); place("shimmer-short-soft", ST[20] + 0.15, -2)
-place("sting-airy-short", VEND + 0.05, 0)
+hplace("low_boom", wt(18, 'wrong'), -6)
+place("shimmer-short-soft", ST[19] - 0.05, -4); place("shimmer-short-soft", ST[20] + 0.15, -4)
+hplace("whoosh_impact", VEND + 0.05, -3)
 sfx *= np.clip((TOTAL - 0.1 - t) / 0.6, 0, 1)
 
 # ---------------- mix + master ----------------
@@ -136,5 +142,5 @@ def master(x, name):
     subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", pre, "-af", "aresample=192000,alimiter=limit=0.87:attack=1:release=60:level=disabled,aresample=48000", "-c:a", "pcm_f32le", out], check=True)
     y, _ = sf.read(out); y = y.mean(1)
     print(name, "LUFS %.2f" % lufs(y), "peak %.2f dBFS" % (20 * np.log10(np.abs(y).max())))
-master(v + m + sfx, "v3")
+master(v + m + sfx, "v4")
 print("voice", "%.1f" % lufs(v), "sfx", "%.1f" % lufs(sfx + 1e-12)); np.save(f"{D}/music_stem.npy", m.astype(np.float32)); np.save(f"{D}/voice_stem.npy", v.astype(np.float32))
