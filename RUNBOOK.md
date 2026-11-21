@@ -59,25 +59,19 @@ Fix any overlap, clipping, empty frame, or text touching another element. Then r
 `npx remotion render src/index.ts epNN out/epNN_silent.mp4 --browser-executable=/usr/bin/google-chrome --codec=h264 --crf=16 --concurrency=2`
 Then a contact sheet (1 fps, 12×4) of the whole video and look at it.
 
-## 7. Audio — ONE version only (voice + vocal bed + cinematic SFX)
-What the niche uses (researched 21 Nov): high-performing faceless Islamic reels use VOCAL-ONLY beds (nasheed-style humming /
-a cappella "ahs", no instruments) plus cinematic sound design (deep booms, braam/whoosh impacts, heartbeat tension, risers).
-Instrumental tracks read as generic and draw "music" objections in this audience. So:
-- Bed: a vocal-only track from HeyGen's library (`search_audio_sounds`, type music): queries like "a cappella vocal ahs, Hijaz maqam,
-  no instruments, no words", "vocal only humming nasheed, deep male hum, no instruments". Reject anything with words/lyrics
-  (run tools/asr.py en+ar on it: whisper's "موسيقى اشتركوا في القناة" = no words) or any percussion/instrument (HPSS perc ratio ≈ 0).
-  Default: assets/music/heygen_6a3acd43_hijaz-vocal-ahs.wav. Try a fresh one per episode; keep the default if nothing is clearly better.
-- SFX: assets/heygen_sfx (deep_boom, whoosh_impact, low_boom, sub_hit, heartbeat, low_riser) + assets/sfx (whooshes). Frame-1 boom under the
-  hook; punchy hits on short commentary beats; heartbeat pulses under "the hard part"; riser + deep boom on the payoff; whoosh-impact on the end card.
-- QUR'AN RULE (Ahmed, 21 Nov): NO bed at all while a Qur'an verse is read (every line that reads or paraphrases a verse); only soft airy
-  whooshes in those windows, no tonal SFX, no booms on the verse words. The bed cuts out ~0.3 s before and returns with a sub hit after.
-- Levels: bed ~7–12 dB under the voice (vocal beds compete with speech: EQ cut 1.8 k/3.5 k, wide reverb, compressed), SFX stem around
-  −26 LUFS integrated, mix −14 LUFS stereo, true peak ≤ −1 dB; verify the bed stem is silent in verse windows; tools/asr.py on the final mix
-  must transcribe every line.
-`EP_DIR=... MUSIC=<bed.wav> python3 scripts/audio.py` → `mix_v2_v4.wav`. Edit VERSE, A_END/B_START, the bed offsets in lay(), and the cue list.
+## 7. Audio — ONE version only, ORIGINAL style (Ahmed, 21 Nov: keep the style of the first reels)
+Synthesised in code, no outside tracks: Hijaz-coloured music (soft pads, sub, oud/harp-like pluck arpeggio, gentle pulse from the
+first answer on, resolving at the end card) + synthesised SFX (boom, whooshes, chimes, shimmer, page flutter, riser), reverb.
+`EP_DIR=... python3 scripts/audio.py` (writes music.wav, sfx.wav) then `EP_DIR=... bash scripts/mix.sh` → `mix_music.wav`
+(voice chain, music −12 dB with sidechain duck, SFX −9 dB, −14 LUFS, true-peak limiter).
+Edit per episode: the SFX cue list (synced to scene beats), the "hard part" dip window (d0, d1) and VERSE.
+- QUR'AN RULE (Ahmed, 21 Nov): NO music at all while a Qur'an verse is read: VERSE = every narration line that reads or paraphrases a
+  verse. The mask hard-zeroes the music there; no chimes/shimmers/booms in those windows (whooshes only). Verify: music.wav is
+  silent (−240 dB) inside VERSE windows. tools/asr.py on mix_music.wav must transcribe every line.
+- Do not swap in library music or vocal beds (tried 21 Nov, rejected). Improving the music is a separate task with Ahmed.
 
 ## 8. Deliver
-Mux: `ffmpeg -i out/epNN_silent.mp4 -i mix_v2_v4.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 320k -ar 48000 -shortest -movflags +faststart <name>.mp4`. One version only, no no-music file.
+Mux: `ffmpeg -i out/epNN_silent.mp4 -i mix_music.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 320k -ar 48000 -shortest -movflags +faststart <name>.mp4`. One version only, no no-music file.
 Name: `YYYY-MM-DD_the-mirror_one-word-NN-<slug>_9x16_v1.mp4` and `_cover.jpg` (frame at 0.6 s).
 Send the two files (video, cover) with SendUserFile, plus platform copy (Instagram, TikTok, YouTube Shorts, Facebook captions + a first comment each).
 If the desktop bridge is online, also save to `Yasser SM\videos\02_in-progress\<date>_the-mirror_one-word-NN-<slug>\07_exports\`.
