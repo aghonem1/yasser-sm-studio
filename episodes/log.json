@@ -1,0 +1,7 @@
+{
+ "episodes": [
+  {"n": 1, "word": "كُفْر", "slug": "kufr", "date": "2026-11-18", "status": "delivered"},
+  {"n": 2, "word": "لَيِّنًا", "slug": "layyin", "date": "2026-11-20", "status": "delivered"},
+  {"n": 3, "word": "لِتَعَارَفُوا", "slug": "taaruf", "date": "2026-11-20", "status": "delivered (v3 design = current reference)"}
+ ]
+}
