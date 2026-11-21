@@ -24,9 +24,9 @@ jobs:
             name="$(basename "$req" .url)"
             [[ "$name" =~ ^[A-Za-z0-9._-]+$ ]] || { echo "bad name $name"; continue; }
             [ -f "inbox/$name" ] && continue
-            url="$(head -n1 "$req" | tr -d '\r\n ')"
+            url="$(head -n1 "$req" | tr -d '\r\n')"
             case "$url" in
-              https://resource.heygen.ai/*|https://resource2.heygen.ai/*|https://*.heygen.ai/*|https://*.heygen.com/*) ;;
+              https://resource.heygen.ai/*|https://resource2.heygen.ai/*|https://*.heygen.ai/*|https://*.heygen.com/*|https://heygen-product.s3-accelerate.amazonaws.com/*|https://heygen-product.s3.amazonaws.com/*|https://heygen-product.s3.us-east-2.amazonaws.com/*) ;;
               *) echo "refused non-HeyGen URL in $req"; continue ;;
             esac
             curl -fsSL --retry 3 --max-time 180 -o "inbox/$name" "$url"
