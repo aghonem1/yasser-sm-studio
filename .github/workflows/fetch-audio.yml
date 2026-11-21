@@ -1,0 +1,39 @@
+# Relay: downloads HeyGen speech files that the Claude workspace cannot reach directly.
+# Trigger: push a file requests/<name>.url (one HeyGen URL) to branch "audio".
+# Result: the workflow commits inbox/<name> to the same branch.
+name: fetch-audio
+on:
+  push:
+    branches: [audio]
+    paths: ['requests/**']
+permissions:
+  contents: write
+concurrency: { group: fetch-audio, cancel-in-progress: false }
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: audio }
+      - name: Download requested files
+        run: |
+          set -euo pipefail
+          mkdir -p inbox
+          shopt -s nullglob
+          for req in requests/*.url; do
+            name="$(basename "$req" .url)"
+            [[ "$name" =~ ^[A-Za-z0-9._-]+$ ]] || { echo "bad name $name"; continue; }
+            [ -f "inbox/$name" ] && continue
+            url="$(head -n1 "$req" | tr -d '\r\n ')"
+            case "$url" in
+              https://resource.heygen.ai/*|https://resource2.heygen.ai/*|https://*.heygen.ai/*|https://*.heygen.com/*) ;;
+              *) echo "refused non-HeyGen URL in $req"; continue ;;
+            esac
+            curl -fsSL --retry 3 --max-time 180 -o "inbox/$name" "$url"
+            ls -l "inbox/$name"
+          done
+      - name: Commit
+        run: |
+          git config user.name "audio-relay"; git config user.email "audio-relay@users.noreply.github.com"
+          git add inbox
+          git diff --cached --quiet || { git commit -m "relay: fetched audio"; git push; }
