@@ -1,6 +1,7 @@
 import os
 """Episode 3 v2 audio: studio voice chain, real CC0 SFX (wyzowl/sfx-kit), CC0 ambient bed (alvana-audio, HoliznaCC0 'Cave 1').
-Outputs mix_v2_music.wav and mix_v2_nomusic.wav (48 kHz, -14 LUFS, true peak <= -1 dBTP)."""
+Output: mix_v2_v3.wav — ONE version, voice + music + SFX (48 kHz, -14 LUFS stereo, true peak <= -1 dBTP).
+EPISODE-SPECIFIC (edit per episode): VERSE windows, A_END / B_START, PAYOFF_*, the SFX cue list."""
 import json, subprocess, numpy as np, soundfile as sf, pyloudnorm as pyln
 from pedalboard import Pedalboard, HighpassFilter, PeakFilter, HighShelfFilter, LowShelfFilter, Compressor, Reverb, Gain, Limiter
 
@@ -56,31 +57,43 @@ act = smooth_env(act, 0.08, 0.45)
 act = np.repeat(act, fr)[:N]
 
 # ---------------- music bed ----------------
-m = load(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets", "music", "cave-4.mp3"))
-start = int(2.0 * SR); m = m[start:start + N]
-if len(m) < N: m = np.concatenate([m, np.zeros(N - len(m))])
-m = Pedalboard([HighpassFilter(cutoff_frequency_hz=45), PeakFilter(cutoff_frequency_hz=2800, gain_db=-3, q=0.8)])(m.astype(np.float32), SR).astype(np.float64)  # carve room for the voice
-m = norm(m, -21.0)
+# Track: HeyGen music library "Astral 1dca6f4f" — warm cinematic ambient, oud + modern synths, building to an emotional payoff (48 s)
+TRACK = os.environ.get("MUSIC", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets", "music", "heygen_1dca6f4f_oud-rise.wav"))
+mt = load(TRACK)
+mt = Pedalboard([HighpassFilter(cutoff_frequency_hz=40), PeakFilter(cutoff_frequency_hz=2600, gain_db=-3.5, q=0.8)])(mt.astype(np.float32), SR).astype(np.float64)
+mt = norm(mt, -19.5)
 t = np.arange(N) / SR
-def ramp(t0, t1, a, b):  # linear ramp helper returning gain curve contribution
-    return np.clip((t - t0) / max(t1 - t0, 1e-6), 0, 1) * (b - a) + a
+# Quran rule: NO music while a verse is being read. Verse windows = narration lines that read the Qur'an.
+VERSE = [(ST[4] - 0.3, ST[7] - 0.1), (ST[10] - 0.3, ST[11] - 0.1)]
+A_END = ST[4] - 0.3                       # hook music cuts out right before "The Qur'an says"
+B_START = ST[11] - 0.12                   # music returns on "Not one race"
+PAYOFF_TRACK, PAYOFF_VIDEO = 42.0, ST[19]  # track climax lands on the closing callback
+m = np.zeros(N)
+def lay(v0, v1, tr0):
+    i0, i1 = int(v0 * SR), min(N, int(v1 * SR)); j0 = int(tr0 * SR)
+    seg = mt[j0:j0 + (i1 - i0)]; m[i0:i0 + len(seg)] = seg
+lay(0.0, A_END, 3.0)
+lay(B_START, TOTAL, PAYOFF_TRACK - (PAYOFF_VIDEO - B_START))
 g = np.ones(N)
-g *= np.clip(t / 0.8, 0, 1)                                         # fade in
-duck = 10 ** (-5 / 20); g *= (1 - act) + act * duck                 # duck 6 dB under speech
-# music steps out only while the Qur'an's words themselves are spoken (49:13 meaning, 17:70), 0.5 s fades
-for q0, q1 in [(ST[5] - 0.3, ST[7] - 0.2), (ST[10] - 0.3, ST[11] - 0.2)]:
-    g *= np.clip(1 - (t - (q0 - 0.5)) / 0.5, 0, 1) + np.clip((t - q1) / 0.6, 0, 1)
-# "the hard part": come back low, swell into "differ", full for the close
-hp = np.where(t < ST[14] - 0.3, 1.0, np.where(t < wt(16, 'differ') + 0.35, 0.6, 1.0))
-hp = np.convolve(hp, np.ones(int(0.5 * SR)) / int(0.5 * SR), mode="same"); g *= hp
-g *= np.clip((TOTAL - 0.15 - t) / 1.2, 0, 1)                         # fade out (loop seam)
+g *= np.clip(t / 0.25, 0, 1)
+g *= np.where(t < A_END, np.clip((A_END - t) / 0.35, 0, 1), 1.0)                       # quick cut-out before the verse
+g *= np.where((t >= A_END) & (t < B_START), 0.0, 1.0)
+g *= np.where(t >= B_START, np.clip((t - B_START) / 0.12, 0, 1), 1.0)                   # punchy re-entry
+for q0, q1 in VERSE: g *= np.where((t > q0 - 0.05) & (t < q1), 0.0, 1.0)               # hard guarantee
+duck = 10 ** (-5 / 20); g *= (1 - act) + act * duck
+hp = np.where(t < ST[14] - 0.3, 1.0, np.where(t < wt(16, 'differ') + 0.35, 0.55, 0.72))  # the hard part: pull back, then lift
+hp = np.convolve(hp, np.ones(int(0.4 * SR)) / int(0.4 * SR), mode="same"); g *= hp
+g *= np.where(t < A_END, 10 ** (5.5 / 20), 1.0)                                        # the track's intro is quiet: lift the hook
+g *= np.clip((TOTAL - 0.15 - t) / 1.0, 0, 1)
 m *= g
 
 # ---------------- SFX ----------------
 S = json.load(open(f"{KIT}/sounds.json")); S = S if isinstance(S, list) else S["sounds"]; S = {s["id"]: s for s in S if isinstance(s, dict)}
 sfx = np.zeros(N); cache = {}
+TONAL = {"shimmers", "tones", "logo-stings", "notifications", "celebration"}
 def place(sid, at, adj=0.0, sync=True):
     s = S[sid]
+    if s["category"] in TONAL and any(q0 - 0.3 < at < q1 + 0.3 for q0, q1 in VERSE): return
     if sid not in cache: cache[sid] = load(f"{KIT}/{s['file']}")
     x = cache[sid]
     target = -16.0 + s.get("under_voiceover_db", -8) + adj
@@ -100,7 +113,8 @@ place("whoosh-medium-soft", ST[7] - 0.15, -3)                        # card in
 place("boom-hit-soft", wt(9, 'know'), 0); place("shimmer-long-sparkle", wt(9, 'know'), -4)
 place("whoosh-slow-soft", ST[10] - 0.35, -1)
 place("shimmer-medium-bright", wt(10, 'honoured') - 0.1, -4)
-place("tone-ding-low", ST[11] - 0.05, -3); place("tone-ding-mid", ST[12] - 0.05, -3)
+place("reverse-whoosh-medium-soft", B_START, -1); place("boom-hit-medium", B_START, 0)
+place("tone-ding-low", ST[11] + 0.3, -4); place("tone-ding-mid", ST[12] - 0.05, -3)
 place("sting-bright-short", ST[13] + 0.1, -2)
 place("bass-sub-drop-medium", ST[14] - 0.1, +2)                       # the hard part
 tK = wt(15, 'kind') - 0.1
@@ -122,5 +136,5 @@ def master(x, name):
     subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", pre, "-af", "aresample=192000,alimiter=limit=0.87:attack=1:release=60:level=disabled,aresample=48000", "-c:a", "pcm_f32le", out], check=True)
     y, _ = sf.read(out); y = y.mean(1)
     print(name, "LUFS %.2f" % lufs(y), "peak %.2f dBFS" % (20 * np.log10(np.abs(y).max())))
-for name, parts in (("music", v + m + sfx), ("nomusic", v + sfx)): master(parts, name)
-print("voice", "%.1f" % lufs(v), "music", "%.1f" % lufs(m + 1e-12), "sfx", "%.1f" % lufs(sfx + 1e-12))
+master(v + m + sfx, "v3")
+print("voice", "%.1f" % lufs(v), "sfx", "%.1f" % lufs(sfx + 1e-12)); np.save(f"{D}/music_stem.npy", m.astype(np.float32)); np.save(f"{D}/voice_stem.npy", v.astype(np.float32))

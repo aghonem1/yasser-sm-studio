@@ -59,14 +59,25 @@ Fix any overlap, clipping, empty frame, or text touching another element. Then r
 `npx remotion render src/index.ts epNN out/epNN_silent.mp4 --browser-executable=/usr/bin/google-chrome --codec=h264 --crf=16 --concurrency=2`
 Then a contact sheet (1 fps, 12×4) of the whole video and look at it.
 
-## 7. Audio
-`EP_DIR=... python3 scripts/audio.py` — edit the SFX cue list (sound ids from assets/sfx/sounds.json, synced to scene beats) and the two
-music windows (music steps out only while the Qur'an's own words are spoken). Gives mix_v2_music.wav and mix_v2_nomusic.wav at −14 LUFS (stereo), true peak ≤ −1 dB.
-Music must be clearly audible: ~8–12 dB under the voice (check with the per-2 s table). Run `tools/asr.py` on the final mix: every line must transcribe.
+## 7. Audio — ONE version only (voice + music + SFX)
+Music (fresh per episode, so the channel never sounds the same):
+- Search HeyGen's music library: `search_audio_sounds` (type music), queries like "cinematic oud and modern synths building to an
+  emotional payoff", "middle eastern cinematic, hand percussion, rising", "emotional piano and strings with a heartbeat pulse building".
+  Shortlist 3–5 tracks ≥ 45 s; fetch them all in one relay call (tools/fetch_audio.sh accepts several url/name/dest triples).
+- Pick by measurement: 3 s loudness curve (wants a clear build and a late climax), tempo, no vocals. Avoid flat drones.
+  Don't reuse the previous episode's track. assets/music/heygen_1dca6f4f_oud-rise.wav (used in ep03) is the fallback.
+- QUR'AN RULE (Ahmed, 21 Nov): NO music at all while a Qur'an verse is read. VERSE windows = every narration line that reads or
+  paraphrases a verse (from "The Qur'an says…" through the verse's last words). Music cuts out ~0.3 s before and returns after.
+  No tonal SFX (shimmers, tones, stings) inside those windows either; airy whooshes only.
+- Structure: music under the hook (lifted, ~6–11 dB under voice) → cut to silence for the verse → punchy re-entry (reverse whoosh +
+  boom) after it → pull back for "the hard part" → land the track's climax on the closing callback. Set A_END, B_START, PAYOFF_* in audio.py.
+- Levels: music ~6–12 dB under the voice (check the per-2 s table), −14 LUFS stereo, true peak ≤ −1 dB; tools/asr.py on the final mix
+  must transcribe every line.
+`EP_DIR=... MUSIC=<track.wav> python3 scripts/audio.py` → `mix_v2_v3.wav`.
 
 ## 8. Deliver
-Mux: `ffmpeg -i out/epNN_silent.mp4 -i mix_v2_music.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 320k -ar 48000 -shortest -movflags +faststart <name>.mp4` (and _no-music).
-Name: `YYYY-MM-DD_the-mirror_one-word-NN-<slug>_9x16_v1.mp4`, `_v1_no-music.mp4`, `_cover.jpg` (frame at 0.6 s).
-Send the three files with SendUserFile, plus platform copy (Instagram, TikTok, YouTube Shorts, Facebook captions + a first comment each).
+Mux: `ffmpeg -i out/epNN_silent.mp4 -i mix_v2_v3.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 320k -ar 48000 -shortest -movflags +faststart <name>.mp4`. One version only, no no-music file.
+Name: `YYYY-MM-DD_the-mirror_one-word-NN-<slug>_9x16_v1.mp4` and `_cover.jpg` (frame at 0.6 s).
+Send the two files (video, cover) with SendUserFile, plus platform copy (Instagram, TikTok, YouTube Shorts, Facebook captions + a first comment each).
 If the desktop bridge is online, also save to `Yasser SM\videos\02_in-progress\<date>_the-mirror_one-word-NN-<slug>\07_exports\`.
 Commit the new episode file, timeline and excerpts to `main`, update `episodes/log.json` and mark the backlog row `done`.
