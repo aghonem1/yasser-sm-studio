@@ -80,20 +80,28 @@ def ring_clink():
 
 
 
+# ======== per-episode cue sheet: ep04 al-balagh (ep03 cues are in git history) ========
+# Verse windows (no music; whooshes only): lines 3–6 (al-balāgh + 13:40) and 11–13 (88:21–22)
+VERSE = [(ST[3] - 0.3, ST[7] - 0.1), (ST[11] - 0.3, ST[14] - 0.1)]
+DIP = (ST[14] - 0.25, ST[18] - 0.3)      # "hard part" dip
+PULSE_FROM = ST[7] - 0.3                 # gentle pulse from the first answer after the verse
 sfx = np.zeros(N)
 place(sfx, boom(1.2), 0.0, 0.7); place(sfx, chime(1318.5, 1.2), 0.02, 0.35)
-place(sfx, shimmer(1.2), word_t(0, "two"), 0.45)
-place(sfx, chime(987.8, 1.2), ST[2], 0.4); place(sfx, chime(1318.5, 1.2), ST[3], 0.4)
-for li in (4, 10, 14, 17): place(sfx, whoosh2(0.55), ST[li] - 0.45, 0.7)
-# verse lines 4–6 and 10: no tonal sounds (Qur'an rule)
-place(sfx, page_flutter(0.5), ST[7], 0.5); place(sfx, page_flutter(0.5), ST[8], 0.5)
-place(sfx, chime(1174.7, 1.2), ST[9], 0.35)
-for i in (11, 12): place(sfx, chime(1046.5, 1.0), ST[i] + 0.4, 0.3)
-place(sfx, shimmer(1.6), ST[13], 0.5)
+place(sfx, shimmer(1.2), word_t(0, "judge"), 0.4)
+place(sfx, chime(987.8, 1.2), word_t(1, "prophet"), 0.35)
+for li in (2, 7, 11, 14, 18, 20): place(sfx, whoosh2(0.55), ST[li] - 0.45, 0.7)
+# inside verse windows: whooshes only (delivery pulses)
+place(sfx, whoosh2(0.45), word_t(4, "deliver") - 0.1, 0.35); place(sfx, whoosh2(0.45), word_t(5, "deliver") - 0.1, 0.3)
+place(sfx, whoosh2(0.5), word_t(13, "control"), 0.35)
+place(sfx, chime(1174.7, 1.2), ST[7] + 0.05, 0.35)
+place(sfx, boom(0.6), word_t(8, "force") + 0.2, 0.3)
+place(sfx, page_flutter(0.5), word_t(9, "search"), 0.4)
+place(sfx, chime(880.0, 1.2), word_t(10, "judgement") + 0.3, 0.3)
 place(sfx, boom(0.8), ST[14], 0.5)
-place(sfx, riser(1.4), word_t(16, "differ") - 1.3, 0.45); place(sfx, shimmer(1.6), word_t(16, "differ") + 0.1, 0.55)
-place(sfx, chime(880.0, 1.2), word_t(18, "wrong"), 0.35)
-place(sfx, chime(987.8, 1.2), ST[19], 0.35); place(sfx, chime(1318.5, 1.2), ST[20], 0.35)
+place(sfx, riser(1.4), word_t(17, "over") - 1.3, 0.4); place(sfx, shimmer(1.4), word_t(17, "over"), 0.45)
+place(sfx, chime(1046.5, 1.0), word_t(18, "moment"), 0.3)
+place(sfx, shimmer(1.6), word_t(19, "sees"), 0.45)
+place(sfx, chime(987.8, 1.2), word_t(20, "hearts"), 0.3)
 place(sfx, riser(1.0), VEND - 0.9, 0.5)
 place(sfx, boom(1.4), VEND + 0.05, 0.6); place(sfx, shimmer(1.4), VEND + 0.08, 0.6)
 sfx = reverb(sfx, 0.28)
@@ -130,19 +138,19 @@ while t < end_music - 0.1:
     for n_ in ch: place(music, pad_note(midi(n_ + 12), d + 0.6), t, 1.0)
     place(music, sub(midi(ch[0] - 12), d), t, 1.0)
     # sparse pluck arpeggio (oud/harp-like), denser after the midpoint
-    steps = [0, 2, 3, 5] if t < ST[5] else [0, 1, 2, 3, 4, 5, 6, 7]
+    steps = [0, 2, 3, 5] if t < PULSE_FROM else [0, 1, 2, 3, 4, 5, 6, 7]
     for s_ in steps:
         tt0 = t + s_ * beat
         if tt0 < end_music - 0.5:
             nn = ch[s_ % 3] + 24 + (12 if s_ in (5, 7) else 0)
             if ch == prog[3] and s_ == 3: nn = 46 + 24 + 12   # Bb over A: Hijaz b9 colour
             place(music, pluck(midi(nn)), tt0, 0.9)
-    if t >= ST[5] - 0.3:   # pulse from the first answer onward
+    if t >= PULSE_FROM:   # pulse from the first answer onward
         for s_ in range(8):
             if t + s_ * beat < VEND - 0.3: place(music, softkick(), t + s_ * beat, 0.45 if s_ % 4 == 0 else 0.22)
     t += 2 * bar; bi += 1
 music = reverb(music, 0.35)
-d0, d1 = ST[14] - 0.25, ST[17] - 0.3
+d0, d1 = DIP
 env = np.ones(len(music)); tt_ = np.arange(len(music)) / SR
 env = np.where((tt_ > d0) & (tt_ < d1), 0.35, 1.0); env = np.convolve(env, np.ones(int(0.25 * SR)) / int(0.25 * SR), mode="same")
 music *= env
@@ -150,8 +158,7 @@ def _wt(i, p):
     for w, s_, e_ in W[i]:
         if w.lower().strip(",.?'").startswith(p): return s_
     return ST[i]
-# Qur'an rule: NO music while a verse is read (lines 4–6: 49:13; line 10: 17:70)
-VERSE = [(ST[4] - 0.3, ST[7] - 0.1), (ST[10] - 0.3, ST[11] - 0.1)]
+# Qur'an rule: NO music while a verse is read (VERSE windows set in the cue sheet above)
 mask = np.ones(len(music))
 for c0, c1 in VERSE: mask[int((c0 - 0.35) * SR):int(c1 * SR)] = 0.0
 k = int(0.35 * SR); mask = np.convolve(mask, np.ones(k) / k, mode="same")

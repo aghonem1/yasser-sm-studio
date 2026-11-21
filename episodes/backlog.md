@@ -10,7 +10,7 @@ Never invent a hadith, a scholarly position or a reference. Anything not in the 
 | 01 | كُفْر | كاف فاء راء | Ch.1 p.7–14 | 57:20, 2:89, 13:40 | "Kufr doesn't mean what you think." | done |
 | 02 | لَيِّنًا | لام ياء نون | Ch.4 p.37–38 | 20:44, 2:83 | "Speak softly… to Pharaoh?" | done |
 | 03 | لِتَعَارَفُوا | عين راء فاء | Ch.3 p.24–31 | 49:13, 17:70 | "Only two kinds of people." | done |
-| 04 | البَلَاغ | باء لام غين | Ch.2 p.16 | 13:40, 88:21–22 | "You were never asked to judge." | todo |
+| 04 | البَلَاغ | باء لام غين | Ch.2 p.16 | 13:40, 88:21–22 | "You were never asked to judge." | done |
 | 05 | إِكْرَاه | كاف راء هاء | Ch.2 p.17 | 2:256, 18:29 | "You cannot force a heart." | todo |
 | 06 | بِرّ | باء راء راء | Ch.3 p.26 | 60:8 | "Justice isn't the highest bar." | todo |
 | 07 | غُلُوّ | غين لام واو | Ch.5 p.44–45 | 4:171 | "More extreme isn't more faithful." | todo |

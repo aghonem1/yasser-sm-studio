@@ -3,31 +3,32 @@ import json, os, numpy as np
 D = os.environ["EP_DIR"]
 SP = json.load(open(f"{D}/spoken.json"))
 # (display text, first spoken idx, last spoken idx); tokens consume 1 spoken word unless listed in MERGE
-LINES = [
-    ('There are only two kinds of people.', 0, 6),
-    ('Imam Ali said it:', 7, 10),
-    ('your brother in faith…', 11, 14),
-    ('or your equal in creation.', 15, 19),
-    ("The Qur'an says God made us peoples and tribes,", 20, 28),
-    ('lita‘ārafū.', 29, 29),
-    ('So that you may come to know one another.', 30, 38),
-    ('Not to despise.', 39, 41),
-    ('Not to fight.', 42, 44),
-    ('To know one another.', 45, 48),
-    ('“We have certainly honoured the children of Adam.”', 49, 56),
-    ('Not one race.', 57, 59),
-    ('Not one nation.', 60, 62),
-    ('The children of Adam.', 63, 66),
-    ("Here's the hard part.", 67, 70),
-    ("It's easy to be kind to those who agree with us.", 71, 81),
-    ('The real test of character comes with those who differ.', 82, 91),
-    ('We may disagree with a person…', 92, 97),
-    ('but we must not wrong him.', 98, 103),
-    ('Your brother in faith,', 104, 107),
-    ('or your equal in creation.', 108, 112),
+LINES = [   # ep04 al-balagh
+    ("You weren't asked to judge.", 0, 4),
+    ('Not even the Prophet was.', 5, 9),
+    ("The Qur'an gives him one job:", 10, 15),
+    ('al-balāgh.', 16, 16),
+    ('To deliver the message.', 17, 20),
+    ('“Your duty is only to deliver the message,', 21, 28),
+    ('and it is for Us to call them to account.”', 29, 38),
+    ('Deliver.', 39, 39),
+    ('Not force it into hearts.', 40, 44),
+    ('Not search souls.', 45, 47),
+    ('Not pronounce the final judgement.', 48, 52),
+    ('“So remind them;', 53, 55),
+    ('you are only one who reminds.', 56, 61),
+    ('You are not appointed to control them.”', 62, 68),
+    ("Here's the hard part.", 69, 72),
+    ("If the Prophet was not appointed to control people's faith,", 73, 82),
+    ('how can anyone after him', 83, 87),
+    ('claim authority over their consciences?', 88, 92),
+    ('We see a single moment.', 93, 97),
+    ('God sees the whole journey.', 98, 102),
+    ("You weren't asked to judge hearts.", 103, 108),
+    ('You were asked to deliver.', 109, 113),
 ]
 MERGE = {}
-MAXG, KEEP_LONG = 0.5, {13: 0.75, 3: 0.5}
+MAXG, KEEP_LONG = 0.5, {19: 0.75, 2: 0.45}
 ENDCARD = 3.2
 
 src = f"{D}/src.wav"

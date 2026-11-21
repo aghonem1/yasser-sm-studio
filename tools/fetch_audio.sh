@@ -3,6 +3,8 @@
 # Pushes a request to branch "audio"; the fetch-audio workflow downloads it; we pull it back.
 set -euo pipefail
 ARGS=("$@")
+# make destination paths absolute (the script cds into a temp clone)
+for ((k=2; k<${#ARGS[@]}; k+=3)); do ARGS[k]="$(realpath -m "${ARGS[k]}")"; done
 REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 REMOTE="$(git -C "$REPO_DIR" remote get-url origin)"
 W="$(mktemp -d)"; trap 'rm -rf "$W"' EXIT

@@ -50,6 +50,9 @@ def main():
     if len(sys.argv) >= 4 and sys.argv[2].isdigit():
         i0, i1 = int(sys.argv[2]), int(sys.argv[3])
         ex = " ".join(strip(w) for w in wb[i0:i1 + 1])
+        # display: QuranEnc writes open dammatan as legacy U+065E, which Amiri Quran has no glyph for;
+        # use the standard code point U+08F1 (the same mark in source A, already equated by canon()).
+        ex = ex.replace("\u065E", "\u08F1")
         print("EXCERPT:", ex)
         if "--save" in sys.argv:
             key = sys.argv[sys.argv.index("--save") + 1] if len(sys.argv) > sys.argv.index("--save") + 1 else ref
