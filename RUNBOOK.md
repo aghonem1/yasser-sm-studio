@@ -62,7 +62,7 @@ For EVERY narration line write: line → picture → what the picture says. Then
 - Zones: chrome 230–330 · top word/card/labels 372–700 · graphic 700–1260 · captions 1290–1490 · bar 1512. Lists may use 400–1250
   when no verse card is on screen. Verse cards: keep motion under them calm (verse window).
 Register the composition in `remotion/src/Root.tsx`.
-Render time: icon-heavy episodes render slowly (~1 h for 48 s on 2 cores); start the full render in the background and poll.
+Render time: ~5 min for a 48 s episode on 2 cores when nothing else runs. Do not run ASR, audio builds or stills while the full render runs (on 2 cores that slowed one render to ~1 h).
 Example SFX cue script for this style: scripts/episodes/ep04_audio.py (copy it, change the cues and VERSE).
 
 ## 6. Review before the full render
