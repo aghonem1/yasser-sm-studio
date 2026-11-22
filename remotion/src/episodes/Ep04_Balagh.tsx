@@ -362,26 +362,50 @@ const Ladder: React.FC<{t: number}> = ({t}) => {
   );
 };
 
-// ---------- scene G: a single moment / the whole journey ----------
-const ROAD = 'M 540 1240 C 330 1150 800 1070 610 980 C 420 890 760 820 560 740 C 410 680 690 620 540 560 C 440 515 600 470 540 430';
+// ---------- scene G: a single moment / the whole journey (a lit road climbing a valley) ----------
+const RC = (u: number) => {   // road centreline, u=0 near (bottom) .. 1 far (horizon); width narrows with distance
+  const y = 1250 - 625 * Math.pow(u, 0.82), x = 540 + 190 * Math.sin(u * 7.2 + 0.4) * (1 - u) ** 1.1, w = 40 * (1 - u) ** 1.6 + 2;
+  return [x, y, w];
+};
+const ROADPOLY = (() => {const L: string[] = [], R: string[] = [];
+  for (let i = 0; i <= 80; i++) {const u = i / 80, [x, y, w] = RC(u), [x2, y2] = RC(Math.min(1, u + 0.01)), dx = x2 - x, dy = y2 - y, n = Math.hypot(dx, dy) || 1;
+    L.push(`${(x - (dy / n) * w).toFixed(1)},${(y + (dx / n) * w).toFixed(1)}`); R.push(`${(x + (dy / n) * w).toFixed(1)},${(y - (dx / n) * w).toFixed(1)}`);}
+  return 'M' + L.join(' L') + ' L' + R.reverse().join(' L') + ' Z';})();
+const LAMPS = [0.06, 0.16, 0.26, 0.36, 0.46, 0.56, 0.65, 0.74, 0.82, 0.89, 0.95].map((u, i) => {const [x, y, w] = RC(u); const side = i % 2 ? 1 : -1; return {x: x + side * (w + 14 * (1 - u) + 4), y, s: 1.25 * (1 - u) ** 1.2 + 0.25, i};});
+const MOMENT = 3;
+const CENTRE = 'M' + new Array(81).fill(0).map((_, i) => {const [x, y] = RC(i / 80); return `${x.toFixed(1)},${y.toFixed(1)}`;}).join(' L');   // the lamp we start framed on
+const hill = (y0: number, amp: number, f: number, ph: number) => {let d = `M -60 1300 L -60 ${y0}`; for (let x = -60; x <= 1140; x += 20) d += ` L ${x} ${(y0 - amp * Math.sin(x * f + ph) - amp * 0.4 * Math.sin(x * f * 2.7 + ph * 2)).toFixed(1)}`; return d + ' L 1140 1300 Z';};
 const Journey: React.FC<{t: number}> = ({t}) => {
-  const tW = ST[19] - 0.1, zoom = k(t, tW, 1.3, inOut), road = k(t, ST[18] - 0.3, 1.0);
-  const fx = 610, fy = 980;                                 // the single moment, on the road
-  const s = mix(3.0, 1.0, zoom); const tx = (CX - fx) * (1 - zoom), ty = (980 - fy) * (1 - zoom);
+  const tW = ST[19] - 0.1, zoom = k(t, tW, 1.6, inOut), road = k(t, ST[18] - 0.3, 0.8);
+  const m = LAMPS[MOMENT], fx = m.x, fy = m.y - 24 * m.s;
+  const s = mix(3.2, 1.0, zoom), tx = (CX - fx) * (1 - zoom), ty = (900 - fy) * (1 - zoom);
+  const dist = (l: typeof m) => Math.abs(l.i - MOMENT);
   return (
     <AbsoluteFill>
-      <div style={{position: 'absolute', left: 0, top: 0, width: W, height: H, clipPath: 'inset(372px 0 655px 0)'}}><div style={{position: 'absolute', left: 0, top: 0, width: W, height: H, transform: `translate(${tx}px, ${ty}px) scale(${s})`, transformOrigin: `${fx}px ${fy}px`}}>
-        <svg width={W} height={H} style={{position: 'absolute', left: 0, top: 0}}>
-          <path d={ROAD} stroke="rgba(239,231,214,.12)" strokeWidth={46} fill="none" strokeLinecap="round" />
-          <Line d={ROAD} p={road} w={3} c={GOLDL} o={0.9} dash={undefined} />
-          <circle cx={540} cy={1240} r={10} fill={CREAM} opacity={zoom} />
-          <circle cx={540} cy={430} r={60} fill="url(#haloW)" opacity={zoom} /><circle cx={540} cy={430} r={12} fill="#fff6dc" opacity={zoom} />
-          <circle cx={fx} cy={fy} r={9 / s * 1.6} fill="#fff6dc" />
-        </svg>
-      </div></div>
-      <Icon name="viewfinder" x={CX + (fx - CX) * zoom} y={980 + (fy - 980) * zoom} size={mix(300, 110, zoom)} p={k(t, ST[18] - 0.1, 0.6)} sw={5} c={CREAM} glow={0} />
-      <Lbl x={CX} y={1170} w={700} p={k(t, ST[18], 0.6) * (1 - zoom)} align="center" c={CREAM} pill>A SINGLE MOMENT</Lbl>
-      <Lbl x={870} y={860} w={340} p={k(t, tW + 0.9, 0.6)} align="center" c={GOLDL}>THE WHOLE<br />JOURNEY</Lbl>
+      <div style={{position: 'absolute', left: 0, top: 0, width: W, height: H, clipPath: 'inset(372px 0 655px 0)'}}>
+        <div style={{position: 'absolute', left: 0, top: 0, width: W, height: H, transform: `translate(${tx}px, ${ty}px) scale(${s})`, transformOrigin: `${fx}px ${fy}px`}}>
+          <svg width={W} height={H} style={{position: 'absolute', left: 0, top: 0}}>
+            <defs><linearGradient id="valleySky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#0a1328" /><stop offset="1" stopColor="#1b2a4d" /></linearGradient></defs>
+            <rect x={-60} y={360} width={1200} height={300} fill="url(#valleySky)" opacity={0.6} />
+            {new Array(40).fill(0).map((_, j) => <circle key={j} cx={(j * 263) % 1080} cy={390 + ((j * 97) % 200)} r={j % 5 ? 1.4 : 2.2} fill={CREAM} opacity={0.25 + 0.35 * ((j * 13) % 7) / 7} />)}
+            <path d={hill(640, 26, 0.006, 1.2)} fill="#1f2f52" stroke="rgba(201,164,87,.28)" strokeWidth={2} />
+            <path d={hill(730, 34, 0.0045, 3.0)} fill="#182643" stroke="rgba(201,164,87,.22)" strokeWidth={2} />
+            <path d={hill(860, 40, 0.0038, 0.4)} fill="#121e37" stroke="rgba(201,164,87,.18)" strokeWidth={2} />
+            <path d={ROADPOLY} fill="#2b3a5e" opacity={0.9} />
+            <path d={ROADPOLY} fill={SAND} opacity={0.07 + 0.13 * zoom} />
+            <path d={CENTRE} stroke={GOLDL} strokeWidth={2} fill="none" strokeDasharray="10 14" opacity={0.25 + 0.5 * zoom * road} />
+            {LAMPS.map((l) => {
+              const on = l.i === MOMENT ? 1 : k(t, tW + 0.35 + dist(l) * 0.17, 0.35);
+              return <g key={l.i}>
+                <line x1={l.x} y1={l.y} x2={l.x} y2={l.y - 24 * l.s} stroke={SLATE} strokeWidth={2.2 * l.s} opacity={0.6} />
+                <Light x={l.x} y={l.y - 24 * l.s} r={6 * l.s + 2} c={on > 0.5 ? '#fff6dc' : '#55607a'} o={1} halo={on * 1.2} />
+              </g>;})}
+          </svg>
+        </div>
+      </div>
+      <Icon name="viewfinder" x={CX + (fx - CX) * zoom} y={900 + (fy - 900) * zoom} size={mix(330, 90, zoom)} p={k(t, ST[18] - 0.1, 0.6)} sw={5} c={CREAM} glow={0} o={1 - 0.4 * zoom} />
+      <Lbl x={CX} y={1150} w={700} p={k(t, ST[18], 0.6) * (1 - zoom)} align="center" c={CREAM} pill>A SINGLE MOMENT</Lbl>
+      <Lbl x={CX} y={470} w={700} p={k(t, tW + 1.0, 0.6)} align="center" c={GOLDL}>THE WHOLE JOURNEY</Lbl>
     </AbsoluteFill>
   );
 };

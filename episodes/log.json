@@ -1,40 +1,40 @@
 {
- "episodes": [
-  {
-   "n": 1,
-   "word": "كُفْر",
-   "slug": "kufr",
-   "date": "2026-11-18",
-   "status": "delivered"
-  },
-  {
-   "n": 2,
-   "word": "لَيِّنًا",
-   "slug": "layyin",
-   "date": "2026-11-20",
-   "status": "delivered"
-  },
-  {
-   "n": 3,
-   "word": "لِتَعَارَفُوا",
-   "slug": "taaruf",
-   "date": "2026-11-20",
-   "status": "delivered (v3 design = current reference)"
-  },
-  {
-   "n": 4,
-   "word": "البَلَاغ",
-   "slug": "al-balagh",
-   "date": "2026-11-21",
-   "status": "v2 rebuilt 22 Nov: explanatory storyboard (new reference look); awaiting Yasser's approval",
-   "book": "Ch.2 p.15–17 (+ p.23, p.78)",
-   "verses": [
-    "13:40",
-    "88:21",
-    "88:22"
-   ],
-   "duration_s": 48.0,
-   "files": "2026-11-22_the-mirror_one-word-04-al-balagh_9x16_v2.mp4 / _v2_cover.jpg"
-  }
- ]
+  "episodes": [
+    {
+      "n": 1,
+      "word": "كُفْر",
+      "slug": "kufr",
+      "date": "2026-11-18",
+      "status": "delivered"
+    },
+    {
+      "n": 2,
+      "word": "لَيِّنًا",
+      "slug": "layyin",
+      "date": "2026-11-20",
+      "status": "delivered"
+    },
+    {
+      "n": 3,
+      "word": "لِتَعَارَفُوا",
+      "slug": "taaruf",
+      "date": "2026-11-20",
+      "status": "delivered (v3 design = current reference)"
+    },
+    {
+      "n": 4,
+      "word": "البَلَاغ",
+      "slug": "al-balagh",
+      "date": "2026-11-21",
+      "status": "v2 rebuilt 22 Nov: explanatory storyboard (new reference look); awaiting Yasser's approval",
+      "book": "Ch.2 p.15–17 (+ p.23, p.78)",
+      "verses": [
+        "13:40",
+        "88:21",
+        "88:22"
+      ],
+      "duration_s": 48.0,
+      "files": "2026-11-22_the-mirror_one-word-04-al-balagh_9x16_v2.mp4 / _v2_cover.jpg"
+    }
+  ]
 }

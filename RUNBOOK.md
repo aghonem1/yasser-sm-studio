@@ -65,6 +65,9 @@ Register the composition in `remotion/src/Root.tsx`.
 Render time: ~5 min for a 48 s episode on 2 cores when nothing else runs. Do not run ASR, audio builds or stills while the full render runs (on 2 cores that slowed one render to ~1 h).
 Example SFX cue script for this style: scripts/episodes/ep04_audio.py (copy it, change the cues and VERSE).
 
+
+- Scale reveal (reference: Ep04_Balagh.tsx `Journey`): start framed tight on one detail (viewfinder), then pull back to the whole picture — layered hills, a winding road that narrows to the horizon, lamps lighting one by one outward from the framed point. Use it for "moment vs. whole", "one vs. many", "part vs. journey" lines.
+
 ## 6. Review before the full render
 `COMP=epNN node stills.mjs <frames...>` at the busiest moments (every scene peak, each card, the Arabic word, end card). Look at them.
 Fix any overlap, clipping, empty frame, or text touching another element. Then render:
