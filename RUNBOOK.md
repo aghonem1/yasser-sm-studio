@@ -105,3 +105,11 @@ For each platform caption (and first comment): `python3 tools/ig/humanize.py cap
 
 ### 8b. Close the loop
 Record in episodes/log.json for the new episode: `test` (the one variable being tried, from research/learnings.md's experiment log), `hook_type`, `hook_score`, `duration_s`. The reel audit task fills episodes/metrics.csv from Instagram Insights at ~3 and ~7 days and rewrites research/learnings.md; follow its current rules unless they conflict with the content rules.
+
+## 9. Webinar teasers (16:9 explainer + 9:16 short cut)
+Reference: `remotion/src/episodes/Webinar01_Khadijah.tsx` (compositions `web01` 1920x1080 and `web01s` 1080x1920), made 22 Nov 2026 for the free session "What Did Khadijah Know?".
+- Scenes are drawn on a 1000x620 stage that is scaled into each format, so both versions share the same pictures. Captions, chrome and the stage position come from the layout object (LAND / PORT).
+- Timeline: `EP_DIR=episodes/webinar01 VARIANT=full python3 scripts/episodes/webinar01_split.py` (and `webinar01s` / `short`); copy timeline.json to `remotion/src/episodes/timeline_webinar01(s).json`.
+- Audio: `EP_DIR=... VARIANT=full|short python3 scripts/episodes/webinar01_audio.py`, then `EP_DIR=$PWD/episodes/... bash scripts/mix.sh`. Music is hard-muted while the verse card is on screen.
+- Source rule: only what the course outline's week states. Do not quote or paraphrase a narration in promotion; leave it for the session.
+- Render: full ~12 min, short ~3 min on 2 cores. Names: `YYYY-MM-DD_webinar_<slug>_16x9_v1.mp4` / `_9x16_v1.mp4`.
