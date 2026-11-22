@@ -2,6 +2,7 @@ import React from 'react';
 import {AbsoluteFill, Img, random, staticFile, useCurrentFrame, continueRender, delayRender} from 'remotion';
 import TL from './timeline_ep04.json';
 import EX from '../excerpts.json';
+import {Icon, Mark, Strike, StrikeIn} from '../lib/icons';
 
 // =====================================================================================
 // One Word · 04 · al-balāgh — same design system as Ep03 (reference)
@@ -169,218 +170,263 @@ const Caption: React.FC<{t: number; i: number}> = ({t, i}) => {
   );
 };
 
-// ---------- scene A: hook — the scale of judgement ----------
-const SY = 840; // beam height of the scale
-const Scale: React.FC<{p: number; o?: number; tilt?: number}> = ({p, o = 1, tilt = 0}) => {
-  const bx = 190, hang = 118, pw = 62; // half beam, string drop, pan half-width
-  const pan = (x: number) => `M ${x - pw} ${SY + hang} A ${pw} ${pw * 0.52} 0 0 0 ${x + pw} ${SY + hang}`;
-  const str = (x: number) => `M ${x - pw} ${SY + hang} L ${x} ${SY + 6} L ${x + pw} ${SY + hang}`;
-  return (
-    <g opacity={o} transform={`rotate(${tilt} ${CX} ${SY})`}>
-      <Line d={`M ${CX} ${SY + 12} L ${CX} ${SY + 300}`} p={k(p, 0, 0.5)} w={3} c={GOLD} o={0.9} />
-      <Line d={`M ${CX - 96} ${SY + 318} L ${CX + 96} ${SY + 318}`} p={k(p, 0.2, 0.4)} w={3} c={GOLD} o={0.9} />
-      <Line d={`M ${CX - 46} ${SY + 318} Q ${CX} ${SY + 268} ${CX + 46} ${SY + 318}`} p={k(p, 0.25, 0.4)} w={2} c={GOLD} o={0.7} />
-      <Line d={`M ${CX - bx} ${SY} L ${CX + bx} ${SY}`} p={k(p, 0.1, 0.5)} w={3} c={GOLDL} o={0.95} />
-      <Line d={str(CX - bx)} p={k(p, 0.35, 0.45)} w={1.75} c={GOLD} o={0.75} />
-      <Line d={str(CX + bx)} p={k(p, 0.35, 0.45)} w={1.75} c={GOLD} o={0.75} />
-      <Line d={pan(CX - bx)} p={k(p, 0.55, 0.45)} w={2.5} c={GOLDL} o={0.9} />
-      <Line d={pan(CX + bx)} p={k(p, 0.55, 0.45)} w={2.5} c={GOLDL} o={0.9} />
-      <circle cx={CX} cy={SY} r={9} fill={INK} stroke={GOLDL} strokeWidth={2} opacity={clamp(p * 3)} />
-      <path d={star8(CX, SY - 34, 14, Math.PI / 8)} fill="url(#goldF)" opacity={clamp(p * 2 - 0.6)} />
-    </g>
-  );
-};
+
+// =====================================================================================
+// v2 STORYBOARD — every line gets a picture that explains it (silent test):
+//  0 judge?            → gavel raised, swings, freezes; JUDGE struck out
+//  1 not even Prophet  → ban ring over the gavel
+//  2 one job           → the Book + a "1 JOB" counter
+//  3–4 al-balāgh       → Arabic word; the job becomes a sealed letter
+//  5–6 13:40 (card)    → diagram: YOURS = deliver (letter) | HIS = account (scale)
+//  7–10 deliver / not  → checklist: ✓ deliver, ✗ force into hearts, ✗ search souls, ✗ pronounce judgement
+//  11–13 88:21–22      → bell = reminder; chain hand→heart breaks (not appointed to control)
+//  14–17 hard part     → logic ladder: the Prophet (no crown) ↓ anyone after him (crown?) → crown falls off the heart
+//  18–19 moment/journey→ viewfinder on one point, pull back to the whole winding road
+//  20–21 close         → JUDGE struck again; the letter is delivered and opens into light
+// =====================================================================================
+const RED = '#d9624f';
+const Lbl: React.FC<{x: number; y: number; w?: number; p: number; size?: number; c?: string; align?: 'left' | 'center'; pill?: boolean; children: React.ReactNode}> = ({x, y, w = 600, p, size = 34, c = CREAM, align = 'left', pill, children}) =>
+  p <= 0 ? null : <Reveal p={p} style={{left: align === 'center' ? x - w / 2 : x, top: y, width: w, textAlign: align}}>
+    <div style={{fontFamily: F.cinzelB, fontSize: size, letterSpacing: size * 0.12, lineHeight: 1.18, color: c}}>
+      {pill ? <span style={{background: 'rgba(7,12,23,.82)', padding: '6px 18px', borderRadius: 30, border: '1px solid rgba(241,208,138,.35)'}}>{children}</span> : children}</div></Reveal>;
+const Halo: React.FC<{x: number; y: number; r: number; o: number}> = ({x, y, r, o}) => o <= 0 ? null :
+  <div style={{position: 'absolute', left: x - r, top: y - r, width: 2 * r, height: 2 * r, borderRadius: '50%', opacity: o,
+    background: 'radial-gradient(closest-side, rgba(241,208,138,.30), rgba(241,208,138,.08) 55%, rgba(241,208,138,0))'}} />;
+
+// ---------- scene A: hook ----------
 const Hook: React.FC<{t: number}> = ({t}) => {
-  const sc = 1.05 - 0.05 * k(t, 0, 1.4, outExpo);
-  const pr = k(t, wt(1, 'prophet') - 0.1, 0.7, outCubic);
+  const tJ = wt(0, 'judge'), tN = ST[1];
+  const swing = k(t, 0.35, Math.max(0.4, tJ - 0.35), inOut);                 // raised → almost striking
+  const rot = mix(-26, -2, swing) + (t > tJ ? 2 * Math.sin((t - tJ) * 30) * Math.exp(-(t - tJ) * 6) : 0);
+  const strike = k(t, tJ + 0.15, 0.35, outCubic), ban = k(t, tN + 0.1, 0.8, outCubic);
   return (
     <AbsoluteFill>
-      <div style={{position: 'absolute', top: 400, width: W, textAlign: 'center', fontFamily: F.cinzel, fontSize: 50, letterSpacing: 12, color: CREAM, opacity: 0.94}}>YOU WEREN’T ASKED</div>
-      <div style={{position: 'absolute', top: 462, width: W, textAlign: 'center', transform: `scale(${sc})`}}>
-        <span style={{fontFamily: F.cinzelB, fontSize: 132, letterSpacing: 4, lineHeight: '170px', ...goldText, filter: 'drop-shadow(0 8px 22px rgba(0,0,0,.55))'}}>TO JUDGE.</span>
+      <div style={{position: 'absolute', top: 392, width: W, textAlign: 'center', fontFamily: F.cinzel, fontSize: 48, letterSpacing: 10, color: CREAM}}>YOU WEREN'T ASKED</div>
+      <div style={{position: 'absolute', top: 452, width: W, textAlign: 'center'}}>
+        <span style={{fontFamily: F.cinzelB, fontSize: 124, letterSpacing: 4, lineHeight: '170px', ...goldText, filter: 'drop-shadow(0 8px 22px rgba(0,0,0,.55))'}}>TO </span>
+        <StrikeIn p={strike}><span style={{fontFamily: F.cinzelB, fontSize: 124, letterSpacing: 4, lineHeight: '170px', ...goldText, filter: 'drop-shadow(0 8px 22px rgba(0,0,0,.55))'}}>JUDGE.</span></StrikeIn>
       </div>
-      <Svg>
-        <circle cx={CX} cy={SY + 140} r={300} fill="url(#haloW)" opacity={0.22 * (1 - pr)} />
-        <Scale p={1} o={1 - 0.62 * pr} />
-      </Svg>
+      <Halo x={CX} y={1000} r={330} o={0.6 + 0.4 * ban} />
+      <div style={{position: 'absolute', left: 250, top: 1185, width: 580, height: 5, borderRadius: 4, background: `linear-gradient(90deg, ${GOLD}00, ${GOLD}, ${GOLD}00)`}} />
+      <Icon name="gavel" x={CX} y={1000} size={400} p={1} rot={rot} sw={7} />
+      <Mark kind="ban" x={CX} y={1000} size={470} p={ban} sw={11} />
     </AbsoluteFill>
   );
 };
 
-// ---------- scene B: al-balāgh — the message delivered to every light ----------
-const NB = 8, RB = 200;
-const RINGB = new Array(NB).fill(0).map((_, j) => {const a = -Math.PI / 2 + (j * 2 * Math.PI) / NB; return [CX + RB * Math.cos(a), CY + RB * Math.sin(a)];});
-const Deliver: React.FC<{t: number; t0: number; waves: number[]; tAcc?: number; hearts?: number}> = ({t, t0, waves, tAcc, hearts}) => {
-  const src = k(t, t0, 0.6, outExpo);
-  const lit = (j: number) => waves.reduce((m, w) => Math.max(m, k(t, w + 0.55 + j * 0.03, 0.35)), 0);
-  const acc = tAcc ? k(t, tAcc, 1.1, inOut) : 0;
-  const hr = hearts !== undefined ? k(t, hearts, 0.6) : 0;
+// ---------- scene B: one job → al-balāgh → a sealed letter ----------
+const OneJob: React.FC<{t: number}> = ({t}) => {
+  const t0 = ST[2] - 0.25, tOne = wt(2, 'one'), tW = ST[3], tD = ST[4];
+  const book = k(t, t0, 0.9), one = k(t, tOne - 0.1, 0.5, outBack), out1 = 1 - k(t, tW - 0.35, 0.35);
+  const env = k(t, tW - 0.1, 0.9, inOut), seal = k(t, wt(4, 'deliver') - 0.1, 0.45, outBack), fly = k(t, wt(4, 'message') - 0.1, 0.6, inOut);
   return (
     <AbsoluteFill>
-      <Svg>
-        {tAcc && <Line d={`M ${CX} ${CY - 272} A 272 272 0 1 1 ${CX - 0.1} ${CY - 272}`} p={acc} w={1.5} c={GOLDL} o={0.55} />}
-        {RINGB.map(([x, y], j) => {
-          const ux = (x - CX) / RB, uy = (y - CY) / RB;
-          const d = `M ${CX + ux * 34} ${CY + uy * 34} L ${CX + ux * (RB - 30)} ${CY + uy * (RB - 30)}`;
-          const ray = k(t, t0 + 0.3 + j * 0.05, 0.5);
-          return <g key={j}>
-            <path d={d} stroke={GOLD} strokeWidth={1.5} strokeDasharray="3 10" strokeLinecap="round" fill="none" opacity={0.45 * ray} />
-            {waves.map((w, wi) => {const u = (t - w - j * 0.03) / 0.55; if (u <= 0 || u >= 1) return null; const r = mix(34, RB - 30, outCubic(u));
-              return <Light key={wi} x={CX + ux * r} y={CY + uy * r} r={5} c="#fff6dc" halo={1} />;})}
-            {hr > 0 && <circle cx={x} cy={y} r={24} stroke={GOLD} strokeWidth={1.5} fill="none" opacity={0.6 * hr} />}
-            <Light x={x} y={y} r={8} c={lit(j) > 0.5 ? CREAM : SLATE} cool={lit(j) < 0.5} o={k(t, t0 + 0.15 + j * 0.06, 0.4) * (0.55 + 0.45 * lit(j))} halo={0.45 + 0.55 * lit(j)} />
-          </g>;
-        })}
-        <g transform={`translate(${CX} ${CY}) scale(${src}) translate(${-CX} ${-CY})`}>
-          <circle cx={CX} cy={CY} r={130} fill="url(#haloW)" opacity={0.55} />
-          <path d={star8(CX, CY, 26, Math.PI / 8)} fill="url(#goldF)" stroke={GOLDL} strokeWidth={1.2} />
-          <circle cx={CX} cy={CY} r={6} fill="#fff6dc" />
-        </g>
-      </Svg>
+      <div style={{opacity: out1}}>
+        <Halo x={360} y={985} r={250} o={0.7 * book} />
+        <Icon name="book-2" x={360} y={985} size={330} p={book} sw={6} />
+        <div style={{position: 'absolute', left: 620, top: 820, width: 300, height: 300, borderRadius: '50%', border: `5px solid ${GOLDL}`, opacity: one,
+          transform: `scale(${0.6 + 0.4 * one})`, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 40px rgba(241,208,138,.25)'}}>
+          <div style={{fontFamily: F.cinzelB, fontSize: 150, lineHeight: '150px', ...goldText}}>1</div>
+          <div style={{fontFamily: F.cinzelB, fontSize: 34, letterSpacing: 6, color: CREAM}}>JOB</div>
+        </div>
+      </div>
+      <Halo x={CX - 60 * fly} y={1000} r={300} o={0.8 * env} />
+      <div style={{position: 'absolute', left: 0, top: 0, width: W, height: H, transform: `translateX(${fly * 40}px)`}}>
+        <Icon name="mail" x={CX} y={1000} size={420} p={env} sw={6} />
+        {seal > 0 && <svg width={W} height={H} style={{position: 'absolute', left: 0, top: 0}}>
+          <g transform={`translate(${CX} ${1032}) scale(${seal})`}><circle r={46} fill="#9b2f2a" stroke={GOLDL} strokeWidth={3} />
+            <path d={star8(0, 0, 26, Math.PI / 8)} fill="none" stroke={GOLDL} strokeWidth={3} /></g></svg>}
+        {[0, 1, 2].map((j) => <div key={j} style={{position: 'absolute', left: 170 - j * 40, top: 925 + j * 70, height: 6, borderRadius: 4, width: 150 * fly * (1 - 0.25 * j),
+          background: `linear-gradient(90deg, ${GOLDL}00, ${GOLDL})`, opacity: fly * (1 - k(t, wt(4, 'message') + 0.6, 0.4))}} />)}
+      </div>
     </AbsoluteFill>
   );
 };
 const WordBlock: React.FC<{t: number}> = ({t}) => {
-  const t0 = ST[3] - 0.25, t1 = ST[5] - 0.4; const a = win(t, t0, t1, 0.3, 0.3); if (a <= 0) return null;
-  const p = k(t, t0, 0.8, outExpo), m = k(t, ST[4] - 0.2, 0.6, outExpo);
+  const t0 = ST[3] - 0.25, t1 = ST[5] - 0.3; const a = win(t, t0, t1, 0.3, 0.3); if (a <= 0) return null;
+  const p = k(t, t0, 0.8, outExpo), m = k(t, ST[4] - 0.1, 0.6, outExpo);
   return (
     <AbsoluteFill style={{opacity: a}}>
-      <div dir="rtl" lang="ar" style={{position: 'absolute', top: 352, width: W, textAlign: 'center', fontFamily: F.ar, fontSize: 168, lineHeight: '270px',
-        transform: `translateY(${(1 - p) * 24}px) scale(${0.96 + 0.04 * p})`, opacity: p,
-        color: '#efc874', textShadow: '0 6px 22px rgba(0,0,0,.55), 0 0 40px rgba(241,208,138,.25)'}}>البَلَاغ</div>
-      <Reveal p={m} style={{left: 0, top: 628, width: W, textAlign: 'center'}}>
-        <div style={{fontFamily: F.it, fontStyle: 'italic', fontWeight: 600, fontSize: 46, color: CREAM, opacity: 0.92}}>al-balāgh · to deliver the message</div>
+      <div dir="rtl" lang="ar" style={{position: 'absolute', top: 360, width: W, textAlign: 'center', fontFamily: F.ar, fontSize: 170, lineHeight: '260px', color: '#efc874',
+        transform: `translateY(${(1 - p) * 24}px) scale(${0.96 + 0.04 * p})`, opacity: p, textShadow: '0 6px 22px rgba(0,0,0,.55), 0 0 40px rgba(241,208,138,.25)'}}>البَلَاغ</div>
+      <Reveal p={m} style={{left: 0, top: 636, width: W, textAlign: 'center'}}>
+        <div style={{fontFamily: F.it, fontStyle: 'italic', fontWeight: 600, fontSize: 48, color: CREAM}}>delivering the message</div>
       </Reveal>
     </AbsoluteFill>
   );
 };
 
-// ---------- scene C: deliver — not force, not search, not judge ----------
-const Icon: React.FC<{x: number; kind: number; p: number; s: number}> = ({x, kind, p, s}) => {
-  const y = 1196; if (p <= 0) return null;
-  return (
-    <g opacity={p}>
-      {kind === 0 && <><Line d={`M ${x - 38} ${y} L ${x + 30} ${y}`} p={1} w={2.5} c={CREAM} o={0.85} /><Line d={`M ${x + 12} ${y - 18} L ${x + 32} ${y} L ${x + 12} ${y + 18}`} p={1} w={2.5} c={CREAM} o={0.85} /></>}
-      {kind === 1 && <><circle cx={x - 8} cy={y - 8} r={22} stroke={CREAM} strokeWidth={2.5} fill="none" opacity={0.85} /><Line d={`M ${x + 8} ${y + 8} L ${x + 32} ${y + 32}`} p={1} w={3} c={CREAM} o={0.85} /></>}
-      {kind === 2 && <><Line d={`M ${x - 34} ${y - 14} L ${x + 34} ${y - 14}`} p={1} w={2.5} c={CREAM} o={0.85} /><Line d={`M ${x} ${y - 24} L ${x} ${y + 30}`} p={1} w={2.5} c={CREAM} o={0.85} />
-        <Line d={`M ${x - 46} ${y + 10} A 13 7 0 0 0 ${x - 20} ${y + 10}`} p={1} w={2} c={CREAM} o={0.85} /><Line d={`M ${x + 20} ${y + 10} A 13 7 0 0 0 ${x + 46} ${y + 10}`} p={1} w={2} c={CREAM} o={0.85} />
-        <Line d={`M ${x - 33} ${y - 14} L ${x - 33} ${y + 10}`} p={1} w={1.25} c={CREAM} o={0.6} /><Line d={`M ${x + 33} ${y - 14} L ${x + 33} ${y + 10}`} p={1} w={1.25} c={CREAM} o={0.6} /></>}
-      <circle cx={x} cy={y} r={58} stroke={GOLD} strokeWidth={1.5} fill="none" opacity={0.45} />
-      <Line d={`M ${x - 41} ${y + 41} L ${x + 41} ${y - 41}`} p={s} w={3} c={GOLDL} o={0.95} />
-    </g>
-  );
-};
-const Heart: React.FC<{t: number}> = ({t}) => {
-  const t0 = ST[7] - 0.55, tD = ST[7], tF = wt(8, 'force') - 0.1, tS = wt(9, 'search') - 0.1, tJ = wt(10, 'judgement') - 0.2;
-  const ring = k(t, t0, 0.8, inOut), msg = k(t, tD - 0.1, 0.55, outCubic), y = 930;
-  const force = k(t, tF, 0.35, outCubic) * (1 - k(t, tF + 0.5, 0.5));
-  const scan = win(t, tS, tS + 1.2, 0.3, 0.4), rot = (t - tS) * 120;
-  const ping = (t0p: number) => {const u = (t - t0p) / 0.8; return u > 0 && u < 1 ? u : 0;};
+// ---------- scene C: 13:40 — yours / His (verse window: calm motion only) ----------
+const Split: React.FC<{t: number}> = ({t}) => {
+  const t0 = ST[5] - 0.2, tHis = ST[6];
+  const L = k(t, t0 + 0.2, 0.8), div = k(t, tHis - 0.4, 0.7, inOut), R = k(t, tHis - 0.1, 0.9);
   return (
     <AbsoluteFill>
-      <Svg>
-        <circle cx={CX} cy={y} r={180} fill="url(#haloW)" opacity={0.3 * ring} />
-        <Line d={`M ${CX} ${y - 118} A 118 118 0 1 1 ${CX - 0.1} ${y - 118}`} p={ring} w={2.5} c={GOLDL} o={0.9} />
-        <Light x={CX} y={y} r={14} c={CREAM} o={ring} halo={0.7 + 0.3 * msg} />
-        {/* the message arrives and rests at the edge */}
-        <Line d={`M 140 ${y} L ${CX - 146} ${y}`} p={msg} w={2.5} c={GOLD} o={0.9} />
-        {msg > 0 && <Light x={mix(140, CX - 146, msg)} y={y} r={6} c="#fff6dc" halo={1} />}
-        {/* force: three pushes stop short of the ring */}
-        {[-0.75, -0.5, -0.25].map((f, j) => {const an = f * Math.PI, dx = Math.cos(an), dy = Math.sin(an), r0 = 300, r = mix(r0, 152, force);
-          const hx = CX + dx * r, hy = y + dy * r, px = -dy, py = dx;
-          return force > 0 && <g key={j} opacity={force}><path d={`M ${CX + dx * r0} ${y + dy * r0} L ${hx} ${hy}`} stroke={SLATE} strokeWidth={2.5} strokeLinecap="round" fill="none" />
-            <path d={`M ${hx + dx * 16 + px * 12} ${hy + dy * 16 + py * 12} L ${hx} ${hy} L ${hx + dx * 16 - px * 12} ${hy + dy * 16 - py * 12}`} stroke={SLATE} strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" fill="none" /></g>;})}
-        {/* search: a scanning ring that cannot see inside */}
-        {scan > 0 && <circle cx={CX} cy={y} r={164} stroke={SLATE} strokeWidth={2} strokeDasharray="6 14" fill="none" opacity={0.7 * scan} transform={`rotate(${rot} ${CX} ${y})`} />}
-        {[tF + 0.3, tS + 0.5, tJ + 0.4].map((tp, j) => {const u = ping(tp); return u > 0 && <circle key={j} cx={CX} cy={y} r={mix(118, 150, outCubic(u))} stroke={GOLDL} strokeWidth={2} fill="none" opacity={(1 - u) * 0.6} />;})}
-        <Icon x={CX - 210} kind={0} p={k(t, tF - 0.05, 0.35)} s={k(t, tF + 0.35, 0.3)} />
-        <Icon x={CX} kind={1} p={k(t, tS - 0.05, 0.35)} s={k(t, tS + 0.45, 0.3)} />
-        <Icon x={CX + 210} kind={2} p={k(t, tJ - 0.05, 0.35)} s={k(t, tJ + 0.5, 0.3)} />
-      </Svg>
+      <Halo x={300} y={960} r={230} o={0.6 * L} />
+      <Icon name="mail" x={300} y={950} size={300} p={L} sw={6} />
+      <Lbl x={300} y={1125} w={420} p={k(t, t0 + 0.6, 0.6)} align="center" c={GOLDL}>YOURS<br /><span style={{fontSize: 26, color: CREAM}}>DELIVER IT</span></Lbl>
+      <div style={{position: 'absolute', left: CX - 2, top: 790, width: 4, height: 420 * div, background: `linear-gradient(180deg, ${CREAM}00, ${CREAM}aa, ${CREAM}00)`}} />
+      <Halo x={780} y={960} r={230} o={0.6 * R} />
+      <Icon name="scale" x={780} y={950} size={300} p={R} sw={6} c={CREAM} />
+      <Lbl x={780} y={1125} w={420} p={k(t, tHis + 0.4, 0.6)} align="center" c={CREAM}>HIS<br /><span style={{fontSize: 26}}>THE ACCOUNT</span></Lbl>
     </AbsoluteFill>
   );
 };
 
-// ---------- scene D: one who reminds — points to the light, holds no tether ----------
+// ---------- scene D: the checklist ----------
+const ROWS = [
+  {i: 7, y: 470, icon: 'mail', label: 'DELIVER', ok: true},
+  {i: 8, y: 680, icon: 'heart', label: 'FORCE IT INTO HEARTS', ok: false},
+  {i: 9, y: 890, icon: 'heart-search', label: 'SEARCH SOULS', ok: false},
+  {i: 10, y: 1100, icon: 'gavel', label: 'PRONOUNCE JUDGEMENT', ok: false},
+];
+const Checklist: React.FC<{t: number}> = ({t}) => (
+  <AbsoluteFill>
+    {ROWS.map((r, j) => {
+      const t0 = ST[r.i] - 0.15, ap = k(t, t0, 0.5, outExpo), mk = k(t, (j === 0 ? ST[r.i] + 0.25 : ST[r.i + 1] - 0.55), 0.45, outCubic);
+      const ix = 230, push = j === 1 ? Math.sin(clamp((t - t0 - 0.2) / 0.8) * Math.PI) : 0;
+      const scan = j === 2 ? Math.sin((t - t0) * 5) * 28 * clamp((t - t0) / 0.4) * (1 - mk) : 0;
+      const tap = j === 3 ? -22 * Math.max(0, Math.sin((t - t0 - 0.3) * 9)) * (1 - mk) : 0;
+      return (
+        <div key={j} style={{position: 'absolute', left: 0, top: 0, width: W, height: H, opacity: ap, transform: `translateX(${(1 - ap) * -40}px)`}}>
+          <div style={{position: 'absolute', left: 120, top: r.y - 85, width: 840, height: 170, borderRadius: 22, background: 'rgba(13,23,42,.55)',
+            border: `1.5px solid ${r.ok ? GOLD : 'rgba(239,231,214,.22)'}`}} />
+          <Icon name={r.icon} x={ix + scan} y={r.y} size={120} p={k(t, t0, 0.7)} sw={5} c={r.ok ? GOLDL : CREAM} rot={tap} />
+          {j === 1 && <Icon name="hand-grab" x={ix - 95 + 60 * push} y={r.y + 10} size={90} p={k(t, t0 + 0.1, 0.5)} sw={5} c={CREAM} o={1 - mk} />}
+          <div style={{position: 'absolute', left: 330, top: r.y - 26, lineHeight: '52px'}}>
+            {r.ok ? <span style={{fontFamily: F.cinzelB, fontSize: 52, letterSpacing: 4, ...goldText}}>{r.label}</span>
+              : <StrikeIn p={mk} sw={7}><span style={{fontFamily: F.cinzelB, fontSize: 31, letterSpacing: 2, color: CREAM, opacity: 1 - 0.45 * mk}}>{r.label}</span></StrikeIn>}</div>
+          <Mark kind={r.ok ? 'check' : 'x'} x={900} y={r.y} size={110} p={mk} sw={r.ok ? 12 : 11} />
+        </div>
+      );
+    })}
+  </AbsoluteFill>
+);
+
+// ---------- scene E: 88:21–22 — remind, don't control (verse window: calm motion only) ----------
 const Remind: React.FC<{t: number}> = ({t}) => {
-  const t0 = ST[11] - 0.3, tR = wt(11, 'remind') - 0.1, tRs = wt(12, 'reminds'), tC = wt(13, 'not') - 0.1, tTh = wt(13, 'control') + 0.05;
-  const y = 1110, xa = 330, xb = 750, sx = CX, sy = 880;
-  const ap = k(t, t0, 0.6), star = k(t, t0 + 0.2, 0.8, outBack), point = k(t, tR, 0.8, inOut), hear = k(t, tRs - 0.1, 0.6);
-  const teth = k(t, tC, 0.5, inOut), brk = k(t, tTh, 0.7, outCubic);
-  const ux = (sx - xa) / Math.hypot(sx - xa, sy - y), uy = (sy - y) / Math.hypot(sx - xa, sy - y);
-  const len = Math.hypot(sx - xa, sy - y) - 34 - 44;
-  const mid = (xa + xb) / 2, gap = 70 * brk;
+  const t0 = ST[11] - 0.2, tR = wt(12, 'reminds'), tC = ST[13], tBreak = wt(13, 'control');
+  const bell = k(t, t0 + 0.2, 0.9), ring = t > tR - 0.2 && t < tR + 1.4 ? 9 * Math.sin((t - tR) * 16) * Math.exp(-(t - tR + 0.2) * 2.2) : 0;
+  const ch = k(t, tC - 0.1, 0.7), brk = k(t, tBreak + 0.15, 0.6, outCubic), out = k(t, tC - 0.4, 0.5);
   return (
     <AbsoluteFill>
-      <Svg>
-        <g transform={`translate(${sx} ${sy}) scale(${star}) translate(${-sx} ${-sy})`}>
-          <circle cx={sx} cy={sy} r={120} fill="url(#haloW)" opacity={0.6} />
-          <path d={star8(sx, sy, 30, Math.PI / 8)} fill="url(#goldF)" stroke={GOLDL} strokeWidth={1.2} />
-        </g>
-        <Line d={`M ${xa + ux * 34} ${y + uy * 34} L ${xa + ux * (34 + len)} ${y + uy * (34 + len)}`} p={point} w={2.5} c={GOLDL} o={0.85} />
-        {point > 0.02 && point < 0.99 && <Light x={xa + ux * (34 + len * point)} y={y + uy * (34 + len * point)} r={5} c="#fff6dc" halo={1} />}
-        {hear > 0 && hear < 1 && <circle cx={xb} cy={y} r={mix(30, 90, outCubic(hear))} stroke={GOLDL} strokeWidth={2} fill="none" opacity={(1 - hear) * 0.6} />}
-        {teth > 0 && <>
-          <path d={`M ${xa + 34} ${y} L ${mid - gap / 2} ${y}`} stroke={SLATE} strokeWidth={2} strokeDasharray="4 10" strokeLinecap="round" fill="none" opacity={0.75 * (1 - brk)} style={{clipPath: `inset(0 ${(1 - teth) * 100}% 0 0)`}} />
-          <path d={`M ${mid + gap / 2} ${y} L ${xb - 34} ${y}`} stroke={SLATE} strokeWidth={2} strokeDasharray="4 10" strokeLinecap="round" fill="none" opacity={0.75 * (1 - brk)} style={{clipPath: `inset(0 ${(1 - teth) * 100}% 0 0)`}} />
-        </>}
-        <Light x={xa} y={y} r={12} c={GOLDL} o={ap} halo={0.8} />
-        <Light x={xb} y={y + 6 * Math.sin(t * 1.3) * brk} r={12} c={CREAM} o={ap} halo={0.6 + 0.4 * hear} cool={hear < 0.5} />
-      </Svg>
+      <div style={{opacity: 1 - out}}>
+        <Halo x={CX} y={980} r={280} o={0.7 * bell} />
+        <Icon name="bell" x={CX} y={980} size={330} p={bell} sw={6} rot={ring} />
+        <Lbl x={CX} y={1170} w={700} p={k(t, tR - 0.1, 0.6)} align="center" c={GOLDL}>ONE WHO REMINDS</Lbl>
+      </div>
+      <div style={{opacity: out}}>
+        <Icon name={brk > 0.5 ? 'hand-stop' : 'hand-grab'} x={230} y={990} size={190} p={1} sw={5} c={CREAM} />
+        <Halo x={850} y={990} r={210} o={0.4 + 0.5 * brk} />
+        <Icon name="heart" x={850} y={990 - 30 * brk} size={210} p={ch} sw={6} />
+        {[0, 1, 2, 3].map((j) => {const x = 330 + j * 115, drop = j === 1 || j === 2 ? brk : 0;
+          return <Icon key={j} name={'link'} x={x + (j < 2 ? -30 : 30) * brk} y={990 + 120 * drop * drop} size={110} p={k(t, tC + j * 0.08, 0.4)} sw={5} c={CREAM}
+            o={1 - 0.8 * drop} rot={45 + (j < 2 ? -40 : 40) * brk} />;})}
+        <Lbl x={CX} y={1170} w={760} p={k(t, tBreak + 0.3, 0.6)} align="center" c={CREAM}>NOT HIS TO CONTROL</Lbl>
+      </div>
     </AbsoluteFill>
   );
 };
 
-// ---------- scene E: the hard part — no one may enclose another's conscience ----------
-const ROWX = [-2, -1, 0, 1, 2].map((j) => CX + j * 150);
-const SEG = 14;
-const Conscience: React.FC<{t: number}> = ({t}) => {
-  const t0 = ST[14] - 0.3, tC = wt(16, 'how') - 0.1, tAu = wt(17, 'authority') + 0.2, tCo = wt(17, 'over') - 0.05, y = 990;
-  const draw = k(t, tC, tAu - tC, inOut), brk = k(t, tCo, 0.9, outCubic);
+// ---------- scene F: the hard part — the logic ladder ----------
+const Ladder: React.FC<{t: number}> = ({t}) => {
+  const tH = ST[14], tP = ST[15], tA = ST[16], tC = ST[17], tFall = wt(17, 'consciences');
+  const head = k(t, tH - 0.1, 0.6, outExpo) * (1 - k(t, tP - 0.3, 0.4));
+  const top = k(t, tP, 0.7, outExpo), arrow = k(t, tA - 0.3, 0.5, inOut), low = k(t, tA, 0.7, outExpo), heart = k(t, tA + 0.3, 0.6), fall = k(t, tFall + 0.1, 0.9, (x) => x * x);
+  const q = k(t, tC + 0.2, 0.5, outBack);
   return (
     <AbsoluteFill>
-      <Svg>
-        {ROWX.map((x, j) => {const a = k(t, t0 + 0.2 + j * 0.12, 0.5);
-          return <g key={j}>
-            <Line d={`M ${x} ${y - 46} A 46 46 0 1 1 ${x - 0.1} ${y - 46}`} p={a} w={1.75} c={GOLD} o={0.7} />
-            <Light x={x} y={y} r={9} c={j % 2 ? SLATE : CREAM} cool={j % 2 === 1} o={a * (0.75 + 0.25 * brk)} halo={0.5 + 0.4 * brk} />
-          </g>;})}
-        {new Array(SEG).fill(0).map((_, j) => {
-          const a0 = (j / SEG) * 2 * Math.PI - Math.PI / 2, a1 = ((j + 0.72) / SEG) * 2 * Math.PI - Math.PI / 2, am = (a0 + a1) / 2;
-          const rx = 410 + 70 * brk, ry = 160 + 40 * brk, dx = Math.cos(am) * 0, dy = 0;
-          const p0 = [CX + dx + rx * Math.cos(a0), y + dy + ry * Math.sin(a0)], p1 = [CX + dx + rx * Math.cos(a1), y + dy + ry * Math.sin(a1)];
-          const vis = clamp((draw * SEG - j) * 1.0);
-          return vis > 0 && <path key={j} d={`M ${p0[0]} ${p0[1]} A ${rx} ${ry} 0 0 1 ${p1[0]} ${p1[1]}`} stroke={SLATE} strokeWidth={2.5} strokeLinecap="round" fill="none" opacity={0.8 * vis * (1 - brk)} />;
-        })}
-      </Svg>
+      <div style={{position: 'absolute', top: 560, width: W, textAlign: 'center', fontFamily: F.cinzelB, fontSize: 92, letterSpacing: 6, opacity: head, ...goldText,
+        transform: `scale(${0.94 + 0.06 * head})`}}>THE HARD PART</div>
+      {/* top rung */}
+      <div style={{position: 'absolute', left: 140, top: 440, width: 800, height: 190, borderRadius: 22, border: `1.5px solid ${GOLD}`, background: 'rgba(13,23,42,.6)', opacity: top,
+        transform: `translateY(${(1 - top) * 20}px)`}} />
+      <Icon name="crown" x={265} y={535} size={120} p={top} sw={5} c={GOLDL} o={top} />
+      <Mark kind="ban" x={265} y={535} size={150} p={k(t, wt(15, 'not') - 0.1, 0.6)} sw={8} />
+      <Lbl x={360} y={478} w={560} p={top} size={38} c={GOLDL}>THE PROPHET ﷺ<br /><span style={{fontFamily: F.it, fontStyle: 'italic', fontSize: 34, letterSpacing: 0, color: CREAM}}>not appointed to control</span></Lbl>
+      {/* arrow down */}
+      <svg width={W} height={H} style={{position: 'absolute', left: 0, top: 0}}>
+        <Line d={`M ${CX} 650 L ${CX} 760`} p={arrow} w={5} c={CREAM} o={0.9} />
+        {arrow > 0.95 && <path d={`M ${CX - 22} 740 L ${CX} 766 L ${CX + 22} 740`} stroke={CREAM} strokeWidth={5} fill="none" strokeLinecap="round" />}
+      </svg>
+      {/* low rung */}
+      <div style={{position: 'absolute', left: 140, top: 790, width: 800, height: 150, borderRadius: 22, border: `1.5px solid rgba(239,231,214,.35)`, background: 'rgba(13,23,42,.6)', opacity: low,
+        transform: `translateY(${(1 - low) * 20}px)`}} />
+      <Lbl x={175} y={842} w={560} p={low} size={40}>ANYONE AFTER HIM</Lbl>
+      <div style={{position: 'absolute', left: 790, top: 770, fontFamily: F.cinzelB, fontSize: 170, lineHeight: '190px', color: RED, opacity: q, transform: `scale(${0.6 + 0.4 * q})`}}>?</div>
+      {/* the crown over the heart */}
+      <Halo x={CX} y={1120} r={150} o={0.6 * heart} />
+      <Icon name="heart" x={CX} y={1140} size={150} p={heart} sw={6} />
+      <Icon name="crown" x={CX + 120 * fall} y={1030 + 260 * fall} size={120} p={heart} sw={5} c={CREAM} rot={70 * fall} o={heart * (1 - fall)} />
     </AbsoluteFill>
   );
 };
 
-// ---------- scene F: one moment vs the whole journey ----------
-const JP = (u: number): [number, number] => [170 + 740 * u, CY + 150 * Math.sin(3 * Math.PI * u + Math.PI / 2) - 40 * (u - 0.5)];
-const JPATH = 'M ' + new Array(121).fill(0).map((_, j) => JP(j / 120).map((v) => v.toFixed(1)).join(' ')).join(' L ');
+// ---------- scene G: a single moment / the whole journey ----------
+const ROAD = 'M 540 1240 C 330 1150 800 1070 610 980 C 420 890 760 820 560 740 C 410 680 690 620 540 560 C 440 515 600 470 540 430';
 const Journey: React.FC<{t: number}> = ({t}) => {
-  const t0 = ST[18] - 0.3, tM = wt(18, 'moment') - 0.2, tJ = wt(19, 'sees') - 0.1;
-  const lens = k(t, t0 + 0.1, 0.6, outBack) * (1 - k(t, tJ + 0.6, 0.6)), whole = k(t, tJ, 1.25, inOut);
-  const [mx, my] = JP(0.5), [hx, hy] = JP(whole);
+  const tW = ST[19] - 0.1, zoom = k(t, tW, 1.3, inOut), road = k(t, ST[18] - 0.3, 1.0);
+  const fx = 610, fy = 980;                                 // the single moment, on the road
+  const s = mix(3.0, 1.0, zoom); const tx = (CX - fx) * (1 - zoom), ty = (980 - fy) * (1 - zoom);
   return (
     <AbsoluteFill>
-      <Svg>
-        <defs><clipPath id="lensC"><circle cx={mx} cy={my} r={78} /></clipPath></defs>
-        <path d={JPATH} stroke={GOLD} strokeWidth={1.5} strokeDasharray="2 12" strokeLinecap="round" fill="none" opacity={0.25 * k(t, tJ - 0.4, 0.5)} />
-        <g clipPath="url(#lensC)"><path d={JPATH} stroke={GOLDL} strokeWidth={3} fill="none" opacity={lens} /></g>
-        <circle cx={mx} cy={my} r={78 * clamp(lens * 1.2)} stroke={CREAM} strokeWidth={2} fill="none" opacity={0.75 * lens} />
-        <Line d={JPATH} p={whole} w={3} c={GOLDL} o={0.95} />
-        {whole > 0.01 && <Light x={hx} y={hy} r={9} c="#fff6dc" halo={1} />}
-        <Light x={mx} y={my} r={9} c={CREAM} o={Math.max(lens, k(t, tM, 0.4) * (1 - whole * 0.6))} halo={0.8} />
-        {[JP(0), JP(1)].map(([x, y], j) => <circle key={j} cx={x} cy={y} r={7} fill={GOLDL} opacity={whole > (j ? 0.98 : 0.01) ? 1 : 0} />)}
-      </Svg>
+      <div style={{position: 'absolute', left: 0, top: 0, width: W, height: H, clipPath: 'inset(372px 0 655px 0)'}}><div style={{position: 'absolute', left: 0, top: 0, width: W, height: H, transform: `translate(${tx}px, ${ty}px) scale(${s})`, transformOrigin: `${fx}px ${fy}px`}}>
+        <svg width={W} height={H} style={{position: 'absolute', left: 0, top: 0}}>
+          <path d={ROAD} stroke="rgba(239,231,214,.12)" strokeWidth={46} fill="none" strokeLinecap="round" />
+          <Line d={ROAD} p={road} w={3} c={GOLDL} o={0.9} dash={undefined} />
+          <circle cx={540} cy={1240} r={10} fill={CREAM} opacity={zoom} />
+          <circle cx={540} cy={430} r={60} fill="url(#haloW)" opacity={zoom} /><circle cx={540} cy={430} r={12} fill="#fff6dc" opacity={zoom} />
+          <circle cx={fx} cy={fy} r={9 / s * 1.6} fill="#fff6dc" />
+        </svg>
+      </div></div>
+      <Icon name="viewfinder" x={CX + (fx - CX) * zoom} y={980 + (fy - 980) * zoom} size={mix(300, 110, zoom)} p={k(t, ST[18] - 0.1, 0.6)} sw={5} c={CREAM} glow={0} />
+      <Lbl x={CX} y={1170} w={700} p={k(t, ST[18], 0.6) * (1 - zoom)} align="center" c={CREAM} pill>A SINGLE MOMENT</Lbl>
+      <Lbl x={870} y={860} w={340} p={k(t, tW + 0.9, 0.6)} align="center" c={GOLDL}>THE WHOLE<br />JOURNEY</Lbl>
     </AbsoluteFill>
   );
 };
 
-// ---------- end card ----------
+// ---------- scene H: close — not judge, deliver ----------
+const Close: React.FC<{t: number}> = ({t}) => {
+  const tJ = wt(20, 'judge'), tD = ST[21], tDel = wt(21, 'deliver');
+  const a1 = k(t, ST[20] - 0.1, 0.5, outExpo), st = k(t, tJ + 0.2, 0.4), ban = k(t, wt(20, 'hearts'), 0.7);
+  const a2 = k(t, tD - 0.1, 0.6, outExpo), open = k(t, tDel, 0.5, outCubic), rays = k(t, tDel + 0.2, 1.0, outCubic);
+  const swap = k(t, tD - 0.3, 0.4);
+  return (
+    <AbsoluteFill>
+      <div style={{position: 'absolute', top: 410, width: W, textAlign: 'center', opacity: a1 * (1 - swap)}}>
+        <StrikeIn p={st} sw={12}><span style={{fontFamily: F.cinzelB, fontSize: 130, letterSpacing: 6, color: CREAM}}>JUDGE</span></StrikeIn></div>
+      <div style={{position: 'absolute', top: 410, width: W, textAlign: 'center', opacity: a2, transform: `translateY(${(1 - a2) * 30}px)`}}>
+        <span style={{fontFamily: F.cinzelB, fontSize: 130, letterSpacing: 6, ...goldText, filter: 'drop-shadow(0 8px 22px rgba(0,0,0,.55))'}}>DELIVER</span></div>
+      <div style={{opacity: a1 * (1 - swap)}}>
+        <Icon name="gavel" x={420} y={950} size={240} p={a1} sw={6} c={CREAM} rot={-6} />
+        <Icon name="heart" x={680} y={1010} size={200} p={a1} sw={6} />
+        <Mark kind="ban" x={550} y={980} size={470} p={ban} sw={11} />
+      </div>
+      <div style={{opacity: a2}}>
+        <Halo x={CX} y={980} r={260 + 160 * rays} o={0.5 + 0.5 * rays} />
+        {rays > 0 && <svg width={W} height={H} style={{position: 'absolute', left: 0, top: 0}}>
+          {new Array(12).fill(0).map((_, j) => {const an = -Math.PI / 2 + (j - 5.5) * 0.17, r0 = 120, r1 = 120 + 220 * rays;
+            return <path key={j} d={`M ${CX + r0 * Math.cos(an)} ${930 + r0 * Math.sin(an)} L ${CX + r1 * Math.cos(an)} ${930 + r1 * Math.sin(an)}`} stroke={GOLDL} strokeWidth={3}
+              strokeLinecap="round" opacity={0.7 * (1 - 0.4 * rays)} />;})}
+        </svg>}
+        <Icon name={open > 0.5 ? 'mail-opened' : 'mail'} x={CX} y={1000} size={330} p={a2} sw={6} />
+        <Mark kind="check" x={CX + 210} y={1150} size={130} p={k(t, tDel + 0.3, 0.5)} sw={12} />
+      </div>
+    </AbsoluteFill>
+  );
+};
+
+const SCN: [number, number, React.FC<{t: number}>][] = [
+  [-1, ST[2] - 0.3, Hook],
+  [ST[2] - 0.35, ST[5] - 0.3, OneJob],
+  [ST[5] - 0.35, ST[7] - 0.3, Split],
+  [ST[7] - 0.35, ST[11] - 0.3, Checklist],
+  [ST[11] - 0.35, ST[14] - 0.3, Remind],
+  [ST[14] - 0.35, ST[18] - 0.15, Ladder],
+  [ST[18] - 0.2, ST[20] - 0.1, Journey],
+  [ST[20] - 0.15, VEND + 0.25, Close],
+];
 const EndCard: React.FC<{t: number}> = ({t}) => {
   const te = t - VEND; if (te < -0.25) return null;
   const a = clamp((te + 0.25) / 0.35), q = k(t, VEND + 0.05, 0.8, outExpo), q2 = k(t, VEND + 0.35, 0.7, outExpo);
@@ -404,15 +450,6 @@ const EndCard: React.FC<{t: number}> = ({t}) => {
 };
 
 // ---------- assembly ----------
-const SCN: [number, number, React.FC<{t: number}>][] = [
-  [-1, ST[2] - 0.3, Hook],
-  [ST[2] - 0.35, ST[7] - 0.3, ({t}) => <Deliver t={t} t0={ST[2] - 0.2} waves={[wt(4, 'deliver') - 0.15, wt(5, 'deliver') - 0.15]} tAcc={wt(6, 'us') - 0.2} />],
-  [ST[7] - 0.6, ST[11] - 0.3, Heart],
-  [ST[11] - 0.35, ST[14] - 0.3, Remind],
-  [ST[14] - 0.35, ST[18] - 0.05, Conscience],
-  [ST[18] - 0.1, ST[20] + 0.05, Journey],
-  [ST[20] - 0.0, VEND + 0.25, ({t}) => <Deliver t={t} t0={ST[20] - 0.2} waves={[wt(21, 'deliver') - 0.2]} hearts={wt(20, 'hearts') - 0.2} />],
-];
 const Frame: React.FC<{t: number; noEnd?: boolean}> = ({t, noEnd}) => {
   const dim = win(t, ST[14] - 0.4, ST[18] - 0.2, 0.6, 0.8);
   return (
@@ -420,8 +457,8 @@ const Frame: React.FC<{t: number; noEnd?: boolean}> = ({t, noEnd}) => {
       <Background t={t} dim={dim} />
       {t < VEND + 0.35 && <>
         {SCN.map(([a0, a1, C], j) => {
-          const a = j === 0 ? (t <= a1 - 0.3 ? 1 : clamp((a1 - t) / 0.3)) : win(t, a0, a1, 0.4, 0.3); if (a <= 0) return null;
-          const push = 1 + 0.025 * clamp((t - Math.max(a0, 0)) / (a1 - Math.max(a0, 0))) + (j === 0 ? 0 : 0.02 * (1 - k(t, a0, 0.6, outCubic)));
+          const a = j === 0 ? (t <= a1 - 0.3 ? 1 : clamp((a1 - t) / 0.3)) : win(t, a0, a1, 0.35, 0.3); if (a <= 0) return null;
+          const push = 1 + 0.02 * clamp((t - Math.max(a0, 0)) / (a1 - Math.max(a0, 0))) + (j === 0 ? 0 : 0.03 * (1 - k(t, a0, 0.5, outCubic)));
           return <AbsoluteFill key={j} style={{opacity: a, transform: `scale(${push})`, transformOrigin: `${CX}px ${CY}px`}}><C t={t} /></AbsoluteFill>;
         })}
         <WordBlock t={t} />

@@ -37,21 +37,33 @@ Pull each verse with `python3 quran/verse.py S:V i0 i1 --save S:V` (refuses if t
 It trims long inter-line gaps (with 6 ms fades), writes voice_raw.wav and timeline.json (lines → words, start, end; voice_end; total).
 Copy timeline.json to `remotion/src/episodes/timeline_epNN.json`.
 
-## 5. Animation — the reference is `remotion/src/episodes/Ep03_Taaruf.tsx` (Ahmed approved this look)
-Copy it to `EpNN_<slug>.tsx`, keep everything above `// ---------- scene A` (palette, fonts, easing, Light/Line/Reveal, Background,
-Chrome, Card, Caption) and the end card/assembly; rewrite the scenes and KEY map; change the series number in Chrome.
-Design rules (keep them — they are what made it look professional):
-- Navy ground, warm dawn glow at the bottom, faint grain, vignette. No rotating patterns, no blur glow filters.
-- People are points of light (Light): crisp core + gradient halo. Never clip-art figures, never faces, never depictions of prophets.
-- Thin crisp lines (1.5–3 px) drawn on with pathLength; one focal graphic per scene centred at (540, 975).
-- Geometry is exact (regular polygons, circles, 8-point stars); nothing touches or overlaps.
-- Type: Cinzel caps for headings, Cormorant italic gold for key words, Spectral for captions. Gold text via `goldText` (never on Arabic: use solid #efc874).
-- Masked line reveals (Reveal) for text; outExpo/outCubic easing; one beat every 2–4 s; slow camera push per scene; light Sweep at 2–3 transitions.
-- Zones: chrome 230–330 · verse card / Arabic word 372–700 · graphic 700–1260 · captions 1290–1490 · progress bar 1512. Platform UI covers below ~1520.
-- Captions: balanced rows (rows()), words appear as spoken, key word per line in KEY.
-- Verse cards: parchment Card with the verified excerpt and the key word highlighted by index.
-- End card: The Mirror cover + "The World Sees Islam Through Us" + FOLLOW FOR THE NEXT WORD + yasserfares.com; loop crossfade to frame 0.
+## 5. Animation — pictures that EXPLAIN (Ahmed, 22 Nov). Reference: remotion/src/episodes/Ep04_Balagh.tsx
+Abstract decoration (rings, stars, dots of light with no meaning) is rejected. Every line gets a picture that makes its point.
+### 5a. Storyboard first (written into the episode file's header comment, automatically, no approval step)
+For EVERY narration line write: line → picture → what the picture says. Then run the checks:
+- SILENT TEST: with the sound off, would a viewer still get the idea from the graphics + on-screen words? If a picture could sit under
+  a different line unchanged, it fails: replace it.
+- One concrete, instantly-readable picture per line: an object or action people know (gavel, letter, heart, magnifier, chain, crown,
+  bell, road, door, scale, lamp, seed, mirror, hand…), not generic geometry.
+- Key words act on screen: crossed out (StrikeIn), swapped (JUDGE → DELIVER), ticked or crossed (Mark check/x/ban), counted ("1 JOB").
+- Arguments become diagrams: lists (✓ / ✗ rows), split panels (YOURS | HIS), logic ladders (if X… then how can Y?), zoom-outs
+  (one moment → the whole road), before/after.
+- A visual through-line: one object that travels through the episode (Ep04: the sealed letter appears, is held, is listed, is delivered).
+- Something changes every 2–3 s (draw-on, swap, strike, tick, zoom, reveal). Callback to the hook at the end.
+- Red lines: no faces, no AI people, no depiction of prophets (show only words or an empty place, a ban ring over a symbol is fine).
+### 5b. Build
+- Pictograms: `remotion/src/lib/icons.tsx` → `<Icon name x y size p sw c rot />` draws any of 87 line icons (Tabler, MIT) with p 0→1;
+  `<Mark kind="check|x|ban">`, `<StrikeIn p>` for crossing out text. To add icons: take more from @tabler/icons (npm pack) into lib/tabler.json.
+  Custom drawings (mirror, lantern, road…) are welcome when an icon would be too generic.
+- Copy Ep04_Balagh.tsx, keep everything above the storyboard comment (palette, fonts, easing, Reveal, Background, Chrome, Card,
+  Caption) and the end card/assembly; rewrite KEY, the scenes and SCN. Change the series number in Chrome.
+- Style: navy ground with dawn glow; gold/cream line art (5–7 px), muted red (#d9624f) only for ✗/strike/ban; Cinzel caps labels,
+  Cormorant italic for meanings; masked reveals; no heavy blur.
+- Zones: chrome 230–330 · top word/card/labels 372–700 · graphic 700–1260 · captions 1290–1490 · bar 1512. Lists may use 400–1250
+  when no verse card is on screen. Verse cards: keep motion under them calm (verse window).
 Register the composition in `remotion/src/Root.tsx`.
+Render time: icon-heavy episodes render slowly (~1 h for 48 s on 2 cores); start the full render in the background and poll.
+Example SFX cue script for this style: scripts/episodes/ep04_audio.py (copy it, change the cues and VERSE).
 
 ## 6. Review before the full render
 `COMP=epNN node stills.mjs <frames...>` at the busiest moments (every scene peak, each card, the Arabic word, end card). Look at them.
