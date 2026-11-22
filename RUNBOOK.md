@@ -22,6 +22,13 @@ Pull each verse with `python3 quran/verse.py S:V i0 i1 --save S:V` (refuses if t
 - HeyGen tags, one per section, restrained: [curious] [thoughtful] [serious] [lowering their voice] [warm].
 - Every claim traceable to the book page. No invented hadith, scholars or references.
 
+### 2a. Score and regenerate the hook and script (tools/ig, vendored from instagram-agent-skill, MIT)
+The scores feed a rewrite loop; they are not just a report.
+1. HOOK: write 5 options (spoken line 5–12 words; on-screen line ≤5 words). `python3 tools/ig/hookscore.py hooks.txt`. Take the best two, rewrite each against its weakest property (FRONTLOAD: move the payload word to the front; STAKES: name what is lost or at risk; SPECIFICITY: a checkable name/word from the book), re-score. Up to 3 rounds; stop at ≥80 or when a round gains <3 points. Keep the highest-scoring hook that is still true to the book.
+2. SCRIPT: `python3 tools/ig/beats.py script.txt --target <planned seconds>`. Fix what it flags that is real: a loop (the last line echoes a word from the hook), beats too long to read, dead middle. Re-run once.
+3. The scorer is a keyword heuristic. Never trade accuracy for points: no numbers, names or claims that are not in the book, no clickbait that misstates the verse or the author. Meaning, Qur'an rules and Yasser's voice beat the score.
+4. Log hook score before → after in the delivery summary.
+
 ## 3. Voice (HeyGen)
 - `create_speech_without_player`, voiceId `2c1e0005b48c4690a322867cea82a58f` (Yasser's clone), `withTimestamps: true`, no `language` when Arabic is mixed in.
 - One generation per episode. Save the returned word timings to `$EP_DIR/words.json` as `[[word,start,end],...]` (audio-tag words included; split.py filters them).
@@ -91,3 +98,6 @@ Name: `YYYY-MM-DD_the-mirror_one-word-NN-<slug>_9x16_v1.mp4` and `_cover.jpg` (f
 Send the two files (video, cover) with SendUserFile, plus platform copy (Instagram, TikTok, YouTube Shorts, Facebook captions + a first comment each).
 If the desktop bridge is online, also save to `Yasser SM\videos\02_in-progress\<date>_the-mirror_one-word-NN-<slug>\07_exports\`.
 Commit the new episode file, timeline and excerpts to `main`, update `episodes/log.json` and mark the backlog row `done`.
+
+### 8a. Captions: clean, lint, regenerate
+For each platform caption (and first comment): `python3 tools/ig/humanize.py cap.txt --report -o cap.txt` (strips em dashes, slop words, invisible characters), then `python3 tools/ig/detect.py cap.txt` (target: no FLAGGED) and `python3 tools/ig/caption.py cap.txt --keywords "<2–4 search terms>"` (first 125 characters carry the point + search words, one ask, ≤5 hashtags, no greeting/emoji first). Rewrite whatever fails and re-run, up to 3 rounds. Report the final verdicts. Arabic and verse text are exempt from rewriting.
