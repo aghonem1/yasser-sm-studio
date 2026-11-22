@@ -11,9 +11,9 @@ Never invent a hadith, a scholarly position or a reference. Anything not in the 
 | 02 | لَيِّنًا | لام ياء نون | Ch.4 p.37–38 | 20:44, 2:83 | "Speak softly… to Pharaoh?" | done |
 | 03 | لِتَعَارَفُوا | عين راء فاء | Ch.3 p.24–31 | 49:13, 17:70 | "Only two kinds of people." | done |
 | 04 | البَلَاغ | باء لام غين | Ch.2 p.16 | 13:40, 88:21–22 | "You were never asked to judge." | done |
-| 05 | إِكْرَاه | كاف راء هاء | Ch.2 p.17 | 2:256, 18:29 | "You cannot force a heart." | todo |
-| 06 | بِرّ | باء راء راء | Ch.3 p.26 | 60:8 | "Justice isn't the highest bar." | todo |
-| 07 | غُلُوّ | غين لام واو | Ch.5 p.44–45 | 4:171 | "More extreme isn't more faithful." | todo |
+| 05 | إِكْرَاه | كاف راء هاء | Ch.2 p.17 | 2:256, 18:29 | "Stop trying to force someone's heart." | todo |
+| 06 | بِرّ | باء راء راء | Ch.3 p.26 | 60:8 | "Don't stop at being fair." | todo |
+| 07 | غُلُوّ | غين لام واو | Ch.5 p.44–45 | 4:171 | "Don't confuse extreme with faithful." | todo |
 | 08 | وَسَطًا | واو سين طاء | Ch.5 p.45 | 2:143 | "Balance is not halfway." | todo |
 | 09 | أَحْسَن | حاء سين نون | Ch.4 p.36 | 41:34 | "Don't answer well. Answer better." | todo |
 | 10 | طَيِّبَة | طاء ياء باء | Ch.4 p.34–35 | 14:24 | "One word can grow a tree." | todo |

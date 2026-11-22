@@ -24,6 +24,7 @@ Pull each verse with `python3 quran/verse.py S:V i0 i1 --save S:V` (refuses if t
 
 ### 2a. Score and regenerate the hook and script (tools/ig, vendored from instagram-agent-skill, MIT)
 The scores feed a rewrite loop; they are not just a report.
+0. Read research/swipe.md first: open on the viewer or something happening now (command, scenario, concrete question), never a recap, title or abstract statement; ~7 words.
 1. HOOK: write 5 options (spoken line 5–12 words; on-screen line ≤5 words). `python3 tools/ig/hookscore.py hooks.txt`. Take the best two, rewrite each against its weakest property (FRONTLOAD: move the payload word to the front; STAKES: name what is lost or at risk; SPECIFICITY: a checkable name/word from the book), re-score. Up to 3 rounds; stop at ≥80 or when a round gains <3 points. Keep the highest-scoring hook that is still true to the book.
 2. SCRIPT: `python3 tools/ig/beats.py script.txt --target <planned seconds>`. Fix what it flags that is real: a loop (the last line echoes a word from the hook), beats too long to read, dead middle. Re-run once.
 3. The scorer is a keyword heuristic. Never trade accuracy for points: no numbers, names or claims that are not in the book, no clickbait that misstates the verse or the author. Meaning, Qur'an rules and Yasser's voice beat the score.
