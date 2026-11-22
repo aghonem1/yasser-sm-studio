@@ -10,7 +10,7 @@ import json, os, numpy as np
 
 D = os.environ["EP_DIR"]
 VARIANT = os.environ.get("VARIANT", "full")
-TAGS = {"curious", "thoughtful", "pause", "serious", "warm"}
+TAGS = {"curious", "thoughtful", "pause", "serious", "warm", "mysterious", "excited", "calm"}
 NB = " "
 
 FULL = [
@@ -73,14 +73,67 @@ SHORT = [
     "The weekend of the twelfth and thirteenth of December.",
     "Register at the link.",
 ]
-TXT = FULL if VARIANT == "full" else SHORT
+STORY = [
+    "Come closer. This is an old story.",
+    "And it begins on a mountain.",
+    "A man comes down from the cave of Hira.",
+    "He is trembling.",
+    "He has just received the first words of revelation.",
+    "He goes home.",
+    "And the first person to hear what happened is his wife.",
+    "Her name is Khadijah.",
+    "And she reassures him.",
+    "Now, how could she be so sure?",
+    "Because her answer was not a guess.",
+    "She had known this man for years.",
+    "First, as the one she trusted with her trade.",
+    "Then, as her husband.",
+    "So here is the question at the heart of this story.",
+    "What had she seen?",
+    "She was not the only one watching.",
+    f"Before any of this, Quraysh rebuilt the{NB}Ka‘bah,",
+    "and the clans fell into dispute.",
+    "Who would place the Black Stone?",
+    "They accepted his judgement.",
+    "And with it, every clan shared the honour.",
+    "Then came Hira.",
+    "‘A’ishah tells it, step by step.",
+    "First, truthful dreams.",
+    "Then, a retreat.",
+    "Then, the opening words of Surat al-‘Alaq.",
+    "And then, the return home.",
+    "Khadijah listens.",
+    "And she answers from everything she had witnessed in him.",
+    "Then comes a second voice:",
+    "Waraqah ibn Nawfal.",
+    "And who believed next?",
+    "‘Ali. Zayd ibn Harithah. Abu Bakr,",
+    "and those he invited.",
+    "The accounts do not agree on who came first among the men,",
+    "and the reasons why are worth hearing.",
+    "Then the call went public, at Safa.",
+    "And someone else, who had also known him before revelation,",
+    "gave a very different answer.",
+    "Abu Lahab.",
+    "Two people who knew him.",
+    "Two opposite answers.",
+    "So join me. One hour, live and free.",
+    "We will read the accounts together,",
+    "and follow this one question:",
+    "from the marketplace, to the mountain,",
+    "to the first public call.",
+    "What did Khadijah know?",
+    "The weekend of the twelfth and thirteenth of December.",
+    "Register at yasserfares.com",
+]
+TXT = {"full": FULL, "short": SHORT, "story": STORY}[VARIANT]
 MERGE = {"yasserfares.com": 3}
-MAXG = 0.62 if VARIANT == "full" else 0.5       # the explainer keeps a little more air between lines
+MAXG = {"full": 0.62, "short": 0.5, "story": 0.95}[VARIANT]       # the explainer keeps a little more air between lines
 KEEP_LONG = {}
-ENDCARD = 5.0 if VARIANT == "full" else 3.6
+ENDCARD = 3.6 if VARIANT == "short" else 5.0
 
 W = json.load(open(f"{D}/words.json"))
-SP = [w for w in W if not (w[0] in TAGS and (w[2] - w[1]) < 0.45 and w[0].islower())]
+SP = [w for w in W if not (w[0] in TAGS and w[0].islower() and (VARIANT == "story" or (w[2] - w[1]) < 0.45))]
 json.dump(SP, open(f"{D}/spoken.json", "w"), ensure_ascii=False)
 
 LINES = []

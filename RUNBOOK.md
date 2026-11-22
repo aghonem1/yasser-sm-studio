@@ -113,3 +113,13 @@ Reference: `remotion/src/episodes/Webinar01_Khadijah.tsx` (compositions `web01` 
 - Audio: `EP_DIR=... VARIANT=full|short python3 scripts/episodes/webinar01_audio.py`, then `EP_DIR=$PWD/episodes/... bash scripts/mix.sh`. Music is hard-muted while the verse card is on screen.
 - Source rule: only what the course outline's week states. Do not quote or paraphrase a narration in promotion; leave it for the session.
 - Render: full ~12 min, short ~3 min on 2 cores. Names: `YYYY-MM-DD_webinar_<slug>_16x9_v1.mp4` / `_9x16_v1.mp4`.
+
+
+### 9b. Webinar teaser, long landscape version in the paper-collage look (v2, 23 Nov 2026)
+Approved by Ahmed for the long 16:9 video only; reels and carousels stay navy/gold.
+- Narration: story-telling read (`VARIANT=story` in `scripts/episodes/webinar01_split.py`), audio in `episodes/webinar01v/`.
+- Picture: `remotion/src/episodes/Webinar01_Collage.tsx`, composition `web01v` (timeline `timeline_webinar01v.json`). Paper moves on twos; marker lines boil; torn-sheet wipes between scenes.
+- Sound: `EP_DIR=$PWD/episodes/webinar01v python3 scripts/episodes/webinar01v_audio.py` then `bash scripts/mix.sh`. Every paper drop, letter pop, tape, marker line and highlighter swipe has its own effect; the bed is mallets and pizzicato.
+- Verse sheet (96:1): on screen from "opening" until just after "And then,". Music is hard-muted and no pitched effect plays in that window (the script prints the music peak there; it must be 0).
+- Render: `npx remotion render src/index.ts web01v out/web01v.mp4 --browser-executable=/usr/bin/google-chrome --codec=h264 --crf=17 --concurrency=2` (about 16 minutes), then mux with `mix_music.wav` at `-crf 25` (about 57 MB).
+- `wt(i, 'the')` also matches "then": name a later word when a line holds both.
