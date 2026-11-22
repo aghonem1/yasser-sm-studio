@@ -1,0 +1,34 @@
+@font-face{font-family:Cinzel;src:url(FONTS/YF-CinzelB.ttf);font-weight:700}
+@font-face{font-family:Cinzel;src:url(FONTS/YF-Cinzel.ttf);font-weight:400}
+@font-face{font-family:Spectral;src:url(FONTS/Spectral-SemiBold-full.ttf)}
+@font-face{font-family:CormIt;src:url(FONTS/CormorantGaramond-Italic.ttf)}
+@font-face{font-family:Amiri;src:url(FONTS/Amiri-Bold.ttf)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1350px;overflow:hidden;background:#09101e}
+.slide{position:relative;width:1080px;height:1350px;color:#f0eadb;font-family:Spectral,serif;
+ background:radial-gradient(ellipse 70% 45% at 50% 38%,rgba(236,190,96,.10),transparent 70%),
+ linear-gradient(180deg,#09101e 0%,#0f1a2e 60%,#0b1324 100%);}
+.slide:before{content:"";position:absolute;inset:0;opacity:.06;background-size:120px 120px;
+ background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><g fill='none' stroke='%23c9a457' stroke-width='1.2'><rect x='40' y='40' width='40' height='40'/><rect x='40' y='40' width='40' height='40' transform='rotate(45 60 60)'/></g></svg>")}
+.frame{position:absolute;inset:44px;border:1.5px solid rgba(201,164,87,.45)}
+.top,.bot{position:absolute;left:84px;right:84px;display:flex;justify-content:space-between;font:400 24px Cinzel;letter-spacing:.28em;color:rgba(201,164,87,.85)}
+.top{top:78px}.bot{bottom:76px;font:400 22px Cinzel;letter-spacing:.16em;color:rgba(240,234,219,.55)}
+.cover,.text,.quote,.recap,.cta{position:absolute;left:130px;right:130px;top:170px;bottom:170px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.eyebrow{font:700 26px Cinzel;letter-spacing:.34em;color:#c9a457;margin-bottom:46px}
+h1{font:700 96px/1.08 Cinzel;color:#ecbe60;text-shadow:0 0 40px rgba(236,190,96,.25)}
+.rule{width:120px;height:2px;background:#c9a457;margin:46px auto;opacity:.8}
+.promise{font:44px/1.35 CormIt;color:#f0eadb}
+.swipe{margin-top:70px;font:700 24px Cinzel;letter-spacing:.3em;color:rgba(201,164,87,.8)}
+h2{font:700 72px/1.12 Cinzel;color:#ecbe60;margin-bottom:44px}
+.text p{font:48px/1.42 Spectral}
+.mark{font:160px/0.6 CormIt;color:#c9a457;height:80px}
+blockquote{font:54px/1.32 CormIt;color:#f0eadb}
+blockquote.en{font-size:42px;margin-top:40px}
+.ar{font:64px/1.7 Amiri;color:#ecbe60}
+.src{margin-top:44px;font:400 26px Cinzel;letter-spacing:.2em;color:rgba(201,164,87,.9)}
+.recap ol{list-style:none;counter-reset:r;text-align:left;width:100%}
+.recap li{counter-increment:r;font:42px/1.35 Spectral;padding:20px 0 20px 86px;position:relative;border-top:1px solid rgba(201,164,87,.25)}
+.recap li:before{content:counter(r);position:absolute;left:0;top:14px;font:700 48px Cinzel;color:#ecbe60}
+.url{font:700 34px Cinzel;letter-spacing:.14em;color:#f0eadb}
+.ask{font:44px/1.35 CormIt}
+.follow{margin-top:56px;font:700 26px Cinzel;letter-spacing:.18em;color:#c9a457}
