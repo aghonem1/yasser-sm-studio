@@ -1,0 +1,12 @@
+One Word · 05 · إِكْرَاه (ikrāh) — HeyGen script (Yasser clone 2c1e0005b48c4690a322867cea82a58f, one generation, 22 Nov 2026)
+Sources: The Mirror Ch.2 "There Is No Compulsion in Religion" (p.17: 2:256; "Faith cannot be forced into a heart. A person may be compelled to speak
+certain words or perform an outward action, but compulsion cannot create genuine belief." "The heart is not opened by force. It is opened by truth,
+wisdom and sincere reflection." "If a person speaks under fear, his tongue may have submitted, but his heart has not necessarily believed."
+"present the truth in its clearest and most beautiful form—not to impose it in its harshest form") and "Faith Involves Choice" (p.17–18: 18:29;
+"This does not mean that belief and rejection are equal before God. It means that human beings have been given the ability to choose and will
+carry responsibility for their choices."). Last line = series promise (research/learnings.md rule 3).
+Verse windows (no music): lines 5–6 (2:256), lines 9–11 (18:29).
+
+[serious] Stop forcing faith on people. Force wins the tongue, never the heart. [thoughtful] The Qur'an says it in one word: إِكْرَاه. Compulsion. There is no compulsion in religion. The right way has become clear from the wrong. Force can make someone say the words. But it cannot create genuine belief. Say: The truth is from your Lord. Whoever wishes may believe, and whoever wishes may reject. [lowering their voice] Here's the hard part. This doesn't make belief and rejection equal before God. It means we choose, and we carry the responsibility. [warm] The heart is not opened by force. It is opened by truth, wisdom and sincere reflection. So present the truth beautifully. Never force the heart. A new word, every day.
+
+ASR: إِكْرَاه isolated (7.9–8.85 s of src.wav) → "إكراه" (correct); in a wider slice whisper heard "إقراح", so Yasser to confirm the kāf/hā by ear.

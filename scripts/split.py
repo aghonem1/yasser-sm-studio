@@ -3,32 +3,31 @@ import json, os, numpy as np
 D = os.environ["EP_DIR"]
 SP = json.load(open(f"{D}/spoken.json"))
 # (display text, first spoken idx, last spoken idx); tokens consume 1 spoken word unless listed in MERGE
-LINES = [   # ep04 al-balagh
-    ("You weren't asked to judge.", 0, 4),
-    ('Not even the Prophet was.', 5, 9),
-    ("The Qur'an gives him one job:", 10, 15),
-    ('al-balāgh.', 16, 16),
-    ('To deliver the message.', 17, 20),
-    ('“Your duty is only to deliver the message,', 21, 28),
-    ('and it is for Us to call them to account.”', 29, 38),
-    ('Deliver.', 39, 39),
-    ('Not force it into hearts.', 40, 44),
-    ('Not search souls.', 45, 47),
-    ('Not pronounce the final judgement.', 48, 52),
-    ('“So remind them;', 53, 55),
-    ('you are only one who reminds.', 56, 61),
-    ('You are not appointed to control them.”', 62, 68),
-    ("Here's the hard part.", 69, 72),
-    ("If the Prophet was not appointed to control people's faith,", 73, 82),
-    ('how can anyone after him', 83, 87),
-    ('claim authority over their consciences?', 88, 92),
-    ('We see a single moment.', 93, 97),
-    ('God sees the whole journey.', 98, 102),
-    ("You weren't asked to judge hearts.", 103, 108),
-    ('You were asked to deliver.', 109, 113),
+LINES = [   # ep05 ikrah (the last line is the series promise, spoken over the end card)
+    ('Stop forcing faith on people.', 0, 4),
+    ('Force wins the tongue, never the heart.', 5, 11),
+    ("The Qur'an says it in one word:", 12, 18),
+    ('ikrāh.', 19, 19),
+    ('Compulsion.', 20, 20),
+    ('“There is no compulsion in religion.', 21, 26),
+    ('The right way has become clear from the wrong.”', 27, 35),
+    ('Force can make someone say the words.', 36, 42),
+    ('But it cannot create genuine belief.', 43, 48),
+    ('“Say: The truth is from your Lord.', 49, 55),
+    ('Whoever wishes may believe,', 56, 59),
+    ('and whoever wishes may reject.”', 60, 64),
+    ("Here's the hard part.", 65, 68),
+    ("This doesn't make belief and rejection equal before God.", 69, 77),
+    ('It means we choose, and we carry the responsibility.', 78, 86),
+    ('The heart is not opened by force.', 87, 93),
+    ('It is opened by truth, wisdom and sincere reflection.', 94, 102),
+    ('So present the truth beautifully.', 103, 107),
+    ('Never force the heart.', 108, 111),
+    ('A new word, every day.', 112, 116),
 ]
+PROMISE = True   # last line is spoken during the end card: voice_end = end of the line before it
 MERGE = {}
-MAXG, KEEP_LONG = 0.5, {19: 0.75, 2: 0.45}
+MAXG, KEEP_LONG = 0.5, {2: 0.55, 11: 0.75, 14: 0.55, 18: 0.7}
 ENDCARD = 3.2
 
 src = f"{D}/src.wav"
@@ -73,7 +72,10 @@ for txt, a, b in LINES:
         words.append([tk, shift(grp[0][1]), shift(grp[-1][2])])
     assert k == len(ws), (txt, k, len(ws))
     lines.append({"text": txt, "words": words, "start": words[0][1], "end": words[-1][2]})
-voice_end = lines[-1]["end"] + 0.6; total = voice_end + ENDCARD
+if globals().get("PROMISE"):
+    voice_end = lines[-2]["end"] + 0.6; total = max(voice_end + ENDCARD, lines[-1]["end"] + 1.0)
+else:
+    voice_end = lines[-1]["end"] + 0.6; total = voice_end + ENDCARD
 if audio is not None:
     keep = np.ones(len(audio), bool)
     for a, b in cuts:

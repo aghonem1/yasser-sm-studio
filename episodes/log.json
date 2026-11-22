@@ -35,6 +35,26 @@
       ],
       "duration_s": 48.0,
       "files": "2026-11-22_the-mirror_one-word-04-al-balagh_9x16_v2.mp4 / _v2_cover.jpg"
+    },
+    {
+      "n": 5,
+      "word": "إِكْرَاه",
+      "slug": "ikrah",
+      "date": "2026-11-22",
+      "status": "delivered for review (awaiting Yasser's approval)",
+      "book": "Ch.2 p.17–18 (There Is No Compulsion in Religion; Faith Involves Choice)",
+      "verses": [
+        "2:256",
+        "18:29"
+      ],
+      "duration_s": 49.7,
+      "hook": "Stop forcing faith on people. Force wins the tongue, never the heart.",
+      "hook_onscreen": "STOP FORCING FAITH.",
+      "hook_type": "negative command",
+      "hook_score": 84.4,
+      "hook_score_start": 51.0,
+      "test": "hook type = negative command (ep05–07)",
+      "files": "2026-11-22_the-mirror_one-word-05-ikrah_9x16_v1.mp4 / _cover.jpg"
     }
   ]
 }
