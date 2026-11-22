@@ -24,7 +24,7 @@ Pull each verse with `python3 quran/verse.py S:V i0 i1 --save S:V` (refuses if t
 
 ### 2a. Score and regenerate the hook and script (tools/ig, vendored from instagram-agent-skill, MIT)
 The scores feed a rewrite loop; they are not just a report.
-0. Read research/swipe.md first: open on the viewer or something happening now (command, scenario, concrete question), never a recap, title or abstract statement; ~7 words.
+0. Read research/learnings.md (our own numbers, highest priority) and research/swipe.md first: open on the viewer or something happening now (command, scenario, concrete question), never a recap, title or abstract statement; ~7 words.
 1. HOOK: write 5 options (spoken line 5–12 words; on-screen line ≤5 words). `python3 tools/ig/hookscore.py hooks.txt`. Take the best two, rewrite each against its weakest property (FRONTLOAD: move the payload word to the front; STAKES: name what is lost or at risk; SPECIFICITY: a checkable name/word from the book), re-score. Up to 3 rounds; stop at ≥80 or when a round gains <3 points. Keep the highest-scoring hook that is still true to the book.
 2. SCRIPT: `python3 tools/ig/beats.py script.txt --target <planned seconds>`. Fix what it flags that is real: a loop (the last line echoes a word from the hook), beats too long to read, dead middle. Re-run once.
 3. The scorer is a keyword heuristic. Never trade accuracy for points: no numbers, names or claims that are not in the book, no clickbait that misstates the verse or the author. Meaning, Qur'an rules and Yasser's voice beat the score.
@@ -102,3 +102,6 @@ Commit the new episode file, timeline and excerpts to `main`, update `episodes/l
 
 ### 8a. Captions: clean, lint, regenerate
 For each platform caption (and first comment): `python3 tools/ig/humanize.py cap.txt --report -o cap.txt` (strips em dashes, slop words, invisible characters), then `python3 tools/ig/detect.py cap.txt` (target: no FLAGGED) and `python3 tools/ig/caption.py cap.txt --keywords "<2–4 search terms>"` (first 125 characters carry the point + search words, one ask, ≤5 hashtags, no greeting/emoji first). Rewrite whatever fails and re-run, up to 3 rounds. Report the final verdicts. Arabic and verse text are exempt from rewriting.
+
+### 8b. Close the loop
+Record in episodes/log.json for the new episode: `test` (the one variable being tried, from research/learnings.md's experiment log), `hook_type`, `hook_score`, `duration_s`. The reel audit task fills episodes/metrics.csv from Instagram Insights at ~3 and ~7 days and rewrites research/learnings.md; follow its current rules unless they conflict with the content rules.
