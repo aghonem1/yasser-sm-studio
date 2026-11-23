@@ -55,6 +55,26 @@
       "hook_score_start": 51.0,
       "test": "hook type = negative command (ep05–07)",
       "files": "2026-11-22_the-mirror_one-word-05-ikrah_9x16_v1.mp4 / _cover.jpg"
+    },
+    {
+      "n": 6,
+      "word": "بِرّ",
+      "slug": "birr",
+      "date": "2026-11-23",
+      "status": "delivered for review (awaiting Yasser's approval)",
+      "book": "Ch.3 p.26 (Kindness Goes Beyond Justice) + Ch.4 p.35–36 (Beyond Fairness)",
+      "verses": [
+        "60:8"
+      ],
+      "duration_s": 49.5,
+      "hook": "Don't stop at being fair. The Qur'an asks you for more.",
+      "hook_onscreen": "DON'T STOP AT FAIR.",
+      "hook_type": "negative command",
+      "hook_score": 100.0,
+      "hook_score_start": 54.6,
+      "test": "hook type = negative command (ep05–07)",
+      "files": "2026-11-23_the-mirror_one-word-06-birr_9x16_v1.mp4 / _cover.jpg",
+      "check": "qist re-generated and spliced (ASR hears kāf for qāf); last birr at ~38.9 s unclear in Arabic ASR"
     }
   ]
 }

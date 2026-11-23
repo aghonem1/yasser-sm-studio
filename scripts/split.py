@@ -3,31 +3,34 @@ import json, os, numpy as np
 D = os.environ["EP_DIR"]
 SP = json.load(open(f"{D}/spoken.json"))
 # (display text, first spoken idx, last spoken idx); tokens consume 1 spoken word unless listed in MERGE
-LINES = [   # ep05 ikrah (the last line is the series promise, spoken over the end card)
-    ('Stop forcing faith on people.', 0, 4),
-    ('Force wins the tongue, never the heart.', 5, 11),
-    ("The Qur'an says it in one word:", 12, 18),
-    ('ikrāh.', 19, 19),
-    ('Compulsion.', 20, 20),
-    ('“There is no compulsion in religion.', 21, 26),
-    ('The right way has become clear from the wrong.”', 27, 35),
-    ('Force can make someone say the words.', 36, 42),
-    ('But it cannot create genuine belief.', 43, 48),
-    ('“Say: The truth is from your Lord.', 49, 55),
-    ('Whoever wishes may believe,', 56, 59),
-    ('and whoever wishes may reject.”', 60, 64),
-    ("Here's the hard part.", 65, 68),
-    ("This doesn't make belief and rejection equal before God.", 69, 77),
-    ('It means we choose, and we carry the responsibility.', 78, 86),
-    ('The heart is not opened by force.', 87, 93),
-    ('It is opened by truth, wisdom and sincere reflection.', 94, 102),
-    ('So present the truth beautifully.', 103, 107),
-    ('Never force the heart.', 108, 111),
-    ('A new word, every day.', 112, 116),
+LINES = [   # ep06 birr (the last line is the series promise, spoken over the end card)
+    ("Don't stop at being fair.", 0, 4),
+    ("The Qur'an asks you for more.", 5, 10),
+    ("It's one word:", 11, 13),
+    ('birr.', 14, 14),
+    ('Generous kindness.', 15, 16),
+    ('“God does not forbid you from treating with kindness and justice', 17, 27),
+    ('those who have not fought you because of your faith', 28, 37),
+    ('or driven you from your homes.”', 38, 43),
+    ('Two words, side by side.', 44, 48),
+    ('qist: justice.', 49, 50),
+    ('birr: kindness.', 51, 52),
+    ('Justice prevents us from harming another person.', 53, 59),
+    ('Kindness moves us to help him.', 60, 65),
+    ('Justice keeps the balance straight.', 66, 70),
+    ('Kindness fills life with warmth.', 71, 75),
+    ("Here's the hard part.", 76, 79),
+    ('If religious difference made kindness wrong,', 80, 85),
+    ("the Qur'an would not have permitted birr.", 86, 92),
+    ('So be just.', 93, 95),
+    ('Then go further:', 96, 98),
+    ('care, goodwill, active help.', 99, 102),
+    ("Don't stop at fair.", 103, 106),
+    ('A new word, every day.', 107, 111),
 ]
 PROMISE = True   # last line is spoken during the end card: voice_end = end of the line before it
 MERGE = {}
-MAXG, KEEP_LONG = 0.5, {2: 0.55, 11: 0.75, 14: 0.55, 18: 0.7}
+MAXG, KEEP_LONG = 0.45, {1: 0.5, 7: 0.6, 14: 0.6, 15: 0.5, 17: 0.5, 20: 0.5}
 ENDCARD = 3.2
 
 src = f"{D}/src.wav"

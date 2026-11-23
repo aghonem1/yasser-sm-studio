@@ -1,0 +1,14 @@
+One Word · 06 · بِرّ (birr) — HeyGen script (Yasser clone 2c1e0005b48c4690a322867cea82a58f, one generation, 23 Nov 2026)
+Sources: The Mirror Ch.3 "Kindness Goes Beyond Justice" (p.26: 60:8 in the book's English; "The verse uses two important words: birr, meaning
+generous kindness, and qist, meaning justice and fairness." "Justice means giving people their rights without prejudice. Kindness goes further:
+it includes care, goodwill and active help." "Justice prevents us from harming another person. Kindness moves us to help him. Justice keeps the
+balance straight; kindness fills life with warmth." "If religious difference made kindness wrong, the Qur'an would not have permitted birr.")
+and Ch.4 "Beyond Fairness" (p.35–36: "Kindness goes further…"; 16:90 "God commands justice and kindness"). Last line = series promise.
+Verse window (no music): lines 5–7 (60:8; card on screen until line 8).
+
+[serious] Don't stop at being fair. The Qur'an asks you for more. [thoughtful] It's one word: بِرّ. Generous kindness. God does not forbid you from treating with kindness and justice those who have not fought you because of your faith or driven you from your homes. Two words, side by side. قِسْط: justice. بِرّ: kindness. Justice prevents us from harming another person. Kindness moves us to help him. Justice keeps the balance straight. Kindness fills life with warmth. [lowering their voice] Here's the hard part. If religious difference made kindness wrong, the Qur'an would not have permitted بِرّ. [warm] So be just. Then go further: care, goodwill, active help. Don't stop at fair. A new word, every day.
+
+ASR (whisper-turbo, ar, isolated slices of src.wav): بِرّ #1 → "بير", #2 → "بير", #3 → unclear in Arabic ASR (English ASR hears "birr").
+قِسْط in the main take → "تست"/"فست" (wrong): re-generated alone (language ar, speed 0.85, "قِسْط.") and spliced at 20.198 s (take from 0.2 s
+before its first timestamp) → "كست" (whisper often hears qāf as kāf). Yasser to confirm the qāf by ear.
+Retake: url_qist.txt. Original take kept as src_orig.wav (not committed).
