@@ -61,16 +61,16 @@ const rect = (w: number, h: number): P[] => [[0, 0], [w, 0], [w, h], [0, h]];
 const circ = (r: number, n = 26): P[] => Array.from({length: n}, (_, i) => [r + r * Math.cos((i / n) * 2 * Math.PI), r + r * Math.sin((i / n) * 2 * Math.PI)] as P);
 
 type Dir = 'up' | 'down' | 'left' | 'right';
-type Anim = {at?: number; out?: number; dir?: Dir; dist?: number; lift_out?: boolean};
+type Anim = {at?: number; out?: number; dir?: Dir; dist?: number; lift_out?: boolean; soft?: boolean};
 // paper pieces drop in on twos with a little overshoot, and fall away when they leave
-const useEnter = ({at, out, dir = 'up', dist = 170, lift_out}: Anim) => {
-  const {t2} = useT();
+const useEnter = ({at, out, dir = 'up', dist = 170, lift_out, soft}: Anim) => {
+  const {t2: tq, t} = useT(); const t2 = soft ? t : tq;
   if (at !== undefined && t2 < at) return null;
-  const p = at === undefined ? 1 : outBack((t2 - at) / 0.42), q = out === undefined ? 0 : clamp((t2 - out) / 0.3), qe = q * q;
+  const p = at === undefined ? 1 : soft ? outCubic((t2 - at) / 0.85) : outBack((t2 - at) / 0.42), q = out === undefined ? 0 : clamp((t2 - out) / 0.3), qe = q * q;
   if (q >= 1) return null;
   const v = dir === 'up' ? [0, -1] : dir === 'down' ? [0, 1] : dir === 'left' ? [-1, 0] : [1, 0];
-  return {dx: v[0] * dist * (1 - p), dy: v[1] * dist * (1 - p) + (lift_out ? -70 : 300) * qe, rot: (1 - p) * 7 * (v[0] || v[1]) + (lift_out ? 0 : qe * 12), sc: 1 + 0.09 * (1 - p),
-    o: (at === undefined ? 1 : clamp((t2 - at) / 0.07 + 0.5)) * (1 - qe), lift: 1 + 1.8 * (1 - p)};
+  return {dx: v[0] * dist * (1 - p), dy: v[1] * dist * (1 - p) + (lift_out ? -70 : 300) * qe, rot: (1 - p) * (soft ? 2 : 7) * (v[0] || v[1]) + (lift_out ? 0 : qe * 12), sc: 1 + 0.09 * (1 - p),
+    o: (at === undefined ? 1 : soft ? clamp((t2 - at) / 0.4) : clamp((t2 - at) / 0.07 + 0.5)) * (1 - qe), lift: 1 + 1.8 * (1 - p)};
 };
 type PaperP = Anim & {x: number; y: number; w: number; h: number; c: string; pts?: P[]; rot?: number; seed?: number; amp?: number; core?: number; lift?: number; children?: React.ReactNode};
 const Paper: React.FC<PaperP> = ({x, y, w, h, c, pts, rot = 0, seed = 1, amp = 4, core = 5, lift = 1, children, ...an}) => {
@@ -90,7 +90,7 @@ const Paper: React.FC<PaperP> = ({x, y, w, h, c, pts, rot = 0, seed = 1, amp = 4
 const isDark = (c: string) => c === NAVY || c === INKK || c === SLATE || c === TEAL || c === TERRA;
 // cut-out letters, one tile each, popping in one after another
 const Cut: React.FC<Anim & {text: string; x: number; y: number; size: number; tiles: string[]; seed?: number; gap?: number; stagger?: number; shake?: [number, number]}> =
-  ({text, x, y, size, tiles, seed = 3, gap = 6, stagger = 0.05, shake, at, out, dir = 'up', dist = 70}) => {
+  ({text, x, y, size, tiles, seed = 3, gap = 6, stagger = 0.05, shake, at, out, dir = 'up', dist = 70, soft}) => {
     const {t2, f} = useT();
     const r = rng(seed); let cx = 0; const tw = (ch: string) => size * (ch === 'I' || ch === '.' || ch === '?' || ch === ' ' || ch === '’' || ch === '‘' ? 0.42 : ch === 'M' || ch === 'W' ? 0.82 : 0.62);
     const total = text.split('').reduce((s, ch) => s + tw(ch) + gap, -gap);
@@ -100,7 +100,7 @@ const Cut: React.FC<Anim & {text: string; x: number; y: number; size: number; ti
       const rot = (r() - 0.5) * 7, dy = (r() - 0.5) * size * 0.07, c = tiles[Math.floor(r() * tiles.length) % tiles.length];
       const j = rng(seed * 31 + i * 7 + Math.floor(f / 2)); const jx = sk ? (j() - 0.5) * 16 * sk : 0, jy = sk ? (j() - 0.5) * 12 * sk : 0, jr = sk ? (j() - 0.5) * 9 * sk : 0;
       return <Paper key={i} x={left + jx} y={dy + jy} w={w} h={size * 1.16} c={c} rot={rot + jr} seed={seed + i * 3} amp={2.2} core={3} lift={0.7}
-        at={at === undefined ? undefined : at + i * stagger} out={out} dir={dir} dist={dist}>
+        at={at === undefined ? undefined : at + i * stagger} out={out} dir={dir} dist={dist} soft={soft}>
         <div style={{position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Anton', fontSize: size, lineHeight: 1, color: isDark(c) ? CREAM : NAVY, paddingTop: size * 0.04}}>{ch}</div></Paper>;
     })}</div>;
   };
@@ -161,12 +161,12 @@ const Hand: React.FC<{y: number; size: number; c?: string; children: React.React
   <div style={{position: 'absolute', left: 0, top: y, width: '100%', textAlign: 'center', fontFamily: 'Caveat', fontSize: size, lineHeight: 1, color: c}}>{children}</div>;
 
 // ---------- reusable cut-paper pictures ----------
-const Mountain: React.FC<{x: number; y: number; at?: number; out?: number}> = ({x, y, at, out}) => {
+const Mountain: React.FC<{x: number; y: number; at?: number; out?: number; soft?: boolean}> = ({x, y, at, out, soft}) => {
   const a = (d: number) => (at === undefined ? undefined : at + d);
   return <>
-    <Paper x={x} y={y} w={620} h={400} c={SLATE} pts={[[20, 400], [290, 30], [600, 400]]} seed={31} amp={6} rot={-1} at={a(0)} out={out} dir="down" />
-    <Paper x={x + 240} y={y + 100} w={470} h={300} c="#7d8794" pts={[[10, 300], [220, 20], [460, 300]]} seed={33} amp={6} rot={1.5} lift={0.8} at={a(0.16)} out={out} dir="down" />
-    <Paper x={x + 210} y={y + 236} w={150} h={164} c={INKK} pts={[[10, 164], [14, 70], [40, 22], [76, 6], [112, 22], [138, 70], [142, 164]]} seed={35} amp={2.5} core={3} lift={0.4} at={a(0.34)} out={out} dir="down" dist={60} />
+    <Paper x={x} y={y} w={620} h={400} c={SLATE} pts={[[20, 400], [290, 30], [600, 400]]} seed={31} amp={6} rot={-1} at={a(0)} out={out} dir="down" soft={soft} />
+    <Paper x={x + 240} y={y + 100} w={470} h={300} c="#7d8794" pts={[[10, 300], [220, 20], [460, 300]]} seed={33} amp={6} rot={1.5} lift={0.8} at={a(0.16)} out={out} dir="down" soft={soft} />
+    <Paper x={x + 210} y={y + 236} w={150} h={164} c={INKK} pts={[[10, 164], [14, 70], [40, 22], [76, 6], [112, 22], [138, 70], [142, 164]]} seed={35} amp={2.5} core={3} lift={0.4} at={a(0.34)} out={out} dir="down" dist={60} soft={soft} />
   </>;
 };
 const House: React.FC<{x: number; y: number; at: number}> = ({x, y, at}) => <>
@@ -201,7 +201,7 @@ const A_: React.FC = () => {
     <Cut text="AN OLD STORY" x={960} y={330} size={190} tiles={[CREAM, MUSTARD, CREAM, WHITE]} seed={6} gap={10} out={S[1] - 0.2} />
     <Mountain x={150} y={440} at={S[1] + 0.05} />
     <Tape x={250} y={852} w={330} rot={-3} seed={13} at={wt(2, 'cave') - 0.1}>the cave of Hira</Tape>
-    <Cut text="TREMBLING." x={600} y={270} size={128} tiles={[MUSTARD, MUSTARD, CREAM, MUSTARD, TERRA]} seed={9} gap={8} at={wt(3, 'trembling') - 0.08} stagger={0.04} shake={[wt(3, 'trembling'), wt(3, 'trembling') + 2.6]} />
+    <Cut text="TREMBLING." x={600} y={270} size={128} tiles={[MUSTARD, MUSTARD, CREAM, MUSTARD, TERRA]} seed={9} gap={8} at={wt(3, 'trembling') - 0.08} stagger={0.04} />
     <Strip x={700} y={452} w={470} h={74} c={CREAM} ink={NAVY} size={34} rot={3} seed={25} ls={1} at={wt(4, 'first') - 0.1} dir="right" out={S[5] + 0.1}>THE FIRST WORDS OF REVELATION</Strip>
     <House x={1270} y={520} at={S[5] - 0.05} />
     <Tape x={1380} y={852} w={170} rot={2.5} seed={15} at={S[5] + 0.6}>home</Tape>
@@ -209,7 +209,7 @@ const A_: React.FC = () => {
       <Dots d={PATH} id="walk" prog={walk} />
       <Mk d="M 1196 664 L 1240 708 L 1178 720" w={8} at={S[5] + 1.1} dur={0.2} />
       {[[400, 640, 372, 606], [436, 628, 436, 590], [472, 640, 500, 606], [384, 668, 344, 656], [488, 668, 528, 656]].map(([x0, y0, x1, y1], i) =>
-        <Mk key={i} d={`M ${x0} ${y0} L ${x1} ${y1}`} c={MUSTARD} w={8} at={S[4] + 0.15 + i * 0.07} dur={0.15} />)}
+        <Mk key={i} d={`M ${x0} ${y0} L ${x1} ${y1}`} c={MUSTARD} w={8} at={S[4] + 0.15 + i * 0.14} dur={0.5} />)}
       <Mk d="M 1500 474 C 1492 490, 1486 500, 1478 514" c={NOTE} w={6} at={wt(6, 'his') - 0.1} dur={0.2} />
       <Mk d="M 1458 488 L 1476 518 L 1504 500" c={NOTE} w={6} at={wt(6, 'his') + 0.1} dur={0.15} />
     </Marks>
@@ -221,7 +221,6 @@ const B_: React.FC = () => <>
   <Tape x={1290} y={196} w={230} rot={4} seed={17} at={S[7] + 0.05}>his wife</Tape>
   <Cut text="KHADIJAH" x={960} y={260} size={250} tiles={[MUSTARD, MUSTARD, NAVY, MUSTARD]} seed={83} gap={12} at={wt(7, 'khadijah') - 0.25} />
   <Strip x={470} y={650} w={860} h={112} c={CREAM} ink={NAVY} size={62} rot={-1.2} seed={27} at={S[8] - 0.05} dir="left">AND SHE <Hi at={wt(8, 'reassures')}>REASSURES</Hi> HIM</Strip>
-  <Paper x={1400} y={600} w={200} h={180} c={TERRA} pts={[[100, 180], [20, 100], [0, 55], [15, 18], [50, 0], [82, 10], [100, 38], [118, 10], [150, 0], [185, 18], [200, 55], [180, 100]]} seed={29} amp={2.5} rot={10} at={wt(8, 'reassures') + 0.1} dir="right" />
 </>;
 // C1 · not a guess (lines 9–10)
 const C1_: React.FC = () => <>
@@ -230,9 +229,8 @@ const C1_: React.FC = () => <>
   <Tape x={470} y={590} w={250} rot={-5} seed={19} at={wt(10, 'her') - 0.05}>her answer</Tape>
   <Paper x={720} y={650} w={560} h={200} c={CREAM} rot={2} seed={54} amp={5} at={wt(10, 'answer') - 0.05} dir="down"><Big y={22} size={140}>A GUESS</Big></Paper>
   <Marks id="c1">
-    <Mk d="M 700 790 L 820 706 L 900 800 L 1010 700 L 1100 800 L 1210 696 L 1300 760" c={RED} w={16} at={wt(10, 'not') - 0.05} dur={0.55} />
+    <Mk d="M 690 768 C 880 744, 1100 760, 1310 736" c={RED} w={16} at={wt(10, 'not') - 0.05} dur={0.35} />
   </Marks>
-  <Note x={1310} y={650} size={120} c={RED} rot={-8} w={300} at={wt(10, 'not') + 0.2} dur={0.3}>not!</Note>
 </>;
 // C2 · years of knowing him (lines 11–13)
 const C2_: React.FC = () => {
@@ -302,10 +300,10 @@ const F_: React.FC = () => {
   const v0 = wt(26, 'opening') - 0.05, v1 = wt(27, 'then') + 0.3;   // the verse sheet is on screen from v0 until v1 + 0.3
   const ar = ((EX as any)['96:1'] as string).split(' ');
   return <>
-    <Mountain x={650} y={470} at={S[22] + 0.32} out={o1} />
-    <Cut text="HIRA" x={960} y={170} size={230} tiles={[CREAM, MUSTARD, CREAM]} seed={72} gap={12} at={wt(22, 'hira') - 0.1} out={o1} />
-    <Strip x={440} y={52} w={1040} h={96} size={56} seed={74} rot={0.6} at={S[23] - 0.02}>‘A’ISHAH TELLS IT, <Hi at={wt(23, 'step')}>STEP BY STEP</Hi></Strip>
-    {STEPS.map(([x, c, ic, l1, l2, ink, rot], i) => <Paper key={i} x={x} y={250} w={380} h={540} c={c} rot={rot} seed={76 + i * 2} amp={6} lift={1.3} at={at[i]} dir={i % 2 ? 'down' : 'up'} dist={230}>
+    <Mountain x={650} y={470} at={S[22] + 0.32} out={o1} soft />
+    <Cut text="HIRA" x={960} y={170} size={230} tiles={[CREAM, MUSTARD, CREAM]} seed={72} gap={12} at={wt(22, 'hira') - 0.1} out={o1} stagger={0.12} soft />
+    <Strip x={440} y={52} w={1040} h={96} size={56} seed={74} rot={0.6} at={S[23] - 0.02} soft>‘A’ISHAH TELLS IT, <Hi at={wt(23, 'step')}>STEP BY STEP</Hi></Strip>
+    {STEPS.map(([x, c, ic, l1, l2, ink, rot], i) => <Paper key={i} x={x} y={250} w={380} h={540} c={c} rot={rot} seed={76 + i * 2} amp={6} lift={1.3} at={at[i] - 0.15} dir="up" dist={120} soft>
       <div style={{position: 'absolute', left: 24, top: 14, fontFamily: 'Anton', fontSize: 74, color: ink, opacity: 0.9}}>{i + 1}</div>
       <Ico name={ic} x={190} y={200} size={200} at={at[i] + 0.25} c={ink} sw={6} />
       <Big y={330} size={l1.length > 8 ? 62 : 72} c={ink}>{l1}</Big><Big y={410} size={l2.length > 7 ? 62 : 72} c={ink}>{l2}</Big></Paper>)}
@@ -371,21 +369,15 @@ const I_: React.FC = () => <>
 const STOPS: [number, string, string, number, number][] = [[330, 'scale', 'the marketplace', wt(46, 'marketplace'), 330], [960, 'mountain', 'the mountain', wt(46, 'mountain'), 290], [1590, 'speakerphone', 'the first public call', wt(47, 'first'), 400]];
 const J1_: React.FC = () => {
   const {t} = useT(); const o1 = S[45] - 0.2;
-  const hop = (a: number, b: number, t0: number) => {const p = clamp((t - t0) / 0.5); return {x: mix(a, b, inOut(p)), y: -150 * Math.sin(Math.PI * p)};};
-  const h1 = hop(330, 960, STOPS[1][3] - 0.35), h2 = hop(960, 1590, STOPS[2][3] - 0.35);
-  const qx = t < STOPS[2][3] - 0.35 ? h1.x : h2.x, qy = t < STOPS[2][3] - 0.35 ? h1.y : h2.y;
   return <>
     <Note x={250} y={120} size={110} c={NOTE} rot={-4} w={700} at={S[43]} dur={0.5} out={o1}>so join me...</Note>
-    {[['ONE', 'HOUR', 380, MUSTARD, wt(43, 'one'), -6, NAVY], ['LIVE', '', 810, TERRA, wt(43, 'live'), 4, CREAM], ['FREE', '', 1240, TEAL, wt(43, 'free'), -3, CREAM]].map(([a, b, x, c, tt, rot, ink], i) =>
-      <Paper key={i} x={x as number} y={300} w={300} h={300} c={c as string} pts={circ(150, 30)} rot={rot as number} seed={102 + i * 2} amp={3} at={(tt as number) - 0.1} out={o1} dir="up" dist={220}>
-        <Big y={b ? 62 : 90} size={b ? 86 : 110} c={ink as string}>{a}{b ? <><br />{b}</> : null}</Big></Paper>)}
-    <Strip x={420} y={680} w={1080} h={108} c={CREAM} ink={NAVY} size={58} seed={108} rot={-1} at={S[44] - 0.02} out={o1} dir="down" dist={110}>WE READ THE ACCOUNTS <Hi at={wt(44, 'together')}>TOGETHER</Hi></Strip>
+    <Strip x={480} y={330} w={960} h={150} size={84} ls={4} seed={102} rot={-1.2} at={wt(43, 'one') - 0.1} out={o1} dir="up" dist={200}>ONE HOUR · LIVE · FREE</Strip>
+    <Strip x={420} y={560} w={1080} h={108} c={CREAM} ink={NAVY} size={58} seed={108} rot={0.8} at={S[44] - 0.02} out={o1} dir="down" dist={110}>WE READ THE ACCOUNTS <Hi at={wt(44, 'together')}>TOGETHER</Hi></Strip>
     <Note x={470} y={110} size={84} c={NAVY} rot={-2} w={1100} at={S[45] + 0.1} dur={1.0}>one question, followed all the way</Note>
     <Marks id="j"><Dots d="M 330 520 C 520 470, 760 570, 960 520 C 1160 470, 1400 570, 1590 520" id="route" prog={inOut((t - (S[45] + 0.3)) / 1.6)} /></Marks>
     {STOPS.map(([x, ic, lb, tt, tw], i) => <React.Fragment key={i}>
       <Paper x={x - 140} y={380} w={280} h={280} c={CREAM} pts={circ(140, 30)} rot={i * 3 - 3} seed={110 + i * 2} amp={3} at={tt - 0.15} dir="up" dist={200}><Ico name={ic} x={140} y={140} size={170} at={tt + 0.1} sw={6} /></Paper>
       <Tape x={x - tw / 2} y={690} w={tw} rot={i === 1 ? 2 : -2} seed={31 + i} at={tt + 0.25}>{lb}</Tape></React.Fragment>)}
-    {t >= STOPS[0][3] - 0.1 && <Paper x={qx - 46} y={270 + qy} w={92} h={104} c={MUSTARD} rot={-6 + qy * 0.05} seed={116} amp={2} core={3} at={STOPS[0][3] - 0.1} dir="up" dist={60}><Big y={4} size={84}>?</Big></Paper>}
   </>;
 };
 // J2 · title card (lines 48–50 and the hold)

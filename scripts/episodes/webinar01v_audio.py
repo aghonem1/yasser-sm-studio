@@ -123,10 +123,8 @@ note(0.5, 0.55); fall(S[1] - 0.2)
 for dt, w in ((0.05, 1.2), (0.21, 1.0), (0.39, 0.6)): drop(S[1] + dt, w, 0.6)
 P(swell(1.1), S[1] - 0.15, 0.7); tape(wt(2, 'cave') - 0.1)
 for k in range(9): P(tick(2100 + 60 * k), S[2] + 0.55 + k * 0.16, 0.22)
-pops(dry, wt(3, 'trembling') - 0.08, 10, 0.04, 0.5, 330.0); P(rattle(2.5), wt(3, 'trembling') + 0.1, 1.0)
-for k in range(3): P(heart(), wt(3, 'trembling') + 0.25 + k * 0.82, 0.55 - 0.12 * k)
-for k in range(5): mark(S[4] + 0.15 + k * 0.07, 0.13, 0.7, 0.45)
-T(bell(midi(74), 2.4), S[4] + 0.2, 0.55); T(bell(midi(81), 2.4), S[4] + 0.32, 0.35)
+pops(dry, wt(3, 'trembling') - 0.08, 10, 0.04, 0.4, 330.0)   # v3: the word lands and stays still; no rattle, no heartbeat
+T(bell(midi(74), 2.4), S[4] + 0.2, 0.4); T(bell(midi(81), 2.4), S[4] + 0.4, 0.22)
 drop(wt(4, 'first') - 0.1, 0.7); fall(S[5] + 0.1, 0.2); P(swell(1.2), S[5] - 0.3, 0.7)
 for dt, w in ((0, 1.1), (0.14, 0.8), (0.26, 0.6), (0.36, 0.4)): drop(S[5] - 0.05 + dt, w, 0.5, sl=dt == 0)
 for k in range(7): P(tick(2300 + 60 * k), S[5] + 0.1 + k * 0.15, 0.22)
@@ -135,11 +133,11 @@ T(marimba(midi(69)), wt(6, 'wife'), 0.5)
 # B · her name
 wipe(S[7] - 0.28); tape(S[7] + 0.05); pops(dry, wt(7, 'khadijah') - 0.25, 8, 0.05, 0.6, 392.0)
 for k, n in enumerate((62, 66, 69, 74)): T(marimba(midi(n), 1.6), wt(7, 'khadijah') + 0.1 + k * 0.05, 0.55)
-drop(S[8] - 0.05, 0.9); hi(wt(8, 'reassures')); drop(wt(8, 'reassures') + 0.1, 0.5, 0.45); T(bell(midi(78), 2.0), wt(8, 'reassures') + 0.4, 0.4)
+drop(S[8] - 0.05, 0.9); hi(wt(8, 'reassures'))
 # C1 · not a guess
 wipe(S[9] - 0.28); note(S[9], 0.7); pops(dry, wt(9, 'so') - 0.08, 7, 0.05, 0.6, 440.0); T(marimba(midi(75)), wt(9, 'sure') + 0.1, 0.5)
 tape(wt(10, 'her') - 0.05); drop(wt(10, 'answer') - 0.05, 1.0)
-mark(wt(10, 'not') - 0.05, 0.55, 1.5, 1.0); P(low_hit(0.8), wt(10, 'not') + 0.45, 0.4); note(wt(10, 'not') + 0.2, 0.3)
+mark(wt(10, 'not') - 0.05, 0.35, 1.3, 0.85); P(low_hit(0.8), wt(10, 'not') + 0.3, 0.35)
 # C2 · years
 wipe(S[11] - 0.28); drop(S[11] - 0.05, 0.9); P(slide(0.9), wt(11, 'for') - 0.2, 0.6); hi(wt(11, 'years'))
 for k in range(13): P(tick(2600 + 90 * k), wt(11, 'for') + 0.1 + k * 0.05, 0.3)
@@ -167,13 +165,14 @@ for k in range(4):
     mark(wt(21, 'every') - 0.05 + k * 0.1, 0.5, 0.9, 0.5); T(marimba(midi((62, 66, 69, 74)[k] + 12), 1.2), wt(21, 'every') + 0.45 + k * 0.1, 0.45)
 drop(wt(21, 'shared') - 0.15, 0.9)
 # F · Hira, step by step
-wipe(S[22]); pops(dry, max(S[22] + 0.1, wt(22, 'hira') - 0.1), 4, 0.05, 0.6, 392.0)
-for dt, w in ((0, 1.2), (0.16, 1.0), (0.34, 0.6)): drop(S[22] + 0.32 + dt, w, 0.55, sl=dt == 0)
-drop(S[23] - 0.02, 0.9); hi(wt(23, 'step')); fall(S[24] - 0.5, 0.4)
+# v3: this scene is kept quiet and slow, so the tone has already changed before the verse arrives
+def soft_drop(t, g=0.3): P(slide(0.7), t, 0.2); P(thud(0.6, 0.5), t + 0.62, g)
+P(tear(0.62), S[22] - 0.33, 0.5); P(swell(0.7), S[22] - 0.4, 0.5)
+soft_drop(max(S[22] + 0.1, wt(22, 'hira') - 0.1), 0.25); soft_drop(S[22] + 0.32, 0.3)
+soft_drop(S[23] - 0.02, 0.3); hi(wt(23, 'step')); fall(S[24] - 0.5, 0.25)
 AT = [S[24] + 0.05, S[25] + 0.05, S[26] + 0.05, wt(27, 'return') - 0.3]
 for k, tt in enumerate(AT):
-    drop(tt, 1.2, 0.7); mark(tt + 0.27, 0.55, 0.6, 0.35); T(marimba(midi((62, 66, 69, 74)[k] + 12), 1.4), tt + 0.27, 0.6)
-    if k: mark(tt - 0.3, 0.3, 0.8, 0.4)
+    soft_drop(tt - 0.15, 0.32); T(marimba(midi((62, 66, 69, 74)[k] + 12), 1.8, 0.5), tt + 0.47, 0.4)
 P(zip_(0.28), VERSE[1] - 0.1, 0.6)
 P(slide(0.5), VERSE[0] - 0.05, 0.4); P(thud(0.8, 0.6), VERSE[0] + 0.28, 0.35); P(slide(0.35, down=True), VERSE[1] - 0.3, 0.3)   # the verse sheet: paper only
 # G · two responses, kept closed
@@ -197,15 +196,12 @@ mark(S[42], 0.25, 1.0, 0.6); mark(S[42] + 0.22, 0.15, 1.0, 0.6); mark(wt(42, 'op
 T(marimba(midi(74), 1.0), S[42] + 0.2, 0.4); T(marimba(midi(63), 1.2), wt(42, 'opposite') + 0.2, 0.5)
 # J1 · the invitation and the route
 wipe(S[43] - 0.28); note(S[43], 0.5)
-for k, w in enumerate(('one', 'live', 'free')):
-    drop(wt(43, w) - 0.1, 1.1, 0.7); T(marimba(midi((62, 66, 69)[k] + 12), 1.4), wt(43, w) + 0.17, 0.65)
+drop(wt(43, 'one') - 0.1, 1.1, 0.7); T(marimba(midi(74), 1.4), wt(43, 'one') + 0.17, 0.5)
 drop(S[44] - 0.02, 0.9); hi(wt(44, 'together')); fall(S[45] - 0.2, 0.4); note(S[45] + 0.1, 1.0)
 for k in range(10): P(tick(2200 + 70 * k), S[45] + 0.35 + k * 0.16, 0.22)
 STOPS = [wt(46, 'marketplace'), wt(46, 'mountain'), wt(47, 'first')]
 for k, tt in enumerate(STOPS):
     drop(tt - 0.15, 1.0, 0.65); mark(tt + 0.12, 0.55, 0.6, 0.35); tape(tt + 0.25); T(marimba(midi((62, 67, 74)[k] + 12), 1.4), tt + 0.12, 0.6)
-    if k: P(slide(0.45), tt - 0.37, 0.45)
-P(thud(0.4), STOPS[0] + 0.16, 0.3)
 # J2 · the title
 wipe(S[48] - 0.12); pops(dry, S[48] + 0.24, 7, 0.05, 0.6, 392.0)
 K = max(S[48] + 0.5, wt(48, 'khadijah') - 0.12); pops(dry, K, 8, 0.05, 0.7, 330.0); pops(dry, wt(48, 'know') - 0.05, 5, 0.05, 0.7, 494.0)
@@ -225,7 +221,7 @@ def mode(t):
     if t >= S[40] - 0.1: return 'tense'
     if t >= S[32] - 0.28: return 'groove'
     if t >= S[27]: return 'soft'
-    if t >= S[22]: return 'light'
+    if t >= S[22]: return 'soft'
     if t >= S[20] - 0.05: return 'groove'
     if t >= wt(18, 'dispute') - 0.1: return 'tense'
     if t >= S[16] + 0.05: return 'groove'
