@@ -86,41 +86,45 @@ def knock(g=1.0):
     clk = bp(rng.standard_normal(len(tt)), 1500, 5000) * np.exp(-tt * 90) * 0.4
     return (body + clk) * 0.6 * g
 
-# ep06 birr — cues follow the storyboard beats in remotion/src/episodes/Ep06_Birr.tsx
+# ep06 birr v2 — cues follow the v2 motion beats in remotion/src/episodes/Ep06_Birr.tsx
 def tick(g=1.0):
     tt = t_(0.12); return bp(rng.standard_normal(len(tt)), 2500, 7000) * np.exp(-tt * 70) * 0.5 * g
 sfx = np.zeros(N)
 place(sfx, boom(1.2), 0.0, 0.7); place(sfx, chime(1318.5, 1.2), 0.02, 0.3)              # hook lands, frame 1
-place(sfx, whoosh(0.35, up=False), word_t(0, "stop") - 0.15, 0.4); place(sfx, knock(), word_t(0, "stop") + 0.2, 0.55)   # ban ring over the stop hand
-place(sfx, whoosh(0.7, up=True), ST[1] - 0.1, 0.45)                                        # the arrow climbs to step 2
-place(sfx, chime(1174.7, 1.0), word_t(1, "more") - 0.05, 0.35)                             # MORE
-place(sfx, whoosh2(0.5), ST[2] - 0.45, 0.5); place(sfx, chime(1318.5, 1.2), word_t(2, "one") - 0.05, 0.4)   # 1 WORD
-place(sfx, shimmer(1.4), ST[3] - 0.2, 0.45); place(sfx, boom(1.2), ST[3] - 0.2, 0.6)     # the Arabic word, hand-and-heart on step 2
-place(sfx, chime(1568, 1.2), ST[4] + 0.1, 0.3)                                             # generous kindness glows
-place(sfx, whoosh2(0.55), ST[5] - 0.6, 0.5)                                                # verse 60:8 — whooshes only
-place(sfx, whoosh(0.35, up=False), word_t(5, "forbid") + 0.1, 0.3)                          # FORBID struck (whoosh only)
-place(sfx, whoosh(0.4, up=True), word_t(5, "kindness") - 0.15, 0.25); place(sfx, whoosh(0.4, up=True), word_t(5, "justice") - 0.15, 0.25)
-place(sfx, whoosh(0.4, up=False), ST[6] - 0.1, 0.25); place(sfx, whoosh(0.4, up=False), ST[7] - 0.1, 0.25)
-place(sfx, whoosh2(0.55), ST[8] - 0.45, 0.6)                                               # split panel: qist | birr
+place(sfx, ring_clink(), word_t(0, "stop") - 0.05, 0.35); place(sfx, whoosh(0.4, up=False), word_t(0, "stop"), 0.35)   # the rope unhooks and swings
+place(sfx, whoosh(1.2, up=True), ST[1] - 0.05, 0.35)                                       # the point of light climbs
+place(sfx, chime(1174.7, 1.0), word_t(1, "more") - 0.05, 0.35)                      # MORE
+place(sfx, chime(1318.5, 1.2), word_t(2, "one") - 0.05, 0.38)                              # ONE WORD, the light swells
+place(sfx, riser(0.55), ST[3] - 0.55, 0.55); place(sfx, boom(1.2), ST[3] - 0.08, 0.6); place(sfx, shimmer(1.4), ST[3] - 0.08, 0.45)   # zoom-through into the light
+place(sfx, whoosh(0.7, up=False), ST[3] - 0.05, 0.2)                                      # the pen writes the word
+place(sfx, chime(1568, 1.2), ST[4] + 0.05, 0.3)                                            # generous kindness
+place(sfx, whoosh2(0.6), ST[5] - 0.45, 0.5)                                                # the word flies into the card (verse window: whooshes only)
+place(sfx, whoosh(0.35, up=False), word_t(5, "forbid") + 0.08, 0.3)                       # FORBID struck
+place(sfx, whoosh(0.4, up=True), word_t(5, "kindness") - 0.15, 0.22); place(sfx, whoosh(0.4, up=True), word_t(5, "justice") - 0.15, 0.22)
+place(sfx, whoosh(0.4, up=True), ST[6] - 0.05, 0.2); place(sfx, whoosh(0.4, up=True), ST[7] - 0.05, 0.2)
+place(sfx, whoosh2(0.7), ST[8] - 0.3, 0.55)                                                # tiles grow into panels
 place(sfx, chime(1046.5, 1.0), word_t(9, "justice") - 0.05, 0.38); place(sfx, chime(1318.5, 1.0), word_t(10, "kindness") - 0.05, 0.38)
-place(sfx, whoosh2(0.5), ST[11] - 0.45, 0.55)
-place(sfx, whoosh(0.45, up=True), ST[11] + 0.05, 0.35); place(sfx, knock(1.2), word_t(11, "harming") + 0.0, 0.6)   # harm arrow stopped by the hand
-place(sfx, boom(0.5), word_t(11, "harming") + 0.1, 0.45)                                    # ✗ harm
-place(sfx, whoosh(0.6, up=True), word_t(12, "help") - 0.25, 0.4); place(sfx, chime(1568, 1.0), word_t(12, "help") + 0.4, 0.35)   # lifted up
-place(sfx, whoosh2(0.5), ST[13] - 0.45, 0.55)
-for j in range(3): place(sfx, tick(0.8), ST[13] + 0.2 + j * 0.45, 0.45)                   # the beam rocks
-place(sfx, knock(0.9), word_t(13, "straight") - 0.0, 0.45); place(sfx, chime(1174.7, 1.0), word_t(13, "straight") + 0.1, 0.38)   # level ✓
-place(sfx, whoosh2(0.5), ST[14] - 0.4, 0.5)
-place(sfx, chime(1046.5, 0.8), word_t(14, "fills") + 0.25, 0.3); place(sfx, chime(1318.5, 0.8), word_t(14, "fills") + 0.5, 0.3)   # hearts drop into the pans
-place(sfx, shimmer(1.6), word_t(14, "warmth") - 0.2, 0.4)                                  # the sun rises, warmth
-place(sfx, boom(0.9), ST[15], 0.6)                                                          # THE HARD PART
-place(sfx, whoosh2(0.5), ST[16] - 0.4, 0.5)
-place(sfx, boom(0.5), word_t(16, "wrong") + 0.05, 0.55); place(sfx, knock(), word_t(16, "wrong") + 0.05, 0.4)      # red ✗ on the handshake
-place(sfx, whoosh(0.4, up=True), ST[17] + 0.2, 0.4); place(sfx, chime(1318.5, 1.2), ST[17] + 0.72, 0.45)   # ✗ lifted, PERMITS ✓
-place(sfx, whoosh2(0.5), ST[18] - 0.15, 0.55); place(sfx, chime(1174.7, 1.0), word_t(18, "just") + 0.05, 0.38)    # BE JUST ✓
-place(sfx, whoosh(0.7, up=True), ST[19] - 0.1, 0.45)                                        # the arrow climbs
-for w, f in (("care", 1046.5), ("goodwill", 1174.7), ("active", 1318.5)): place(sfx, chime(f, 1.0), word_t(20, w) + 0.15, 0.36)   # ✓ ✓ ✓
-place(sfx, whoosh(0.4, up=False), ST[21] - 0.2, 0.45); place(sfx, knock(), word_t(21, "stop") + 0.2, 0.55)   # callback: the stop hand banned
+place(sfx, whoosh2(0.5), ST[11] - 0.45, 0.5)                                               # panels swap content
+place(sfx, knock(0.9), word_t(11, "prevents") - 0.15, 0.45)                                 # the gold wall rises
+place(sfx, whoosh(0.6, up=True), ST[11] + 0.1, 0.35)                                        # arrow of harm
+place(sfx, knock(1.3), word_t(11, "harming") + 0.05, 0.6); place(sfx, boom(0.5), word_t(11, "harming") + 0.05, 0.45)   # it breaks on the wall
+place(sfx, whoosh(0.8, up=True), word_t(12, "help") - 0.35, 0.4); place(sfx, chime(1568, 1.0), word_t(12, "help") + 0.5, 0.35)   # lifted up
+place(sfx, whoosh(0.6, up=False), ST[13] - 0.55, 0.45)                                      # panels fold into the pans
+for k in range(3): place(sfx, tick(0.8), ST[13] + 0.15 + k * 0.5, 0.45)                    # the beam rocks
+place(sfx, knock(0.9), word_t(13, "straight") - 0.05, 0.45); place(sfx, chime(1174.7, 1.0), word_t(13, "straight") + 0.1, 0.38)   # level ✓
+place(sfx, knock(0.7), word_t(14, "fills") + 0.2, 0.4); place(sfx, chime(1046.5, 0.8), word_t(14, "fills") + 0.2, 0.3)
+place(sfx, knock(0.7), word_t(14, "fills") + 0.4, 0.4); place(sfx, chime(1318.5, 0.8), word_t(14, "fills") + 0.4, 0.3)   # hearts land in the pans
+place(sfx, shimmer(1.6), word_t(14, "warmth") - 0.3, 0.4)                                   # warm light rises
+place(sfx, whoosh2(0.5), ST[15] - 0.4, 0.5); place(sfx, boom(0.9), ST[15], 0.6)              # push into darkness: THE HARD PART
+place(sfx, whoosh(0.5, up=True), word_t(16, "difference") - 0.25, 0.35)                     # two homes
+place(sfx, whoosh(0.8, up=True), word_t(16, "kindness") - 0.4, 0.3)                         # the bridge, the heart sets out
+place(sfx, boom(0.6), word_t(16, "wrong") + 0.02, 0.6); place(sfx, knock(1.3), word_t(16, "wrong") + 0.02, 0.5)   # the barrier slams down
+place(sfx, knock(1.0), ST[17] + 0.25, 0.5); place(sfx, whoosh(0.5, up=False), ST[17] + 0.28, 0.4)   # it breaks and falls
+place(sfx, chime(1318.5, 1.2), ST[17] + 0.75, 0.45); place(sfx, shimmer(1.4), ST[17] + 1.05, 0.4)   # PERMITS ✓, windows light up
+place(sfx, whoosh2(0.6), ST[18] - 0.4, 0.55); place(sfx, chime(1174.7, 1.0), word_t(18, "just") + 0.05, 0.38)   # pull back: BE JUST ✓
+place(sfx, whoosh(1.2, up=True), ST[19] - 0.05, 0.35)                                       # the light climbs again
+for w, f in (("care", 1046.5), ("goodwill", 1174.7), ("active", 1318.5)): place(sfx, chime(f, 1.0), word_t(20, w) + 0.1, 0.36)   # ✓ ✓ ✓
+place(sfx, whoosh2(0.5), ST[21] - 0.3, 0.45); place(sfx, boom(0.6), ST[21] - 0.05, 0.4)   # callback: DON'T STOP AT FAIR.
 place(sfx, riser(1.0), VEND - 0.9, 0.5)
 place(sfx, boom(1.4), VEND + 0.05, 0.6); place(sfx, shimmer(1.4), VEND + 0.08, 0.6)
 sfx = reverb(sfx, 0.28)
