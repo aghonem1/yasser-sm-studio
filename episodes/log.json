@@ -61,7 +61,7 @@
       "word": "بِرّ",
       "slug": "birr",
       "date": "2026-11-23",
-      "status": "v2 rebuilt 24 Nov: premium motion pass (Ahmed: animation + overlaps); awaiting Yasser's approval",
+      "status": "v3 24 Nov: premium motion (v2) + text pass; awaiting Yasser's approval",
       "book": "Ch.3 p.26 (Kindness Goes Beyond Justice) + Ch.4 p.35–36 (Beyond Fairness)",
       "verses": [
         "60:8"
@@ -73,7 +73,7 @@
       "hook_score": 100.0,
       "hook_score_start": 54.6,
       "test": "hook type = negative command (ep05–07)",
-      "files": "2026-11-23_the-mirror_one-word-06-birr_9x16_v2.mp4 / _v2_cover.jpg",
+      "files": "2026-11-23_the-mirror_one-word-06-birr_9x16_v3.mp4 / _v3_cover.jpg",
       "check": "qist re-generated and spliced (ASR hears kāf for qāf); last birr at ~38.9 s unclear in Arabic ASR"
     }
   ]

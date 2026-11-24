@@ -27,7 +27,7 @@ const CX = 540, CY = 975;
 const FONTS: [string, string, string?, string?][] = [
   ['YFCinzel', 'YF-Cinzel.ttf'], ['YFCinzelB', 'YF-CinzelB.ttf'], ['YFSpectralSB', 'YF-SpectralSB.ttf'],
   ['SpectralFull', 'Spectral-SemiBold-full.ttf'], ['YFCormIt', 'YF-CormorantIt.ttf'], ['CormFull', 'CormorantGaramond-Italic.ttf', 'italic', '600'],
-  ['YFPlex', 'YF-Plex.ttf'], ['Amiri', 'Amiri-Bold.ttf'], ['AmiriQuran', 'AmiriQuran.ttf'],
+  ['YFPlex', 'YF-Plex.ttf'], ['Amiri', 'Amiri-Bold.ttf'], ['AmiriQuran', 'AmiriQuran.ttf'], ['SchB', 'ScheherazadeNew-Bold.ttf'],
 ];
 if (typeof document !== 'undefined') {
   const h = delayRender('fonts');
@@ -36,7 +36,7 @@ if (typeof document !== 'undefined') {
     return f.load().then((ff) => (document as any).fonts.add(ff));
   })).then(() => continueRender(h)).catch((e) => {console.error(e); continueRender(h);});
 }
-const F = {cinzel: 'YFCinzel', cinzelB: 'YFCinzelB', body: 'YFSpectralSB, SpectralFull', it: 'YFCormIt, CormFull', plex: 'YFPlex', ar: 'Amiri', quran: 'AmiriQuran'};
+const F = {cinzel: 'YFCinzel', cinzelB: 'YFCinzelB', body: 'YFSpectralSB, SpectralFull', it: 'YFCormIt, CormFull', plex: 'YFPlex', ar: 'Amiri', quran: 'AmiriQuran', arw: 'SchB, Amiri'};
 
 // ---------- easing / timing ----------
 const clamp = (x: number, a = 0, b = 1) => Math.max(a, Math.min(b, x));
@@ -232,9 +232,10 @@ const KType: React.FC<{text: string; t: number; tin: number; tout?: number; size
     <span style={{display: 'inline-block', whiteSpace: 'pre', fontFamily: font, fontSize: size, lineHeight: `${size * lh}px`, fontStyle: italic ? 'italic' : 'normal',
       fontWeight: weight ?? (italic ? 600 : 400), letterSpacing: `${ls + 0.12 * track}em`}}>
       {chars.map((c, i) => {
-        const pin = outQuint((t - tin - i * gap) / 0.55), pout = inQuint((t - tout - (n - 1 - i) * gap * 0.6) / 0.35);
-        return <span key={i} style={{display: 'inline-block', overflow: 'hidden', verticalAlign: 'top', paddingBottom: size * 0.12, marginBottom: -size * 0.12}}>
-          <span style={{display: 'inline-block', transform: `translateY(${(1 - pin) * 105 - pout * 105}%)`, opacity: clamp(pin * 1.4) * (1 - pout), ...color}}>{c === ' ' ? ' ' : c}</span>
+        const pin = outQuint((t - tin - i * gap) / 0.55), pout = inQuint((t - tout - (n - 1 - i) * gap * 0.25) / 0.3);
+        if (pin <= 0.001 || pout >= 0.999) return <span key={i} style={{display: 'inline-block', visibility: 'hidden'}}>{c === ' ' ? ' ' : c}</span>;
+        return <span key={i} style={{display: 'inline-block', overflow: 'hidden', verticalAlign: 'top', padding: '0.14em 0.2em 0.24em', margin: '-0.14em -0.2em -0.24em'}}>
+          <span style={{display: 'inline-block', transform: `translateY(${(1 - pin) * 140 - pout * 140}%)`, opacity: clamp(pin * 1.4) * (1 - pout), ...color}}>{c === ' ' ? ' ' : c}</span>
         </span>;
       })}
     </span>
@@ -462,7 +463,7 @@ const SceneWord: React.FC<{t: number}> = ({t}) => {
   return (
     <AbsoluteFill>
       <Glow x={CX} y={930} r={260 + 260 * warm} o={(0.45 + 0.55 * warm) * (1 - fly)} />
-      <div dir="rtl" lang="ar" style={{position: 'absolute', left: ax - 400, top: ay - 210, width: 800, height: 420, textAlign: 'center', fontFamily: F.ar, fontSize: 250, lineHeight: '420px',
+      <div dir="rtl" lang="ar" style={{position: 'absolute', left: ax - 400, top: ay - 210, width: 800, height: 420, textAlign: 'center', fontFamily: F.arw, fontSize: 250, lineHeight: '420px',
         color: '#efc874', transform: `scale(${as * (1.06 - 0.06 * settle)})`, opacity: 1 - inQuint((fly - 0.75) / 0.25),
         clipPath: `inset(0 0 0 ${(1 - w) * 100}%)`, textShadow: '0 10px 30px rgba(0,0,0,.55), 0 0 60px rgba(241,208,138,.35)'}}>بِرّ</div>
       {w > 0 && w < 1 && <div style={{position: 'absolute', left: lerp(CX + 130, CX - 130, w) - 3, top: 760, width: 6, height: 320, borderRadius: 6,
@@ -548,7 +549,7 @@ const ScenePanels: React.FC<{t: number; grow?: number}> = ({t, grow = 1}) => {
       <Glass x={L.x} y={L.y} w={L.w} h={L.h} o={1} active={grow * (focL - 0.45) * 1.8}>
         <div style={{position: 'absolute', inset: 0, opacity: grow * focL, transform: `scale(${0.97 + 0.03 * focL})`}}>
           <div style={{opacity: 1 - swap, transform: `translateY(${-swap * 80}px)`}}>
-            <div dir="rtl" lang="ar" style={{position: 'absolute', left: 0, top: 50, width: L.w, textAlign: 'center', fontFamily: F.ar, fontSize: 130, lineHeight: '200px', color: '#efc874', ...lvl(c1)}}>قِسْط</div>
+            <div dir="rtl" lang="ar" style={{position: 'absolute', left: 0, top: 50, width: L.w, textAlign: 'center', fontFamily: F.arw, fontSize: 130, lineHeight: '200px', color: '#efc874', ...lvl(c1)}}>قِسْط</div>
             <div style={{position: 'absolute', left: 0, top: 250, width: L.w, textAlign: 'center', fontFamily: F.it, fontStyle: 'italic', fontWeight: 600, fontSize: 42, color: CREAM, ...lvl(c1)}}>qist</div>
             <Scale cx={L.w / 2} base={640} h={230} arm={110} p={c1} />
             <div style={{position: 'absolute', left: 0, top: 700, width: L.w, textAlign: 'center'}}><KType text="JUSTICE" t={t} tin={wt(9, 'justice') - 0.1} size={46} color={GOLDT} /></div>
@@ -578,7 +579,7 @@ const ScenePanels: React.FC<{t: number; grow?: number}> = ({t, grow = 1}) => {
       <Glass x={R.x} y={R.y} w={R.w} h={R.h} o={1} active={grow * (focR - 0.45) * 1.8 * (t < ST[11] - 0.4 || t > ST[12] - 0.2 ? 1 : 0.5)}>
         <div style={{position: 'absolute', inset: 0, opacity: grow * (t > ST[11] - 0.4 && t < ST[12] - 0.2 ? 0.5 : focR), transform: `scale(${0.97 + 0.03 * focR})`}}>
           <div style={{opacity: 1 - swap, transform: `translateY(${-swap * 80}px)`}}>
-            <div dir="rtl" lang="ar" style={{position: 'absolute', left: 0, top: 50, width: R.w, textAlign: 'center', fontFamily: F.ar, fontSize: 130, lineHeight: '200px', color: '#efc874', ...lvl(c1)}}>بِرّ</div>
+            <div dir="rtl" lang="ar" style={{position: 'absolute', left: 0, top: 50, width: R.w, textAlign: 'center', fontFamily: F.arw, fontSize: 130, lineHeight: '200px', color: '#efc874', ...lvl(c1)}}>بِرّ</div>
             <div style={{position: 'absolute', left: 0, top: 250, width: R.w, textAlign: 'center', fontFamily: F.it, fontStyle: 'italic', fontWeight: 600, fontSize: 42, color: CREAM, ...lvl(c1)}}>birr</div>
             <Glow x={R.w / 2} y={520} r={180} o={aR} />
             <Heart x={R.w / 2} y={520} s={95 * (0.9 + 0.1 * c1)} o={c1} glow={0.4 + 0.6 * aR} />
@@ -655,13 +656,13 @@ const SceneHard: React.FC<{t: number}> = ({t}) => {
   return (
     <AbsoluteFill>
       <Line1 y={560}><KType text="THE HARD PART" t={t} tin={tH - 0.05} tout={t16 - 0.5} size={92} color={GOLDT} /></Line1>
-      <Line1 y={405}><KType text="IF DIFFERENCE MADE" t={t} tin={t16 - 0.05} tout={t17 - 0.45} size={54} /></Line1>
-      <Line1 y={480}><span><KType text="KINDNESS " t={t} tin={wt(16, 'kindness') - 0.15} tout={t17 - 0.42} size={54} color={GOLDT} />
-        <KType text="WRONG…" t={t} tin={tWr - 0.1} tout={t17 - 0.4} size={54} color={{color: RED}} /></span></Line1>
+      <Line1 y={405}><KType text="IF DIFFERENCE MADE" t={t} tin={t16 - 0.05} tout={t17 - 0.6} size={54} /></Line1>
+      <Line1 y={480}><span><KType text="KINDNESS " t={t} tin={wt(16, 'kindness') - 0.15} tout={t17 - 0.6} size={54} color={GOLDT} />
+        <KType text="WRONG…" t={t} tin={tWr - 0.1} tout={t17 - 0.6} size={54} color={{color: RED}} /></span></Line1>
       <Line1 y={400}><KType text="BUT THE QUR'AN PERMITS" t={t} tin={t17 - 0.05} size={50} /></Line1>
-      <div dir="rtl" lang="ar" style={{position: 'absolute', left: CX - 200, top: 480, width: 400, textAlign: 'center', fontFamily: F.ar, fontSize: 130, lineHeight: '182px', color: '#efc874',
+      <div dir="rtl" lang="ar" style={{position: 'absolute', left: CX - 200, top: 452, width: 400, textAlign: 'center', fontFamily: F.arw, fontSize: 130, lineHeight: '182px', color: '#efc874',
         opacity: outQuint((t - t17 - 0.2) / 0.5), transform: `translateY(${(1 - outQuint((t - t17 - 0.2) / 0.5)) * 20}px)`, textShadow: '0 6px 22px rgba(0,0,0,.55)'}}>بِرّ</div>
-      <CheckMark x={CX + 150} y={598} s={90} p={clamp(ok)} />
+      <CheckMark x={CX + 150} y={572} s={90} p={clamp(ok)} />
       <div style={{position: 'absolute', left: 0, top: 672, width: W, textAlign: 'center', fontFamily: F.cinzelB, fontSize: 22, letterSpacing: '0.24em', color: SLATE, opacity: outQuint((t - t17 - 0.9) / 0.5)}}>SURAH 60:8</div>
       <House x={210} y={1080} s={170} p={homes} edge={GOLDL} lit={0.3} />
       <House x={870} y={1080} s={170} p={clamp(homes * 1.2 - 0.1)} edge={SLATE} lit={lit} />
