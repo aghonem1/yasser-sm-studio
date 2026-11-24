@@ -3,35 +3,36 @@ import json, os, numpy as np
 D = os.environ["EP_DIR"]
 SP = json.load(open(f"{D}/spoken.json"))
 # (display text, first spoken idx, last spoken idx); tokens consume 1 spoken word unless listed in MERGE
-LINES = [   # ep06 birr (the last line is the series promise, spoken over the end card)
-    ("Don't stop at being fair.", 0, 4),
-    ("The Qur'an asks you for more.", 5, 10),
-    ("It's one word:", 11, 13),
-    ('birr.', 14, 14),
-    ('Generous kindness.', 15, 16),
-    ('“God does not forbid you from treating with kindness and justice', 17, 27),
-    ('those who have not fought you because of your faith', 28, 37),
-    ('or driven you from your homes.”', 38, 43),
-    ('Two words, side by side.', 44, 48),
-    ('qist: justice.', 49, 50),
-    ('birr: kindness.', 51, 52),
-    ('Justice prevents us from harming another person.', 53, 59),
-    ('Kindness moves us to help him.', 60, 65),
-    ('Justice keeps the balance straight.', 66, 70),
-    ('Kindness fills life with warmth.', 71, 75),
-    ("Here's the hard part.", 76, 79),
-    ('If religious difference made kindness wrong,', 80, 85),
-    ("the Qur'an would not have permitted birr.", 86, 92),
-    ('So be just.', 93, 95),
-    ('Then go further:', 96, 98),
-    ('care, goodwill, active help.', 99, 102),
-    ("Don't stop at fair.", 103, 106),
-    ('A new word, every day.', 107, 111),
+LINES = [   # ep07 ghuluw (the last line is the series promise, spoken over the end card)
+    ("Don't confuse extreme with faithful.", 0, 4),
+    ('Going too far is not more faith.', 5, 11),
+    ("The Qur'an has a word for it:", 12, 18),
+    ('ghuluw.', 19, 19),
+    ('Passing beyond the proper boundary.', 20, 24),
+    ('God says:', 25, 26),
+    ('“Do not go to excess in your religion.”', 27, 34),
+    ('Notice:', 35, 35),
+    ("He doesn't ask you to weaken your commitment.", 36, 43),
+    ('He asks you not to cross the line.', 44, 51),
+    ('So how does it start?', 52, 56),
+    ('One piece of the faith,', 57, 61),
+    ('held up as the whole.', 62, 66),
+    ('Like one dark cloud,', 67, 70),
+    ('and calling the whole sky darkness.', 71, 76),
+    ("Here's the hard part.", 77, 80),
+    ("He crosses the line while thinking he's protecting it.", 81, 89),
+    ('Commitment becomes intolerance.', 90, 92),
+    ('Advice becomes condemnation.', 93, 95),
+    ('Disagreement becomes hostility.', 96, 98),
+    ('Going beyond the limit is not greater obedience.', 99, 106),
+    ("Extreme isn't faithful.", 107, 109),
+    ('A new word, every day.', 110, 114),
 ]
 PROMISE = True   # last line is spoken during the end card: voice_end = end of the line before it
 MERGE = {}
-MAXG, KEEP_LONG = 0.45, {1: 0.5, 7: 0.6, 14: 0.6, 15: 0.5, 17: 0.5, 20: 0.5}
+MAXG, KEEP_LONG = 0.32, {1: 0.42, 6: 0.5, 14: 0.5, 15: 0.42, 19: 0.45, 20: 0.6}
 ENDCARD = 3.2
+QUIET_DB = -42   # gap trimming only removes audio this quiet (added ep07: protects word tails)
 
 src = f"{D}/src.wav"
 audio = None
@@ -59,6 +60,12 @@ for i in range(len(LINES) - 1):
                 v = rms_db(t, t + rem)
                 if best is None or v < best[0]: best = (v, t)
             a, b = best[1], best[1] + rem
+            # still not silent (word tail or breath under a short timestamp gap): shrink the cut until it is
+            while rem > 0.04 and rms_db(a, b) > QUIET_DB:
+                rem -= 0.02
+                best = min((rms_db(t, t + rem), t) for t in np.arange(e, s - rem, 0.01))
+                a, b = best[1], best[1] + rem
+            if rms_db(a, b) > QUIET_DB: continue
         cuts.append((a, b))
 def shift(t):
     d = 0.0
