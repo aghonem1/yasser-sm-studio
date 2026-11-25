@@ -208,8 +208,8 @@ K = max(S[48] + 0.5, wt(48, 'khadijah') - 0.12); pops(dry, K, 8, 0.05, 0.7, 330.
 P(low_hit(2.2), wt(48, 'know') + 0.2, 0.8)
 for k, n in enumerate((50, 62, 66, 69, 74, 78)): T(marimba(midi(n), 2.4), wt(48, 'know') + 0.2 + k * 0.045, 0.6)
 T(bell(midi(86), 2.8), wt(48, 'know') + 0.45, 0.35)
-tape(wt(49, 'weekend') - 0.1); tape(wt(49, 'december') + 0.2); drop(S[50] + 0.2, 1.1, 0.7); T(marimba(midi(74), 1.6), S[50] + 0.47, 0.5)
-note(VEND - 0.2, 0.5); mark(VEND + 0.2, 0.3, 0.9, 0.5); T(bell(midi(74), 2.6), VEND + 0.5, 0.4); T(bell(midi(81), 2.6), VEND + 0.6, 0.3)
+tape(wt(49, 'saturday') - 0.1); tape(wt(49, 'january') + 0.2); drop(S[50] + 0.2, 1.1, 0.7); T(marimba(midi(74), 1.6), S[50] + 0.47, 0.5)
+T(bell(midi(74), 2.6), VEND + 0.5, 0.4); T(bell(midi(81), 2.6), VEND + 0.6, 0.3)
 
 # ---------------- music ----------------
 BPM = 100; beat = 60 / BPM; st = beat / 4; bar = 4 * beat

@@ -1,0 +1,6 @@
+{"lines": [
+ {"key": "date", "text": "Saturday, the ninth of January. Nine p.m., Singapore time.", "words": [["Saturday,", 0.318, 0.726], ["the", 1.18, 1.362], ["ninth", 1.407, 1.725], ["of", 1.816, 1.861], ["January.", 1.952, 2.406], ["Nine", 2.86, 3.087], ["p.m.,", 3.268, 3.586], ["Singapore", 3.813, 4.448], ["time.", 4.539, 4.766]]},
+ {"key": "stone", "text": "Before Hira, there was the day of the Black Stone.", "words": [["Before", 5.175, 5.492], ["Hira,", 5.855, 6.309], ["there", 6.763, 6.99], ["was", 7.081, 7.262], ["the", 7.399, 7.535], ["day", 7.58, 7.807], ["of", 7.898, 7.989], ["the", 8.079, 8.17], ["Black", 8.216, 8.488], ["Stone.", 8.624, 8.942]]},
+ {"key": "begin", "text": "How did revelation begin?", "words": [["How", 9.532, 9.85], ["did", 9.986, 10.122], ["revelation", 10.213, 10.667], ["begin?", 10.894, 11.075]]},
+ {"key": "known", "text": "Khadijah had known him for years.", "words": [["Khadijah", 12.101, 12.873], ["had", 13.1, 13.69], ["known", 13.781, 14.099], ["him", 14.28, 14.462], ["for", 14.553, 14.734], ["years.", 14.825, 15.233]]}
+]}

@@ -385,11 +385,10 @@ const J2_: React.FC = () => <>
   <Cut text="WHAT DID" x={960} y={150} size={128} tiles={[CREAM, WHITE]} seed={81} gap={8} at={S[48] + 0.24} />
   <Cut text="KHADIJAH" x={960} y={316} size={236} tiles={[MUSTARD, MUSTARD, NAVY, MUSTARD]} seed={83} gap={11} at={Math.max(S[48] + 0.5, wt(48, 'khadijah') - 0.12)} />
   <Cut text="KNOW?" x={960} y={612} size={128} tiles={[CREAM, WHITE, TERRA]} seed={85} gap={8} at={wt(48, 'know') - 0.05} />
-  <Tape x={1110} y={800} w={520} rot={2.5} size={48} seed={19} at={wt(49, 'weekend') - 0.1}>weekend of 12–13 December</Tape>
-  <Tape x={250} y={806} w={610} rot={-3} size={48} seed={17} at={wt(49, 'december') + 0.2}>a free live hour with Yasser Fares</Tape>
+  <Tape x={1010} y={800} w={700} rot={2.2} size={44} seed={19} at={wt(49, 'saturday') - 0.1}>Sat 9 January · 9 PM Singapore time</Tape>
+  <Tape x={250} y={806} w={610} rot={-3} size={48} seed={17} at={wt(49, 'january') + 0.2}>a free live hour with Yasser Fares</Tape>
   <Strip x={610} y={920} w={700} h={96} size={46} font="YFPlex" ls={0.5} seed={87} rot={-0.6} at={S[50] + 0.2} dir="down" dist={120}>yasserfares.com/khadijah</Strip>
-  <Note x={1350} y={920} size={58} c={NOTE} rot={-6} w={400} at={TL.voice_end - 0.2}>save your seat</Note>
-  <Marks id="j2"><Mk d="M 1344 968 C 1334 972, 1326 972, 1318 970" c={NOTE} w={6} at={TL.voice_end + 0.2} dur={0.15} /><Mk d="M 1336 948 L 1314 970 L 1340 986" c={NOTE} w={6} at={TL.voice_end + 0.3} dur={0.15} /></Marks>
+  {/* v5: the handwritten "save your seat" note and its arrow are gone; the address stands on its own (tone: we teach, we do not sell) */}
 </>;
 
 // ---------- assembly ----------
@@ -414,7 +413,7 @@ const SCENES: Scn[] = [
 const KEY: Record<number, string> = {0: 'old', 1: 'mountain.', 2: 'Hira.', 3: 'trembling.', 4: 'revelation.', 5: 'home.', 6: 'wife.', 7: 'Khadijah.', 8: 'reassures', 9: 'sure?', 10: 'guess.', 11: 'years.', 12: 'trade.',
   13: 'husband.', 14: 'question', 15: 'seen?', 16: 'only', 17: 'the Ka‘bah,', 18: 'dispute.', 19: 'Black', 20: 'accepted', 21: 'honour.', 22: 'Hira.', 23: 'step', 24: 'dreams.', 25: 'retreat.', 26: 'al-‘Alaq.',
   27: 'home.', 28: 'listens.', 29: 'witnessed', 30: 'second', 31: 'Waraqah', 32: 'next?', 34: 'invited.', 35: 'first', 36: 'why', 37: 'public,', 38: 'before', 39: 'different', 40: 'Lahab.', 41: 'knew', 42: 'opposite',
-  43: 'free.', 44: 'together,', 45: 'question:', 46: 'mountain,', 47: 'call.', 48: 'Khadijah', 49: 'December.', 50: 'yasserfares.com'};
+  43: 'free.', 44: 'together,', 45: 'question:', 46: 'mountain,', 47: 'call.', 48: 'Khadijah', 49: 'January.', 50: 'yasserfares.com'};
 const Caption: React.FC = () => {
   const {t} = useT();
   let i = -1; for (let j = 0; j < S.length; j++) if (t >= S[j] - 0.12) i = j;

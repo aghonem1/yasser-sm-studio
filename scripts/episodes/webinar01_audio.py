@@ -122,6 +122,22 @@ if VARIANT == "full":
     T, D, R = 41, 42, 43
     PULSE, DENSE = ST[4] - 0.3, ST[25]
     VERSE = [(ST[19] - 0.25, ST[20] + 0.05)]
+elif VARIANT == "reel":
+    # 9:16 reel v3 (episodes/webinar01r): few, quiet effects; nothing that sounds like a sales sting
+    place(sfx, boom(0.8), 0.05, 0.35)
+    place(sfx, shimmer(1.2), word_t(1, "first") - 0.1, 0.25); place(sfx, chime(1174.7, 1.2), word_t(2, "wife") - 0.1, 0.3)
+    place(sfx, whoosh2(0.45), ST[3] - 0.4, 0.35)
+    place(sfx, whoosh2(0.5), ST[4] - 0.45, 0.45)
+    place(sfx, chime(1174.7, 1.0), word_t(6, "trade") - 0.1, 0.32); place(sfx, chime(1318.5, 1.0), word_t(6, "marriage") - 0.1, 0.32)
+    place(sfx, whoosh2(0.5), ST[7] - 0.45, 0.45); place(sfx, boom(1.0), word_t(7, "what") - 0.1, 0.4); place(sfx, shimmer(1.2), word_t(7, "seen") - 0.1, 0.3)
+    place(sfx, whoosh2(0.5), ST[8] - 0.45, 0.45); place(sfx, page_flutter(0.6), word_t(9, "read") - 0.1, 0.3)
+    place(sfx, chime(1568.0, 0.9), word_t(10, "question") - 0.25, 0.28)
+    place(sfx, whoosh2(0.5), ST[11] - 0.5, 0.4); place(sfx, boom(1.3), ST[11] - 0.1, 0.5); place(sfx, shimmer(1.6), ST[11] - 0.05, 0.4)
+    place(sfx, chime(1318.5, 1.2), word_t(12, "saturday") - 0.05, 0.3); place(sfx, chime(1568.0, 1.2), word_t(13, "nine") - 0.05, 0.26)
+    place(sfx, shimmer(1.4), VEND - 0.3, 0.28)
+    T = D = R = None
+    PULSE, DENSE = ST[4] - 0.3, ST[8]
+    VERSE = []
 else:
     place(sfx, whoosh2(0.55), ST[4] - 0.5, 0.6); place(sfx, boom(0.6), word_t(4, "guess") + 0.25, 0.5)
     place(sfx, whoosh2(0.5), ST[5] - 0.2, 0.4)
@@ -133,9 +149,10 @@ else:
     T, D, R = (9, 10, 11) if len(LN) == 12 else (9, None, len(LN) - 1)
     PULSE, DENSE = ST[4] - 0.3, ST[8]
     VERSE = []
-place(sfx, riser(1.1), ST[T] - 1.15, 0.45); place(sfx, boom(1.4), ST[T] - 0.1, 0.6); place(sfx, shimmer(1.6), ST[T] - 0.05, 0.55)
-place(sfx, chime(1318.5, 1.2), ST[D] if D is not None else ST[T] + 0.85, 0.35); place(sfx, ring_clink(), ST[R], 0.4)
-place(sfx, boom(1.2), VEND + 0.05, 0.5); place(sfx, shimmer(1.4), VEND + 0.08, 0.5)
+if T is not None:
+    place(sfx, riser(1.1), ST[T] - 1.15, 0.45); place(sfx, boom(1.4), ST[T] - 0.1, 0.6); place(sfx, shimmer(1.6), ST[T] - 0.05, 0.55)
+    place(sfx, chime(1318.5, 1.2), ST[D] if D is not None else ST[T] + 0.85, 0.35); place(sfx, ring_clink(), ST[R], 0.4)
+    place(sfx, boom(1.2), VEND + 0.05, 0.5); place(sfx, shimmer(1.4), VEND + 0.08, 0.5)
 sfx = reverb(sfx, 0.28)
 
 # ---------------- music ----------------
