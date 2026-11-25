@@ -129,11 +129,12 @@ else:
     place(sfx, whoosh2(0.55), ST[7] - 0.5, 0.6); place(sfx, boom(1.0), word_t(7, "what") - 0.1, 0.55); place(sfx, shimmer(1.2), word_t(7, "seen") - 0.1, 0.4)
     place(sfx, whoosh2(0.5), ST[8] - 0.45, 0.55)
     for w, f in (("one", 1174.7), ("live", 1318.5), ("free", 1568.0)): place(sfx, chime(f, 0.9), word_t(8, w) - 0.1, 0.32)
-    T, D, R = 9, 10, 11
+    # v2 of the short has no spoken date line (the date is on screen only): D is None and the chime lands where the date appears
+    T, D, R = (9, 10, 11) if len(LN) == 12 else (9, None, len(LN) - 1)
     PULSE, DENSE = ST[4] - 0.3, ST[8]
     VERSE = []
 place(sfx, riser(1.1), ST[T] - 1.15, 0.45); place(sfx, boom(1.4), ST[T] - 0.1, 0.6); place(sfx, shimmer(1.6), ST[T] - 0.05, 0.55)
-place(sfx, chime(1318.5, 1.2), ST[D], 0.35); place(sfx, ring_clink(), ST[R], 0.4)
+place(sfx, chime(1318.5, 1.2), ST[D] if D is not None else ST[T] + 0.85, 0.35); place(sfx, ring_clink(), ST[R], 0.4)
 place(sfx, boom(1.2), VEND + 0.05, 0.5); place(sfx, shimmer(1.4), VEND + 0.08, 0.5)
 sfx = reverb(sfx, 0.28)
 

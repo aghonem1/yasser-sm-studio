@@ -6,7 +6,7 @@ import EX from '../excerpts.json';
 import {Icon, Mark, StrikeIn} from '../lib/icons';
 
 // =====================================================================================
-// Webinar teaser · "What Did Khadijah Know?"  (free live session, 12–13 Dec 2026)
+// Webinar teaser · "What Did Khadijah Know?"  (free live session, Saturday 9 January 2027, 9 PM Singapore time; first made for 12–13 Dec 2026)
 //   web01  — full explainer, 1920x1080, ~1:50   (registration page, YouTube)
 //   web01s — short cut, 1080x1920, ~31 s        (reels, ads)
 // Same navy/gold system as the One Word reels. Every scene is drawn on a 1000x620 "stage"
@@ -387,7 +387,8 @@ const Cta: React.FC<{t: number; a: CtaA}> = ({t, a}) => {
       <Lbl x={500} y={116} w={900} p={titleP} size={22}>A FREE LIVE SESSION WITH YASSER FARES</Lbl>
       <Big y={168} p={titleP} size={84} ls={4}>WHAT DID</Big>
       <Big y={262} p={k(t, a.title - 0.05, 0.7, outExpo)} size={84} ls={4}>KHADIJAH KNOW?</Big>
-      <Lbl x={500} y={392} w={940} p={k(t, a.date - 0.1, 0.6)} size={34} c={CREAM}>WEEKEND OF 12–13 DECEMBER 2026</Lbl>
+      <Lbl x={500} y={370} w={940} p={k(t, a.date - 0.1, 0.6)} size={34} c={CREAM}>SATURDAY 9 JANUARY 2027</Lbl>
+      <Lbl x={500} y={420} w={940} p={k(t, a.date + 0.1, 0.6)} size={23} c={GOLDL}>9:00 PM SINGAPORE TIME</Lbl>
       <Pill x={500} y={470} w={620} p={k(t, a.reg - 0.1, 0.5, outBack)} size={27} solid>{a.cta}</Pill>
       <Reveal p={k(t, a.reg + 0.25, 0.5)} style={{left: 0, top: 548, width: SW, textAlign: 'center'}}>
         <div style={{fontFamily: F.plex, fontSize: 32, letterSpacing: 0.5, color: CREAM}}>{a.url}</div></Reveal>
@@ -427,7 +428,7 @@ const Chrome: React.FC<{t: number}> = ({t}) => {
         <div style={{fontFamily: F.cinzelB, fontSize: 32, letterSpacing: 11, color: GOLD}}>YASSER FARES</div>
         <div style={{width: 170, height: 1.5, background: `linear-gradient(90deg, ${GOLD}, ${GOLD}00)`}} />
       </div>
-      <div style={{position: 'absolute', top: 290, width: W, textAlign: 'center', fontFamily: F.cinzel, fontSize: 23, letterSpacing: 7, color: CREAM, opacity: 0.72}}>A FREE LIVE SESSION &nbsp;·&nbsp; 12–13 DECEMBER</div>
+      <div style={{position: 'absolute', top: 290, width: W, textAlign: 'center', fontFamily: F.cinzel, fontSize: 23, letterSpacing: 7, color: CREAM, opacity: 0.72}}>A FREE LIVE SESSION &nbsp;·&nbsp; SAT 9 JANUARY</div>
       <div style={{position: 'absolute', top: 1512, left: 160, width: W - 320, height: 2, background: 'rgba(201,164,87,.18)', borderRadius: 2}}><div style={{width: `${bar}%`, height: 2, background: GOLDL, borderRadius: 2}} /></div>
     </AbsoluteFill>
   ) : (
@@ -436,7 +437,7 @@ const Chrome: React.FC<{t: number}> = ({t}) => {
         <div style={{fontFamily: F.cinzelB, fontSize: 27, letterSpacing: 9, color: GOLD}}>YASSER FARES</div>
         <div style={{width: 120, height: 1.5, background: `linear-gradient(90deg, ${GOLD}, ${GOLD}00)`}} />
       </div>
-      <div style={{position: 'absolute', top: 48, right: 72, fontFamily: F.cinzel, fontSize: 20, letterSpacing: 6, color: CREAM, opacity: 0.72}}>A FREE LIVE SESSION &nbsp;·&nbsp; 12–13 DECEMBER</div>
+      <div style={{position: 'absolute', top: 48, right: 72, fontFamily: F.cinzel, fontSize: 20, letterSpacing: 6, color: CREAM, opacity: 0.72}}>A FREE LIVE SESSION &nbsp;·&nbsp; SAT 9 JANUARY</div>
       <div style={{position: 'absolute', top: 1046, left: 72, width: W - 144, height: 2, background: 'rgba(201,164,87,.18)', borderRadius: 2}}><div style={{width: `${bar}%`, height: 2, background: GOLDL, borderRadius: 2}} /></div>
     </AbsoluteFill>
   );
@@ -519,17 +520,17 @@ export const Web01: React.FC = () => {
 };
 
 const {ST: Q, wt: Wq} = mkT(SHORT);
-const KEYS: Record<number, string> = {0: 'trembling.', 1: 'revelation.', 2: 'Khadijah.', 3: 'reassures', 4: 'guess.', 5: 'years,', 6: 'marriage.', 7: 'seen?', 8: 'free.', 9: 'Khadijah', 10: 'December.', 11: 'link.'};
+const KEYS: Record<number, string> = {0: 'trembling.', 1: 'revelation.', 2: 'Khadijah.', 3: 'reassures', 4: 'guess.', 5: 'years,', 6: 'marriage.', 7: 'seen?', 8: 'free.', 9: 'Khadijah', 10: 'link.'};   // v2: the spoken date line is cut, the date is on screen only
 const SHORT_SCN: Scn[] = [
   [-1, Q[4] - 0.05, (t) => <Hook t={t} a={{trem: Wq(0, 'trembling'), rev: Q[1], wife: Q[2], name: Wq(2, 'khadijah'), reass: Q[3]}} />],
   [Q[4] - 0.3, Q[7] - 0.05, (t) => <Known t={t} a={{guess: Q[4], guessW: Wq(4, 'guess'), years: Q[5], trade: Wq(6, 'trade'), marr: Wq(6, 'marriage')}} />],
   [Q[7] - 0.35, Q[8] - 0.2, (t) => <Question t={t} a={{t0: Q[7] - 0.15, seen: Wq(7, 'what') + 0.1}} />],
-  [Q[8] - 0.25, SHORT.total + 1, (t) => <Cta t={t} a={{hour: Wq(8, 'one'), live: Wq(8, 'live'), free: Wq(8, 'free'), title: Q[9], date: Q[10], reg: Q[11], vend: SHORT.voice_end, url: 'yasserfares.com/khadijah', cta: 'FREE · LINK IN BIO'}} />],
+  [Q[8] - 0.25, SHORT.total + 1, (t) => <Cta t={t} a={{hour: Wq(8, 'one'), live: Wq(8, 'live'), free: Wq(8, 'free'), title: Q[9], date: Q[9] + 0.85, reg: Q[10], vend: SHORT.voice_end, url: 'yasserfares.com/khadijah', cta: 'FREE · LINK IN BIO'}} />],
 ];
 export const Web01S: React.FC = () => {
   const frame = useCurrentFrame(); const t = frame / FPS;
   const loop = clamp((t - (SHORT.total - 0.5)) / 0.4);
-  const one = (tt: number) => <Frame t={tt} scenes={SHORT_SCN} sweeps={[Q[4] - 0.55, Q[8] - 0.5]} capTo={11} />;
+  const one = (tt: number) => <Frame t={tt} scenes={SHORT_SCN} sweeps={[Q[4] - 0.55, Q[8] - 0.5]} capTo={10} />;
   return (
     <Ctx.Provider value={PORT(SHORT, KEYS)}>
       <AbsoluteFill style={{background: INK}}>{one(t)}{loop > 0 && <AbsoluteFill style={{opacity: loop}}>{one(0)}</AbsoluteFill>}</AbsoluteFill>

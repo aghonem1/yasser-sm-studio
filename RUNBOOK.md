@@ -141,3 +141,10 @@ Ahmed chose Zernio over Buffer for long-term automation (posting, results, comme
 - Most tools are not listed up front: `search_tools` then `call_tool` (ads are under `ad_campaigns_*`).
 - Rule: nothing is published, scheduled or boosted without Ahmed's yes for that item. Tests use drafts and delete them.
 - Not yet confirmed: that scheduled (unattended) runs can use the connector. Creating a one-off scheduled check was blocked in the 25 Nov session.
+
+## Webinar 1 moved to Saturday 9 January 2027, 9:00 PM Singapore time (25 Nov 2026)
+
+- Fixed time, no vote. 13:00 UTC: 3 PM Egypt, 4 PM Saudi Arabia, 5 PM UAE, 1 PM UK, 8 AM US Eastern.
+- Static creative kit (navy and gold): `python3 tools/webinar_kit/kit.py [name-filter]`. Every date string is in `CFG` at the top; text is the approved launch-kit text in `T`. Output: invitation cards (4:5, 1:1, 9:16), time-zone card, carousels A (8) and B (5), ad stills B and C, four countdown stories, and the A4 partner brochure PDF with a QR code. Needs Playwright, the `qrcode` package and the fontsource fonts (paths at the top of the file).
+- 9:16 short, v2: `episodes/webinar01s2/` is the same recording as `webinar01s` with the spoken December date line cut out (no new voice generation); the date is on screen only. `remotion/src/episodes/timeline_webinar01s.json` now holds the v2 timeline (11 lines). Audio: `EP_DIR=$PWD/episodes/webinar01s2 VARIANT=short python3 scripts/episodes/webinar01_audio.py && bash scripts/mix.sh`.
+- Still on the December date: the 16:9 collage teaser (`web01v`, narration line 49 and the tape in `J2_`). Waiting for Ahmed: record one new line or cut the line.
