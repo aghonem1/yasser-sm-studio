@@ -197,7 +197,12 @@ REGIONS = {
     "south-asia": [("Pakistan", "6:00 PM"), ("India · Sri Lanka", "6:30 PM"), ("Bangladesh", "7:00 PM")],
     "southeast-asia": [("Jakarta", "8:00 PM"), ("Malaysia · Brunei · Singapore", "9:00 PM")],
     "africa-egypt": [("Ghana", "1:00 PM"), ("Nigeria", "2:00 PM"), ("Egypt · South Africa", "3:00 PM"), ("Kenya", "4:00 PM")],
+    "gulf": [("Saudi Arabia · Qatar", "4:00 PM"), ("Kuwait · Bahrain", "4:00 PM"), ("UAE · Oman", "5:00 PM")],
+    "uk-europe": [("United Kingdom · Ireland", "1:00 PM"), ("Central Europe", "2:00 PM")],
+    "north-america": [("New York · Toronto", "8:00 AM"), ("Chicago", "7:00 AM"), ("Los Angeles · Vancouver", "5:00 AM")],
 }
+# Early morning in North America: say that the recording is sent (approved line from the local-time card).
+HOUR_META = {"north-america": "Free · Online · Recording sent to everyone who registers"}
 HOUR = ["The day of the Black Stone", "How revelation began", "Who believed next", "Two people, two answers"]
 
 def ad_question(w, h, s, top):
@@ -219,7 +224,7 @@ def ad_hour(w, h, s, top, region):
                 f"<div class='rule' style='margin-top:{34*s}px'></div>"
                 f"<div class='when' style='font-size:{38*s}px;margin-top:{34*s}px'>{CFG['day']}</div>"
                 f"<div style='width:{640*s}px;margin-top:{20*s}px;text-align:left'>{rows}</div>"
-                f"<div class='meta' style='font-size:{21*s}px;margin-top:{32*s}px'>A free live hour with Yasser Fares · Online</div>", top))
+                f"<div class='meta' style='font-size:{21*s}px;margin-top:{32*s}px'>{HOUR_META.get(region, 'A free live hour with Yasser Fares · Online')}</div>", top))
 
 job("ads2_question_4x5", 1080, 1350)(lambda: ad_question(1080, 1350, 1.0, "90px 70px"))
 job("ads2_question_9x16", 1080, 1920)(lambda: ad_question(1080, 1920, 1.06, "260px 50px 340px"))
