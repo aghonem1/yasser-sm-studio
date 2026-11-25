@@ -23,7 +23,7 @@ echo "Media relay outbox (see RUNBOOK.md on main)." > README.md
 git add -A; git commit -qm "upload ${#NAMES[@]} files"; git push -q -f origin HEAD:media
 # A first push that rewrites the branch with many files did not start the workflow (25 Nov 2026); a small second
 # commit under requests/ does. The workflow skips files already marked done, so running twice is harmless.
-sleep 5; date -u > requests/nudge.txt; git add -A; git commit -qm "relay: run"; git push -q origin HEAD:media
+sleep 5; date -u > requests/nudge.txt; git add -A; git commit -qm "relay: run"; git push -q origin HEAD:media 2>/dev/null || true  # refused when the workflow already ran and committed
 for i in $(seq 1 60); do
   sleep 12
   git fetch -q origin +media:refs/remotes/origin/media || continue
