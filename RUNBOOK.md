@@ -148,3 +148,11 @@ Ahmed chose Zernio over Buffer for long-term automation (posting, results, comme
 - Static creative kit (navy and gold): `python3 tools/webinar_kit/kit.py [name-filter]`. Every date string is in `CFG` at the top; text is the approved launch-kit text in `T`. Output: invitation cards (4:5, 1:1, 9:16), time-zone card, carousels A (8) and B (5), ad stills B and C, four countdown stories, and the A4 partner brochure PDF with a QR code. Needs Playwright, the `qrcode` package and the fontsource fonts (paths at the top of the file).
 - 9:16 short, v2: `episodes/webinar01s2/` is the same recording as `webinar01s` with the spoken December date line cut out (no new voice generation); the date is on screen only. `remotion/src/episodes/timeline_webinar01s.json` now holds the v2 timeline (11 lines). Audio: `EP_DIR=$PWD/episodes/webinar01s2 VARIANT=short python3 scripts/episodes/webinar01_audio.py && bash scripts/mix.sh`.
 - Still on the December date: the 16:9 collage teaser (`web01v`, narration line 49 and the tape in `J2_`). Waiting for Ahmed: record one new line or cut the line.
+
+## Marketing skills (installed 25 Nov 2026)
+The marketingskills collection (coreyhaines31/marketingskills, MIT) is vendored in `.claude/skills/`; index and job-to-skill map in `.claude/skills/README.md`; shared brand context in `.agents/product-marketing.md`.
+- Reel (§2, §2a, §8a): after reading learnings.md, read `.claude/skills/social/SKILL.md` and use its hook and short-form guidance when writing the 5 hook options and the caption; `copy-editing` for the final caption pass. tools/ig scores still decide.
+- Carousel: `social` (and `references/post-formats.md`) for cover, slide order and the ask; `copywriting` for the caption.
+- Audit: `analytics` and `ab-testing` for how to read numbers and when a test can be judged (sample size, one variable at a time).
+- Webinar campaigns: `events`, `launch`, `emails`, `co-marketing`, `ads`, `ad-creative`.
+The content rules above and learnings.md always win over a skill. Never add a claim, urgency or scarcity a skill suggests if the source does not support it.
