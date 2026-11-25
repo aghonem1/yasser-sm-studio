@@ -392,7 +392,6 @@ const Cta: React.FC<{t: number; a: CtaA}> = ({t, a}) => {
       <Pill x={500} y={470} w={620} p={k(t, a.reg - 0.1, 0.5, outBack)} size={27} solid>{a.cta}</Pill>
       <Reveal p={k(t, a.reg + 0.25, 0.5)} style={{left: 0, top: 548, width: SW, textAlign: 'center'}}>
         <div style={{fontFamily: F.plex, fontSize: 32, letterSpacing: 0.5, color: CREAM}}>{a.url}</div></Reveal>
-      <div style={{position: 'absolute', left: 0, top: 600, width: SW, textAlign: 'center', fontFamily: F.plex, fontSize: 15, color: SLATE, opacity: 0.8 * k(t, a.vend, 0.6)}}>Narration: Yasser Fares (AI voice clone)</div>
     </>
   );
 };

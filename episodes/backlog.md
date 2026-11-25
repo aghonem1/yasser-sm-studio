@@ -1,6 +1,7 @@
 # One Word — episode backlog (from *The Mirror*, Yasser Fares)
 
-Each run takes the first row whose status is `todo`, then marks it `done` in log.json.
+Each run takes the first row whose status is `todo`, then marks it `done` in log.json. Rows marked `blocked` are skipped.
+On-air numbers follow the order made (26 Nov: aḥsan aired as 08, so the wasat row moved to 09).
 Page = printed page number in the book (PDF page = printed page + 9 in the project copy).
 Every verse must be pulled with `quran/verse.py` (two-source check). English verse renderings come from the book.
 Never invent a hadith, a scholarly position or a reference. Anything not in the book: leave it out.
@@ -14,11 +15,11 @@ Never invent a hadith, a scholarly position or a reference. Anything not in the 
 | 05 | إِكْرَاه | كاف راء هاء | Ch.2 p.17 | 2:256, 18:29 | "Stop forcing faith." (hook 51→84.4) | done |
 | 06 | بِرّ | باء راء راء | Ch.3 p.26 | 60:8 | "Don't stop at being fair." (hook 54.6→100) | done |
 | 07 | غُلُوّ | غين لام واو | Ch.5 p.44–45 | 4:171 | "Don't confuse extreme with faithful." (hook 51→84.4) | done |
-| 08 | وَسَطًا | واو سين طاء | Ch.5 p.45 | 2:143 | "Balance is not halfway." | todo |
-| 09 | أَحْسَن | حاء سين نون | Ch.4 p.36 | 41:34 | "Don't answer well. Answer better." | todo |
-| 10 | طَيِّبَة | طاء ياء باء | Ch.4 p.34–35 | 14:24 | "One word can grow a tree." | todo |
+| 08 | أَحْسَن | حاء سين نون | Ch.4 p.36 | 41:34 | "Not good. Better." (hook 80.2→84.4) | done |
+| 09 | وَسَطًا | واو سين طاء | Ch.5 p.45 | 2:143 | "Balance is not halfway." | blocked: verse.py SOURCES DISAGREE on 2:143 (26 Nov; أُمَّة tanween coded U+08F0 vs U+0657). Needs Ahmed's manual check before use |
+| 10 | طَيِّبَة | طاء ياء باء | Ch.4 p.34–35 | 14:24 | "One word can grow a tree." | blocked: verse.py SOURCES DISAGREE on 14:24 (26 Nov). Needs a manual check |
 | 11 | قِسْط | قاف سين طاء | Ch.3 p.29–30 | 4:135, 5:8 | "Justice even against yourself." | todo |
-| 12 | وِزْر | واو زاي راء | Ch.3 p.30 | 6:164 | "Nobody carries your group's guilt." | todo |
+| 12 | وِزْر | واو زاي راء | Ch.3 p.30 | 6:164 | "Nobody carries your group's guilt." | blocked: verse.py SOURCES DISAGREE on 6:164 (26 Nov). Needs a manual check |
 | 13 | صَالِح | صاد لام حاء | Ch.6 p.53–55 | 2:277, 2:220 | "Righteous isn't 'looks religious'." | todo |
 | 14 | فَسَاد | فاء سين دال | Ch.6 p.59–60 | 2:11–12 | "'We're only reformers,' they said." | todo |
 | 15 | إِصْلَاح | صاد لام حاء | Ch.6 p.56 | 11:88 | "Fix what you can reach." | todo |

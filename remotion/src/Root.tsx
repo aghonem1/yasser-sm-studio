@@ -5,6 +5,7 @@ import {Ep04, TOTAL as T04} from './episodes/Ep04_Balagh';
 import {Ep05, TOTAL as T05} from './episodes/Ep05_Ikrah';
 import {Ep06, TOTAL as T06} from './episodes/Ep06_Birr';
 import {Ep07, TOTAL as T07} from './episodes/Ep07_Ghuluw';
+import {Ep08, TOTAL as T08} from './episodes/Ep08_Ahsan';
 import {Web01R, TOTAL_R} from './episodes/Webinar01_Reel';
 import {Web01R1, TOTAL_R as TOTAL_R1} from './episodes/Webinar01_Story_R1';
 import {Web01R2, TOTAL_R as TOTAL_R2} from './episodes/Webinar01_Story_R2';
@@ -20,6 +21,7 @@ export const Root: React.FC = () => (<>
   <Composition id="ep05" component={Ep05} durationInFrames={Math.round(T05 * FPS)} fps={FPS} width={1080} height={1920} />
   <Composition id="ep06" component={Ep06} durationInFrames={Math.round(T06 * FPS)} fps={FPS} width={1080} height={1920} />
   <Composition id="ep07" component={Ep07} durationInFrames={Math.round(T07 * FPS)} fps={FPS} width={1080} height={1920} />
+  <Composition id="ep08" component={Ep08} durationInFrames={Math.round(T08 * FPS)} fps={FPS} width={1080} height={1920} />
   {/* webinar teaser: full 16:9 explainer and the 9:16 short cut */}
   <Composition id="web01" component={Web01} durationInFrames={Math.round(TOTAL_FULL * FPS)} fps={FPS} width={1920} height={1080} />
   <Composition id="web01s" component={Web01S} durationInFrames={Math.round(TOTAL_SHORT * FPS)} fps={FPS} width={1080} height={1920} />

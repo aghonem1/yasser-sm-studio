@@ -3,34 +3,37 @@ import json, os, numpy as np
 D = os.environ["EP_DIR"]
 SP = json.load(open(f"{D}/spoken.json"))
 # (display text, first spoken idx, last spoken idx); tokens consume 1 spoken word unless listed in MERGE
-LINES = [   # ep07 ghuluw (the last line is the series promise, spoken over the end card)
-    ("Don't confuse extreme with faithful.", 0, 4),
-    ('Going too far is not more faith.', 5, 11),
-    ("The Qur'an has a word for it:", 12, 18),
-    ('ghuluw.', 19, 19),
-    ('Passing beyond the proper boundary.', 20, 24),
-    ('God says:', 25, 26),
-    ('“Do not go to excess in your religion.”', 27, 34),
+LINES = [   # ep08 ahsan (the last line is the series promise, spoken over the end card)
+    ('Not good. Better.', 0, 2),
+    ("That's the Qur'an's command to you.", 3, 8),
+    ('One word: aḥsan.', 9, 11),
+    ('God says:', 12, 13),
+    ('“Respond with what is better,', 14, 18),
+    ('and the one between whom and you there was hostility', 19, 28),
+    ('may become like a close friend.”', 29, 34),
     ('Notice:', 35, 35),
-    ("He doesn't ask you to weaken your commitment.", 36, 43),
-    ('He asks you not to cross the line.', 44, 51),
-    ('So how does it start?', 52, 56),
-    ('One piece of the faith,', 57, 61),
-    ('held up as the whole.', 62, 66),
-    ('Like one dark cloud,', 67, 70),
-    ('and calling the whole sky darkness.', 71, 76),
-    ("Here's the hard part.", 77, 80),
-    ("He crosses the line while thinking he's protecting it.", 81, 89),
-    ('Commitment becomes intolerance.', 90, 92),
-    ('Advice becomes condemnation.', 93, 95),
-    ('Disagreement becomes hostility.', 96, 98),
-    ('Going beyond the limit is not greater obedience.', 99, 106),
-    ("Extreme isn't faithful.", 107, 109),
-    ('A new word, every day.', 110, 114),
+    ("it doesn't just say, respond with something good.", 36, 43),
+    ('It says: with what is better.', 44, 49),
+    ('The response most likely to heal,', 50, 55),
+    ('correct, and bring peace.', 56, 59),
+    ('Think of a greeting.', 60, 63),
+    ('Returning it is justice.', 64, 67),
+    ('Returning it with something better is kindness.', 68, 74),
+    ("Here's the hard part.", 75, 78),
+    ('Not every answer you can give', 79, 84),
+    ('is one you ought to give.', 85, 90),
+    ('You can win the argument,', 91, 95),
+    ('and lose the heart.', 96, 99),
+    ("The point isn't to break the person in front of you.", 100, 110),
+    ("It's to make the truth clearer.", 111, 116),
+    ("Truth doesn't need insult to support it.", 117, 123),
+    ('Not good. Better.', 124, 126),
+    ('A new word, every day.', 127, 131),
 ]
 PROMISE = True   # last line is spoken during the end card: voice_end = end of the line before it
 MERGE = {}
-MAXG, KEEP_LONG = 0.32, {1: 0.42, 6: 0.5, 14: 0.5, 15: 0.42, 19: 0.45, 20: 0.6}
+MAXG, KEEP_LONG = 0.32, {0: 0.36, 1: 0.4, 2: 0.4, 3: 0.5, 6: 0.5, 9: 0.45, 11: 0.4, 14: 0.55, 15: 0.42, 21: 0.4, 22: 0.6}
+LEAD = 0.03   # ep08: cut leading silence so the hook is spoken from ~0.0 s (learnings: first 3 seconds); None = keep
 ENDCARD = 3.2
 QUIET_DB = -42   # gap trimming only removes audio this quiet (added ep07: protects word tails)
 
@@ -67,6 +70,12 @@ for i in range(len(LINES) - 1):
                 a, b = best[1], best[1] + rem
             if rms_db(a, b) > QUIET_DB: continue
         cuts.append((a, b))
+if globals().get('LEAD') is not None:
+    s0 = SP[LINES[0][1]][1] - LEAD
+    if s0 > 0.05:
+        if audio is not None:
+            while s0 > 0.05 and rms_db(0, s0) > QUIET_DB: s0 -= 0.02
+        if s0 > 0.05: cuts.insert(0, (0.0, s0))
 def shift(t):
     d = 0.0
     for a, b in cuts:

@@ -1,0 +1,12 @@
+One Word · 08 · أَحْسَن (ahsan) — HeyGen script (Yasser clone 2c1e0005b48c4690a322867cea82a58f, one generation, 26 Nov 2026 SGT)
+Episode swap: backlog row 08 (وَسَطًا, 2:143) was skipped because quran/verse.py reports SOURCES DISAGREE for 2:143 (أُمَّةً written with
+U+08F0 in source A, U+0657 in source B). Hard rule: drop that verse. Row 09 (أَحْسَن, 41:34, verse.py agrees) was made as episode 08.
+Sources: The Mirror Ch.4 "Kindness Towards Those Who Differ" (41:34 in the book's English: "Respond with what is better, and the one between whom
+and you there was hostility may become like a close friend." "The verse does not merely say to respond with something good. It says to respond with
+what is better: the response most likely to heal, correct and bring peace. Not every answer we are able to give is one we ought to give. A person may
+win an argument yet lose a heart." "The purpose of dialogue is not to break the person before us, but to make truth clearer. Truth does not need
+insult to support it.") + "Beyond Fairness" ("We act justly when we return a greeting. We act kindly when we return it with something better.")
++ "Kindness Protects Against Extremism" ("the command to respond 'with what is better'"). Last line = series promise.
+Verse window (no music): lines 2–4 (God says … close friend) and line 6 (It says: with what is better — reads the verse's words).
+
+[curious] Not good. Better. That's the Qur'an's command to you. One word: أَحْسَن. [thoughtful] God says: Respond with what is better, and the one between whom and you there was hostility may become like a close friend. Notice: it doesn't just say, respond with something good. It says: with what is better. The response most likely to heal, correct, and bring peace. [curious] Think of a greeting. Returning it is justice. Returning it with something better is kindness. [lowering their voice] Here's the hard part. Not every answer you can give is one you ought to give. You can win the argument, and lose the heart. [warm] The point isn't to break the person in front of you. It's to make the truth clearer. Truth doesn't need insult to support it. Not good. Better. A new word, every day.

@@ -187,3 +187,8 @@ Ahmed approved reel v3's look ("Looks ok the reel"), so the four story reels fol
 - Re-rendered without the credit: main reel **v4** and story reels **v2** (same audio; full render, then `ffmpeg -c:v libx264 -crf 20` mux with `mix_music.wav`). The five scheduled Zernio posts were updated with the new files and captions without the line (`posts_update_post` with `content`, `media_items` and the full `platforms` list).
 - **Teaser v6** = v5 with the credit tape removed: frames 3750 to 4164 re-rendered (`out/web01v6_tail.mp4`) and spliced onto `out/web01v3.mp4` at frame 3750, muxed at crf 25. Yasser approved the teaser on 25 Nov. A 720p copy (crf 28, 10 MB) is on the registration page from the site's own server (`video_file` in the site's `content/webinars.json`); scheduled on Facebook for Sat 19 Dec, `external_id` `web01-2026-12-19-teaser`.
 - Ads: plan and ad texts are in the Claude Doc "Webinar 1 Ads Plan: 500 Sign-Ups Under S$1" (link in the Project doc `claude/webinar1-signup-sprint.md`). Nothing created in Meta yet.
+
+## Technical notes from ep08 (26 Nov 2026)
+- First 3 seconds (learnings, from ep08): `scripts/split.py` has `LEAD` to cut the leading silence so the hook is spoken from ~0.03 s.
+- Verses: if `quran/verse.py` reports SOURCES DISAGREE, the verse is dropped; a backlog row whose only verse is refused is marked `blocked` and skipped (26 Nov: 2:143, 14:24, 6:164; the open-tanween mark is coded U+08F0 in one source and U+0657 in the other). Waiting for Ahmed's decision.
+- Verse windows: SFX other than whooshes are muted there too (`scripts/episodes/ep08_audio.py` keeps verse-window whooshes in a separate buffer).

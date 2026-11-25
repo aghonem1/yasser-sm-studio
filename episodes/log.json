@@ -95,6 +95,28 @@
       "test": "hook type = negative command (ep05–07)",
       "files": "2026-11-24_the-mirror_one-word-07-ghuluw_9x16_v2.mp4 / _v2_cover.jpg",
       "check": "v1 said غُلُوّ without the final damma (Ahmed, 25 Nov). v2: the word alone, written غُلُوُّ (damma on the waw), language ar, speed 0.85, spliced at 8.355 s (take from 0.13 s); timeline unchanged, so the picture was not re-rendered. Whisper-ar still hears ر for غ, so confirm by ear."
+    },
+    {
+      "n": 8,
+      "word": "أَحْسَن",
+      "slug": "ahsan",
+      "date": "2026-11-26",
+      "status": "scheduled on Instagram + Facebook via Zernio (daily task, automatic posting)",
+      "book": "Ch.4 p.36 (Kindness Towards Those Who Differ) + p.35 (Beyond Fairness)",
+      "verses": [
+        "41:34"
+      ],
+      "duration_s": 52.7,
+      "hook": "Not good. Better. That's the Qur'an's command to you.",
+      "hook_onscreen": "NOT GOOD. BETTER.",
+      "hook_type": "word fact",
+      "hook_score": 84.4,
+      "hook_score_start": 80.2,
+      "test": "first-3-seconds (from ep08): word fact, Arabic word on frame 1, hook spoken from 0.03 s, first visual change by 0.6 s, no branding animation before the hook",
+      "zernio_post_id": "6b076980a36f59c3855f1526",
+      "scheduled_for": "2026-11-26T19:00:00+08:00",
+      "files": "2026-11-26_the-mirror_one-word-08-ahsan_9x16_v1.mp4 / _cover.jpg",
+      "note": "Backlog row 08 (wasat, 2:143) blocked: quran/verse.py SOURCES DISAGREE; row 09 (ahsan) made as episode 08."
     }
   ]
 }
