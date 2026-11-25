@@ -44,6 +44,7 @@ Use the readers' own plain words: prayer, intention, the heart, the self, mercy,
 - Plain, calm, warm, unhurried. Second person where natural. Short sentences.
 - No hype, no urgency tricks, no scarcity, no guilt, no fear appeals, no clickbait that the content does not honour, no emoji in designed pieces.
 - Hooks open on the reader or a real stake and must be literally true to the source.
+- **Teaching, not selling (Ahmed, 25 Nov 2026):** free sessions are educational, religious events. Everything should read as "we are glad to teach you something". In videos: no buttons, pills, "link in bio", "save your seat" stickers or "register at the link" closes; the teacher invites, the date is said in his own voice, and the address is shown plainly.
 - Visual house style: dark navy and gold, Cinzel caps, Cormorant italic, Spectral body. (The paper-collage look is for the long landscape teaser only.)
 
 ## Non-negotiable content rules (these override every skill)
@@ -71,3 +72,4 @@ Live in `research/learnings.md` (updated twice a week from post analytics). Read
 
 ## Changelog
 - 1.0 (25 Nov 2026): first version, drafted from the website and project documents.
+- 1.1 (25 Nov 2026): teaching-not-selling rule added after Ahmed's review of the webinar reel; webinar 1 is on Saturday 9 January 2027, 9 PM Singapore time.
