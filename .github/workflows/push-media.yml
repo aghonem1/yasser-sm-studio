@@ -1,0 +1,42 @@
+# Relay: uploads a finished video or image to Zernio's media storage, which the Claude workspace cannot reach directly.
+# Trigger: push to branch "media" with outbox/<name> (the file) and requests/<name>.put (line 1: presigned upload URL
+# from Zernio's media_get_media_presigned_url, line 2: content type).
+# Result: the workflow commits done/<name>.ok (or .fail) to the same branch. The presigned URL expires after one hour.
+name: push-media
+on:
+  push:
+    branches: [media]
+    paths: ['requests/**']
+permissions:
+  contents: write
+concurrency: { group: push-media, cancel-in-progress: false }
+jobs:
+  put:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: media }
+      - name: Upload requested files
+        run: |
+          set -euo pipefail
+          mkdir -p done
+          shopt -s nullglob
+          for req in requests/*.put; do
+            name="$(basename "$req" .put)"
+            [[ "$name" =~ ^[A-Za-z0-9._-]+$ ]] || { echo "bad name"; continue; }
+            [ -f "done/$name.ok" ] && continue
+            url="$(sed -n 1p "$req" | tr -d '\r\n')"; ctype="$(sed -n 2p "$req" | tr -d '\r\n')"
+            case "$url" in
+              https://late-media.*.r2.cloudflarestorage.com/*) ;;
+              *) echo "refused upload target for $name"; echo "refused" > "done/$name.fail"; continue ;;
+            esac
+            [ -f "outbox/$name" ] || { echo "missing outbox/$name"; echo "missing" > "done/$name.fail"; continue; }
+            code="$(curl -sS --retry 2 --max-time 900 -o /tmp/resp -w '%{http_code}' -X PUT -H "Content-Type: $ctype" --data-binary "@outbox/$name" "$url")"
+            echo "$name -> HTTP $code"
+            if [ "$code" = "200" ]; then echo "$code $(stat -c%s "outbox/$name")" > "done/$name.ok"; else echo "$code" > "done/$name.fail"; head -c 400 /tmp/resp; fi
+          done
+      - name: Commit
+        run: |
+          git config user.name "media-relay"; git config user.email "media-relay@users.noreply.github.com"
+          git add done
+          git diff --cached --quiet || { git commit -m "relay: uploaded media"; git push; }

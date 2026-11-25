@@ -126,3 +126,18 @@ Approved by Ahmed for the long 16:9 video only; reels and carousels stay navy/go
 - v3 (23 Nov), restraint pass agreed with Ahmed: "TREMBLING." lands and stays still (no shake, no heartbeat); the Hira scene uses the `soft` entrance (slow, smooth, no overshoot), quiet paper sounds only and the `soft` music mode, so the tone changes before the verse; one plain "ONE HOUR · LIVE · FREE" strip instead of three stickers; no paper heart, no "not!" note, no hopping question mark. Keep this restraint in any later webinar teaser: nothing playful on the Prophet's ﷺ state or on revelation.
 - v4 (23 Nov): the closing line was re-recorded on its own and spliced in by `scripts/episodes/webinar01v_patch_register.py` (run it after the split; it is a no-op once applied).
 - **Pronunciation of the name (Ahmed, 23 Nov): Fares is فارِس ("Faaris"), never "Fairs".** In every voice script write the name in Arabic with tashkeel, يَاسِر فَارِس, including inside the web address ("يَاسِر فَارِس dot com"). Check the slice with Arabic speech recognition before using it.
+
+
+## Posting through Zernio (set up 25 Nov 2026)
+Ahmed chose Zernio over Buffer for long-term automation (posting, results, comments, DMs and ads through one connector). It is a custom connector in Claude (tools named `mcp__Zernio__*`), signed in with the project's Zernio account.
+
+- Connected accounts: Instagram `yasserfares_` (account id `6b06cbbc104b6c0b90df830a`) and Facebook page `yasser1fares` (`6b06cc18750a01a0e5fd98fa`), profile `6b06cb416a20c6c57c2e8a04`. YouTube and TikTok are not connected yet (the first two accounts are free; more are paid per account).
+- **Getting a video or image to Zernio.** The workspace cannot reach Zernio's storage (the network proxy answers 403), so files go through GitHub:
+  1. `media_get_media_presigned_url(filename, content_type)` returns `uploadUrl` and `publicUrl` (the upload URL lasts one hour).
+  2. `bash tools/push_media.sh <local file> "<uploadUrl>" video/mp4` pushes the file to branch `media`; the `push-media` workflow uploads it and writes `done/<name>.ok`. A 7.9 MB reel took 17 seconds end to end. The branch is rewritten on every call.
+  3. Use `publicUrl` in `media_urls` of `posts_create` or `posts_cross_post`. Images already on yasserfares.com can be passed by their public address without the relay.
+- **Modes.** `is_draft=True` saves without publishing. Default is scheduled; `publish_now=True` goes live at once. `validate_post` is a dry run. A draft or scheduled post can be deleted with `posts_delete`; a published post cannot be deleted through Zernio on Instagram.
+- **Reading results.** `analytics_get_analytics` returns per-post numbers, including reels' average watch time and skip rate, for posts made outside Zernio too.
+- Most tools are not listed up front: `search_tools` then `call_tool` (ads are under `ad_campaigns_*`).
+- Rule: nothing is published, scheduled or boosted without Ahmed's yes for that item. Tests use drafts and delete them.
+- Not yet confirmed: that scheduled (unattended) runs can use the connector. Creating a one-off scheduled check was blocked in the 25 Nov session.
