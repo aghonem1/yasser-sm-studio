@@ -122,6 +122,16 @@ if VARIANT == "full":
     T, D, R = 41, 42, 43
     PULSE, DENSE = ST[4] - 0.3, ST[25]
     VERSE = [(ST[19] - 0.25, ST[20] + 0.05)]
+elif VARIANT == "story":
+    # story reels (episodes/webinar01r1..r4): cues come from cues.json written by webinar01_stories_build.py
+    CU = json.load(open(os.path.join(os.environ["EP_DIR"], "cues.json")))
+    for c in CU["cues"]:
+        kind, at, g = c[0], c[1], c[2]
+        snd = {"boom": lambda: boom(1.0), "shimmer": lambda: shimmer(1.3), "whoosh": lambda: whoosh2(0.5), "chime": lambda: chime(c[3] if len(c) > 3 else 1318.5, 1.1)}[kind]()
+        place(sfx, snd, at, g)
+    T = D = R = None
+    PULSE, DENSE = CU["pulse"], CU["dense"]
+    VERSE = []
 elif VARIANT == "reel":
     # 9:16 reel v3 (episodes/webinar01r): few, quiet effects; nothing that sounds like a sales sting
     place(sfx, boom(0.8), 0.05, 0.35)

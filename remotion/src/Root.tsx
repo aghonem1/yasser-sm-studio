@@ -6,6 +6,10 @@ import {Ep05, TOTAL as T05} from './episodes/Ep05_Ikrah';
 import {Ep06, TOTAL as T06} from './episodes/Ep06_Birr';
 import {Ep07, TOTAL as T07} from './episodes/Ep07_Ghuluw';
 import {Web01R, TOTAL_R} from './episodes/Webinar01_Reel';
+import {Web01R1, TOTAL_R as TOTAL_R1} from './episodes/Webinar01_Story_R1';
+import {Web01R2, TOTAL_R as TOTAL_R2} from './episodes/Webinar01_Story_R2';
+import {Web01R3, TOTAL_R as TOTAL_R3} from './episodes/Webinar01_Story_R3';
+import {Web01R4, TOTAL_R as TOTAL_R4} from './episodes/Webinar01_Story_R4';
 import {Web01V, TOTAL_V} from './episodes/Webinar01_Collage';
 import {CollageFrames} from './episodes/Webinar01_CollageFrames';
 import {Web01, Web01S, TOTAL_FULL, TOTAL_SHORT} from './episodes/Webinar01_Khadijah';
@@ -21,5 +25,9 @@ export const Root: React.FC = () => (<>
   <Composition id="web01s" component={Web01S} durationInFrames={Math.round(TOTAL_SHORT * FPS)} fps={FPS} width={1080} height={1920} />
   <Composition id="collage" component={CollageFrames} durationInFrames={4} fps={FPS} width={1920} height={1080} />
   <Composition id="web01r" component={Web01R} durationInFrames={Math.round(TOTAL_R * FPS)} fps={FPS} width={1080} height={1920} />
+  <Composition id="web01r1" component={Web01R1} durationInFrames={Math.round(TOTAL_R1 * FPS)} fps={FPS} width={1080} height={1920} />
+  <Composition id="web01r2" component={Web01R2} durationInFrames={Math.round(TOTAL_R2 * FPS)} fps={FPS} width={1080} height={1920} />
+  <Composition id="web01r3" component={Web01R3} durationInFrames={Math.round(TOTAL_R3 * FPS)} fps={FPS} width={1080} height={1920} />
+  <Composition id="web01r4" component={Web01R4} durationInFrames={Math.round(TOTAL_R4 * FPS)} fps={FPS} width={1080} height={1920} />
   <Composition id="web01v" component={Web01V} durationInFrames={Math.round(TOTAL_V * FPS)} fps={FPS} width={1920} height={1080} />
 </>);

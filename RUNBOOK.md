@@ -166,3 +166,13 @@ The content rules above and learnings.md always win over a skill. Never add a cl
   - Sound: `EP_DIR=$PWD/episodes/webinar01r VARIANT=reel python3 scripts/episodes/webinar01_audio.py && bash scripts/mix.sh` (few, quiet effects; no riser or sting).
 - **Extra voice lines** (`episodes/webinar01x/`, ONE HeyGen generation, approved by Ahmed): the date line "Saturday, the ninth of January. Nine p.m., Singapore time." and three openers for the story reels ("Before Hira, there was the day of the Black Stone." / "How did revelation begin?" / "Khadijah had known him for years."). Word times in `words.json`. The openers are not used yet.
 - **Teaser v5** (16:9 collage): `EP_DIR=$PWD/episodes/webinar01v python3 scripts/episodes/webinar01v_patch_date.py` replaces narration line 49 with the date line (everything after it moves 1.452 s later; total 138.84 s), then copy `timeline.json` to `remotion/src/episodes/timeline_webinar01v.json`, rebuild audio, render frames 3750 to the end and splice onto the v3 master at frame 3750 (frames before the old line 49 are unchanged). Tape now reads "Sat 9 January · 9 PM Singapore time"; the "save your seat" note and arrow are removed.
+
+## Webinar 1 story reels (25 Nov 2026, evening)
+
+Ahmed approved reel v3's look ("Looks ok the reel"), so the four story reels follow the same system. All awaiting his review; nothing posted.
+- `web01r1` the Black Stone · `web01r2` how revelation began · `web01r3` who believed next · `web01r4` two people, two answers. 22 to 27 s each.
+- Each: a headline that is on frame 1, the voice from 0.1 s (learnings: the first 3 seconds decide), one line drawing, then the same close as reel v3 ("What did Khadijah know?", the date in Yasser's voice, the address shown plainly).
+- Voice and cues: `python3 scripts/episodes/webinar01_stories_build.py` (22 Nov navy narration + the 25 Nov openers and date line; writes `episodes/webinar01r1..r4/` with `cues.json`). Sound: `EP_DIR=$PWD/episodes/webinar01rN VARIANT=story python3 scripts/episodes/webinar01_audio.py && bash scripts/mix.sh`.
+- Pictures: `python3 tools/gen_story_reels.py` writes `remotion/src/episodes/Webinar01_Story_R1..R4.tsx` from the shared head of `Webinar01_Reel.tsx` plus one scene each. Edit the generator, not the generated files.
+- The verse is not shown in the Hira reel (only the words "the opening words of Surat al-'Alaq"), so the music runs through.
+- Captions for all webinar posts are in the launch kit ("January additions"); tone-softened: "All are welcome. The details are at yasserfares.com/khadijah (link in bio)."
