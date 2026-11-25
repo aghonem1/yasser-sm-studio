@@ -151,8 +151,8 @@ Ahmed chose Zernio over Buffer for long-term automation (posting, results, comme
 
 ## Marketing skills (installed 25 Nov 2026)
 The marketingskills collection (coreyhaines31/marketingskills, MIT) is vendored in `.claude/skills/`; index and job-to-skill map in `.claude/skills/README.md`; shared brand context in `.agents/product-marketing.md`.
-- Reel (§2, §2a, §8a): after reading learnings.md, read `.claude/skills/social/SKILL.md` and use its hook and short-form guidance when writing the 5 hook options and the caption; `copy-editing` for the final caption pass. tools/ig scores still decide.
-- Carousel: `social` (and `references/post-formats.md`) for cover, slide order and the ask; `copywriting` for the caption.
+- Reel (§2, §2a, §8a): after reading learnings.md, read `.claude/skills/social/SKILL.md` and use it with `references/short-form-video.md` when writing the 5 hook options and the caption; `copy-editing` for the final caption pass. tools/ig scores still decide.
+- Carousel: `social` (and `references/carousel-frameworks.md`) for cover, slide order and the ask; `copywriting` for the caption.
 - Audit: `analytics` and `ab-testing` for how to read numbers and when a test can be judged (sample size, one variable at a time).
 - Webinar campaigns: `events`, `launch`, `emails`, `co-marketing`, `ads`, `ad-creative`.
 The content rules above and learnings.md always win over a skill. Never add a claim, urgency or scarcity a skill suggests if the source does not support it.

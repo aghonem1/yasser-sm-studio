@@ -9,7 +9,7 @@ Every skill reads `.agents/product-marketing.md` first. That file's "Non-negotia
 ## Which skill for which job
 | Job | Skills |
 |---|---|
-| Daily carousel, reel hooks, captions | `social` (+ references/post-formats.md), `copywriting`, `copy-editing`, `marketing-psychology` (sparingly) |
+| Daily carousel, reel hooks, captions | `social` (+ references/carousel-frameworks.md, references/short-form-video.md, references/platforms.md), `copywriting`, `copy-editing`, `marketing-psychology` (sparingly) |
 | Reel and teaser video craft | `video`, `social` |
 | Analytics audit, choosing the next test | `analytics`, `ab-testing`, `social` |
 | Free live sessions (webinars) | `events`, `launch`, `emails`, `lead-magnets`, `co-marketing`, `community-marketing`, `marketing-plan` |
