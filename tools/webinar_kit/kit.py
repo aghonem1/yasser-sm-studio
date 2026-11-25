@@ -191,6 +191,42 @@ for key, (hd, sb) in (("B", AD_B), ("C", AD_C)):
     job(f"ad_{key}_1x1", 1080, 1080)(lambda hd=hd, sb=sb: ad(1080, 1080, .9, "60px 60px", hd, sb))
     job(f"ad_{key}_9x16", 1080, 1920)(lambda hd=hd, sb=sb: ad(1080, 1920, 1.08, "260px 50px 340px", hd, sb))
 
+# ---------- ad cards, second set (26 Nov): question card and one "in this hour" card per region ----------
+# No address pill: the ad carries its own "Learn more" button. Words are the approved launch-kit lines.
+REGIONS = {
+    "south-asia": [("Pakistan", "6:00 PM"), ("India · Sri Lanka", "6:30 PM"), ("Bangladesh", "7:00 PM")],
+    "southeast-asia": [("Jakarta", "8:00 PM"), ("Malaysia · Brunei · Singapore", "9:00 PM")],
+    "africa-egypt": [("Ghana", "1:00 PM"), ("Nigeria", "2:00 PM"), ("Egypt · South Africa", "3:00 PM"), ("Kenya", "4:00 PM")],
+}
+HOUR = ["The day of the Black Stone", "How revelation began", "Who believed next", "Two people, two answers"]
+
+def ad_question(w, h, s, top):
+    return page(w, h, mid(f"<div class='eb' style='font-size:{24*s}px'>A free live hour with Yasser Fares</div>"
+                f"<div class='it' style='font-size:{74*s}px;line-height:1.22;margin-top:{70*s}px'>He came home from Hira trembling.<br>She reassured him.</div>"
+                f"<div class='it gold' style='font-size:{74*s}px;line-height:1.22;margin-top:{44*s}px;color:#ecbe60'>What had she seen in him<br>that made her so sure?</div>"
+                f"<div class='rule' style='margin-top:{70*s}px'></div>"
+                f"<div class='when' style='font-size:{40*s}px;margin-top:{48*s}px'>{CFG['day']}</div>"
+                f"<div class='meta' style='font-size:{22*s}px;margin-top:{24*s}px'>Online · Free · One hour</div>", top))
+
+def ad_hour(w, h, s, top, region):
+    items = "".join(f"<div style='display:flex;align-items:baseline;gap:{26*s}px;padding:{15*s}px 0'><span class='num' style='font-size:{30*s}px'>{i}</span>"
+                    f"<span class='body' style='font-size:{44*s}px;line-height:1.2'>{t}</span></div>" for i, t in enumerate(HOUR, 1))
+    rows = "".join(f"<div style='display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid rgba(201,164,87,.28);padding:{13*s}px 4px'>"
+                   f"<span class='body' style='font-size:{31*s}px'>{a}</span><span class='when' style='font-size:{31*s}px'>{b}</span></div>" for a, b in REGIONS[region])
+    return page(w, h, mid(f"<div class='eb' style='font-size:{24*s}px'>What Did Khadijah Know?</div>"
+                f"<h1 class='ti' style='font-size:{58*s}px;margin-top:{34*s}px;line-height:1.16'>ONE HOUR ON THE<br>FIRST DAYS OF THE MESSAGE</h1>"
+                f"<div style='width:{800*s}px;margin-top:{36*s}px;text-align:left'>{items}</div>"
+                f"<div class='rule' style='margin-top:{34*s}px'></div>"
+                f"<div class='when' style='font-size:{38*s}px;margin-top:{34*s}px'>{CFG['day']}</div>"
+                f"<div style='width:{640*s}px;margin-top:{20*s}px;text-align:left'>{rows}</div>"
+                f"<div class='meta' style='font-size:{21*s}px;margin-top:{32*s}px'>A free live hour with Yasser Fares · Online</div>", top))
+
+job("ads2_question_4x5", 1080, 1350)(lambda: ad_question(1080, 1350, 1.0, "90px 70px"))
+job("ads2_question_9x16", 1080, 1920)(lambda: ad_question(1080, 1920, 1.06, "260px 50px 340px"))
+for _r in REGIONS:
+    job(f"ads2_hour_{_r}_4x5", 1080, 1350)(lambda r=_r: ad_hour(1080, 1350, 1.0, "80px 70px", r))
+    job(f"ads2_hour_{_r}_9x16", 1080, 1920)(lambda r=_r: ad_hour(1080, 1920, 1.04, "260px 50px 340px", r))
+
 # ---------- brochure (A4 at 150 dpi: 1240x1754; printed to PDF) ----------
 def brochure_html():
     zones = " · ".join(f"{b} {a}" for a, b in CFG["zones"][1:3]) + "<br>" + " · ".join(f"{b} {a}" for a, b in CFG["zones"][3:])
