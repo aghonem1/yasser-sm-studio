@@ -9,3 +9,7 @@ them." "Going beyond the limit is not greater obedience"). Last line = series pr
 Verse window (no music): line 5 (4:171).
 
 [serious] Don't confuse extreme with faithful. Going too far is not more faith. [thoughtful] The Qur'an has a word for it: غُلُوّ. Passing beyond the proper boundary. God says: Do not go to excess in your religion. Notice: He doesn't ask you to weaken your commitment. He asks you not to cross the line. [curious] So how does it start? One piece of the faith, held up as the whole. Like one dark cloud, and calling the whole sky darkness. [lowering their voice] Here's the hard part. He crosses the line while thinking he's protecting it. Commitment becomes intolerance. Advice becomes condemnation. Disagreement becomes hostility. [warm] Going beyond the limit is not greater obedience. Extreme isn't faithful. A new word, every day.
+
+v2 (25 Nov, Ahmed: the damma on the waw was missing): re-generated the word alone as "غُلُوُّ." (language ar, speed 0.85), retake url_ghuluw2.txt,
+spliced into src.wav at 8.355 s (retake from 0.13 s, 0.87 s long), word times unchanged so timeline.json is identical. Lesson: for a word ending in a doubled
+waw, write the final vowel (غُلُوُّ), not just the shadda (غُلُوّ), or the voice stops at "ghulu".

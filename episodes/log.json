@@ -81,7 +81,7 @@
       "word": "غُلُوّ",
       "slug": "ghuluw",
       "date": "2026-11-24",
-      "status": "delivered for review (awaiting Yasser's approval)",
+      "status": "v2 25 Nov: غُلُوُّ re-recorded with the damma on the waw (Ahmed); awaiting Yasser's approval",
       "book": "Ch.5 p.44 (What Is Extremism?) + p.45 (The Qur'an Forbids Religious Excess)",
       "verses": [
         "4:171"
@@ -93,8 +93,8 @@
       "hook_score": 84.4,
       "hook_score_start": 51.0,
       "test": "hook type = negative command (ep05–07)",
-      "files": "2026-11-24_the-mirror_one-word-07-ghuluw_9x16_v1.mp4 / _cover.jpg",
-      "check": "غُلُوّ kept from the main take: whisper-ar hears رولو (gh→r), English ASR hears 'ghulu'; a single-word retake was no clearer, so not spliced. Yasser to confirm the ghayn by ear. Full-file English ASR once hears 'Extreme' (last line) as 'Stream'; the 42–50 s slice transcribes 'Extreme'."
+      "files": "2026-11-24_the-mirror_one-word-07-ghuluw_9x16_v2.mp4 / _v2_cover.jpg",
+      "check": "v1 said غُلُوّ without the final damma (Ahmed, 25 Nov). v2: the word alone, written غُلُوُّ (damma on the waw), language ar, speed 0.85, spliced at 8.355 s (take from 0.13 s); timeline unchanged, so the picture was not re-rendered. Whisper-ar still hears ر for غ, so confirm by ear."
     }
   ]
 }
