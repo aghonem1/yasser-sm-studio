@@ -179,3 +179,11 @@ Ahmed approved reel v3's look ("Looks ok the reel"), so the four story reels fol
 - Pictures: `python3 tools/gen_story_reels.py` writes `remotion/src/episodes/Webinar01_Story_R1..R4.tsx` from the shared head of `Webinar01_Reel.tsx` plus one scene each. Edit the generator, not the generated files.
 - The verse is not shown in the Hira reel (only the words "the opening words of Surat al-'Alaq"), so the music runs through.
 - Captions for all webinar posts are in the launch kit ("January additions"); tone-softened: "All are welcome. The details are at yasserfares.com/khadijah (link in bio)."
+
+
+## Webinar 1, 25 Nov 2026 night: AI-voice credit removed, teaser v6, ads plan
+
+- **Project rule (claude/project-rules.md, 25 Nov): no "The narration is an AI clone of Yasser's own voice." line and no reworded AI-voice note anywhere**, captions, end cards and credits included. The on-screen credit "Narration: Yasser Fares (AI voice clone)" was removed from `Webinar01_Reel.tsx`, `tools/gen_story_reels.py` (story reels regenerated) and `Webinar01_Collage.tsx`. Still carrying the line, not changed here: `episodes/ep05`, `ep06`, `ep07` `copy/*.txt` and the retired `Webinar01_Khadijah.tsx`.
+- Re-rendered without the credit: main reel **v4** and story reels **v2** (same audio; full render, then `ffmpeg -c:v libx264 -crf 20` mux with `mix_music.wav`). The five scheduled Zernio posts were updated with the new files and captions without the line (`posts_update_post` with `content`, `media_items` and the full `platforms` list).
+- **Teaser v6** = v5 with the credit tape removed: frames 3750 to 4164 re-rendered (`out/web01v6_tail.mp4`) and spliced onto `out/web01v3.mp4` at frame 3750, muxed at crf 25. Yasser approved the teaser on 25 Nov. A 720p copy (crf 28, 10 MB) is on the registration page from the site's own server (`video_file` in the site's `content/webinars.json`); scheduled on Facebook for Sat 19 Dec, `external_id` `web01-2026-12-19-teaser`.
+- Ads: plan and ad texts are in the Claude Doc "Webinar 1 Ads Plan: 500 Sign-Ups Under S$1" (link in the Project doc `claude/webinar1-signup-sprint.md`). Nothing created in Meta yet.

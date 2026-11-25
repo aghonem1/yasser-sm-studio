@@ -447,7 +447,6 @@ export const Web01V: React.FC = () => {
         </div>
         <AbsoluteFill style={{background: 'radial-gradient(ellipse at 50% 50%, rgba(40,24,6,0) 58%, rgba(40,24,6,.34) 100%)'}} />
         <Tape x={54} y={34} w={470} size={30} rot={-1.2} seed={11}>Yasser Fares · a free live session</Tape>
-        {t > TL.voice_end + 0.4 && <Tape x={54} y={1010} w={430} size={26} rot={0.8} seed={12} at={TL.voice_end + 0.4}>narration: Yasser Fares (AI voice clone)</Tape>}
         <Caption />
         {SCENES.map((s, j) => (s.wipe ? <Wipe key={j} at={s.from} c={s.wipe} n={j} /> : null))}
       </AbsoluteFill></AbsoluteFill>

@@ -47,7 +47,6 @@ const SceneTitle: React.FC<{t: number}> = ({t}) => {
       <Line1 y={1004}><KType text="9:00 PM  ·  SINGAPORE TIME" t={t} tin={wt(T + 2, 'nine') - 0.12} size={40} font={F.cinzel} color={{color: GOLDL}} ls={0.14} tr={0.05} gap={0.02} /></Line1>
       <div style={{position: 'absolute', top: 1118 + (1 - after) * 14, width: W, textAlign: 'center', fontFamily: F.plex, fontSize: 42, letterSpacing: 0.5, color: CREAM, opacity: after}}>yasserfares.com/khadijah</div>
       <Label x={CX} y={1196} w={1000} o={after2 * 0.75} size={25} ls={0.22}>A FREE LIVE HOUR WITH YASSER FARES</Label>
-      <div style={{position: 'absolute', top: 1404, width: W, textAlign: 'center', fontFamily: F.plex, fontSize: 22, color: SLATE, opacity: 0.8 * after2}}>Narration: Yasser Fares (AI voice clone)</div>
     </AbsoluteFill>
   );
 };
