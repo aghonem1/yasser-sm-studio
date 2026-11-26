@@ -106,7 +106,7 @@ place(sfx, whoosh2(0.55), ST[2] - 0.3, 0.42)                                    
 place(sfx, shimmer(0.8), wt(2, "aḥsan") - 0.35, 0.4)                                                # the word swells
 place(sfx, whoosh2(0.5), ST[3] - 0.55, 0.35)                                                       # word out, card in
 place(sfxv, whoosh(0.9, up=True), ST[4] - 0.05, 0.16)                                               # verse: the reply sets off
-place(sfxv, whoosh(0.8, up=False), wt(5, "hostility") - 0.3, 0.16)                                  # the jagged line draws
+place(sfxv, whoosh(0.9, up=False), ST[3] + 0.35, 0.16)                                              # the jagged line draws (hostility)
 place(sfxv, whoosh(1.0, up=True), ST[6] - 0.05, 0.18)                                               # it smooths: close friend
 place(sfxv, whoosh2(0.5), ST[7] - 0.25, 0.3)                                                        # NOTICE, magnifier
 place(sfxv, whoosh(0.5, up=True), ST[8] - 0.05, 0.2)                                                # the low step: GOOD
@@ -125,13 +125,13 @@ for j in range(3): place(sfx, thud(0.7), tO + 0.08 + j * 0.12, 0.32)            
 place(sfx, chime(1568, 1.1), tO + 0.57, 0.36)                                                      # the better one ticked
 place(sfx, whoosh2(0.5), ST[18] - 0.25, 0.35); place(sfx, chime(1318.5, 1.0), wt(18, "win") - 0.15, 0.3)   # trophy: WON
 place(sfx, thud(0.9), wt(19, "heart") - 0.02, 0.5); place(sfx, whoosh(0.8, up=False), wt(19, "heart") + 0.25, 0.3)   # the heart breaks, falls
-place(sfx, whoosh2(0.5), ST[20] - 0.25, 0.32); place(sfx, whoosh(0.5, up=False), wt(20, "break") - 0.55, 0.3)   # hammer swings
+place(sfx, whoosh2(0.5), ST[20] - 0.25, 0.32); place(sfx, whoosh(0.45, up=False), wt(20, "break") - 0.4, 0.32)   # hammer swings
 place(sfx, swipe(), wt(20, "break") + 0.25, 0.45); place(sfx, thud(0.8), wt(20, "person") - 0.02, 0.42)   # TO BREAK struck, ban ring
 place(sfx, whoosh(1.0, up=True), wt(21, "truth") - 0.1, 0.3); place(sfx, shimmer(1.2), wt(21, "clearer") - 0.1, 0.4)   # the fog is wiped: TRUTH
 place(sfx, knock(0.8), ST[22] - 0.1, 0.35); place(sfx, tick(1.0), wt(22, "insult") - 0.3, 0.4)    # the column, the crutch
 place(sfx, whoosh(0.6, up=False), wt(22, "support") - 0.02, 0.32); place(sfx, swipe(), wt(22, "support"), 0.35)   # crutch pulled away, struck
 place(sfx, chime(1568, 1.0), wt(22, "support") + 0.55, 0.32)                                      # ✓ stands on its own
-place(sfx, whoosh2(0.5), ST[23] - 0.45, 0.35)                                                      # callback (kept clear of the "Not" onset)
+place(sfx, whoosh2(0.4), ST[23] - 0.35, 0.3)                                                      # callback (kept clear of the "Not" onset)
 place(sfx, swipe(), wt(23, "good") + 0.0, 0.4); place(sfx, chime(1568, 1.1), wt(23, "better") - 0.06, 0.36)
 place(sfx, riser(1.0), VEND - 0.9, 0.45)
 place(sfx, boom(1.4), VEND + 0.05, 0.55); place(sfx, shimmer(1.4), VEND + 0.08, 0.55)

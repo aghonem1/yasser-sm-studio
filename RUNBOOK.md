@@ -82,6 +82,18 @@ Fix any overlap, clipping, empty frame, or text touching another element. Then r
 `npx remotion render src/index.ts epNN out/epNN_silent.mp4 --browser-executable=/usr/bin/google-chrome --codec=h264 --crf=16 --concurrency=2`
 Then a contact sheet (1 fps, 12×4) of the whole video and look at it.
 
+### 6a. Animation review round (Ahmed, 26 Nov 2026: clean, professional, correct, seamless transitions)
+After the first full render: `python3 tools/review_sheets.py out/epNN_silent.mp4 /tmp/review` (10 fps, one sheet per 10 s) and look at every sheet.
+List each problem with its timestamp, fix all of them, check stills at those timestamps, re-render, review again (up to 3 rounds). Checks:
+- Hand-offs: the outgoing element is fully gone before the next one appears in the same zone (no double exposure of headlines, cards, scenes).
+- No muddy frames: card/scene fades ≤ ~0.25 s; gold/cream elements enter with a spring scale pop, not a slow opacity fade (they turn grey/brown).
+- No empty frame > ~0.3 s between scenes; no heading missing while its scene is on screen.
+- Nothing travels through text or another element; labels never overlap.
+- No stuck artefacts (wipe highlights at edges, leftover glows) and no diagonal glare/`Sweep` overlays.
+- Motion follows the words and the logic (cause before effect: in ep08 the hostility line must exist before the reply crosses it).
+- Icons read correctly at their size and angle (ep08: an upright hammer read as a "T"); line art finishes drawing before it is needed.
+ep08 fixes (26 Nov) are in Ep08_Ahsan.tsx: crisp Card fade (0.2 s + scale), headline out before ONE WORD, scene fade 0.2 s, no end-card Sweep.
+
 ## 7. Audio — ONE version only, ORIGINAL style (Ahmed, 21 Nov: keep the style of the first reels)
 Synthesised in code, no outside tracks: Hijaz-coloured music (soft pads, sub, oud/harp-like pluck arpeggio, gentle pulse from the
 first answer on, resolving at the end card) + synthesised SFX (boom, whooshes, chimes, shimmer, page flutter, riser), reverb.

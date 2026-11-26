@@ -122,10 +122,10 @@ const Chrome: React.FC<{t: number; bar?: boolean}> = ({t, bar = true}) => (
 
 // ---------- verse card ----------
 const Card: React.FC<{t: number; t0: number; t1: number; refTxt: string; ar: string; hl: number[]; lines: string[]; fs?: number; lh?: number}> = ({t, t0, t1, refTxt, ar, hl, lines, fs = 58, lh = 108}) => {
-  const a = win(t, t0, t1, 0.35, 0.3); if (a <= 0) return null;
-  const s = k(t, t0, 0.6, outExpo); const words = ar.split(' ');
+  const a = win(t, t0, t1, 0.2, 0.18); if (a <= 0) return null;
+  const s = k(t, t0, 0.45, outExpo); const words = ar.split(' ');
   return (
-    <div style={{position: 'absolute', top: 384, left: 96, width: 888, opacity: a, transform: `translateY(${(1 - s) * 28}px)`,
+    <div style={{position: 'absolute', top: 384, left: 96, width: 888, opacity: a, transform: `translateY(${(1 - s) * 24}px) scale(${0.97 + 0.03 * s})`,
       background: 'linear-gradient(180deg,#f6eedc,#ece0c4)', borderRadius: 14, padding: '22px 38px 24px', textAlign: 'center',
       boxShadow: `inset 0 0 0 1.5px ${GOLD}, inset 0 0 0 7px #f3e9d3, inset 0 0 0 8px ${GOLD}77, 0 26px 60px rgba(0,0,0,.55)`}}>
       <div style={{fontFamily: F.cinzelB, fontSize: 23, letterSpacing: 6, color: BROWN}}>{refTxt}</div>
@@ -323,7 +323,7 @@ const HookComp: React.FC<{t: number; li: number; first?: boolean}> = ({t, li, fi
   const tG = wt(li, 'good'), tB = wt(li, 'better');
   const st = outQuint((t - tG - 0.02) / 0.3);
   const pop = sp(t, tB - 0.06, 9, 190), popS = 1 + 0.1 * Math.sin(Math.min(1, pop) * Math.PI) ;
-  const enter = first ? 1 : outQuint((t - ST[li] + 0.15) / 0.45);
+  const enter = first ? 1 : outQuint((t - ST[li] + 0.12) / 0.3);
   const riseHi = first ? 1 : 1;
   const glowB = 0.35 + 0.65 * clamp(pop);
   const bob = Math.sin(t * 2.4) * 5;
@@ -347,7 +347,7 @@ const SceneHook: React.FC<{t: number}> = ({t}) => {
   const tYou = wt(1, 'you'), tCmd = wt(1, 'command');
   const you = sp(t, tYou - 0.35, 13, 150);
   const cmd = outQuint((t - tCmd + 0.05) / 0.45);
-  const out = quint((t - ST[2] + 0.25) / 0.5);          // headline + steps leave for "one word"
+  const out = quint((t - ST[2] + 0.42) / 0.3);          // headline + steps leave for "one word"
   const zoom = quint((t - wt(2, 'aḥsan') + 0.35) / 0.7);
   const leave = inQuint((t - ST[3] + 0.42) / 0.3);       // word fades before the card arrives
   const tG = wt(0, 'good'), st = outQuint((t - tG - 0.02) / 0.3);
@@ -359,7 +359,7 @@ const SceneHook: React.FC<{t: number}> = ({t}) => {
         <Line1 y={384}><StrikeIn p={st} sw={11}><span style={{fontFamily: F.cinzelB, fontSize: 96, letterSpacing: '0.06em', color: CREAM}}>NOT GOOD.</span></StrikeIn></Line1>
         <Line1 y={492}><span style={{display: 'inline-block', ...bigTxt(132), lineHeight: '150px', transform: `scale(${popS})`}}>BETTER.</span></Line1>
       </div>
-      <Line1 y={440}><KType text="ONE WORD" t={t} tin={ST[2] - 0.05} tout={ST[3] - 0.55} size={84} color={GOLDT} /></Line1>
+      <Line1 y={440}><KType text="ONE WORD" t={t} tin={ST[2] - 0.02} tout={ST[3] - 0.55} size={84} color={GOLDT} /></Line1>
       <div style={{opacity: 1 - leave}}>
         <Glow x={CX} y={810} r={300 + 60 * zoom} o={0.55 + 0.3 * clamp(pop) + 0.2 * zoom} />
         <div dir="rtl" lang="ar" style={{position: 'absolute', left: 0, top: 640, width: W, height: 320, textAlign: 'center', fontFamily: F.arw, fontSize: 196, lineHeight: '320px',
@@ -383,24 +383,24 @@ const zig = (x0: number, x1: number, y: number, amp: number, n = 9) => {let d = 
 const SceneVerse: React.FC<{t: number}> = ({t}) => {
   const pin = outQuint((t - ST[3] - 0.1) / 0.8);
   const tH = wt(5, 'hostility'), tF = wt(6, 'friend');
-  const host = outCubic((t - tH + 0.3) / 0.8);
-  const heal = inOut((t - ST[6] + 0.05) / 1.0);
+  const host = outCubic((t - ST[3] - 0.35) / 0.9);
+  const heal = inOut((t - ST[6] + 0.05) / 0.9);
   const xa = lerp(250, 380, heal), xb = lerp(830, 700, heal), py = 1050;
-  const fly = inOut((t - ST[4] - 0.1) / (ST[6] - ST[4] + 0.6));   // the reply crosses slowly
-  const bx = lerp(xa + 40, xb - 90, fly), by = py - 150 - 60 * Math.sin(fly * Math.PI);
-  const land = outCubic((t - tF + 0.3) / 0.5);
+  const fly = inOut((t - ST[4] - 0.05) / (ST[6] - ST[4] - 0.5));   // the reply crosses slowly
+  const land = outCubic((t - ST[6] + 0.45) / 0.35);
+  const bx = lerp(xa + 40, xb - 40, fly), by = py - 130 - 70 * Math.sin(fly * Math.PI) + 90 * land;
   const amp = 30 * (1 - heal), lc = heal < 0.5 ? RED : GOLDL;
-  const hs = outCubic((t - wt(6, 'like') + 0.1) / 0.8);
+  const hs = outCubic((t - wt(6, 'like') + 0.05) / 0.6);
   return (
     <AbsoluteFill style={{opacity: pin}}>
       <svg width={W} height={H} style={{position: 'absolute', left: 0, top: 0}}>
         {host > 0 && <path d={zig(xa + 44, xb - 44, py, amp)} pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - host} stroke={lc} strokeWidth={7}
           fill="none" strokeLinecap="round" strokeLinejoin="round" opacity={0.95} style={{filter: `drop-shadow(0 0 10px ${heal < 0.5 ? 'rgba(217,98,79,.6)' : 'rgba(241,208,138,.6)'})`}} />}
       </svg>
-      <Tag x={CX} y={py + 34} p={host * (1 - heal * 2)} c={RED} size={24}>HOSTILITY</Tag>
+      <Tag x={CX} y={py + 34} p={outQuint((t - tH + 0.2) / 0.4) * (1 - clamp(heal * 3))} c={RED} size={24}>HOSTILITY</Tag>
       <Person x={xa} y={py} p={outQuint((t - ST[3]) / 0.6)} label="YOU" lo={1 - outQuint(heal / 0.4)} />
       <Person x={xb} y={py} p={outQuint((t - ST[3] - 0.15) / 0.6)} label="THEM" warm={heal > 0.5} lo={1 - outQuint(heal / 0.4)} />
-      <Bubble x={bx} y={by} w={170 - 40 * land} h={72 - 16 * land} kind="gold" o={outQuint((t - ST[4] + 0.1) / 0.5) * (1 - land)} glow={0.6} tail={fly > 0.5 ? -1 : 1} />
+      <Bubble x={bx} y={by} w={170} h={72} s={Math.min(1.06, sp(t, ST[4] - 0.1, 12, 160)) * (1 - 0.7 * land)} kind="gold" o={clamp(sp(t, ST[4] - 0.1, 12, 160) * 3) * (1 - land)} glow={0.6} tail={fly > 0.5 ? -1 : 1} />
       <Icon name="heart-handshake" x={CX} y={py - 150} size={150} p={hs} sw={6} c={GOLDL} />
       <Tag x={CX} y={py + 50} p={outQuint((t - wt(6, 'like') - 0.05) / 0.5)} c={GOLDL} size={30}>CLOSE FRIEND</Tag>
     </AbsoluteFill>
@@ -419,7 +419,7 @@ const RowI: React.FC<{y: number; o: number; icon: string; text: string; mark: nu
 const SceneNotice: React.FC<{t: number}> = ({t}) => {
   const mag = sp(t, ST[7] - 0.05, 12, 140), magOut = inQuint((t - ST[9] + 0.1) / 0.3);
   const lo = outQuint((t - ST[8] - 0.1) / 0.5), tGd = wt(8, 'good'), nj = outQuint((t - wt(8, 'just') + 0.05) / 0.45);
-  const climb = inOut((t - ST[9] - 0.1) / 0.9), hi = outCubic((t - wt(9, 'better') + 0.4) / 0.8);
+  const climb = inOut((t - ST[9] - 0.1) / 0.9), hiS = sp(t, wt(9, 'better') - 0.3, 11, 170), hi = clamp(hiS * 3);
   const up = quint((t - ST[10] + 0.3) / 0.6);
   const loOut = 1 - outQuint((t - ST[10] + 0.4) / 0.35);
   const hx = lerp(STEP.hi.x, CX, up), hy = lerp(STEP.hi.y - 210, 560, up), hs = lerp(1, 0.95, up);
@@ -428,8 +428,8 @@ const SceneNotice: React.FC<{t: number}> = ({t}) => {
   return (
     <AbsoluteFill>
       <Line1 y={420}><KType text="NOTICE" t={t} tin={ST[7] - 0.1} tout={ST[8] + 0.2} size={84} color={GOLDT} /></Line1>
-      <Line1 y={410}><KType text="NOT JUST GOOD" t={t} tin={wt(8, 'just') - 0.05} tout={ST[9] - 0.3} size={74} tr={0.03} /></Line1>
-      <Line1 y={410}><KType text="BETTER" t={t} tin={wt(9, 'better') - 0.15} tout={ST[10] - 0.35} size={104} color={GOLDT} /></Line1>
+      <Line1 y={410}><KType text="NOT JUST GOOD" t={t} tin={wt(8, 'just') - 0.05} tout={wt(9, 'better') - 0.55} size={74} tr={0.03} /></Line1>
+      <Line1 y={410}><KType text="BETTER" t={t} tin={wt(9, 'better') - 0.25} tout={ST[10] - 0.6} size={104} color={GOLDT} /></Line1>
       <div style={{opacity: loOut, transform: `translateY(${lift}px)`}}>
         <Steps p={lo} />
         <Bubble x={STEP.lo.x} y={STEP.lo.y - 62} w={220} h={90} kind="cream" label="GOOD" fs={32} o={lo} s={0.9 + 0.1 * lo} />
@@ -443,7 +443,7 @@ const SceneNotice: React.FC<{t: number}> = ({t}) => {
       </div>
       {mag > 0 && magOut < 1 && <Icon name="search" x={lerp(880, STEP.lo.x + 110, Math.min(1, mag))} y={lerp(620, STEP.lo.y - 120 + lift, Math.min(1, mag))} size={120}
         p={clamp(mag * 1.4)} o={1 - magOut} sw={5} c={GOLDL} />}
-      <Bubble x={hx} y={hy + (up > 0 ? 0 : lift + 140)} w={290} h={112} kind="gold" label="BETTER" fs={40} o={hi} s={hs * (0.85 + 0.15 * hi)} glow={0.7 * hi} tail={-1} />
+      <Bubble x={hx} y={hy + (up > 0 ? 0 : lift + 140)} w={290} h={112} kind="gold" label="BETTER" fs={40} o={hi} s={hs * Math.min(1.06, 0.6 + 0.4 * hiS)} glow={0.7 * hi} tail={-1} />
       <RowI y={820} o={r1} icon="bandage" text="HEALS" mark={outQuint((t - wt(10, 'heal') - 0.05) / 0.4)} />
       <RowI y={960} o={r2} icon="pencil" text="CORRECTS" mark={outQuint((t - wt(11, 'correct') - 0.05) / 0.4)} />
       <RowI y={1100} o={r3} icon="heart-handshake" text="BRINGS PEACE" mark={outQuint((t - wt(11, 'peace') - 0.05) / 0.4)} />
@@ -452,13 +452,13 @@ const SceneNotice: React.FC<{t: number}> = ({t}) => {
 };
 
 // ---------- scene D: the greeting — justice (=) and kindness (>) ----------
-const GY = 760, GXa = 230, GXb = 850;
+const GY = 860, GXa = 230, GXb = 850;
 const SceneGreeting: React.FC<{t: number}> = ({t}) => {
   const pin = outQuint((t - ST[12] + 0.1) / 0.5);
   const g1 = inOut((t - ST[12] - 0.05) / 1.0);                 // THEM → YOU
   const g2 = inOut((t - ST[13] - 0.05) / 0.9);                               // YOU → THEM (same size)
   const g3 = inOut((t - ST[14] - 0.05) / 1.1), grow = sp(t, wt(14, 'better') - 0.15, 12, 140);   // YOU → THEM (better)
-  const arc = (a: number, b: number, p: number) => [lerp(a, b, p), GY - 120 - 90 * Math.sin(p * Math.PI)];
+  const arc = (a: number, b: number, p: number) => [lerp(a, b, p), GY - 100 - 70 * Math.sin(p * Math.PI)];
   const [x1, y1] = arc(GXb - 60, GXa + 60, g1), [x2, y2] = arc(GXa + 60, GXb - 60, g2), [x3, y3] = arc(GXa + 60, GXb - 60, g3);
   const o2 = g2 > 0 && t < ST[14] - 0.1 ? 1 - inQuint((t - ST[14] + 0.4) / 0.3) : 0;
   const eq1 = outQuint((t - wt(13, 'justice') + 0.25) / 0.5), eq2 = outQuint((t - wt(14, 'kindness') + 0.3) / 0.5);
@@ -481,8 +481,8 @@ const SceneGreeting: React.FC<{t: number}> = ({t}) => {
       <Bubble x={x2} y={y2} w={150} h={66} kind="cream" icon="hand-stop" o={o2 * outQuint(g2 / 0.1) * (1 - outQuint((g2 - 0.92) / 0.08))} />
       <Bubble x={x3} y={y3} w={lerp(150, 230, clamp(grow))} h={lerp(66, 96, clamp(grow))} kind={grow > 0.4 ? 'gold' : 'cream'} icon={grow > 0.4 ? 'gift' : 'hand-stop'}
         o={outQuint(g3 / 0.1) * (1 - 0.0 * g3)} glow={0.6 * clamp(grow)} s={Math.min(1.08, 0.9 + 0.1 * grow)} />
-      <Eq y={1010} p={eq1} sign="=" icon="scale" label="JUSTICE" />
-      <Eq y={1185} p={eq2} big sign="<" icon="heart" label="KINDNESS" />
+      <Eq y={1040} p={eq1} sign="=" icon="scale" label="JUSTICE" />
+      <Eq y={1200} p={eq2} big sign="<" icon="heart" label="KINDNESS" />
     </AbsoluteFill>
   );
 };
@@ -501,8 +501,8 @@ const SceneAnswers: React.FC<{t: number}> = ({t}) => {
   const tO = wt(17, 'ought');
   return (
     <AbsoluteFill>
-      <Line1 y={410}><KType text="CAN GIVE" t={t} tin={ST[16] - 0.05} tout={ST[17] - 0.3} size={86} /></Line1>
-      <Line1 y={410}><KType text="OUGHT TO GIVE" t={t} tin={tO - 0.15} size={86} color={GOLDT} tr={0.03} /></Line1>
+      <Line1 y={410}><KType text="CAN GIVE" t={t} tin={ST[16] - 0.05} tout={ST[17] - 0.35} size={86} /></Line1>
+      <Line1 y={410}><KType text="OUGHT TO GIVE" t={t} tin={ST[17] - 0.02} size={86} color={GOLDT} tr={0.03} /></Line1>
       {ANS.map((a, j) => {
         const pin = sp(t, ST[16] - 0.05 + j * 0.22, 12, 160);
         const m = outQuint((t - tO - 0.05 - (a.ok ? 0.5 : j * 0.12)) / 0.4);
@@ -519,12 +519,12 @@ const SceneAnswers: React.FC<{t: number}> = ({t}) => {
 // ---------- scene G: win the argument, lose the heart ----------
 const SceneWinLose: React.FC<{t: number}> = ({t}) => {
   const tW = wt(18, 'win'), tL = wt(19, 'lose'), tHt = wt(19, 'heart');
-  const L = sp(t, tW - 0.2, 12, 150), div = outQuint((t - ST[18]) / 0.6), R = outQuint((t - tL + 0.25) / 0.5);
+  const L = sp(t, ST[18] - 0.15, 12, 150), div = outQuint((t - ST[18] + 0.2) / 0.5), R = outQuint((t - tL + 0.25) / 0.35);
   const brk = outCubic((t - tHt + 0.05) / 0.4), fall = inOut((t - tHt - 0.25) / 0.9);
   return (
     <AbsoluteFill>
       <div style={{position: 'absolute', left: CX - 2, top: 660, width: 4, height: 600 * div, background: `linear-gradient(180deg, ${CREAM}00, ${CREAM}88, ${CREAM}00)`}} />
-      <Tag x={290} y={680} p={L} c={CREAM} size={30}>THE ARGUMENT</Tag>
+      <Tag x={290} y={680} p={clamp(L)} c={CREAM} size={30}>THE ARGUMENT</Tag>
       <Glow x={290} y={930} r={220} o={0.6 * clamp(L)} />
       <Icon name="trophy" x={290} y={930} size={240 * Math.min(1.05, 0.7 + 0.3 * L)} p={clamp(L)} sw={6} c={GOLDL} />
       <Tag x={260} y={1100} p={outQuint((t - wt(18, 'argument')) / 0.4)} c={GOLDL} size={40} w={260}>WON</Tag>
@@ -542,7 +542,8 @@ const SceneWinLose: React.FC<{t: number}> = ({t}) => {
 // ---------- scene H: not to break the person → make the truth clearer ----------
 const SceneBreak: React.FC<{t: number}> = ({t}) => {
   const tB = wt(20, 'break'), tP = wt(20, 'person');
-  const pin = outQuint((t - ST[20] + 0.1) / 0.5), swing = inOut((t - tB + 0.6) / 0.6), ban = outCubic((t - tP + 0.05) / 0.6);
+  const pin = outQuint((t - ST[20] + 0.1) / 0.4), swing = inQuint((t - tB + 0.35) / 0.35), ban = outCubic((t - tP + 0.05) / 0.5);
+  const recoil = ban > 0 ? 8 * Math.sin(clamp((t - tP) / 0.4) * Math.PI) : 0;
   const out = quint((t - ST[21] + 0.35) / 0.4);
   const gIn = outQuint((t - ST[21] + 0.05) / 0.5), wipe = inOut((t - wt(21, 'truth') + 0.1) / (wt(21, 'clearer') - wt(21, 'truth') + 0.5));
   return (
@@ -550,7 +551,7 @@ const SceneBreak: React.FC<{t: number}> = ({t}) => {
       <div style={{opacity: pin * (1 - out)}}>
         <Line1 y={420}><StrikeIn p={outQuint((t - tB - 0.25) / 0.35)} sw={12}><KType text="TO BREAK" t={t} tin={tB - 0.2} size={92} /></StrikeIn></Line1>
         <Person x={CX + 60} y={1080} p={pin} label="THE PERSON" r={20} />
-        <Icon name="hammer" x={CX - 60} y={880} size={260} p={pin} sw={6} c={CREAM} rot={lerp(-50, -12, swing)} />
+        <Icon name="hammer" x={CX - 70} y={880} size={260} p={pin} sw={6} c={CREAM} rot={lerp(-20, 40, swing) - recoil} />
         <Mark kind="ban" x={CX - 30} y={900} size={420} p={ban} sw={11} />
       </div>
       <div style={{opacity: gIn}}>
@@ -561,7 +562,7 @@ const SceneBreak: React.FC<{t: number}> = ({t}) => {
           {/* the fog on the glass, wiped from left to right */}
           <div style={{position: 'absolute', left: 760 * wipe, top: 0, width: 760 * (1 - wipe), height: 560,
             background: 'repeating-linear-gradient(115deg, rgba(200,208,222,.34) 0 18px, rgba(170,180,200,.26) 18px 40px)'}} />
-          {wipe > 0 && wipe < 1 && <div style={{position: 'absolute', left: 760 * wipe - 20, top: 0, width: 40, height: 560,
+          {wipe > 0 && wipe < 0.97 && <div style={{position: 'absolute', left: 760 * wipe - 20, top: 0, width: 40, height: 560, opacity: 1 - clamp((wipe - 0.85) / 0.12),
             background: 'linear-gradient(90deg, rgba(255,246,220,0), rgba(255,246,220,.55), rgba(255,246,220,0))'}} />}
         </Glass>
       </div>
@@ -574,7 +575,7 @@ const SceneSupport: React.FC<{t: number}> = ({t}) => {
   const pin = outQuint((t - ST[22] + 0.1) / 0.5), tI = wt(22, 'insult'), tS = wt(22, 'support');
   const crutch = outQuint((t - tI + 0.35) / 0.45), pull = inOut((t - tS - 0.05) / 0.6), st = outQuint((t - tS + 0.05) / 0.35);
   const ok = outQuint((t - tS - 0.55) / 0.4);
-  const out = inQuint((t - ST[23] + 0.35) / 0.3);
+  const out = inQuint((t - ST[23] + 0.42) / 0.28);
   return (
     <AbsoluteFill style={{opacity: pin * (1 - out)}}>
       <svg width={W} height={H} style={{position: 'absolute', left: 0, top: 0}}>
@@ -610,7 +611,7 @@ const SceneLayer: React.FC<{s: Scn; t: number}> = ({s, t}) => {
   const C = s.C;
   return <AbsoluteFill style={style}><C t={t} /></AbsoluteFill>;
 };
-const fadeOut = (t1: number, d = 0.3) => (t: number): React.CSSProperties => ({opacity: 1 - inQuint((t - t1 + d) / d)});
+const fadeOut = (t1: number, d = 0.2) => (t: number): React.CSSProperties => ({opacity: 1 - inQuint((t - t1 + d) / d)});
 const fadeIn = (t0: number, d = 0.4) => (t: number): React.CSSProperties => {const p = outQuint((t - t0) / d); return {opacity: clamp(p * 1.5), transform: `scale(${0.97 + 0.03 * p})`};};
 
 const EndCard: React.FC<{t: number}> = ({t}) => {
@@ -638,15 +639,15 @@ const EndCard: React.FC<{t: number}> = ({t}) => {
 // ---------- scene schedule ----------
 const SCN: Scn[] = [
   {a: -1, b: ST[3] + 0.05, C: SceneHook},
-  {a: ST[3] - 0.15, b: ST[7] + 0.1, C: SceneVerse, tout: fadeOut(ST[7] + 0.1, 0.35)},
+  {a: ST[3] - 0.15, b: ST[7] + 0.05, C: SceneVerse, tout: fadeOut(ST[7] + 0.05, 0.22)},
   {a: ST[7] - 0.2, b: ST[12] - 0.05, C: SceneNotice, tin: fadeIn(ST[7] - 0.2), tout: fadeOut(ST[12] - 0.05)},
-  {a: ST[12] - 0.2, b: ST[15] - 0.05, C: SceneGreeting, tout: (t) => {const p = quint((t - ST[15] + 0.45) / 0.4); return {opacity: 1 - p, transform: `scale(${1 + 0.25 * p})`};}},
+  {a: ST[12] - 0.2, b: ST[15] - 0.05, C: SceneGreeting, tout: (t) => {const p = quint((t - ST[15] + 0.3) / 0.25); return {opacity: 1 - p, transform: `scale(${1 + 0.12 * p})`};}},
   {a: ST[15] - 0.15, b: ST[16] - 0.05, C: SceneHard},
   {a: ST[16] - 0.15, b: ST[18] - 0.05, C: SceneAnswers, tout: fadeOut(ST[18] - 0.05)},
   {a: ST[18] - 0.2, b: ST[20] - 0.05, C: SceneWinLose, tin: fadeIn(ST[18] - 0.2), tout: fadeOut(ST[20] - 0.05)},
   {a: ST[20] - 0.2, b: ST[22] - 0.05, C: SceneBreak, tout: fadeOut(ST[22] - 0.05)},
   {a: ST[22] - 0.2, b: ST[23] + 0.02, C: SceneSupport},
-  {a: ST[23] - 0.2, b: VEND + 0.3, C: SceneCallback},
+  {a: ST[23] - 0.13, b: VEND + 0.3, C: SceneCallback},
 ];
 
 const Frame: React.FC<{t: number; noEnd?: boolean}> = ({t, noEnd}) => {
@@ -662,7 +663,6 @@ const Frame: React.FC<{t: number; noEnd?: boolean}> = ({t, noEnd}) => {
         <Chrome t={t} />
       </>}
       {!noEnd && <EndCard t={t} />}
-      <Sweep t={t} t0={VEND - 0.3} d={1.1} />
     </AbsoluteFill>
   );
 };
