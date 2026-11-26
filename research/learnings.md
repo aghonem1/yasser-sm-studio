@@ -52,6 +52,9 @@ Why: TikTok converts ~1% of views to follows vs ~0.3% on IG; TikTok photo carous
 Comment replies: automatic every 3 h (research/comments/log.json).
 Waiting on Ahmed: Yasser on camera (not yet), collaborations, paid test.
 
+## Two reel tracks (from 27 Nov 2026)
+Track A = One Word (RUNBOOK.md), 19:00 + short cut 21:30. Track B = "a phrase you say every day" from My Prayer, stick figure + English/Arabic captions, light style (RUNBOOK_B.md), 23:15 Singapore; pilot B01 Allahu Akbar goes out 27 Nov. The audit compares them side by side (episodes/log.json `track`); no winner before 7 episodes of each. Rules below apply to Track A unless marked "B" or "both".
+
 ## Experiment log (one variable per episode; recorded in episodes/log.json as `test`)
 - ep05–07: hook type = negative command / question. Only ep05 and ep07 were posted (ep06 never went out), so this test never reached 4 episodes. The 25 Nov "no improvement" verdict used ep07 on day 0; ep07 is now the best opening on IG (57.7% skip) and TikTok (51% at 3 s). Verdict corrected to **inconclusive**.
 - **Current (from ep08): "first-3-seconds"**: word fact, Arabic word on frame 1, hook spoken from ~0.03 s, first visual change by 1.0 s, no branding before the hook. 1 episode posted (ep08, day 0: IG skip 76.6%, TikTok 23% at 3 s, too young to read). Keep it through **ep11** and judge at the first audit after ep11 is 2 days old. Success = median IG skip under 55% or TikTok ≥50% at 3 s across ep08–11.
