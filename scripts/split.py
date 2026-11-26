@@ -35,6 +35,7 @@ MERGE = {}
 MAXG, KEEP_LONG = 0.32, {0: 0.36, 1: 0.4, 2: 0.4, 3: 0.5, 6: 0.5, 9: 0.45, 11: 0.4, 14: 0.55, 15: 0.42, 21: 0.4, 22: 0.6}
 LEAD = 0.03   # ep08: cut leading silence so the hook is spoken from ~0.0 s (learnings: first 3 seconds); None = keep
 ENDCARD = 3.2
+HOLD = 0.8   # ep08: the callback before the end card stays 0.8 s longer (Ahmed: it went by too fast)
 QUIET_DB = -42   # gap trimming only removes audio this quiet (added ep07: protects word tails)
 
 src = f"{D}/src.wav"
@@ -92,7 +93,7 @@ for txt, a, b in LINES:
     assert k == len(ws), (txt, k, len(ws))
     lines.append({"text": txt, "words": words, "start": words[0][1], "end": words[-1][2]})
 if globals().get("PROMISE"):
-    voice_end = lines[-2]["end"] + 0.6; total = max(voice_end + ENDCARD, lines[-1]["end"] + 1.0)
+    voice_end = lines[-2]["end"] + 0.6 + HOLD; total = max(voice_end + ENDCARD, lines[-1]["end"] + 1.0)
 else:
     voice_end = lines[-1]["end"] + 0.6; total = voice_end + ENDCARD
 if audio is not None:

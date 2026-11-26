@@ -83,7 +83,12 @@ Fix any overlap, clipping, empty frame, or text touching another element. Then r
 Then a contact sheet (1 fps, 12×4) of the whole video and look at it.
 
 ### 6a. Animation review round (Ahmed, 26 Nov 2026: clean, professional, correct, seamless transitions)
-After the first full render: `python3 tools/review_sheets.py out/epNN_silent.mp4 /tmp/review` (10 fps, one sheet per 10 s) and look at every sheet.
+After the first full render: `python3 tools/review_sheets.py out/epNN.mp4 /tmp/review` (5 fps, frames at 1/3 size, one sheet per 3 s) and look at every sheet, then save a full-size frame at the peak of every scene (`--stills t1,t2,...`) and look at each one.
+Ahmed, 26 Nov (v2 of ep08 still had a broken arrow and flat drawings): a review at thumbnail size (216 px) is NOT a review; it only catches timing. Judge the craft at full size:
+- Every drawing is a finished illustration at a readable size (people/objects ≥ ~150 px tall, labels ≥ 26 px, bubble text ≥ 30 px), not a thin outline icon floating in empty navy.
+- Arrows start at one element and end at the next, with a solid filled head (`Arrow` in Ep08_Ahsan.tsx); never a loose line pointing at empty space.
+- Composed objects are one drawing (a column with its plaque and base; a crutch that actually leans on it), not icons pasted on top of each other.
+- Each scene fills the graphic zone; the final frame before the end card is held ≥ 2.5 s (split.py `HOLD`).
 List each problem with its timestamp, fix all of them, check stills at those timestamps, re-render, review again (up to 3 rounds). Checks:
 - Hand-offs: the outgoing element is fully gone before the next one appears in the same zone (no double exposure of headlines, cards, scenes).
 - No muddy frames: card/scene fades ≤ ~0.25 s; gold/cream elements enter with a spring scale pop, not a slow opacity fade (they turn grey/brown).

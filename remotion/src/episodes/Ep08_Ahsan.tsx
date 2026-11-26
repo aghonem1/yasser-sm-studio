@@ -122,7 +122,7 @@ const Chrome: React.FC<{t: number; bar?: boolean}> = ({t, bar = true}) => (
 
 // ---------- verse card ----------
 const Card: React.FC<{t: number; t0: number; t1: number; refTxt: string; ar: string; hl: number[]; lines: string[]; fs?: number; lh?: number}> = ({t, t0, t1, refTxt, ar, hl, lines, fs = 58, lh = 108}) => {
-  const a = win(t, t0, t1, 0.2, 0.18); if (a <= 0) return null;
+  const a = win(t, t0, t1, 0.12, 0.12); if (a <= 0) return null;
   const s = k(t, t0, 0.45, outExpo); const words = ar.split(' ');
   return (
     <div style={{position: 'absolute', top: 384, left: 96, width: 888, opacity: a, transform: `translateY(${(1 - s) * 24}px) scale(${0.97 + 0.03 * s})`,
@@ -304,11 +304,26 @@ const Bubble: React.FC<{x: number; y: number; w: number; h: number; kind: BKind;
 const Tag: React.FC<{x: number; y: number; p: number; c?: string; size?: number; w?: number; children: React.ReactNode}> = ({x, y, p, c = CREAM, size = 26, w = 420, children}) => p <= 0 ? null :
   <div style={{position: 'absolute', left: x - w / 2, top: y, width: w, textAlign: 'center', fontFamily: F.cinzelB, fontSize: size, letterSpacing: '0.2em', color: c,
     opacity: clamp(p), transform: `translateY(${(1 - clamp(p)) * 14}px)`}}>{children}</div>;
-const Person: React.FC<{x: number; y: number; p: number; label?: string; warm?: boolean; r?: number; lo?: number}> = ({x, y, p, label, warm = true, r = 16, lo = 1}) => p <= 0 ? null : <>
+const Person: React.FC<{x: number; y: number; p: number; label?: string; warm?: boolean; r?: number; lo?: number; ls?: number}> = ({x, y, p, label, warm = true, r = 22, lo = 1, ls = 28}) => p <= 0 ? null : <>
   <Dot x={x} y={y} r={r * (0.6 + 0.4 * clamp(p))} o={clamp(p * 1.5)} warm={warm} />
-  {label && <Tag x={x} y={y + 40} p={p * lo} size={24} c={warm ? GOLDL : SLATE}>{label}</Tag>}
+  {label && <Tag x={x} y={y + r + 22} p={p * lo} size={ls} c={warm ? GOLDL : SLATE}>{label}</Tag>}
 </>;
-
+// a solid arrow along a quadratic curve, drawn on with p; filled head oriented along the curve
+const Arrow: React.FC<{x0: number; y0: number; cx: number; cy: number; x1: number; y1: number; p: number; c?: string; w?: number}> = ({x0, y0, cx, cy, x1, y1, p, c = GOLDL, w = 12}) => {
+  if (p <= 0) return null;
+  const q = (u: number) => [(1 - u) ** 2 * x0 + 2 * (1 - u) * u * cx + u * u * x1, (1 - u) ** 2 * y0 + 2 * (1 - u) * u * cy + u * u * y1];
+  const u = clamp(p), n = 40, pts: string[] = [];
+  for (let i = 0; i <= n; i++) {const [x, y] = q((u * i) / n); pts.push(`${x.toFixed(1)},${y.toFixed(1)}`);}
+  const [ex, ey] = q(u), [bx, by] = q(Math.max(0, u - 0.02)); const an = Math.atan2(ey - by, ex - bx);
+  const hl = w * 3.2, hw = w * 2.2;
+  const tip = [ex + Math.cos(an) * hl * 0.55, ey + Math.sin(an) * hl * 0.55];
+  const l = [ex - Math.cos(an) * hl * 0.45 + Math.cos(an + Math.PI / 2) * hw, ey - Math.sin(an) * hl * 0.45 + Math.sin(an + Math.PI / 2) * hw];
+  const r = [ex - Math.cos(an) * hl * 0.45 - Math.cos(an + Math.PI / 2) * hw, ey - Math.sin(an) * hl * 0.45 - Math.sin(an + Math.PI / 2) * hw];
+  return <svg width={W} height={H} style={{position: 'absolute', left: 0, top: 0, filter: 'drop-shadow(0 0 12px rgba(241,208,138,.55))'}}>
+    <polyline points={pts.join(' ')} fill="none" stroke={c} strokeWidth={w} strokeLinecap="round" strokeLinejoin="round" />
+    <path d={`M ${tip[0]} ${tip[1]} L ${l[0]} ${l[1]} L ${r[0]} ${r[1]} Z`} fill={c} stroke={c} strokeWidth={3} strokeLinejoin="round" opacity={clamp(u * 4)} />
+  </svg>;
+};
 // ---------- the two steps (hook + callback) ----------
 const STEP = {lo: {x: 330, y: 1262, w: 300}, hi: {x: 750, y: 1196, w: 300}};
 const Steps: React.FC<{p: number}> = ({p}) => p <= 0 ? null : (
@@ -381,107 +396,110 @@ const SceneHook: React.FC<{t: number}> = ({t}) => {
 // ---------- scene B: 41:34 (verse window: calm) — hostility becomes a close friend ----------
 const zig = (x0: number, x1: number, y: number, amp: number, n = 9) => {let d = `M ${x0} ${y}`; for (let j = 1; j <= n; j++) {const x = lerp(x0, x1, j / n); d += ` L ${x} ${y + (j === n ? 0 : (j % 2 ? -amp : amp))}`;} return d;};
 const SceneVerse: React.FC<{t: number}> = ({t}) => {
-  const pin = outQuint((t - ST[3] - 0.1) / 0.8);
-  const tH = wt(5, 'hostility'), tF = wt(6, 'friend');
+  const pin = outQuint((t - ST[3] - 0.1) / 0.6);
+  const tH = wt(5, 'hostility');
   const host = outCubic((t - ST[3] - 0.35) / 0.9);
   const heal = inOut((t - ST[6] + 0.05) / 0.9);
-  const xa = lerp(250, 380, heal), xb = lerp(830, 700, heal), py = 1050;
-  const fly = inOut((t - ST[4] - 0.05) / (ST[6] - ST[4] - 0.5));   // the reply crosses slowly
+  const xa = lerp(200, 370, heal), xb = lerp(880, 710, heal), py = 1080;
+  const fly = inOut((t - ST[4] - 0.05) / (ST[6] - ST[4] - 0.5));   // the reply crosses slowly, lands before line 6
   const land = outCubic((t - ST[6] + 0.45) / 0.35);
-  const bx = lerp(xa + 40, xb - 40, fly), by = py - 130 - 70 * Math.sin(fly * Math.PI) + 90 * land;
-  const amp = 30 * (1 - heal), lc = heal < 0.5 ? RED : GOLDL;
-  const hs = outCubic((t - wt(6, 'like') + 0.05) / 0.6);
+  const bx = lerp(xa + 60, xb - 60, fly), by = py - 150 - 80 * Math.sin(fly * Math.PI) + 100 * land;
+  const amp = 36 * (1 - heal), lc = heal < 0.5 ? RED : GOLDL;
+  const hs = sp(t, wt(6, 'like') - 0.15, 12, 150);
+  const bIn = sp(t, ST[4] - 0.1, 12, 160);
   return (
     <AbsoluteFill style={{opacity: pin}}>
       <svg width={W} height={H} style={{position: 'absolute', left: 0, top: 0}}>
-        {host > 0 && <path d={zig(xa + 44, xb - 44, py, amp)} pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - host} stroke={lc} strokeWidth={7}
-          fill="none" strokeLinecap="round" strokeLinejoin="round" opacity={0.95} style={{filter: `drop-shadow(0 0 10px ${heal < 0.5 ? 'rgba(217,98,79,.6)' : 'rgba(241,208,138,.6)'})`}} />}
+        {host > 0 && <path d={zig(xa + 50, xb - 50, py, amp, 11)} pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - host} stroke={lc} strokeWidth={10}
+          fill="none" strokeLinecap="round" strokeLinejoin="round" style={{filter: `drop-shadow(0 0 12px ${heal < 0.5 ? 'rgba(217,98,79,.65)' : 'rgba(241,208,138,.65)'})`}} />}
       </svg>
-      <Tag x={CX} y={py + 34} p={outQuint((t - tH + 0.2) / 0.4) * (1 - clamp(heal * 3))} c={RED} size={24}>HOSTILITY</Tag>
-      <Person x={xa} y={py} p={outQuint((t - ST[3]) / 0.6)} label="YOU" lo={1 - outQuint(heal / 0.4)} />
-      <Person x={xb} y={py} p={outQuint((t - ST[3] - 0.15) / 0.6)} label="THEM" warm={heal > 0.5} lo={1 - outQuint(heal / 0.4)} />
-      <Bubble x={bx} y={by} w={170} h={72} s={Math.min(1.06, sp(t, ST[4] - 0.1, 12, 160)) * (1 - 0.7 * land)} kind="gold" o={clamp(sp(t, ST[4] - 0.1, 12, 160) * 3) * (1 - land)} glow={0.6} tail={fly > 0.5 ? -1 : 1} />
-      <Icon name="heart-handshake" x={CX} y={py - 150} size={150} p={hs} sw={6} c={GOLDL} />
-      <Tag x={CX} y={py + 50} p={outQuint((t - wt(6, 'like') - 0.05) / 0.5)} c={GOLDL} size={30}>CLOSE FRIEND</Tag>
+      <Tag x={CX} y={py + 46} p={outQuint((t - tH + 0.2) / 0.4) * (1 - clamp(heal * 3))} c={RED} size={30}>HOSTILITY</Tag>
+      <Person x={xa} y={py} p={outQuint((t - ST[3]) / 0.5)} label="YOU" lo={1 - outQuint(heal / 0.4)} />
+      <Person x={xb} y={py} p={outQuint((t - ST[3] - 0.1) / 0.5)} label="THEM" warm={heal > 0.5} lo={1 - outQuint(heal / 0.4)} />
+      <Bubble x={bx} y={by} w={230} h={86} label="BETTER" fs={30} s={Math.min(1.06, bIn) * (1 - 0.6 * land)} kind="gold" o={clamp(bIn * 3) * (1 - land)} glow={0.6} tail={fly > 0.5 ? -1 : 1} />
+      <Glow x={CX} y={py - 190} r={200} o={0.7 * clamp(hs)} />
+      <Icon name="heart-handshake" x={CX} y={py - 190} size={210 * Math.min(1.05, 0.6 + 0.4 * hs)} p={clamp(hs * 1.4)} sw={7} c={GOLDL} />
+      <Tag x={CX} y={py + 50} p={outQuint((t - wt(6, 'like') - 0.05) / 0.4)} c={GOLDL} size={36}>CLOSE FRIEND</Tag>
     </AbsoluteFill>
   );
 };
 
 // ---------- scene C: notice → not just good → better → heals, corrects, brings peace ----------
 const RowI: React.FC<{y: number; o: number; icon: string; text: string; mark: number}> = ({y, o, icon, text, mark}) => o <= 0 ? null : (
-  <div style={{position: 'absolute', left: 150, top: y - 50, width: 780, height: 100, opacity: o, transform: `translateX(${(1 - o) * -30}px)`}}>
-    <Glass x={0} y={0} w={780} h={100} o={1} active={mark} />
-    <Icon name={icon} x={70} y={50} size={62} p={o} sw={4} c={GOLDL} />
-    <div style={{position: 'absolute', left: 130, top: 0, height: 100, display: 'flex', alignItems: 'center', fontFamily: F.cinzelB, fontSize: 40, letterSpacing: '0.08em', color: CREAM}}>{text}</div>
-    <CheckMark x={705} y={50} s={64} p={mark} />
+  <div style={{position: 'absolute', left: 110, top: y - 62, width: 860, height: 124, opacity: o, transform: `translateX(${(1 - o) * -30}px)`}}>
+    <Glass x={0} y={0} w={860} h={124} o={1} active={mark} />
+    <Icon name={icon} x={80} y={62} size={78} p={o} sw={5} c={GOLDL} />
+    <div style={{position: 'absolute', left: 150, top: 0, height: 124, display: 'flex', alignItems: 'center', fontFamily: F.cinzelB, fontSize: 50, letterSpacing: '0.06em', color: CREAM}}>{text}</div>
+    <CheckMark x={780} y={62} s={84} p={mark} />
   </div>
 );
+const NS = {lo: {x: 300, y: 1050}, hi: {x: 730, y: 900}, base: 1110, riser: 520, top: 975};
 const SceneNotice: React.FC<{t: number}> = ({t}) => {
-  const mag = sp(t, ST[7] - 0.05, 12, 140), magOut = inQuint((t - ST[9] + 0.1) / 0.3);
-  const lo = outQuint((t - ST[8] - 0.1) / 0.5), tGd = wt(8, 'good'), nj = outQuint((t - wt(8, 'just') + 0.05) / 0.45);
-  const climb = inOut((t - ST[9] - 0.1) / 0.9), hiS = sp(t, wt(9, 'better') - 0.3, 11, 170), hi = clamp(hiS * 3);
+  const mag = sp(t, ST[7] - 0.05, 12, 140), magOut = inQuint((t - ST[8] + 0.05) / 0.25);
+  const lo = sp(t, ST[8] - 0.05, 12, 150), nj = outQuint((t - wt(8, 'just') + 0.05) / 0.4);
+  const step = outQuint((t - ST[8] - 0.05) / 0.6);
+  const climb = inOut((t - ST[9] - 0.05) / 0.8), hiS = sp(t, wt(9, 'better') - 0.3, 11, 170), hi = clamp(hiS * 3);
   const up = quint((t - ST[10] + 0.3) / 0.6);
-  const loOut = 1 - outQuint((t - ST[10] + 0.4) / 0.35);
-  const hx = lerp(STEP.hi.x, CX, up), hy = lerp(STEP.hi.y - 210, 560, up), hs = lerp(1, 0.95, up);
-  const r1 = outQuint((t - ST[10] - 0.05) / 0.45), r2 = outQuint((t - ST[11] + 0.1) / 0.45), r3 = outQuint((t - wt(11, 'bring') + 0.1) / 0.45);
-  const lift = -140;   // the steps sit higher here than in the hook
+  const loOut = 1 - outQuint((t - ST[10] + 0.45) / 0.3);
+  const hx = lerp(NS.hi.x, CX, up), hy = lerp(NS.hi.y, 560, up), hsc = lerp(1, 0.9, up);
+  const r1 = outQuint((t - ST[10] - 0.05) / 0.4), r2 = outQuint((t - ST[11] + 0.1) / 0.4), r3 = outQuint((t - wt(11, 'bring') + 0.1) / 0.4);
   return (
     <AbsoluteFill>
       <Line1 y={420}><KType text="NOTICE" t={t} tin={ST[7] - 0.1} tout={ST[8] + 0.2} size={84} color={GOLDT} /></Line1>
       <Line1 y={410}><KType text="NOT JUST GOOD" t={t} tin={wt(8, 'just') - 0.05} tout={wt(9, 'better') - 0.55} size={74} tr={0.03} /></Line1>
       <Line1 y={410}><KType text="BETTER" t={t} tin={wt(9, 'better') - 0.25} tout={ST[10] - 0.6} size={104} color={GOLDT} /></Line1>
-      <div style={{opacity: loOut, transform: `translateY(${lift}px)`}}>
-        <Steps p={lo} />
-        <Bubble x={STEP.lo.x} y={STEP.lo.y - 62} w={220} h={90} kind="cream" label="GOOD" fs={32} o={lo} s={0.9 + 0.1 * lo} />
-        <Tag x={STEP.lo.x} y={STEP.lo.y + 20} p={nj} c={CREAM} size={22}>NOT JUST THIS</Tag>
-        {climb > 0 && <svg width={W} height={H} style={{position: 'absolute', left: 0, top: 0}}>
-          <path d={`M ${STEP.lo.x + 60} ${STEP.lo.y - 125} L ${STEP.hi.x - 170} ${STEP.hi.y - 175}`} pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - climb}
-            stroke={GOLDL} strokeWidth={7} fill="none" strokeLinecap="round" />
-          {climb > 0.95 && <path d={`M ${STEP.hi.x - 200} ${STEP.hi.y - 152} L ${STEP.hi.x - 168} ${STEP.hi.y - 176} L ${STEP.hi.x - 206} ${STEP.hi.y - 190}`} stroke={GOLDL} strokeWidth={7} fill="none" strokeLinecap="round" strokeLinejoin="round" />}
-        </svg>}
-        <Glow x={STEP.hi.x} y={STEP.hi.y - 80} r={200} o={0.6 * hi} />
+      {mag > 0 && magOut < 1 && <Icon name="search" x={lerp(900, NS.lo.x + 120, Math.min(1, mag))} y={lerp(700, NS.lo.y - 110, Math.min(1, mag))} size={150}
+        p={clamp(mag * 1.4)} o={1 - magOut} sw={6} c={GOLDL} />}
+      <div style={{opacity: loOut}}>
+        <svg width={W} height={H} style={{position: 'absolute', left: 0, top: 0, opacity: clamp(step * 2)}}>
+          <path d={`M 110 ${NS.base} H ${NS.riser} V ${NS.top} H 970`} pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - step}
+            stroke={GOLD} strokeWidth={8} fill="none" strokeLinecap="round" strokeLinejoin="round" style={{filter: 'drop-shadow(0 0 10px rgba(241,208,138,.45))'}} />
+        </svg>
+        <Bubble x={NS.lo.x} y={NS.lo.y} w={260} h={100} kind="cream" label="GOOD" fs={40} o={clamp(lo * 3)} s={Math.min(1.05, 0.6 + 0.4 * lo)} />
+        <Tag x={NS.lo.x} y={NS.base + 22} p={nj} c={CREAM} size={28} w={460}>NOT JUST THIS</Tag>
+        <Arrow x0={NS.lo.x + 85} y0={NS.lo.y - 62} cx={NS.lo.x + 125} cy={NS.hi.y + 2} x1={NS.hi.x - 196} y1={NS.hi.y + 2} p={climb} w={12} />
+        <Glow x={NS.hi.x} y={NS.hi.y} r={230} o={0.6 * hi} />
       </div>
-      {mag > 0 && magOut < 1 && <Icon name="search" x={lerp(880, STEP.lo.x + 110, Math.min(1, mag))} y={lerp(620, STEP.lo.y - 120 + lift, Math.min(1, mag))} size={120}
-        p={clamp(mag * 1.4)} o={1 - magOut} sw={5} c={GOLDL} />}
-      <Bubble x={hx} y={hy + (up > 0 ? 0 : lift + 140)} w={290} h={112} kind="gold" label="BETTER" fs={40} o={hi} s={hs * Math.min(1.06, 0.6 + 0.4 * hiS)} glow={0.7 * hi} tail={-1} />
-      <RowI y={820} o={r1} icon="bandage" text="HEALS" mark={outQuint((t - wt(10, 'heal') - 0.05) / 0.4)} />
-      <RowI y={960} o={r2} icon="pencil" text="CORRECTS" mark={outQuint((t - wt(11, 'correct') - 0.05) / 0.4)} />
-      <RowI y={1100} o={r3} icon="heart-handshake" text="BRINGS PEACE" mark={outQuint((t - wt(11, 'peace') - 0.05) / 0.4)} />
+      <Bubble x={hx} y={hy} w={330} h={124} kind="gold" label="BETTER" fs={48} o={hi} s={hsc * Math.min(1.06, 0.6 + 0.4 * hiS)} glow={0.7 * hi} tail={-1} />
+      <RowI y={820} o={r1} icon="bandage" text="HEALS" mark={outQuint((t - wt(10, 'heal') - 0.05) / 0.35)} />
+      <RowI y={970} o={r2} icon="pencil" text="CORRECTS" mark={outQuint((t - wt(11, 'correct') - 0.05) / 0.35)} />
+      <RowI y={1120} o={r3} icon="heart-handshake" text="BRINGS PEACE" mark={outQuint((t - wt(11, 'peace') - 0.05) / 0.35)} />
     </AbsoluteFill>
   );
 };
 
 // ---------- scene D: the greeting — justice (=) and kindness (>) ----------
-const GY = 860, GXa = 230, GXb = 850;
+const GY = 800, GXa = 190, GXb = 890;
+const Eq: React.FC<{y: number; p: number; big?: boolean; sign: string; icon: string; label: string}> = ({y, p, big, sign, icon, label}) => p <= 0 ? null : (
+  <div style={{position: 'absolute', left: 0, top: 0, width: W, height: H, opacity: clamp(p * 1.5), transform: `translateY(${(1 - p) * 20}px)`}}>
+    <Glass x={60} y={y - 78} w={960} h={156} o={1} active={big ? 0.7 * p : 0} />
+    <Bubble x={200} y={y - 6} w={170} h={78} kind="cream" icon="hand-stop" />
+    <div style={{position: 'absolute', left: 290, top: y - 66, width: 100, textAlign: 'center', fontFamily: F.cinzelB, fontSize: 100, lineHeight: '120px', color: big ? GOLDL : CREAM}}>{sign}</div>
+    <Bubble x={big ? 520 : 480} y={y - 6} w={big ? 240 : 170} h={big ? 106 : 78} kind={big ? 'gold' : 'cream'} icon={big ? 'gift' : 'hand-stop'} glow={big ? 0.5 : 0} tail={-1} />
+    <Icon name={icon} x={720} y={y - 4} size={80} p={p} sw={5} c={big ? GOLDL : CREAM} />
+    <div style={{position: 'absolute', left: 770, top: y - 26, width: 240, fontFamily: F.cinzelB, fontSize: 38, letterSpacing: '0.06em', color: big ? GOLDL : CREAM}}>{label}</div>
+  </div>
+);
 const SceneGreeting: React.FC<{t: number}> = ({t}) => {
-  const pin = outQuint((t - ST[12] + 0.1) / 0.5);
-  const g1 = inOut((t - ST[12] - 0.05) / 1.0);                 // THEM → YOU
-  const g2 = inOut((t - ST[13] - 0.05) / 0.9);                               // YOU → THEM (same size)
+  const pin = outQuint((t - ST[12] + 0.1) / 0.4);
+  const g1 = inOut((t - ST[12] - 0.05) / 1.0);                                // THEM → YOU
+  const g2 = inOut((t - ST[13] - 0.05) / 0.9);                                // YOU → THEM (same size)
   const g3 = inOut((t - ST[14] - 0.05) / 1.1), grow = sp(t, wt(14, 'better') - 0.15, 12, 140);   // YOU → THEM (better)
-  const arc = (a: number, b: number, p: number) => [lerp(a, b, p), GY - 100 - 70 * Math.sin(p * Math.PI)];
-  const [x1, y1] = arc(GXb - 60, GXa + 60, g1), [x2, y2] = arc(GXa + 60, GXb - 60, g2), [x3, y3] = arc(GXa + 60, GXb - 60, g3);
-  const o2 = g2 > 0 && t < ST[14] - 0.1 ? 1 - inQuint((t - ST[14] + 0.4) / 0.3) : 0;
-  const eq1 = outQuint((t - wt(13, 'justice') + 0.25) / 0.5), eq2 = outQuint((t - wt(14, 'kindness') + 0.3) / 0.5);
-  const Eq: React.FC<{y: number; p: number; big?: boolean; sign: string; icon: string; label: string}> = ({y, p, big, sign, icon, label}) => p <= 0 ? null : (
-    <div style={{position: 'absolute', left: 0, top: 0, width: W, height: H, opacity: p, transform: `translateY(${(1 - p) * 20}px)`}}>
-      <Glass x={90} y={y - 78} w={900} h={156} o={1} active={big ? 0.6 * p : 0} />
-      <Bubble x={250} y={y - 8} w={150} h={66} kind="cream" icon="hand-stop" />
-      <div style={{position: 'absolute', left: 340, top: y - 60, width: 90, textAlign: 'center', fontFamily: F.cinzelB, fontSize: 84, lineHeight: '110px', color: big ? GOLDL : CREAM}}>{sign}</div>
-      <Bubble x={big ? 560 : 520} y={y - 8} w={big ? 230 : 150} h={big ? 96 : 66} kind={big ? 'gold' : 'cream'} icon={big ? 'gift' : 'hand-stop'} glow={big ? 0.5 : 0} tail={-1} />
-      <Icon name={icon} x={760} y={y - 6} size={70} p={p} sw={4} c={big ? GOLDL : CREAM} />
-      <div style={{position: 'absolute', left: 800, top: y - 24, width: 180, fontFamily: F.cinzelB, fontSize: 30, letterSpacing: '0.1em', color: big ? GOLDL : CREAM}}>{label}</div>
-    </div>
-  );
+  const arc = (a: number, b: number, p: number) => [lerp(a, b, p), GY - 120 - 80 * Math.sin(p * Math.PI)];
+  const [x1, y1] = arc(GXb - 70, GXa + 70, g1), [x2, y2] = arc(GXa + 70, GXb - 70, g2), [x3, y3] = arc(GXa + 70, GXb - 70, g3);
+  const o1 = g1 > 0 ? clamp((t - ST[12]) / 0.2) * (1 - outQuint((g1 - 0.9) / 0.1)) : 0;
+  const o2 = g2 > 0 && g2 < 1 ? clamp(g2 / 0.08) * (1 - outQuint((g2 - 0.9) / 0.1)) : 0;
+  const eq1 = outQuint((t - wt(13, 'justice') + 0.25) / 0.4), eq2 = outQuint((t - wt(14, 'kindness') + 0.3) / 0.4);
   return (
     <AbsoluteFill style={{opacity: pin}}>
-      <Line1 y={420}><KType text="A GREETING" t={t} tin={wt(12, 'greeting') - 0.2} size={70} color={GOLDT} /></Line1>
-      <Person x={GXa} y={GY} p={pin} label="YOU" />
-      <Person x={GXb} y={GY} p={pin} label="THEM" />
-      {g1 < 1 || t < ST[13] ? <Bubble x={x1} y={y1} w={150} h={66} kind="cream" icon="hand-stop" o={outQuint((t - ST[12]) / 0.3) * (1 - outQuint((g1 - 0.92) / 0.08))} tail={-1} /> : null}
-      <Bubble x={x2} y={y2} w={150} h={66} kind="cream" icon="hand-stop" o={o2 * outQuint(g2 / 0.1) * (1 - outQuint((g2 - 0.92) / 0.08))} />
-      <Bubble x={x3} y={y3} w={lerp(150, 230, clamp(grow))} h={lerp(66, 96, clamp(grow))} kind={grow > 0.4 ? 'gold' : 'cream'} icon={grow > 0.4 ? 'gift' : 'hand-stop'}
-        o={outQuint(g3 / 0.1) * (1 - 0.0 * g3)} glow={0.6 * clamp(grow)} s={Math.min(1.08, 0.9 + 0.1 * grow)} />
-      <Eq y={1040} p={eq1} sign="=" icon="scale" label="JUSTICE" />
+      <Line1 y={420}><KType text="A GREETING" t={t} tin={ST[12] - 0.05} size={74} color={GOLDT} /></Line1>
+      <Person x={GXa} y={GY} p={pin} label="YOU" r={26} ls={30} />
+      <Person x={GXb} y={GY} p={pin} label="THEM" r={26} ls={30} />
+      <Bubble x={x1} y={y1} w={190} h={86} kind="cream" icon="hand-stop" o={o1} tail={-1} />
+      <Bubble x={x2} y={y2} w={190} h={86} kind="cream" icon="hand-stop" o={o2} />
+      <Bubble x={x3} y={y3} w={lerp(190, 270, clamp(grow))} h={lerp(86, 118, clamp(grow))} kind={grow > 0.4 ? 'gold' : 'cream'} icon={grow > 0.4 ? 'gift' : 'hand-stop'}
+        o={g3 > 0 ? clamp(g3 / 0.08) : 0} glow={0.6 * clamp(grow)} s={Math.min(1.06, 0.9 + 0.1 * grow)} />
+      <Eq y={1030} p={eq1} sign="=" icon="scale" label="JUSTICE" />
       <Eq y={1200} p={eq2} big sign="<" icon="heart" label="KINDNESS" />
     </AbsoluteFill>
   );
@@ -526,12 +544,12 @@ const SceneWinLose: React.FC<{t: number}> = ({t}) => {
       <div style={{position: 'absolute', left: CX - 2, top: 660, width: 4, height: 600 * div, background: `linear-gradient(180deg, ${CREAM}00, ${CREAM}88, ${CREAM}00)`}} />
       <Tag x={290} y={680} p={clamp(L)} c={CREAM} size={30}>THE ARGUMENT</Tag>
       <Glow x={290} y={930} r={220} o={0.6 * clamp(L)} />
-      <Icon name="trophy" x={290} y={930} size={240 * Math.min(1.05, 0.7 + 0.3 * L)} p={clamp(L)} sw={6} c={GOLDL} />
+      <Icon name="trophy" x={290} y={930} size={300 * Math.min(1.05, 0.7 + 0.3 * L)} p={clamp(L)} sw={7} c={GOLDL} />
       <Tag x={260} y={1100} p={outQuint((t - wt(18, 'argument')) / 0.4)} c={GOLDL} size={40} w={260}>WON</Tag>
       <CheckMark x={400} y={1124} s={64} p={outQuint((t - wt(18, 'argument') - 0.15) / 0.4)} />
       <Tag x={790} y={680} p={R} c={CREAM} size={30}>THE HEART</Tag>
       <div style={{opacity: R * (1 - 0.55 * fall), transform: `translateY(${60 * fall}px) rotate(${12 * fall}deg)`, position: 'absolute', left: 0, top: 0, width: W, height: H, transformOrigin: '790px 930px'}}>
-        <Icon name={brk > 0.5 ? 'heart-broken' : 'heart'} x={790} y={930} size={230} p={R} sw={6} c={brk > 0.5 ? RED : GOLDL} />
+        <Icon name={brk > 0.5 ? 'heart-broken' : 'heart'} x={790} y={930} size={290} p={R} sw={7} c={brk > 0.5 ? RED : GOLDL} />
       </div>
       <Tag x={760} y={1100} p={outQuint((t - tHt - 0.1) / 0.4)} c={RED} size={40} w={260}>LOST</Tag>
       <Mark kind="x" x={905} y={1124} size={56} p={outQuint((t - tHt - 0.25) / 0.4)} sw={9} />
@@ -540,6 +558,21 @@ const SceneWinLose: React.FC<{t: number}> = ({t}) => {
 };
 
 // ---------- scene H: not to break the person → make the truth clearer ----------
+const HammerArt: React.FC<{x: number; y: number; rot: number; o: number}> = ({x, y, rot, o}) => o <= 0 ? null : (
+  <svg width={W} height={H} style={{position: 'absolute', left: 0, top: 0, opacity: o, overflow: 'visible', filter: 'drop-shadow(0 12px 22px rgba(0,0,0,.55))'}}>
+    <defs>
+      <linearGradient id="hWood" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#7a5524" /><stop offset="0.5" stopColor="#c9a457" /><stop offset="1" stopColor="#6e4b1e" /></linearGradient>
+      <linearGradient id="hSteel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f3efe6" /><stop offset="0.5" stopColor="#b9c0cf" /><stop offset="1" stopColor="#6c7488" /></linearGradient>
+    </defs>
+    <g transform={`translate(${x} ${y}) rotate(${rot})`}>
+      <rect x={-15} y={-290} width={30} height={290} rx={13} fill="url(#hWood)" stroke={GOLDL} strokeWidth={3} />
+      <rect x={-22} y={-60} width={44} height={60} rx={12} fill="#5a3d16" stroke={GOLDL} strokeWidth={3} />
+      <rect x={-95} y={-355} width={190} height={82} rx={14} fill="url(#hSteel)" stroke={CREAM} strokeWidth={4} />
+      <rect x={-95} y={-355} width={26} height={82} rx={8} fill="#e9e4d8" stroke={CREAM} strokeWidth={3} />
+      <rect x={69} y={-355} width={26} height={82} rx={8} fill="#e9e4d8" stroke={CREAM} strokeWidth={3} />
+    </g>
+  </svg>
+);
 const SceneBreak: React.FC<{t: number}> = ({t}) => {
   const tB = wt(20, 'break'), tP = wt(20, 'person');
   const pin = outQuint((t - ST[20] + 0.1) / 0.4), swing = inQuint((t - tB + 0.35) / 0.35), ban = outCubic((t - tP + 0.05) / 0.5);
@@ -550,9 +583,9 @@ const SceneBreak: React.FC<{t: number}> = ({t}) => {
     <AbsoluteFill>
       <div style={{opacity: pin * (1 - out)}}>
         <Line1 y={420}><StrikeIn p={outQuint((t - tB - 0.25) / 0.35)} sw={12}><KType text="TO BREAK" t={t} tin={tB - 0.2} size={92} /></StrikeIn></Line1>
-        <Person x={CX + 60} y={1080} p={pin} label="THE PERSON" r={20} />
-        <Icon name="hammer" x={CX - 70} y={880} size={260} p={pin} sw={6} c={CREAM} rot={lerp(-20, 40, swing) - recoil} />
-        <Mark kind="ban" x={CX - 30} y={900} size={420} p={ban} sw={11} />
+        <Person x={CX + 150} y={1130} p={pin} label="THE PERSON" r={28} ls={30} />
+        <HammerArt x={CX - 230} y={1180} rot={lerp(-35, 52, swing) - recoil} o={pin} />
+        <Mark kind="ban" x={CX - 20} y={950} size={480} p={ban} sw={13} />
       </div>
       <div style={{opacity: gIn}}>
         <Line1 y={420}><KType text="CLEARER" t={t} tin={wt(21, 'clearer') - 0.2} size={96} color={GOLDT} /></Line1>
@@ -572,29 +605,44 @@ const SceneBreak: React.FC<{t: number}> = ({t}) => {
 
 // ---------- scene I: truth doesn't need insult to support it ----------
 const SceneSupport: React.FC<{t: number}> = ({t}) => {
-  const pin = outQuint((t - ST[22] + 0.1) / 0.5), tI = wt(22, 'insult'), tS = wt(22, 'support');
-  const crutch = outQuint((t - tI + 0.35) / 0.45), pull = inOut((t - tS - 0.05) / 0.6), st = outQuint((t - tS + 0.05) / 0.35);
-  const ok = outQuint((t - tS - 0.55) / 0.4);
+  const pin = outQuint((t - ST[22] + 0.1) / 0.4), tI = wt(22, 'insult'), tS = wt(22, 'support');
+  const crutch = sp(t, tI - 0.35, 12, 150), pull = inOut((t - tS - 0.05) / 0.6), st = outQuint((t - tS + 0.05) / 0.3);
+  const ok = sp(t, tS + 0.15, 12, 160);
   const out = inQuint((t - ST[23] + 0.42) / 0.28);
+  const C0 = CX - 40;   // column centre
   return (
     <AbsoluteFill style={{opacity: pin * (1 - out)}}>
-      <svg width={W} height={H} style={{position: 'absolute', left: 0, top: 0}}>
-        {/* the column */}
-        <rect x={CX - 150} y={1180} width={300} height={34} rx={6} fill="rgba(13,23,42,.9)" stroke={GOLD} strokeWidth={4} />
-        <rect x={CX - 130} y={660} width={260} height={30} rx={6} fill="rgba(13,23,42,.9)" stroke={GOLD} strokeWidth={4} />
-        <rect x={CX - 100} y={690} width={200} height={490} fill="url(#colG)" stroke={GOLDL} strokeWidth={5} />
-        {[-50, 0, 50].map((dx, j) => <line key={j} x1={CX + dx} y1={700} x2={CX + dx} y2={1170} stroke={GOLD} strokeWidth={3} opacity={0.45} />)}
-        <defs><linearGradient id="colG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#1c2a48" /><stop offset="0.5" stopColor="#2c3d63" /><stop offset="1" stopColor="#1c2a48" /></linearGradient></defs>
+      <svg width={W} height={H} style={{position: 'absolute', left: 0, top: 0, overflow: 'visible'}}>
+        <defs>
+          <linearGradient id="colS" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#1a2744" /><stop offset="0.35" stopColor="#34476f" /><stop offset="0.6" stopColor="#2a3b60" /><stop offset="1" stopColor="#142038" /></linearGradient>
+          <linearGradient id="colG2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f6dfa3" /><stop offset="1" stopColor="#b98a3a" /></linearGradient>
+        </defs>
+        <ellipse cx={C0} cy={1236} rx={260} ry={18} fill="#000" opacity={0.35} />
+        {/* entablature with TRUTH, capital, shaft with fluting, base */}
+        <rect x={C0 - 190} y={640} width={380} height={86} rx={8} fill="url(#colG2)" stroke={GOLDL} strokeWidth={3} />
+        <rect x={C0 - 160} y={726} width={320} height={22} rx={4} fill="#c79b4a" stroke={GOLDL} strokeWidth={2} />
+        <path d={`M ${C0 - 120} 748 Q ${C0 - 150} 770 ${C0 - 112} 784 H ${C0 + 112} Q ${C0 + 150} 770 ${C0 + 120} 748 Z`} fill="#b98a3a" stroke={GOLDL} strokeWidth={2} />
+        <rect x={C0 - 105} y={784} width={210} height={380} fill="url(#colS)" stroke={GOLD} strokeWidth={3} />
+        {[-70, -35, 0, 35, 70].map((dx, j) => <line key={j} x1={C0 + dx} y1={796} x2={C0 + dx} y2={1152} stroke={GOLDL} strokeWidth={3} opacity={0.35} />)}
+        <rect x={C0 - 135} y={1164} width={270} height={28} rx={5} fill="#b98a3a" stroke={GOLDL} strokeWidth={2} />
+        <rect x={C0 - 165} y={1192} width={330} height={36} rx={6} fill="url(#colG2)" stroke={GOLDL} strokeWidth={3} />
       </svg>
-      <div style={{position: 'absolute', left: CX - 170, top: 860, width: 340, textAlign: 'center', padding: '10px 0', background: 'linear-gradient(180deg,#f6eedc,#ece0c4)',
-        borderRadius: 8, boxShadow: `inset 0 0 0 2px ${GOLD}, 0 10px 30px rgba(0,0,0,.5)`, fontFamily: F.cinzelB, fontSize: 56, letterSpacing: '0.12em', color: NAVY}}>TRUTH</div>
-      <div style={{opacity: crutch * (1 - pull), transform: `translate(${200 * pull}px, ${40 * pull}px)`}}>
-        <Icon name="crutches" x={CX + 250} y={1010} size={300} p={crutch} sw={6} c={RED} rot={-22 - 25 * pull} glow={0} />
-      </div>
-      <div style={{position: 'absolute', left: CX + 120, top: 740, width: 300, textAlign: 'center', opacity: crutch * (1 - 0.4 * pull)}}>
-        <StrikeIn p={st} sw={9}><span style={{fontFamily: F.cinzelB, fontSize: 40, letterSpacing: '0.12em', color: RED}}>INSULT</span></StrikeIn></div>
-      <CheckMark x={CX - 230} y={900} s={110} p={ok} />
-      <Tag x={CX - 250} y={975} p={ok} c={GOLDL} size={28} w={300}>STANDS<br />ON ITS OWN</Tag>
+      <div style={{position: 'absolute', left: C0 - 190, top: 640, width: 380, height: 86, display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontFamily: F.cinzelB, fontSize: 60, letterSpacing: '0.16em', color: NAVY}}>TRUTH</div>
+      {/* the crutch: leans on the column, then falls away */}
+      <svg width={W} height={H} style={{position: 'absolute', left: 0, top: 0, overflow: 'visible', opacity: clamp(crutch * 2) * (1 - 0.85 * pull)}}>
+        <g transform={`translate(${C0 + 345} 1222) rotate(${-30 + 75 * pull}) scale(${Math.min(1.04, crutch)})`}>
+          <line x1={-10} y1={0} x2={-10} y2={-430} stroke={RED} strokeWidth={9} strokeLinecap="round" />
+          <line x1={14} y1={0} x2={14} y2={-430} stroke={RED} strokeWidth={9} strokeLinecap="round" />
+          <rect x={-34} y={-452} width={72} height={26} rx={12} fill={RED} />
+          <rect x={-24} y={-250} width={52} height={14} rx={6} fill={RED} />
+          <rect x={-8} y={-10} width={20} height={26} rx={6} fill="#7d2f26" />
+        </g>
+      </svg>
+      <div style={{position: 'absolute', left: C0 + 290, top: 1000, width: 260, textAlign: 'center', opacity: clamp(crutch * 2) * (1 - clamp(pull * 2.5))}}>
+        <StrikeIn p={st} sw={10}><span style={{fontFamily: F.cinzelB, fontSize: 46, letterSpacing: '0.1em', color: RED}}>INSULT</span></StrikeIn></div>
+      <CheckMark x={C0 - 300} y={930} s={120} p={clamp(ok)} />
+      <Tag x={C0 - 300} y={1010} p={clamp(ok)} c={GOLDL} size={30} w={300}>STANDS<br />ON ITS OWN</Tag>
     </AbsoluteFill>
   );
 };
@@ -647,7 +695,7 @@ const SCN: Scn[] = [
   {a: ST[18] - 0.2, b: ST[20] - 0.05, C: SceneWinLose, tin: fadeIn(ST[18] - 0.2), tout: fadeOut(ST[20] - 0.05)},
   {a: ST[20] - 0.2, b: ST[22] - 0.05, C: SceneBreak, tout: fadeOut(ST[22] - 0.05)},
   {a: ST[22] - 0.2, b: ST[23] + 0.02, C: SceneSupport},
-  {a: ST[23] - 0.13, b: VEND + 0.3, C: SceneCallback},
+  {a: ST[23] - 0.13, b: VEND - 0.22, C: SceneCallback, tout: fadeOut(VEND - 0.22, 0.2)},
 ];
 
 const Frame: React.FC<{t: number; noEnd?: boolean}> = ({t, noEnd}) => {
