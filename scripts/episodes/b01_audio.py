@@ -184,6 +184,13 @@ d0, d1 = ST[11] - 0.3, ST[15] - 0.3   # the prayer section is quieter
 env = np.ones(len(music)); tt_ = np.arange(len(music)) / SR
 env = np.where((tt_ > d0) & (tt_ < d1), 0.35, 1.0); env = np.convolve(env, np.ones(int(0.25 * SR)) / int(0.25 * SR), mode="same")
 music *= env
+# Track B music v2 (scripts/trackb_music.py): MUSIC=ambient (default from B02) replaces the Hijaz pluck/pulse score
+if os.environ.get("MUSIC", "hijaz") == "ambient":
+    import sys; sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+    from trackb_music import ambient
+    music = ambient(TOTAL, [(0, "dawn"), (ST[3] - 0.2, "dusk"), (ST[8], "gold"), (ST[11] - 0.3, "night"), (ST[15] - 0.2, "dawn")], SR)
+    music = np.concatenate([music, np.zeros(max(0, N - len(music)))])[:N]
+    end_music = TOTAL
 def _wt(i, p):
     for w, s_, e_ in W[i]:
         if w.lower().strip(",.?'").startswith(p): return s_
