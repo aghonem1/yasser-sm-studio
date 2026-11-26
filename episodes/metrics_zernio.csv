@@ -1,11 +1,45 @@
-captured,code,platform,episode,title,posted,length_s,hook_type,views,reach,likes,comments,saves,shares,avg_watch_s,skip_rate_pct
-2026-11-25,DfxDHnrq3q0,ig,standalone,Is a wife her husband's property?,2026-11-15,40,question (real-life),1462,1277,30,1,20,8,7.0,65.0
-2026-11-25,Df4cK5UqTCC,ig,ep01,Kufr: the Qur'an calls farmers kuffar,2026-11-18,65,surprise fact,482,384,24,4,4,8,13.2,63.7
-2026-11-25,Df9GaR7qDvI,ig,ep02,Layyin: speak softly to Pharaoh,2026-11-20,49,surprise fact,923,817,31,3,9,5,7.9,71.2
-2026-11-25,DgAg9JiK6dP,ig,ep03,Taaruf: two kinds of people,2026-11-21,47,quote/claim,709,596,25,2,5,3,6.7,75.2
-2026-11-25,DgCSTCsKIh3,ig,ep04,Al-Balagh: you weren't asked to judge,2026-11-22,48,negative command,176,132,6,2,3,1,6.8,74.5
-2026-11-25,DgF6ivdqxcT,ig,ep05,Ikrah: no compulsion,2026-11-23,,negative command,169,138,8,1,1,2,6.8,72.7
-2026-11-25,DgKO7elK-Fe,ig,ep07,Ghuluw: going too far,2026-11-25,,question,94,79,1,1,0,1,7.0,65.1
-2026-11-25,DgCwyCFmNw_,ig,carousel,Intention in prayer (My Prayer),2026-11-22,,carousel,60,31,4,1,0,1,,
-2026-11-25,DgGx7r6Ewob,ig,carousel,What does kufr really mean (The Mirror),2026-11-24,,carousel,64,39,3,1,0,1,,
-2026-11-25,DgKG-FMmIW3,ig,carousel,Differing opinions (Hold Firmly),2026-11-25,,carousel,6,3,2,1,0,0,,
+captured,platform,post_id,url,code,episode,title,published_utc,media_type,length_s,hook_type,test,views,reach,likes,comments,saves,shares,follows,avg_watch_s,skip_rate_pct,completion_pct,replays,retention_3s_pct
+2026-11-26,instagram,DgM83eWhgp5,https://www.instagram.com/reel/DgM83eWhgp5/,DgM83eWhgp5,ep08,"Ahsan: not good, better",2026-11-26T11:03:31Z,reel,53,word fact,first-3-seconds (from ep08),145,126,5,1,0,0,,5.1,76.6,,0,
+2026-11-26,instagram,DgMrp2rs0kM,https://www.instagram.com/reel/DgMrp2rs0kM/,DgMrp2rs0kM,ss-tempt,How does temptation begin: slideshow reel,2026-11-26T08:32:10Z,slideshow reel,16,slideshow reel,carousel vs slideshow reel,129,109,2,1,0,1,,2.8,78.4,,0,
+2026-11-26,instagram,DgMQOCsjBo8,https://www.instagram.com/p/DgMQOCsjBo8/,DgMQOCsjBo8,car-tempt,How does temptation begin (The Evil I),2026-11-26T04:32:04Z,carousel,,carousel,carousel vs slideshow reel,37,19,3,1,0,1,0,,,,,
+2026-11-26,instagram,DgKO7elK-Fe,https://www.instagram.com/reel/DgKO7elK-Fe/,DgKO7elK-Fe,ep07,Ghuluw: going too far,2026-11-25T09:42:36Z,reel,49,negative command,hook type = negative command (ep05-07),164,137,5,1,2,1,,10.4,57.7,,0,
+2026-11-26,instagram,DgKG-FMmIW3,https://www.instagram.com/p/DgKG-FMmIW3/,DgKG-FMmIW3,car-differ,How should we weigh differing opinions (Hold Firmly),2026-11-25T08:32:37Z,carousel,,carousel,,20,10,3,1,0,0,0,,,,,
+2026-11-26,instagram,DgGx7r6Ewob,https://www.instagram.com/p/DgGx7r6Ewob/,DgGx7r6Ewob,car-kufr,What does kufr really mean (The Mirror),2026-11-24T01:31:04Z,carousel,,carousel,,67,41,3,1,0,1,0,,,,,
+2026-11-26,instagram,DgF6ivdqxcT,https://www.instagram.com/reel/DgF6ivdqxcT/,DgF6ivdqxcT,ep05,Ikrah: no compulsion,2026-11-23T17:27:55Z,reel,49,negative command,hook type = negative command (ep05-07),170,139,8,1,1,2,,6.9,72.2,,0,
+2026-11-26,instagram,DgCwyCFmNw_,https://www.instagram.com/p/DgCwyCFmNw_/,DgCwyCFmNw_,car-prayer,Intention in prayer (My Prayer),2026-11-22T12:04:03Z,carousel,,carousel,,61,32,4,1,0,1,0,,,,,
+2026-11-26,instagram,DgCSTCsKIh3,https://www.instagram.com/reel/DgCSTCsKIh3/,DgCSTCsKIh3,ep04,Al-Balagh: you weren't asked to judge,2026-11-22T07:38:38Z,reel,47,negative command,,180,133,6,2,3,1,,6.8,74.1,,0,
+2026-11-26,instagram,DgAg9JiK6dP,https://www.instagram.com/reel/DgAg9JiK6dP/,DgAg9JiK6dP,ep03,Taaruf: two kinds of people,2026-11-21T15:09:51Z,reel,46,quote/claim,,709,596,24,2,5,3,,6.7,75.2,,0,
+2026-11-26,instagram,Df9GaR7qDvI,https://www.instagram.com/reel/Df9GaR7qDvI/,Df9GaR7qDvI,ep02,Layyin: speak softly to Pharaoh,2026-11-20T07:18:08Z,reel,48,surprise fact,,928,818,31,3,9,5,,7.9,71.1,,0,
+2026-11-26,instagram,Df4cK5UqTCC,https://www.instagram.com/reel/Df4cK5UqTCC/,Df4cK5UqTCC,ep01,Kufr: the Qur'an calls farmers kuffar,2026-11-18T11:52:16Z,reel,65,surprise fact,,482,384,24,4,4,8,,13.2,63.7,,0,
+2026-11-26,instagram,DfxDHnrq3q0,https://www.instagram.com/reel/DfxDHnrq3q0/,DfxDHnrq3q0,standalone,Is a wife her husband's property?,2026-11-15T15:01:47Z,reel,40,question (real-life),,1463,1277,30,1,20,8,,7.0,65.0,,0,
+2026-11-26,facebook,1733456404811083,https://www.facebook.com/reel/1733456404811083/,,ep08,"Ahsan: not good, better",2026-11-26T11:05:09Z,reel,53,word fact,first-3-seconds (from ep08),0,0,0,1,0,0,0,0.0,,,0,
+2026-11-26,facebook,1804558817262931,https://www.facebook.com/reel/1804558817262931/,,ss-tempt,How does temptation begin: slideshow reel,2026-11-26T08:32:46Z,slideshow reel,16,slideshow reel,carousel vs slideshow reel,92,84,0,1,0,0,0,1.6,,,8,
+2026-11-26,facebook,122110695807547824,https://www.facebook.com/122110453959547824/posts/122110695807547824,,car-tempt,How does temptation begin (The Evil I),2026-11-26T04:30:51Z,carousel,,carousel,carousel vs slideshow reel,0,1,1,1,0,0,,,,,,
+2026-11-26,facebook,1143548644974494,https://www.facebook.com/reel/1143548644974494/,,ep07,Ghuluw: going too far,2026-11-25T09:42:46Z,reel,49,negative command,hook type = negative command (ep05-07),178,158,0,0,0,0,0,4.5,,,17,
+2026-11-26,facebook,122110388127547824,https://www.facebook.com/122110453959547824/posts/122110388127547824,,car-differ,How should we weigh differing opinions (Hold Firmly),2026-11-25T08:32:45Z,carousel,,carousel,,0,2,0,0,0,0,,,,,,
+2026-11-26,facebook,122109902769547824,https://www.facebook.com/122110453959547824/posts/122109902769547824,,car-kufr,What does kufr really mean (The Mirror),2026-11-24T01:31:14Z,carousel,,carousel,,0,3,0,0,0,0,,,,,,
+2026-11-26,facebook,1712566190363908,https://www.facebook.com/reel/1712566190363908/,,ep05,Ikrah: no compulsion,2026-11-23T17:28:12Z,reel,49,negative command,hook type = negative command (ep05-07),257,234,1,0,0,0,0,2.2,,,20,
+2026-11-26,facebook,122109200109547824,https://www.facebook.com/122110453959547824/posts/122109200109547824,,car-prayer,Intention in prayer (My Prayer),2026-11-22T12:04:11Z,carousel,,carousel,,0,2,1,0,0,0,,,,,,
+2026-11-26,facebook,1165221556449353,https://www.facebook.com/reel/1165221556449353/,,ep04,Al-Balagh: you weren't asked to judge,2026-11-22T07:38:51Z,reel,47,negative command,,271,248,1,0,0,0,0,2.8,,,22,78
+2026-11-26,facebook,995668650267442,https://www.facebook.com/reel/995668650267442/,,ep03,Taaruf: two kinds of people,2026-11-21T15:10:06Z,reel,46,quote/claim,,256,233,2,0,0,1,0,3.7,,,20,96
+2026-11-26,facebook,2329433381145002,https://www.facebook.com/reel/2329433381145002/,,ep01,Kufr: the Qur'an calls farmers kuffar,2026-11-19T03:49:30Z,reel,65,surprise fact,,244,210,3,2,0,0,1,10.1,,,22,80
+2026-11-26,facebook,1609839367002659,https://www.facebook.com/reel/1609839367002659/,,standalone,Is a wife her husband's property?,2026-11-16T15:57:00Z,reel,29,question (real-life),,260,217,1,1,0,0,0,3.9,,,23,94
+2026-11-26,tiktok,7712438320034336020,https://www.tiktok.com/@yasser_fares/video/7712438320034336020,,ep08,"Ahsan: not good, better",2026-11-26T11:19:38Z,video,53.5,word fact,first-3-seconds (from ep08),26,,1,0,0,0,0,4.6,,0,0,23
+2026-11-26,tiktok,7712042853983194375,https://www.tiktok.com/@yasser_fares/video/7712042853983194375,,ep07,Ghuluw: going too far,2026-11-25T09:45:11Z,video,49.9,negative command,hook type = negative command (ep05-07),564,,38,2,5,12,19,19.6,,19.5,0,51
+2026-11-26,tiktok,7712024792953638152,https://www.tiktok.com/@yasser_fares/video/7712024792953638152,,car-differ,How should we weigh differing opinions (Hold Firmly),2026-11-25T08:35:09Z,photo carousel,,carousel,,358,,17,0,2,2,0,4.4,,1.2,0,
+2026-11-26,tiktok,7711547784003996946,https://www.tiktok.com/@yasser_fares/video/7711547784003996946,,car-kufr,What does kufr really mean (The Mirror),2026-11-24T01:44:05Z,photo carousel,,carousel,,381,369,26,0,3,0,4,9.4,,4.0,0,
+2026-11-26,tiktok,7711420184589831432,https://www.tiktok.com/@yasser_fares/video/7711420184589831432,,ep05,Ikrah: no compulsion,2026-11-23T17:28:59Z,video,49.7,negative command,hook type = negative command (ep05-07),392,381,38,2,4,3,7,10.4,,4.0,0,28
+2026-11-26,tiktok,7710966075650739474,https://www.tiktok.com/@yasser_fares/video/7710966075650739474,,car-prayer,Intention in prayer (My Prayer),2026-11-22T12:06:41Z,photo carousel,,carousel,,364,360,26,1,3,2,0,14.8,,4.7,0,
+2026-11-26,tiktok,7710897845917797639,https://www.tiktok.com/@yasser_fares/video/7710897845917797639,,ep04,Al-Balagh: you weren't asked to judge,2026-11-22T07:41:59Z,video,48,negative command,,369,365,35,1,6,1,2,6.2,,2.4,0,31
+2026-11-26,tiktok,7710644171467443463,https://www.tiktok.com/@yasser_fares/video/7710644171467443463,,ep03,Taaruf: two kinds of people,2026-11-21T15:17:31Z,video,46.5,quote/claim,,368,365,31,1,10,14,4,8.9,,6.2,0,34
+2026-11-26,tiktok,7710150102374993170,https://www.tiktok.com/@yasser_fares/video/7710150102374993170,,ep02,Layyin: speak softly to Pharaoh,2026-11-20T07:20:28Z,video,48.7,surprise fact,,329,323,35,1,3,4,1,8.9,,5.5,0,34
+2026-11-26,tiktok,7709478580673154322,https://www.tiktok.com/@yasser_fares/video/7709478580673154322,,ep01,Kufr: the Qur'an calls farmers kuffar,2026-11-18T11:54:29Z,video,66,surprise fact,,132,121,10,1,3,2,0,13.3,,4.4,0,36
+2026-11-26,tiktok,7708606344059817224,https://www.tiktok.com/@yasser_fares/video/7708606344059817224,,standalone,Is a wife her husband's property?,2026-11-16T03:29:47Z,video,29.4,question (real-life),,428,399,32,1,4,2,0,4.9,,5.0,0,25
+2026-11-26,youtube,Ts5XxEbRblc,https://www.youtube.com/watch?v=Ts5XxEbRblc,,ep08,"Ahsan: not good, better",2026-11-26T11:21:07Z,short,54,word fact,first-3-seconds (from ep08),6,,0,0,,,,,,,,
+2026-11-26,youtube,aXv0nstWKuo,https://www.youtube.com/watch?v=aXv0nstWKuo,,ep07,Ghuluw: going too far,2026-11-25T16:02:21Z,short,50,negative command,hook type = negative command (ep05-07),54,,3,0,,,,,,,,
+2026-11-26,youtube,pVmJ4VbPZkQ,https://www.youtube.com/watch?v=pVmJ4VbPZkQ,,ep05,Ikrah: no compulsion,2026-11-24T01:39:56Z,short,50,negative command,hook type = negative command (ep05-07),365,,16,0,,,,,,,,
+2026-11-26,youtube,i7isKifOiuw,https://www.youtube.com/watch?v=i7isKifOiuw,,ep04,Al-Balagh: you weren't asked to judge,2026-11-22T12:57:00Z,short,49,negative command,,428,,16,0,,,,,,,,
+2026-11-26,youtube,K4kE4PO5f88,https://www.youtube.com/watch?v=K4kE4PO5f88,,ep03,Taaruf: two kinds of people,2026-11-21T15:23:55Z,short,47,quote/claim,,359,,23,1,,,,,,,,
+2026-11-26,youtube,VpipZZeov4E,https://www.youtube.com/watch?v=VpipZZeov4E,,ep02,Layyin: speak softly to Pharaoh,2026-11-20T23:38:38Z,short,49,surprise fact,,55,,3,1,,,,,,,,
+2026-11-26,youtube,fvNjelXCBpQ,https://www.youtube.com/watch?v=fvNjelXCBpQ,,ep01,Kufr: the Qur'an calls farmers kuffar,2026-11-19T14:14:26Z,short,66,surprise fact,,1189,,75,0,,,,,,,,
+2026-11-26,youtube,y2T5fgZxzcI,https://www.youtube.com/watch?v=y2T5fgZxzcI,,standalone,Is a wife her husband's property?,2026-11-16T15:59:56Z,short,30,question (real-life),,49,,0,0,,,,,,,,
