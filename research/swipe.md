@@ -33,3 +33,17 @@
 The daily score-and-rewrite loop (RUNBOOK §2a) takes these as the starting hook and improves them.
 
 Rules followed: read only, at browsing speed, while signed in as @yasserfares_; nothing followed, liked or messaged. Formulas are copied, never scripts or edits.
+
+## Account studies, 26 Nov 2026 (Ahmed's picks; read only, frame by frame)
+### @osama_alsadeq_ — 26.8K followers, 9 reels in ~5 weeks → the model for Track B (RUNBOOK_B.md)
+Views: 3.3M (first reel, "I've been saying astaghfirullah my whole life…"), 544K, 540K, 197K, 165K, 81K, 59K, 28K, 24K. ~49 s. Everyday phrase + faceless stick figure in a story + English/Arabic captions + camera moves, mood colour per section, figure that walks and acts, root letters animated.
+### @tickettojannnah — 22.5K followers, 12 reels in ~4 weeks → lessons for Track A (One Word)
+Views: 732K ("Not One Step Closer", وَلَا تَقْرَبُوا 17:32), 57K, then 2–8K each. 52 s. One breakout made the account, as with Osama.
+What the 732K reel does:
+1. **A stake every viewer feels**, with a counter-intuitive hook: "Shaytan will never ask you to commit zina. He'll only ask you to come one step closer." Our One Word picks (al-balagh, ikrah, birr) are true but abstract.
+2. **ONE visual metaphor for the whole reel, escalated.** A gravity well and a small ball (the person). "THE PULL ×1 → ×4 → ×16 → ×256" as the ball moves closer; the camera dives into the well; footprints walk down into it ("a look, a message, holding hands…"); a cross-section shows the drop; then the verse. We draw a new picture per line; they deepen one picture.
+3. **Flat pastel illustration with fine line detail, a background colour per section, slow camera zooms**, elegant serif type (close to our Cinzel/Cormorant), a small mosque emblem and series line at the top.
+4. **Cover = a poster**: the Qur'anic phrase in Arabic, a 3–5 word English title, a reference pill (AL-ISRA · 17:32), the illustration. Every cover in the grid follows it.
+5. **The verse is recited by a known reciter** (Sa'ud ash-Shuraym, Quran.com) and the caption credits recitation, translation and sources line by line.
+6. **Caption = a short article** (the argument, the verse, a source, a hadith) ending in "follow for more, and share it with others as sadaqah jariyah". A share ask that fits the audience.
+Not for us as is: their tafsir quotes and hadith are from outside sources; our rule is book-sourced only.
