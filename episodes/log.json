@@ -118,7 +118,12 @@
       "files": "2026-11-26_the-mirror_one-word-08-ahsan_9x16_v3.mp4 / _v1_cover.jpg",
       "note": "Backlog row 08 (wasat, 2:143) blocked: quran/verse.py SOURCES DISAGREE; row 09 (ahsan) made as episode 08.",
       "review": "v2 26 Nov: animation review round (10 fps sheets, 3 rounds) fixed 11 issues: hook/ONE WORD double exposure, muddy card and scene fades, verse order (hostility before the reply), bubble over heart, greeting bubble through heading, missing headings (18.8-19.9 s, 35.4-36.0 s), empty frames before the trophy, slow-fade BETTER bubble, stuck wipe line, hammer read as a T, callback over the column, end-card glare. Zernio post media replaced.",
-      "review_v3": "v3 26 Nov (Ahmed rejected v2: broken arrow, weird animations, quality not there): redrew the arrow (solid, GOOD to BETTER), hammer (drawn, swings), column (one drawing with TRUTH on top, crutch leans on it), verse and greeting figures and bubbles (larger, words in bubbles), rows, trophy and heart; callback held 0.8 s longer (split.py HOLD); end-card double exposure and crutch-over-label fixed. Reviewed at 1/3 and full size."
+      "review_v3": "v3 26 Nov (Ahmed rejected v2: broken arrow, weird animations, quality not there): redrew the arrow (solid, GOOD to BETTER), hammer (drawn, swings), column (one drawing with TRUTH on top, crutch leans on it), verse and greeting figures and bubbles (larger, words in bubbles), rows, trophy and heart; callback held 0.8 s longer (split.py HOLD); end-card double exposure and crutch-over-label fixed. Reviewed at 1/3 and full size.",
+      "zernio_post_id_tt_yt": "6b0815c82986832c38ed0334",
+      "tt_yt_urls": [
+        "https://www.tiktok.com/@yasser_fares/video/7712438320034336020",
+        "https://www.youtube.com/watch?v=Ts5XxEbRblc"
+      ]
     }
   ]
 }
