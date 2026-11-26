@@ -1,0 +1,14 @@
+{
+  "_note": "Track B: the ONLY source for the Arabic of short prayer phrases that are not Qur'an (Qur'anic text comes from quran/verse.py, never from here or from memory). Full tashkeel. If an episode needs a phrase that is not listed, do not type it from memory: use the book's transliteration on screen and add the Arabic only after Ahmed or Yasser adds it here.",
+  "takbir": {"ar": "اللهُ أَكْبَرُ", "tr": "Allahu Akbar", "en": "Allah is greater", "book": "My Prayer, Ch.4 p.31"},
+  "ruku": {"ar": "سُبْحَانَ رَبِّيَ الْعَظِيمِ", "tr": "Subhana Rabbi al-'Azim", "en": "Glory be to my Lord, the Magnificent", "book": "My Prayer, Ch.7 p.40"},
+  "rafa": {"ar": "سَمِعَ اللهُ لِمَنْ حَمِدَهُ", "tr": "Sami'a Allahu liman hamidah", "en": "Allah hears the one who praises Him", "book": "My Prayer, Ch.7 p.42"},
+  "tahmid": {"ar": "رَبَّنَا وَلَكَ الْحَمْدُ", "tr": "Rabbana wa lakal-hamd", "en": "Our Lord, and to You belongs all praise", "book": "My Prayer, Ch.7 p.42 (check the form the book prints)"},
+  "sujud": {"ar": "سُبْحَانَ رَبِّيَ الْأَعْلَى", "tr": "Subhana Rabbi al-A'la", "en": "Glory be to my Lord, the Most High", "book": "My Prayer, Ch.8 p.44"},
+  "jalsa": {"ar": "رَبِّ اغْفِرْ لِي", "tr": "Rabbi-ghfir li", "en": "My Lord, forgive me", "book": "My Prayer, Ch.8 p.46"},
+  "tahiyyat": {"ar": "التَّحِيَّاتُ لِلَّهِ", "tr": "At-tahiyyatu lillah", "en": "All greetings belong to Allah", "book": "My Prayer, Ch.10 p.49 (opening words only)"},
+  "taslim": {"ar": "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ", "tr": "As-salamu 'alaykum wa rahmatullah", "en": "Peace be upon you and the mercy of Allah", "book": "My Prayer, Ch.11 p.52"},
+  "falah": {"ar": "حَيَّ عَلَى الْفَلَاحِ", "tr": "Hayya 'ala al-falah", "en": "Come to flourishing", "book": "My Prayer, Ch.1 p.20"},
+  "salah": {"ar": "حَيَّ عَلَى الصَّلَاةِ", "tr": "Hayya 'ala al-salah", "en": "Come to prayer", "book": "My Prayer, Ch.1 p.20"},
+  "shahada": {"ar": "أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللهُ", "tr": "Ashhadu an la ilaha illa Allah", "en": "I bear witness that there is no god but Allah", "book": "My Prayer, Ch.1 p.18"}
+}

@@ -1,129 +1,153 @@
 {
-  "episodes": [
-    {
-      "n": 1,
-      "word": "كُفْر",
-      "slug": "kufr",
-      "date": "2026-11-18",
-      "status": "delivered"
-    },
-    {
-      "n": 2,
-      "word": "لَيِّنًا",
-      "slug": "layyin",
-      "date": "2026-11-20",
-      "status": "delivered"
-    },
-    {
-      "n": 3,
-      "word": "لِتَعَارَفُوا",
-      "slug": "taaruf",
-      "date": "2026-11-20",
-      "status": "delivered (v3 design = current reference)"
-    },
-    {
-      "n": 4,
-      "word": "البَلَاغ",
-      "slug": "al-balagh",
-      "date": "2026-11-21",
-      "status": "v2 rebuilt 22 Nov: explanatory storyboard (new reference look); awaiting Yasser's approval",
-      "book": "Ch.2 p.15–17 (+ p.23, p.78)",
-      "verses": [
-        "13:40",
-        "88:21",
-        "88:22"
-      ],
-      "duration_s": 48.0,
-      "files": "2026-11-22_the-mirror_one-word-04-al-balagh_9x16_v2.mp4 / _v2_cover.jpg"
-    },
-    {
-      "n": 5,
-      "word": "إِكْرَاه",
-      "slug": "ikrah",
-      "date": "2026-11-22",
-      "status": "delivered for review (awaiting Yasser's approval)",
-      "book": "Ch.2 p.17–18 (There Is No Compulsion in Religion; Faith Involves Choice)",
-      "verses": [
-        "2:256",
-        "18:29"
-      ],
-      "duration_s": 49.7,
-      "hook": "Stop forcing faith on people. Force wins the tongue, never the heart.",
-      "hook_onscreen": "STOP FORCING FAITH.",
-      "hook_type": "negative command",
-      "hook_score": 84.4,
-      "hook_score_start": 51.0,
-      "test": "hook type = negative command (ep05–07)",
-      "files": "2026-11-22_the-mirror_one-word-05-ikrah_9x16_v1.mp4 / _cover.jpg"
-    },
-    {
-      "n": 6,
-      "word": "بِرّ",
-      "slug": "birr",
-      "date": "2026-11-23",
-      "status": "v3 24 Nov: premium motion (v2) + text pass; awaiting Yasser's approval",
-      "book": "Ch.3 p.26 (Kindness Goes Beyond Justice) + Ch.4 p.35–36 (Beyond Fairness)",
-      "verses": [
-        "60:8"
-      ],
-      "duration_s": 49.5,
-      "hook": "Don't stop at being fair. The Qur'an asks you for more.",
-      "hook_onscreen": "DON'T STOP AT FAIR.",
-      "hook_type": "negative command",
-      "hook_score": 100.0,
-      "hook_score_start": 54.6,
-      "test": "hook type = negative command (ep05–07)",
-      "files": "2026-11-23_the-mirror_one-word-06-birr_9x16_v3.mp4 / _v3_cover.jpg",
-      "check": "qist re-generated and spliced (ASR hears kāf for qāf); last birr at ~38.9 s unclear in Arabic ASR"
-    },
-    {
-      "n": 7,
-      "word": "غُلُوّ",
-      "slug": "ghuluw",
-      "date": "2026-11-24",
-      "status": "v2 25 Nov: غُلُوُّ re-recorded with the damma on the waw (Ahmed); awaiting Yasser's approval",
-      "book": "Ch.5 p.44 (What Is Extremism?) + p.45 (The Qur'an Forbids Religious Excess)",
-      "verses": [
-        "4:171"
-      ],
-      "duration_s": 49.9,
-      "hook": "Don't confuse extreme with faithful. Going too far is not more faith.",
-      "hook_onscreen": "EXTREME ISN'T FAITHFUL.",
-      "hook_type": "negative command",
-      "hook_score": 84.4,
-      "hook_score_start": 51.0,
-      "test": "hook type = negative command (ep05–07)",
-      "files": "2026-11-24_the-mirror_one-word-07-ghuluw_9x16_v2.mp4 / _v2_cover.jpg",
-      "check": "v1 said غُلُوّ without the final damma (Ahmed, 25 Nov). v2: the word alone, written غُلُوُّ (damma on the waw), language ar, speed 0.85, spliced at 8.355 s (take from 0.13 s); timeline unchanged, so the picture was not re-rendered. Whisper-ar still hears ر for غ, so confirm by ear."
-    },
-    {
-      "n": 8,
-      "word": "أَحْسَن",
-      "slug": "ahsan",
-      "date": "2026-11-26",
-      "status": "scheduled on Instagram + Facebook via Zernio (daily task, automatic posting)",
-      "book": "Ch.4 p.36 (Kindness Towards Those Who Differ) + p.35 (Beyond Fairness)",
-      "verses": [
-        "41:34"
-      ],
-      "duration_s": 53.5,
-      "hook": "Not good. Better. That's the Qur'an's command to you.",
-      "hook_onscreen": "NOT GOOD. BETTER.",
-      "hook_type": "word fact",
-      "hook_score": 84.4,
-      "hook_score_start": 80.2,
-      "test": "first-3-seconds (from ep08): word fact, Arabic word on frame 1, hook spoken from 0.03 s, first visual change by 0.6 s, no branding animation before the hook",
-      "zernio_post_id": "6b076980a36f59c3855f1526",
-      "scheduled_for": "2026-11-26T19:00:00+08:00",
-      "files": "2026-11-26_the-mirror_one-word-08-ahsan_9x16_v3.mp4 / _v1_cover.jpg",
-      "note": "Backlog row 08 (wasat, 2:143) blocked: quran/verse.py SOURCES DISAGREE; row 09 (ahsan) made as episode 08.",
-      "review": "v2 26 Nov: animation review round (10 fps sheets, 3 rounds) fixed 11 issues: hook/ONE WORD double exposure, muddy card and scene fades, verse order (hostility before the reply), bubble over heart, greeting bubble through heading, missing headings (18.8-19.9 s, 35.4-36.0 s), empty frames before the trophy, slow-fade BETTER bubble, stuck wipe line, hammer read as a T, callback over the column, end-card glare. Zernio post media replaced.",
-      "review_v3": "v3 26 Nov (Ahmed rejected v2: broken arrow, weird animations, quality not there): redrew the arrow (solid, GOOD to BETTER), hammer (drawn, swings), column (one drawing with TRUTH on top, crutch leans on it), verse and greeting figures and bubbles (larger, words in bubbles), rows, trophy and heart; callback held 0.8 s longer (split.py HOLD); end-card double exposure and crutch-over-label fixed. Reviewed at 1/3 and full size.",
-      "zernio_post_id_tt_yt": "6b0815c82986832c38ed0334",
-      "tt_yt_urls": [
-        "https://www.tiktok.com/@yasser_fares/video/7712438320034336020",
-        "https://www.youtube.com/watch?v=Ts5XxEbRblc"
-      ]
-    }
-  ]
+ "episodes": [
+  {
+   "n": 1,
+   "word": "كُفْر",
+   "slug": "kufr",
+   "date": "2026-11-18",
+   "status": "delivered"
+  },
+  {
+   "n": 2,
+   "word": "لَيِّنًا",
+   "slug": "layyin",
+   "date": "2026-11-20",
+   "status": "delivered"
+  },
+  {
+   "n": 3,
+   "word": "لِتَعَارَفُوا",
+   "slug": "taaruf",
+   "date": "2026-11-20",
+   "status": "delivered (v3 design = current reference)"
+  },
+  {
+   "n": 4,
+   "word": "البَلَاغ",
+   "slug": "al-balagh",
+   "date": "2026-11-21",
+   "status": "v2 rebuilt 22 Nov: explanatory storyboard (new reference look); awaiting Yasser's approval",
+   "book": "Ch.2 p.15–17 (+ p.23, p.78)",
+   "verses": [
+    "13:40",
+    "88:21",
+    "88:22"
+   ],
+   "duration_s": 48.0,
+   "files": "2026-11-22_the-mirror_one-word-04-al-balagh_9x16_v2.mp4 / _v2_cover.jpg"
+  },
+  {
+   "n": 5,
+   "word": "إِكْرَاه",
+   "slug": "ikrah",
+   "date": "2026-11-22",
+   "status": "delivered for review (awaiting Yasser's approval)",
+   "book": "Ch.2 p.17–18 (There Is No Compulsion in Religion; Faith Involves Choice)",
+   "verses": [
+    "2:256",
+    "18:29"
+   ],
+   "duration_s": 49.7,
+   "hook": "Stop forcing faith on people. Force wins the tongue, never the heart.",
+   "hook_onscreen": "STOP FORCING FAITH.",
+   "hook_type": "negative command",
+   "hook_score": 84.4,
+   "hook_score_start": 51.0,
+   "test": "hook type = negative command (ep05–07)",
+   "files": "2026-11-22_the-mirror_one-word-05-ikrah_9x16_v1.mp4 / _cover.jpg"
+  },
+  {
+   "n": 6,
+   "word": "بِرّ",
+   "slug": "birr",
+   "date": "2026-11-23",
+   "status": "v3 24 Nov: premium motion (v2) + text pass; awaiting Yasser's approval",
+   "book": "Ch.3 p.26 (Kindness Goes Beyond Justice) + Ch.4 p.35–36 (Beyond Fairness)",
+   "verses": [
+    "60:8"
+   ],
+   "duration_s": 49.5,
+   "hook": "Don't stop at being fair. The Qur'an asks you for more.",
+   "hook_onscreen": "DON'T STOP AT FAIR.",
+   "hook_type": "negative command",
+   "hook_score": 100.0,
+   "hook_score_start": 54.6,
+   "test": "hook type = negative command (ep05–07)",
+   "files": "2026-11-23_the-mirror_one-word-06-birr_9x16_v3.mp4 / _v3_cover.jpg",
+   "check": "qist re-generated and spliced (ASR hears kāf for qāf); last birr at ~38.9 s unclear in Arabic ASR"
+  },
+  {
+   "n": 7,
+   "word": "غُلُوّ",
+   "slug": "ghuluw",
+   "date": "2026-11-24",
+   "status": "v2 25 Nov: غُلُوُّ re-recorded with the damma on the waw (Ahmed); awaiting Yasser's approval",
+   "book": "Ch.5 p.44 (What Is Extremism?) + p.45 (The Qur'an Forbids Religious Excess)",
+   "verses": [
+    "4:171"
+   ],
+   "duration_s": 49.9,
+   "hook": "Don't confuse extreme with faithful. Going too far is not more faith.",
+   "hook_onscreen": "EXTREME ISN'T FAITHFUL.",
+   "hook_type": "negative command",
+   "hook_score": 84.4,
+   "hook_score_start": 51.0,
+   "test": "hook type = negative command (ep05–07)",
+   "files": "2026-11-24_the-mirror_one-word-07-ghuluw_9x16_v2.mp4 / _v2_cover.jpg",
+   "check": "v1 said غُلُوّ without the final damma (Ahmed, 25 Nov). v2: the word alone, written غُلُوُّ (damma on the waw), language ar, speed 0.85, spliced at 8.355 s (take from 0.13 s); timeline unchanged, so the picture was not re-rendered. Whisper-ar still hears ر for غ, so confirm by ear."
+  },
+  {
+   "n": 8,
+   "word": "أَحْسَن",
+   "slug": "ahsan",
+   "date": "2026-11-26",
+   "status": "scheduled on Instagram + Facebook via Zernio (daily task, automatic posting)",
+   "book": "Ch.4 p.36 (Kindness Towards Those Who Differ) + p.35 (Beyond Fairness)",
+   "verses": [
+    "41:34"
+   ],
+   "duration_s": 53.5,
+   "hook": "Not good. Better. That's the Qur'an's command to you.",
+   "hook_onscreen": "NOT GOOD. BETTER.",
+   "hook_type": "word fact",
+   "hook_score": 84.4,
+   "hook_score_start": 80.2,
+   "test": "first-3-seconds (from ep08): word fact, Arabic word on frame 1, hook spoken from 0.03 s, first visual change by 0.6 s, no branding animation before the hook",
+   "zernio_post_id": "6b076980a36f59c3855f1526",
+   "scheduled_for": "2026-11-26T19:00:00+08:00",
+   "files": "2026-11-26_the-mirror_one-word-08-ahsan_9x16_v3.mp4 / _v1_cover.jpg",
+   "note": "Backlog row 08 (wasat, 2:143) blocked: quran/verse.py SOURCES DISAGREE; row 09 (ahsan) made as episode 08.",
+   "review": "v2 26 Nov: animation review round (10 fps sheets, 3 rounds) fixed 11 issues: hook/ONE WORD double exposure, muddy card and scene fades, verse order (hostility before the reply), bubble over heart, greeting bubble through heading, missing headings (18.8-19.9 s, 35.4-36.0 s), empty frames before the trophy, slow-fade BETTER bubble, stuck wipe line, hammer read as a T, callback over the column, end-card glare. Zernio post media replaced.",
+   "review_v3": "v3 26 Nov (Ahmed rejected v2: broken arrow, weird animations, quality not there): redrew the arrow (solid, GOOD to BETTER), hammer (drawn, swings), column (one drawing with TRUTH on top, crutch leans on it), verse and greeting figures and bubbles (larger, words in bubbles), rows, trophy and heart; callback held 0.8 s longer (split.py HOLD); end-card double exposure and crutch-over-label fixed. Reviewed at 1/3 and full size.",
+   "zernio_post_id_tt_yt": "6b0815c82986832c38ed0334",
+   "tt_yt_urls": [
+    "https://www.tiktok.com/@yasser_fares/video/7712438320034336020",
+    "https://www.youtube.com/watch?v=Ts5XxEbRblc"
+   ]
+  },
+  {
+   "track": "B",
+   "id": "b01",
+   "n": 1,
+   "word": "اللهُ أَكْبَرُ",
+   "slug": "allahu-akbar",
+   "date": "2026-11-26",
+   "status": "scheduled",
+   "book": "My Prayer, Ch.4 'The Opening Takbir: From the Call to the Answer', p.31–32",
+   "verses": [],
+   "duration_s": 43.4,
+   "hook": "Allahu Akbar is not only \"Allah is great.\" You've been saying \"greater.\"",
+   "hook_type": "correction aimed at you",
+   "hook_score": 93.8,
+   "hook_score_start": 66.2,
+   "test": "Track B pilot: everyday phrase + stick figure story + English/Arabic captions + light style (vs Track A)",
+   "zernio_post_id": "6b084ed2225ed7513e1e9b5b",
+   "zernio_post_id_tt_yt": "6b084ed480f40012497b96d7",
+   "scheduled_for": "2026-11-27T23:15+08:00",
+   "files": [
+    "2026-11-26_my-prayer_phrase-01-allahu-akbar_9x16_v1.mp4",
+    "…_cover.jpg"
+   ]
+  }
+ ]
 }
