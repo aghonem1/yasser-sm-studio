@@ -3,39 +3,40 @@ import json, os, numpy as np
 D = os.environ["EP_DIR"]
 SP = json.load(open(f"{D}/spoken.json"))
 # (display text, first spoken idx, last spoken idx); tokens consume 1 spoken word unless listed in MERGE
-LINES = [   # ep08 ahsan (the last line is the series promise, spoken over the end card)
-    ('Not good. Better.', 0, 2),
-    ("That's the Qur'an's command to you.", 3, 8),
-    ('One word: aḥsan.', 9, 11),
-    ('God says:', 12, 13),
-    ('“Respond with what is better,', 14, 18),
-    ('and the one between whom and you there was hostility', 19, 28),
-    ('may become like a close friend.”', 29, 34),
-    ('Notice:', 35, 35),
-    ("it doesn't just say, respond with something good.", 36, 43),
-    ('It says: with what is better.', 44, 49),
-    ('The response most likely to heal,', 50, 55),
-    ('correct, and bring peace.', 56, 59),
-    ('Think of a greeting.', 60, 63),
-    ('Returning it is justice.', 64, 67),
-    ('Returning it with something better is kindness.', 68, 74),
-    ("Here's the hard part.", 75, 78),
-    ('Not every answer you can give', 79, 84),
-    ('is one you ought to give.', 85, 90),
-    ('You can win the argument,', 91, 95),
-    ('and lose the heart.', 96, 99),
-    ("The point isn't to break the person in front of you.", 100, 110),
-    ("It's to make the truth clearer.", 111, 116),
-    ("Truth doesn't need insult to support it.", 117, 123),
-    ('Not good. Better.', 124, 126),
-    ('A new word, every day.', 127, 131),
+LINES = [   # ep09 qist (the last two lines are the follow line, spoken over the end card)
+    ('Your parents are wrong.', 0, 3),
+    ('Would you still testify against them?', 4, 9),
+    ("The Qur'an asks you to.", 10, 14),
+    ('One word: qisṭ.', 15, 17),
+    ('God says:', 18, 19),
+    ('“O you who believe,', 20, 23),
+    ('stand firmly for justice as witnesses for God,', 24, 31),
+    ('even if it is against yourselves,', 32, 37),
+    ('your parents or your closest relatives.”', 38, 43),
+    ('Qisṭ: a justice that gives every person his rightful due.', 44, 53),
+    ('Justice may mean admitting that someone close to you is wrong,', 54, 64),
+    ('and that an opponent is right.', 65, 70),
+    ('A witness for God, not for group prejudice.', 71, 78),
+    ("Here's the hard part.", 79, 82),
+    ('Prejudice teaches you to overlook goodness', 83, 88),
+    ('in anyone who differs from you.', 89, 94),
+    ('Then religion stops being a scale of justice,', 95, 102),
+    ('and becomes a lens that sees only the faults of others.', 103, 113),
+    ('Justice is a scale that stays true,', 114, 120),
+    ('whether the person before it is loved or disliked.', 121, 129),
+    ('Your parents, or a stranger:', 130, 134),
+    ("the measure doesn't change.", 135, 138),
+    ("One Qur'anic word a day.", 139, 143),
+    ("Follow so you don't miss tomorrow's.", 144, 149),
 ]
+VOICE_END_LINE = 22   # ep09: the end card starts with this line (the follow line); None = use PROMISE
 PROMISE = True   # last line is spoken during the end card: voice_end = end of the line before it
 MERGE = {}
-MAXG, KEEP_LONG = 0.32, {0: 0.36, 1: 0.4, 2: 0.4, 3: 0.5, 6: 0.5, 9: 0.45, 11: 0.4, 14: 0.55, 15: 0.42, 21: 0.4, 22: 0.6}
+MAXG, KEEP_LONG = 0.32, {0: 0.45, 1: 0.42, 2: 0.36, 3: 0.45, 8: 0.5, 9: 0.42, 11: 0.4, 12: 0.45, 13: 0.5, 15: 0.4, 17: 0.55, 19: 0.45, 21: 0.9, 22: 0.4}
 LEAD = 0.03   # ep08: cut leading silence so the hook is spoken from ~0.0 s (learnings: first 3 seconds); None = keep
 ENDCARD = 3.2
 HOLD = 0.8   # ep08: the callback before the end card stays 0.8 s longer (Ahmed: it went by too fast)
+VOICE_END_LINE = globals().get('VOICE_END_LINE')
 QUIET_DB = -42   # gap trimming only removes audio this quiet (added ep07: protects word tails)
 
 src = f"{D}/src.wav"
@@ -92,7 +93,9 @@ for txt, a, b in LINES:
         words.append([tk, shift(grp[0][1]), shift(grp[-1][2])])
     assert k == len(ws), (txt, k, len(ws))
     lines.append({"text": txt, "words": words, "start": words[0][1], "end": words[-1][2]})
-if globals().get("PROMISE"):
+if VOICE_END_LINE is not None:
+    voice_end = lines[VOICE_END_LINE]["start"] - 0.12; total = max(voice_end + ENDCARD, lines[-1]["end"] + 1.2)
+elif globals().get("PROMISE"):
     voice_end = lines[-2]["end"] + 0.6 + HOLD; total = max(voice_end + ENDCARD, lines[-1]["end"] + 1.0)
 else:
     voice_end = lines[-1]["end"] + 0.6; total = voice_end + ENDCARD

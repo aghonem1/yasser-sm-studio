@@ -151,6 +151,44 @@
    "version": "v2 (kit v2: camera, moods, walking, trails)",
    "note": "v1 (posts 6b084ed2…, 6b084ed4…) deleted before publishing after Ahmed: animation not close to the reference; rebuilt on kit v2 and published the same night.",
    "music": "hijaz-v1"
+  },
+  {
+   "track": "A",
+   "n": 9,
+   "word": "قِسْط",
+   "slug": "qist",
+   "date": "2026-11-27",
+   "status": "scheduled via Zernio (daily task, automatic posting)",
+   "book": "Ch.3 p.29–30 (Prejudice Creates Walls, 4:135) + Intro p.4 (qist) + Ch.2 p.19–20 (the balanced scale) + Ch.7 p.69 (same measure)",
+   "verses": [
+    "4:135"
+   ],
+   "duration_s": 57.9,
+   "short_cut_s": 22.1,
+   "hook": "Your parents are wrong. Would you still testify against them?",
+   "hook_onscreen": "YOUR PARENTS ARE WRONG. → TESTIFY AGAINST THEM?",
+   "hook_type": "real-life question",
+   "hook_score": 80.0,
+   "hook_score_start": 25.8,
+   "test": "first-3-seconds (ep08–11): hook spoken from 0.03 s, Arabic word on frame 1, scale swinging in the first second, no branding animation before the hook (hook wording here is a real-life question per the task brief, not a word fact)",
+   "zernio_post_ids": {
+    "episode_ig_fb": "6b08bd6fb3655c7405932a20",
+    "episode_tt_yt": "6b08bd852bb682899213fd06",
+    "short_tt_yt": "6b08bd90669bdd5b9955a1f6",
+    "short_ig_trial": "6b08bd98625285c79c0e902e"
+   },
+   "scheduled_for": {
+    "episode": "2026-11-27T19:00:00+08:00",
+    "short_cut": "2026-11-27T21:30:00+08:00"
+   },
+   "files": [
+    "2026-11-27_the-mirror_one-word-09-qist_9x16_v1.mp4 / _v1_cover.jpg",
+    "2026-11-27_the-mirror_one-word-09-qist_short_9x16_v1.mp4 / _v1_cover.jpg"
+   ],
+   "short_cut": "0.00–16.93 s (hook + 4:135, music-free verse window) + 52.72 s–end (follow line + end card)",
+   "check": "whisper-ar hears قست for both قِسْط (qāf right, ṭā heard as tā; the accepted ep06 retake reads كست), kept the main take: confirm by ear. Mix -14.0 LUFS, true peak -1.0 dB; music -240 dB in both verse windows.",
+   "music": "hijaz-v1",
+   "first_comments": "set via platformSpecificData.firstComment on Instagram, Facebook, YouTube (episode); TikTok has no first-comment field"
   }
  ]
 }
