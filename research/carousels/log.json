@@ -1,5 +1,54 @@
 [
-  {"date": "2026-11-23", "slug": "what-does-kufr-really-mean", "book": "The Mirror", "slides": 10, "cover_hook": "Before you say kāfir, read 17:15", "hook_score_before": 52.2, "hook_score_after": 84.4, "reflection_published": "2026-11-15", "note": "No reflection published 23 Nov; Ahmed asked for a back-catalogue reflection without a carousel. Text read from the live page via the Hostinger file reader (site repo not attachable in this session)."},
-  {"date": "2026-11-24", "slug": "can-we-judge-another-persons-heart", "book": "The Mirror", "slides": 10, "cover_hook": "You met Islam only through anger?", "hook_score_before": 59.6, "hook_score_after": 77.8, "reflection_published": "2026-11-24", "note": "Site repo not attachable in this session (no add_repo); reflection text read from the live page via the Hostinger file reader."},
-  {"date": "2026-11-25", "slug": "how-should-we-weigh-differing-opinions", "book": "Hold Firmly", "slides": 10, "cover_hook": "Stop asking what Muslims differ on", "hook_score_before": 59.6, "hook_score_after": 80.2, "reflection_published": "2026-11-25", "note": "Site repo not attachable in this session (no add_repo); reflection text read from the live page via the Hostinger file reader. Round-1 top (80.2, 'Stop searching the Qur'an for support') rejected as misreadable; 85.8 variants were 7 words (over cover cap)."}
+ {
+  "date": "2026-11-23",
+  "slug": "what-does-kufr-really-mean",
+  "book": "The Mirror",
+  "slides": 10,
+  "cover_hook": "Before you say kāfir, read 17:15",
+  "hook_score_before": 52.2,
+  "hook_score_after": 84.4,
+  "reflection_published": "2026-11-15",
+  "note": "No reflection published 23 Nov; Ahmed asked for a back-catalogue reflection without a carousel. Text read from the live page via the Hostinger file reader (site repo not attachable in this session)."
+ },
+ {
+  "date": "2026-11-24",
+  "slug": "can-we-judge-another-persons-heart",
+  "book": "The Mirror",
+  "slides": 10,
+  "cover_hook": "You met Islam only through anger?",
+  "hook_score_before": 59.6,
+  "hook_score_after": 77.8,
+  "reflection_published": "2026-11-24",
+  "note": "Site repo not attachable in this session (no add_repo); reflection text read from the live page via the Hostinger file reader."
+ },
+ {
+  "date": "2026-11-25",
+  "slug": "how-should-we-weigh-differing-opinions",
+  "book": "Hold Firmly",
+  "slides": 10,
+  "cover_hook": "Stop asking what Muslims differ on",
+  "hook_score_before": 59.6,
+  "hook_score_after": 80.2,
+  "reflection_published": "2026-11-25",
+  "note": "Site repo not attachable in this session (no add_repo); reflection text read from the live page via the Hostinger file reader. Round-1 top (80.2, 'Stop searching the Qur'an for support') rejected as misreadable; 85.8 variants were 7 words (over cover cap)."
+ },
+ {
+  "date": "2026-11-26",
+  "slug": "how-does-temptation-begin",
+  "book": "The Evil I",
+  "slides": 10,
+  "cover_hook": "Satan never told Adam: \"Disobey Allah.\"",
+  "hook_score_before": 59.6,
+  "hook_score_after": 62.6,
+  "zernio_post_ids": {
+   "carousel": "6b0799bdc6065601d23927b3",
+   "slideshow_reel": "6b0799d31a0728d862b78f3f"
+  },
+  "scheduled_for": {
+   "carousel": "2026-11-26T12:30:00+08:00",
+   "slideshow_reel": "2026-11-26T16:30:00+08:00"
+  },
+  "reflection_published": "2026-11-26",
+  "note": "Site repo not attachable in this session (no add_repo); reflection text read from the live page via the Hostinger file reader. Highest-scoring hook (77.8, 'Your temptation won't say: disobey Allah') rejected: overstates the reflection's 'rarely'. Slideshow reel 16.0 s, music muted on slide 4 (Ta-Ha 20:120 translation). Media uploaded with direct PUT (200), no relay needed."
+ }
 ]
