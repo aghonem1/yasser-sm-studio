@@ -20,6 +20,13 @@ Rules (confidence medium for 1–2, low for 3–4):
 3. Reach per reel fell from 600–1,300 (first week) to ~130 (daily posting since 22 Nov). Weak openings now cost distribution. Fix the opening before adding volume.
 4. Carousels reach ~30 accounts: on an account this small Instagram shows them mostly to followers. Keep them for the website funnel, but test a 10–15 s "slideshow reel" version of the same carousel for reach.
 
+## Growth plan (agreed 26 Nov 2026) · goal 10,000 combined followers by end Feb 2027
+Baseline 26 Nov: 79 (TikTok 38, IG 22, YouTube 16, FB 3). Checkpoints: 300 by 10 Dec · 1,500 by 31 Dec · 4,000–5,000 by end Jan.
+Cadence (Singapore time): carousel 12:30 (IG, FB, TikTok photo mode) · slideshow test 16:30 (IG, FB; ends 2 Dec) · episode reel 19:00 (IG, FB, TikTok, YouTube) · short cut 15–25 s 21:30 (TikTok, YouTube, IG Trial Reel). TikTok = 3 posts/day; IG second daily reel only once 3-second skips < 55%.
+Why: TikTok converts ~1% of views to follows vs ~0.3% on IG; TikTok photo carousels get ~360 views vs ~30 on IG; more IG volume did not raise total reach (25 Nov).
+Comment replies: automatic every 3 h (research/comments/log.json).
+Waiting on Ahmed: Yasser on camera (not yet), collaborations, paid test.
+
 ## Experiment log (one variable per episode; recorded in episodes/log.json as `test`)
 - ep05–07: hook type = negative command / question → no improvement in skip rate (72.7%, 65.1%).
 - Next (from ep08): "first-3-seconds" test — open on a surprising word fact, Arabic word on screen at frame 1, spoken hook starts at 0.0 s, first visual change by 1.0 s; no header/branding animation before the hook.
