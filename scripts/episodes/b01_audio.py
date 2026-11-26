@@ -106,7 +106,7 @@ place(sfx, chime(2093, 0.5), ST[4] - 0.05, 0.22); place(sfx, chime(2637, 0.5), S
 place(sfx, whoosh2(0.5), ST[5] - 0.3, 0.3); place(sfx, knock(1.0), ST[5] + 0.05, 0.36)          # the tall figure
 place(sfx, whoosh(0.7, up=False), ST[5] + 0.45, 0.2)                                            # he shrinks
 place(sfx, shimmer(1.0), ST[6] - 0.05, 0.3)                                                     # trophy shines
-place(sfx, boom(1.2), ST[7] - 0.02, 0.45); place(sfx, rumble(1.2), ST[7] + 0.2, 0.3)           # the boulder lands and grows
+place(sfx, whoosh(0.4, up=False), ST[7] - 0.1, 0.3); place(sfx, boom(1.2), ST[7] + 0.32, 0.5); place(sfx, rumble(1.2), ST[7] + 0.45, 0.3)   # the boulder drops, lands, grows
 place(sfx, chime(1174.7, 1.0), wt(7, "mercy") - 0.05, 0.24)                                     # the small heart
 place(sfx, whoosh(0.6, up=True), ST[8] - 0.45, 0.3)                                             # the phrase rises
 for n_ in range(5): place(sfx, tick(0.9), ST[8] - 0.12 + n_ * 0.12, 0.36)                       # five things line up
@@ -121,6 +121,19 @@ place(sfx, whoosh2(0.45), ST[15] - 0.45, 0.3); place(sfx, chime(1568, 1.2), ST[1
 for j in range(4): place(sfx, pop(1.1), ST[15] - 0.12 + j * 0.3, 0.42); place(sfx, tick(0.7), ST[15] - 0.1 + j * 0.3, 0.25)   # thoughts pop
 place(sfx, riser(1.0), ST[17] - 1.0, 0.36)
 place(sfx, boom(1.4), ST[17] - 0.05, 0.42); place(sfx, shimmer(1.4), ST[17] - 0.02, 0.45)      # end card
+# v2: footsteps on every walk, rain bed, camera pull-back and fly-in, night
+def step(g=1.0):
+    tt = t_(0.09); f = 140 * np.exp(-tt * 40) + 60
+    return (np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt * 45) + lp(rng.standard_normal(len(tt)), 1800) * np.exp(-tt * 60) * 0.3) * 0.5 * g
+for a_, b_ in ((ST[3] - 0.75, ST[3] + 0.2), (ST[4] - 0.35, ST[4] + 0.4), (ST[5] - 0.35, ST[5] + 0.4), (ST[6] - 0.3, ST[6] + 0.4), (ST[7] - 0.3, ST[7] + 0.4)):
+    tt0 = a_ + 0.08
+    while tt0 < b_ - 0.05: place(sfx, step(0.9), tt0, 0.3); tt0 += 0.17
+rain_ = bp(rng.standard_normal(int(2.6 * SR)), 2500, 9000) * 0.12
+rain_ *= np.minimum(1, np.arange(len(rain_)) / (0.3 * SR)) * np.minimum(1, (len(rain_) - np.arange(len(rain_))) / (0.6 * SR))
+place(sfx, rain_, ST[3] + 0.05, 0.5)
+place(sfx, whoosh(1.2, up=True), ST[8] - 0.35, 0.3)        # the camera pulls far back
+place(sfx, whoosh(1.1, up=False), ST[11] - 0.5, 0.26)      # ...and flies back down at night
+place(sfx, chime(987.8, 1.6), ST[11] + 0.15, 0.18)         # night falls
 sfx = reverb(sfx, 0.28)
 
 # ---------------- music ----------------

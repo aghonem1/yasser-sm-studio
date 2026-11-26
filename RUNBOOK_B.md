@@ -1,7 +1,7 @@
 # Track B runbook — "a phrase you say every day" (started 26 Nov 2026)
 
 Track B runs **beside** the One Word reel (Track A, `RUNBOOK.md`), on the same accounts, one reel a day. Ahmed, 26 Nov 2026: keep Track A as it is; build a parallel system with the new approach; once one format clearly wins we stop one of them or keep both.
-Everything in `RUNBOOK.md` and `.agents/product-marketing.md` still applies (content rules, voice, relay, audio chain, QA, captions loop, Zernio recipes) unless this file says otherwise. Reference episode: **B01 Allahu Akbar** (`remotion/src/trackb/B01_AllahuAkbar.tsx`).
+Everything in `RUNBOOK.md` and `.agents/product-marketing.md` still applies (content rules, voice, relay, audio chain, QA, captions loop, Zernio recipes) unless this file says otherwise. Reference episode: **B01 Allahu Akbar, v2** (`remotion/src/trackb/B01_AllahuAkbar.tsx`), built on kit v2 (camera, moods, walking, trails).
 
 ## Why this format (study of @osama_alsadeq_, 26 Nov 2026)
 A same-niche account reached 26.8K followers in ~5 weeks with 9 reels (first reel 3.3M views, then 540K, 544K, 197K, 165K…). Same length as ours (~49 s), little posting volume, bare captions. What differs:
@@ -34,9 +34,19 @@ Our own numbers (research/learnings.md): 65–75% of Instagram viewers leave in 
 - Stills: `cd remotion && COMP=bNN node stills.mjs <frames>`; render: `npx remotion render src/index.ts bNN out/bNN_silent.mp4 --browser-executable=/usr/bin/google-chrome --codec=h264 --crf=16 --concurrency=2`; mux as RUNBOOK §8.
 - Name: `YYYY-MM-DD_my-prayer_phrase-NN-<slug>_9x16_v1.mp4` + `_cover.jpg` (frame at 0.6 s).
 
+## Motion (kit v2, 26 Nov 2026: Ahmed said v1's animation, motion graphics and transitions were nowhere near the reference)
+Reference reel studied frame by frame (@osama_alsadeq_, the 3.3M "astaghfirullah" reel). Every Track B episode must have:
+- **A camera over a wide world.** Lay the scenes out along one road (`X` table in the episode file). Moving from one idea to the next = the figure walking and the camera travelling with him (`stroll`, camera follows), not a fade in place. Use at least one big pull-back reveal (zoom ≈ 0.3) and one push-in. Camera helpers: `Cam`, `camTransform`, `toScreen`, `camAt`.
+- **A mood per section** (`moodAt` with dawn / dusk / gold / night): the whole world, the figure's ink and the captions follow it. Change mood where the meaning turns (e.g. the problems = dusk, the answer = gold, the prayer = night, the callback = dawn).
+- **A figure that moves like a person.** Walks with planted feet (`stroll` / `walkByDistance`), pose changes with a small overshoot (`settle`), the head a beat late (sample `heroRaw(t - 0.08)`), breathing, and a motion trail (two faint copies at t−1/30 and t−2/30) whenever he moves fast. Write the hero as a function of time (`heroRaw(t)`), as B01 does.
+- **A world that acts.** Things rise, drop with a bounce, grow, shrink; weather and light carry the feeling (`Rain`, `Sky` sun and stars, parallax mountains, `Sprout`, `Dome`).
+- **The phrase as an actor.** `PhraseWords` drops it in word by word (never letter by letter), swells on its key word, climbs and glows when the meaning peaks, lifts away when the story moves on.
+- **Small captions, room to breathe** (size 50, top 300). The picture leads.
+- Stills check: look at every scene peak AND at least two mid-walk frames (trail, feet) and the pull-back frame.
+
 ## Design rules (the kit enforces most of them)
 - 1080×1920, 30 fps. Paper `#f4ecdf`, ink `#25221f`, one accent orange `#d8692d` (key words, the phrase), teal `#3f7b8c` for other people. Poppins (English), Cairo (Arabic); OFL licences in `remotion/public/fonts/trackb/`.
-- Zones: series label `MY PRAYER · NN` at 178 · captions 285–640 · story 660–1440 · ground line 1440 · bottom quarter stays empty (platform UI).
+- Zones (screen): series label `MY PRAYER · NN` at 178 · captions 300–580 · story 600–1440 · ground line at 1440 when the camera is at rest · bottom quarter stays empty (platform UI).
 - **Frame 1** = the hook caption fully visible + the figure in the phrase's posture + the phrase in Arabic, large. Spoken hook from 0.0 s; first motion within 1 s.
 - English appears word by word as spoken; its Arabic line fades in under it; one or two key words per line in orange in both languages.
 - One idea on screen at a time; something changes every 2–3 s; a "thing" grows or shrinks to show weight; the figure's pose carries the feeling (cower, pulled, small, reach, kneel, hug, takbir, folded).

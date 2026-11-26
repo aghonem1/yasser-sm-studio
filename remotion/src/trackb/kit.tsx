@@ -88,6 +88,9 @@ export const P: Record<string, Pose> = {
   small: {lean: 8, head: 30, aL: [-4, 6], aR: [4, -6], lL: [-4, -2], lR: [4, 2], seat: 0},
   reach: {lean: 6, head: -22, aL: [-15, -8], aR: [150, 165], lL: [-8, -6], lR: [6, 10], seat: 0},
   kneel: {lean: 22, head: 30, aL: [10, 30], aR: [20, 40], lL: [70, -5], lR: [92, 0], seat: 0},
+  ruku: {lean: 86, head: 4, aL: [-36, -30], aR: [-28, -24], lL: [-2, -2], lR: [4, 4], seat: 0},
+  sujud: {lean: 118, head: -45, aL: [60, 92], aR: [66, 95], lL: [10, -90], lR: [14, -88], seat: 0},
+  sit: {lean: -6, head: 6, aL: [-32, -22], aR: [-24, -16], lL: [95, 88], lR: [92, 84], seat: 1},
   hug: {lean: 28, head: 52, aL: [62, 160], aR: [72, 170], lL: [118, -8], lR: [126, -2], seat: 1},
 };
 export const lerpPose = (a: Pose, b: Pose, p: number): Pose => {
@@ -124,16 +127,15 @@ export const Figure: React.FC<{x: number; y?: number; pose: Pose; s?: number; c?
   if (o <= 0.001) return null;
   const j = figureJoints(pose);
   const P2 = (p: number[]) => `${p[0].toFixed(1)} ${p[1].toFixed(1)}`;
-  const limb = (a: number[], b: number[], cc: number[]) => `M${P2(a)} L${P2(b)} L${P2(cc)}`;
-  const sw = 13;
+    const sw = 13;
   return (
     <g transform={`translate(${x} ${y}) scale(${(flip ? -1 : 1) * s} ${s}) translate(0 ${j.hipY})`} opacity={o}>
-      <g stroke={c} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" fill="none">
-        <path d={limb([0, 0], j.L.knee, j.L.foot)} />
-        <path d={limb([0, 0], j.R.knee, j.R.foot)} />
-        <path d={`M0 0 L${P2(j.neck)}`} />
-        <path d={limb(j.sh, j.AL.el, j.AL.hand)} />
-        <path d={limb(j.sh, j.AR.el, j.AR.hand)} />
+      <g stroke={c} strokeLinecap="round" strokeLinejoin="round" fill="none">
+        <path d={`M0 0 L${P2(j.L.knee)}`} strokeWidth={sw} /><path d={`M${P2(j.L.knee)} L${P2(j.L.foot)}`} strokeWidth={sw * 0.8} />
+        <path d={`M0 0 L${P2(j.R.knee)}`} strokeWidth={sw} /><path d={`M${P2(j.R.knee)} L${P2(j.R.foot)}`} strokeWidth={sw * 0.8} />
+        <path d={`M0 0 L${P2(j.neck)}`} strokeWidth={sw * 1.12} />
+        <path d={`M${P2(j.sh)} L${P2(j.AL.el)}`} strokeWidth={sw * 0.88} /><path d={`M${P2(j.AL.el)} L${P2(j.AL.hand)}`} strokeWidth={sw * 0.72} />
+        <path d={`M${P2(j.sh)} L${P2(j.AR.el)}`} strokeWidth={sw * 0.88} /><path d={`M${P2(j.AR.el)} L${P2(j.AR.hand)}`} strokeWidth={sw * 0.72} />
       </g>
       <circle cx={j.head[0]} cy={j.head[1]} r={j.HR} fill={c} />
       {heart > 0 && <Heart x={j.neck[0] * 0.62} y={j.neck[1] * 0.62} r={15} o={heart} />}
@@ -194,20 +196,20 @@ export const Boulder: React.FC<{x: number; y: number; s: number; o?: number}> = 
   </g>
 );
 // a thought bubble with a little drawing in it
-export const Bubble: React.FC<{x: number; y: number; r: number; o?: number; from?: [number, number]; children?: React.ReactNode}> = ({x, y, r, o = 1, from, children}) => (
+export const Bubble: React.FC<{x: number; y: number; r: number; o?: number; from?: [number, number]; children?: React.ReactNode; fill?: string; ink?: string}> = ({x, y, r, o = 1, from, children, fill = C.white, ink = C.ink}) => (
   <g opacity={o}>
-    {from && [0.25, 0.5].map((f, i) => <circle key={i} cx={mix(from[0], x, f)} cy={mix(from[1], y, f)} r={8 + i * 6} fill={C.white} stroke={C.ink} strokeWidth={4} />)}
-    <circle cx={x} cy={y} r={r} fill={C.white} stroke={C.ink} strokeWidth={5} />
+    {from && [0.25, 0.5].map((f, i) => <circle key={i} cx={mix(from[0], x, f)} cy={mix(from[1], y, f)} r={8 + i * 6} fill={fill} stroke={ink} strokeWidth={4} />)}
+    <circle cx={x} cy={y} r={r} fill={fill} stroke={ink} strokeWidth={5} />
     <g transform={`translate(${x} ${y})`}>{children}</g>
   </g>
 );
 // tiny pictograms for bubbles (drawn, ink)
-export const Glyph: React.FC<{kind: 'clock' | 'phone' | 'bill' | 'chat'; s?: number}> = ({kind, s = 1}) => {
-  const st = {stroke: C.ink, strokeWidth: 7, fill: 'none', strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const};
+export const Glyph: React.FC<{kind: 'clock' | 'phone' | 'bill' | 'chat'; s?: number; c?: string}> = ({kind, s = 1, c = C.ink}) => {
+  const st = {stroke: c, strokeWidth: 7, fill: 'none', strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const};
   return (
     <g transform={`scale(${s})`}>
       {kind === 'clock' && <><circle r={30} {...st} /><path d="M0 -16 L0 0 L13 9" {...st} /></>}
-      {kind === 'phone' && <><rect x={-18} y={-32} width={36} height={64} rx={7} {...st} /><circle cy={22} r={3} fill={C.ink} /></>}
+      {kind === 'phone' && <><rect x={-18} y={-32} width={36} height={64} rx={7} {...st} /><circle cy={22} r={3} fill={c} /></>}
       {kind === 'bill' && <><path d="M-22 -30 L22 -30 L22 30 L-22 30 Z" {...st} /><path d="M-12 -14 L12 -14 M-12 0 L12 0 M-12 14 L4 14" {...st} /></>}
       {kind === 'chat' && <><path d="M-30 -20 Q -30 -30 -20 -30 L 20 -30 Q 30 -30 30 -20 L 30 8 Q 30 18 20 18 L -6 18 L -20 30 L -18 18 L -20 18 Q -30 18 -30 8 Z" {...st} /></>}
     </g>
@@ -220,7 +222,7 @@ export const Tag: React.FC<{x: number; y: number; text: string; o?: number; c?: 
 // ---------- bilingual captions ----------
 // English appears word by word as it is spoken (line 0 is fully visible from frame 1: the hook),
 // the Arabic line fades in under it. Key words take the accent colour in both languages.
-export const Captions: React.FC<{t: number; L: Line[]; ar: string[]; keyEn: string[][]; keyAr: string[][]; top?: number; hide?: (i: number) => boolean; size?: number; force?: number; o?: number}> = ({t, L, ar, keyEn, keyAr, top = 285, hide, size = 58, force, o = 1}) => {
+export const Captions: React.FC<{t: number; L: Line[]; ar: string[]; keyEn: string[][]; keyAr: string[][]; top?: number; hide?: (i: number) => boolean; size?: number; force?: number; o?: number; ink?: string; inkAr?: string}> = ({t, L, ar, keyEn, keyAr, top = 285, hide, size = 58, force, o = 1, ink = C.ink, inkAr = '#4a4540'}) => {
   let i = -1; for (let n = 0; n < L.length; n++) if (t >= L[n].start - 0.12) i = n;
   if (i < 0) i = 0;
   if (force !== undefined) i = force;
@@ -242,14 +244,14 @@ export const Captions: React.FC<{t: number; L: Line[]; ar: string[]; keyEn: stri
     }}
   return (
     <div style={{position: 'absolute', left: 70, right: 70, top, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14, opacity: fadeOut}}>
-      <div style={{fontFamily: FT.en, fontSize: size, lineHeight: 1.22, color: C.ink, textAlign: 'center', letterSpacing: -0.5}}>
+      <div style={{fontFamily: FT.en, fontSize: size, lineHeight: 1.22, color: ink, textAlign: 'center', letterSpacing: -0.5}}>
         {line.words.map(([w, s], n) => {
           const p = i === 0 || force !== undefined ? 1 : k(t, s - 0.08, 0.16);
-          return <span key={n} style={{display: 'inline-block', marginRight: '0.26em', opacity: p, transform: `translateY(${(1 - p) * 14}px)`, color: isKey(w) ? C.acc : C.ink,
+          return <span key={n} style={{display: 'inline-block', marginRight: '0.26em', opacity: p, transform: `translateY(${(1 - p) * 14}px)`, color: isKey(w) ? C.acc : ink,
             fontFamily: isKey(w) ? FT.enB : FT.en}}>{w}</span>;
         })}
       </div>
-      <div dir="rtl" lang="ar" style={{fontFamily: FT.ar, fontSize: size * 0.86, lineHeight: 1.5, color: '#4a4540', textAlign: 'center', opacity: arIn}}>
+      <div dir="rtl" lang="ar" style={{fontFamily: FT.ar, fontSize: size * 0.86, lineHeight: 1.5, color: inkAr, textAlign: 'center', opacity: arIn}}>
         {parts.map((p, n) => <span key={n} style={{color: p.key ? C.acc : undefined, fontFamily: p.key ? FT.arB : undefined}}>{p.s}</span>)}
       </div>
     </div>
@@ -264,6 +266,137 @@ export const BigArabic: React.FC<{text: string; x: number; y: number; size: numb
   );
 
 // series label at the top (quiet)
-export const SeriesLabel: React.FC<{text: string; o?: number}> = ({text, o = 1}) => (
-  <div style={{position: 'absolute', top: 178, left: 0, right: 0, textAlign: 'center', fontFamily: FT.enM, fontSize: 26, letterSpacing: 7, color: C.mute, opacity: o}}>{text}</div>
+export const SeriesLabel: React.FC<{text: string; o?: number; c?: string}> = ({text, o = 1, c = C.mute}) => (
+  <div style={{position: 'absolute', top: 178, left: 0, right: 0, textAlign: 'center', fontFamily: FT.enM, fontSize: 24, letterSpacing: 7, color: c, opacity: o}}>{text}</div>
+);
+
+
+// =====================================================================================
+// KIT v2 (26 Nov 2026, after Ahmed: "the animation, motion graphics, transitions are not close").
+// What changed and why (reference: @osama_alsadeq_ reels, frame by frame):
+//  - a CAMERA over a wide WORLD: scenes sit along the ground; moving between them = the camera travelling
+//    with the figure, pushing in and pulling back (no fades in place);
+//  - a MOOD per section (dawn / dusk / gold / night) that the whole world lerps between;
+//  - the figure WALKS with planted feet (leg phase driven by distance), with follow-through (head lag),
+//    overshoot on pose changes and a motion trail when it moves fast;
+//  - world pieces: parallax mountains, rain, stars, sun, sprouts, a drawn dome;
+//  - the Arabic phrase enters word by word (never letter by letter);
+//  - smaller captions, more empty space: the picture leads.
+// =====================================================================================
+
+export type Mood = {sky1: string; sky2: string; ground: string; ground2: string; mtn: string; ink: string; cap: string; capAr: string; sun: string};
+export const MOODS: Record<string, Mood> = {
+  dawn: {sky1: '#f4ecdf', sky2: '#eadcc6', ground: '#dfceb2', ground2: '#d2bd9c', mtn: '#dccbb0', ink: '#25221f', cap: '#25221f', capAr: '#4a4540', sun: '#f3cf98'},
+  dusk: {sky1: '#e2dcd4', sky2: '#cfc6bb', ground: '#c9beb0', ground2: '#bbaf9f', mtn: '#c4b9ab', ink: '#25221f', cap: '#25221f', capAr: '#4a4540', sun: '#e9cfae'},
+  gold: {sky1: '#fbeacd', sky2: '#f5d3a0', ground: '#e9d0a7', ground2: '#dec194', mtn: '#ecd2a8', ink: '#25221f', cap: '#25221f', capAr: '#4a4540', sun: '#f7b765'},
+  night: {sky1: '#121b30', sky2: '#1f2b47', ground: '#1b253c', ground2: '#243149', mtn: '#26344f', ink: '#f1e6d2', cap: '#f4ead8', capAr: '#d9cdb8', sun: '#f3cf98'},
+};
+const hex = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+export const lerpColor = (a: string, b: string, p: number) => {const A = hex(a), B = hex(b); p = clamp(p);
+  return '#' + A.map((x, i) => Math.round(mix(x, B[i], p)).toString(16).padStart(2, '0')).join('');};
+export const lerpMood = (a: Mood, b: Mood, p: number): Mood => {const o: any = {}; for (const key of Object.keys(a)) o[key] = lerpColor((a as any)[key], (b as any)[key], p); return o;};
+// mood track: [[time, moodName], ...] ascending; crossfade length xf seconds centred on each time
+export const moodAt = (t: number, track: [number, string][], xf = 0.7): Mood => {
+  let m = MOODS[track[0][1]];
+  for (let i = 1; i < track.length; i++) {const [tt, name] = track[i]; const p = inOut((t - (tt - xf / 2)) / xf); if (p > 0) m = lerpMood(m, MOODS[name], p);}
+  return m;
+};
+
+// camera: keyframes [time, x, y, zoom]; x,y = world point shown at screen centre-x / screen y 960
+export type CamKey = [number, number, number, number];
+export const camAt = (t: number, keys: CamKey[], e: (x: number) => number = inOut) => {
+  if (t <= keys[0][0]) return {x: keys[0][1], y: keys[0][2], z: keys[0][3]};
+  for (let i = 1; i < keys.length; i++) if (t <= keys[i][0]) {
+    const [t0, x0, y0, z0] = keys[i - 1], [t1, x1, y1, z1] = keys[i]; const p = e((t - t0) / (t1 - t0));
+    // zoom interpolates in log space so push-ins and pull-backs feel even
+    return {x: mix(x0, x1, p), y: mix(y0, y1, p), z: Math.exp(mix(Math.log(z0), Math.log(z1), p))};
+  }
+  const l = keys[keys.length - 1]; return {x: l[1], y: l[2], z: l[3]};
+};
+export type Cam = {x: number; y: number; z: number};
+export const toScreen = (c: Cam, wx: number, wy: number) => [W / 2 + (wx - c.x) * c.z, 960 + (wy - c.y) * c.z];
+export const camTransform = (c: Cam) => `translate(${W / 2} 960) scale(${c.z}) translate(${-c.x} ${-c.y})`;
+
+// the sky and far layers (screen space with parallax) + the ground (world space, inside the camera group)
+export const Sky: React.FC<{m: Mood; cam: Cam; t: number; sunX?: number; sunY?: number; sun?: number; stars?: number}> = ({m, cam, t, sunX = 0, sunY = 0, sun = 0, stars = 0}) => {
+  const par = (k: number) => ({x: W / 2 - cam.x * cam.z * k, z: mix(1, cam.z, 0.5)});
+  const mtn = (k: number, amp: number, base: number, seed: number, col: string, o: number) => {
+    const p = par(k); const pts: string[] = []; const step = 60;
+    const off = ((p.x % 1200) + 1200) % 1200;
+    for (let x = -1200; x <= W + 1200; x += step) {
+      const wx = x - off; const n = Math.sin((x + seed) * 0.004) * 0.6 + Math.sin((x + seed * 3) * 0.011) * 0.3 + Math.sin((x + seed) * 0.023) * 0.1;
+      pts.push(`${(wx).toFixed(0)},${(base - amp * (0.5 + 0.5 * n)).toFixed(0)}`);
+    }
+    const gy = 960 + (GROUND - cam.y) * cam.z;
+    return <path d={`M${pts[0].split(',')[0]} ${gy + 40} L${pts.join(' L')} L${(W + 1200 - off).toFixed(0)} ${gy + 40} Z`} fill={col} opacity={o} />;
+  };
+  const gy = 960 + (GROUND - cam.y) * cam.z;
+  const [sx, sy] = toScreen(cam, sunX, sunY);
+  return (
+    <svg width={W} height={H} style={{position: 'absolute', inset: 0}}>
+      <defs>
+        <linearGradient id="v2sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor={m.sky1} /><stop offset="0.75" stopColor={m.sky2} /></linearGradient>
+        <radialGradient id="v2sun"><stop offset="0" stopColor={m.sun} stopOpacity={0.9} /><stop offset="0.5" stopColor={m.sun} stopOpacity={0.3} /><stop offset="1" stopColor={m.sun} stopOpacity={0} /></radialGradient>
+      </defs>
+      <rect width={W} height={H} fill="url(#v2sky)" />
+      {stars > 0 && Array.from({length: 46}).map((_, i) => {const x = (i * 271.3) % W, y = 90 + ((i * 167.9) % 900); const tw = 0.5 + 0.5 * Math.sin(t * 2 + i * 1.7);
+        return <circle key={i} cx={x} cy={y} r={1.6 + (i % 3)} fill="#fff6e4" opacity={stars * (0.35 + 0.55 * tw)} />;})}
+      {sun > 0 && <><circle cx={sx} cy={sy} r={420 * cam.z + 160} fill="url(#v2sun)" opacity={sun} /><circle cx={sx} cy={sy} r={(110 * cam.z + 30)} fill={m.sun} opacity={0.75 * sun} /></>}
+      {mtn(0.18, 260, gy - 70, 11, m.mtn, 0.55)}
+      {mtn(0.42, 150, gy - 20, 47, lerpColor(m.mtn, m.ground2, 0.5), 0.75)}
+    </svg>
+  );
+};
+// ground band inside the camera group (world coordinates)
+export const Ground: React.FC<{m: Mood; x0?: number; x1?: number}> = ({m, x0 = -4000, x1 = 9000}) => (
+  <g>
+    <path d={(() => {const p: string[] = []; for (let x = x0; x <= x1; x += 80) p.push(`${x},${(GROUND - 30 - 22 * Math.sin(x * 0.006) - 10 * Math.sin(x * 0.017)).toFixed(0)}`); return `M${x0} ${GROUND} L${p.join(' L')} L${x1} ${GROUND} Z`;})()} fill={m.ground2} opacity={0.7} />
+    <rect x={x0} y={GROUND} width={x1 - x0} height={2400} fill={m.ground} />
+    <line x1={x0} x2={x1} y1={GROUND} y2={GROUND} stroke={m.ink} strokeOpacity={0.3} strokeWidth={3} />
+  </g>
+);
+
+// walking with planted feet: phase comes from distance travelled (a half cycle covers 2·L·sin(A))
+export const walkByDistance = (base: Pose, dist: number, s = 1, amt = 1, ampDeg = 26): Pose => {
+  const L = 164 * s; const phase = (dist * Math.PI) / Math.max(1, 2 * L * Math.sin((ampDeg * Math.PI) / 180));
+  return walk(base, phase, amt);
+};
+// a move along the ground from x0 to x1 between t0 and t1 (eased), returning x and the walking pose
+export const stroll = (t: number, t0: number, t1: number, x0: number, x1: number, base: Pose, s = 1) => {
+  const p = inOut((t - t0) / (t1 - t0)); const x = mix(x0, x1, p); const moving = t > t0 && t < t1;
+  const amt = moving ? Math.min(1, Math.sin(Math.PI * clamp((t - t0) / (t1 - t0))) * 1.6) : 0;
+  return {x, pose: moving ? walkByDistance(base, Math.abs(x - x0), s, amt) : base, flip: x1 < x0};
+};
+// pose change with a little overshoot (follow-through)
+export const settle = (a: Pose, b: Pose, t: number, t0: number, d = 0.45) => lerpPose(a, b, outBack(clamp((t - t0) / d)) as number);
+
+// rain falling from y0 to the ground over [xa, xb] (world)
+export const Rain: React.FC<{t: number; xa: number; xb: number; y0: number; o?: number; c?: string; n?: number}> = ({t, xa, xb, y0, o = 1, c = '#5d6670', n = 34}) => o <= 0 ? null : (
+  <g opacity={o} stroke={c} strokeWidth={5} strokeLinecap="round">
+    {Array.from({length: n}).map((_, i) => {const sp = 900 + (i % 5) * 120; const ph = (i * 0.137) % 1; const span = GROUND - y0;
+      const y = y0 + ((t * sp / span + ph) % 1) * span; const x = xa + ((i * 97.3) % (xb - xa)) - (y - y0) * 0.12;
+      return <line key={i} x1={x} y1={y} x2={x - 6} y2={y + 34} />;})}
+  </g>
+);
+// a sprout that grows (0→1)
+export const Sprout: React.FC<{x: number; p: number; h?: number; c?: string; leaf?: string}> = ({x, p, h = 120, c = '#25221f', leaf = '#6f9a6a'}) => p <= 0 ? null : (
+  <g transform={`translate(${x} ${GROUND})`}>
+    <path d={`M0 0 C 6 ${-h * 0.4}, -6 ${-h * 0.7}, 0 ${-h}`} stroke={c} strokeWidth={6} fill="none" strokeLinecap="round" pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - clamp(p * 1.4)} />
+    {[0.45, 0.75, 1].map((f, i) => {const q = clamp((p - 0.3 - i * 0.18) / 0.3); return q > 0 && <ellipse key={i} cx={(i % 2 ? -1 : 1) * 20 * q} cy={-h * f} rx={22 * q} ry={10 * q} fill={leaf} transform={`rotate(${(i % 2 ? 30 : -30)} ${(i % 2 ? -1 : 1) * 20 * q} ${-h * f})`} />;})}
+  </g>
+);
+// a dome drawn over someone (protection / shelter), p 0→1 draws it
+export const Dome: React.FC<{x: number; r: number; p: number; c?: string; o?: number}> = ({x, r, p, c = C.acc, o = 1}) => p <= 0 ? null : (
+  <g opacity={o}>
+    <path d={`M${x - r} ${GROUND} A ${r} ${r * 1.1} 0 0 1 ${x + r} ${GROUND}`} stroke={c} strokeWidth={7} fill={c} fillOpacity={0.08 * clamp(p * 2 - 1)} pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - clamp(p)} strokeLinecap="round" />
+  </g>
+);
+// the phrase, word by word (RTL). enter[i] = time each word arrives; words drop in with a small overshoot
+export const PhraseWords: React.FC<{words: string[]; enter: number[]; t: number; y: number; size: number; o?: number; scale?: number; glow?: number; c?: string; out?: number}> = ({words, enter, t, y, size, o = 1, scale = 1, glow = 0, c = C.acc, out = 0}) => o <= 0.001 ? null : (
+  <div dir="rtl" lang="ar" style={{position: 'absolute', left: 0, right: 0, top: y - size * 0.8, display: 'flex', justifyContent: 'center', gap: size * 0.28, opacity: o,
+    transform: `scale(${scale})`, transformOrigin: `540px ${size * 0.8}px`}}>
+    {words.map((w, i) => {const p = clamp((t - enter[i]) / 0.42); const e = outBack(p); const q = clamp(out * 1.6 - i * 0.3);
+      return <span key={i} style={{display: 'inline-block', fontFamily: FT.arB, fontSize: size, lineHeight: 1.6, color: c, opacity: clamp(p * 2.5) * (1 - q),
+        transform: `translateY(${(1 - e) * -70 + q * -40}px) scale(${0.7 + 0.3 * e})`, textShadow: glow ? `0 0 ${40 * glow}px rgba(243,170,90,${0.7 * glow})` : undefined}}>{w}</span>;})}
+  </div>
 );

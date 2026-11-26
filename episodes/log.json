@@ -141,13 +141,15 @@
    "hook_score": 93.8,
    "hook_score_start": 66.2,
    "test": "Track B pilot: everyday phrase + stick figure story + English/Arabic captions + light style (vs Track A)",
-   "zernio_post_id": "6b084ed2225ed7513e1e9b5b",
-   "zernio_post_id_tt_yt": "6b084ed480f40012497b96d7",
-   "scheduled_for": "2026-11-27T23:15+08:00",
+   "zernio_post_id": "6b0852d9a49d4d0d305ead6c",
+   "zernio_post_id_tt_yt": "6b0852dba49d4d0d305ead78",
+   "scheduled_for": "2026-11-26T23:58+08:00",
    "files": [
-    "2026-11-26_my-prayer_phrase-01-allahu-akbar_9x16_v1.mp4",
-    "…_cover.jpg"
-   ]
+    "2026-11-26_my-prayer_phrase-01-allahu-akbar_9x16_v2.mp4",
+    "2026-11-26_my-prayer_phrase-01-allahu-akbar_9x16_v2_cover.jpg"
+   ],
+   "version": "v2 (kit v2: camera, moods, walking, trails)",
+   "note": "v1 (posts 6b084ed2…, 6b084ed4…) deleted before publishing after Ahmed: animation not close to the reference; rebuilt on kit v2 and published the same night."
   }
  ]
 }
