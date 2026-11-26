@@ -1,1 +1,60 @@
-{"replied": [], "skipped": []}
+{
+  "replied": [
+    {
+      "id": "18185911471390342",
+      "platform": "instagram",
+      "post": "18227297377341865",
+      "author": "karkademami",
+      "comment": "Great message",
+      "reply": "Thank you, we're glad the message reached you 🤍",
+      "time": "2026-11-26T13:12:00Z"
+    },
+    {
+      "id": "18143488255732420",
+      "platform": "instagram",
+      "post": "18003401739003072",
+      "author": "mdanas.sg",
+      "comment": "Meaningful reminder",
+      "reply": "JazakAllahu khayran for watching. May it stay with all of us.",
+      "time": "2026-11-26T13:12:00Z"
+    },
+    {
+      "id": "17967056937250483",
+      "platform": "instagram",
+      "post": "18003401739003072",
+      "author": "karkademami",
+      "comment": "Very poignant",
+      "reply": "We felt the same. Gentle speech was commanded even with Pharaoh, and that stays with you.",
+      "time": "2026-11-26T13:12:00Z"
+    },
+    {
+      "id": "7712341723586888466",
+      "platform": "tiktok",
+      "post": "7712042853983194375",
+      "author": "waktanjong",
+      "comment": "Thank you for your advise.",
+      "reply": "Grateful you watched. The advice is the book's, and we're all trying to live it.",
+      "time": "2026-11-26T13:12:00Z"
+    },
+    {
+      "id": "7711505141866758932",
+      "platform": "tiktok",
+      "post": "7711420184589831432",
+      "author": "bombaysapphiree",
+      "comment": "Keep the good words brother Yaser god bless you",
+      "reply": "Ameen, and may God bless you too. Thank you for the kind words.",
+      "time": "2026-11-26T13:12:00Z"
+    }
+  ],
+  "skipped": [
+    {
+      "id": "17876154927649626",
+      "platform": "instagram",
+      "post": "17939151396404634",
+      "author": "karkademami",
+      "comment": "@yasserfares_ @ahmed1zaky",
+      "reason": "only tags friends",
+      "time": "2026-11-26T13:12:00Z"
+    }
+  ]
+}
