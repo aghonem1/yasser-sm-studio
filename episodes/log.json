@@ -182,11 +182,11 @@
     "short_cut": "2026-11-27T21:30:00+08:00"
    },
    "files": [
-    "2026-11-27_the-mirror_one-word-09-qist_9x16_v1.mp4 / _v1_cover.jpg",
-    "2026-11-27_the-mirror_one-word-09-qist_short_9x16_v1.mp4 / _v1_cover.jpg"
+    "2026-11-27_the-mirror_one-word-09-qist_9x16_v2.mp4 / _v1_cover.jpg",
+    "2026-11-27_the-mirror_one-word-09-qist_short_9x16_v2.mp4 / _v1_cover.jpg"
    ],
    "short_cut": "0.00–16.93 s (hook + 4:135, music-free verse window) + 52.72 s–end (follow line + end card)",
-   "check": "whisper-ar hears قست for both قِسْط (qāf right, ṭā heard as tā; the accepted ep06 retake reads كست), kept the main take: confirm by ear. Mix -14.0 LUFS, true peak -1.0 dB; music -240 dB in both verse windows.",
+   "check": "v1 qisṭ sounded like 'kist' (Ahmed, 27 Nov; whisper-ar had heard قست, so Arabic ASR cannot tell ق from ك here). v2: قِسْط re-generated alone (language ar, speed 0.85, 'قِسْط.'; url_qist.txt; whisper-ar: قسط), Ahmed picked this take over two others; spliced into voice_raw.wav at both places aligned on the ق burst (6.02 s and 17.58 s), level-matched; timeline and picture unchanged, re-mixed and re-muxed. Mix -14.0 LUFS, true peak -1.0 dB; music -240 dB in both verse windows.",
    "music": "hijaz-v1",
    "first_comments": "set via platformSpecificData.firstComment on Instagram, Facebook, YouTube (episode); TikTok has no first-comment field"
   }
