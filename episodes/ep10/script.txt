@@ -1,0 +1,14 @@
+One Word · 10 · صَالِح (ṣāliḥ) — HeyGen script (Yasser clone 2c1e0005b48c4690a322867cea82a58f, one generation, 28 Nov 2026 SGT)
+Sources: The Mirror Ch.6 "Be People Who Bring Good" p.53 ("Qur'anic righteousness is wider than outward religious practice"; "A person may pray
+for a long time and still harm his neighbour"), p.53–54 "What Does Righteousness Mean?" (root ṣ-l-ḥ: "sound, right and beneficial—able to fulfil
+the good purpose for which it exists"; land ṣāliḥah when it can produce life; water ṣāliḥ when it can be used safely; a deed ṣāliḥ when it
+produces a right and beneficial effect; "not merely about appearance ... the effect it produces"), p.55 "Faith and Righteous Deeds" (2:277 in
+the book's English: "Surely, those who believe and do righteous deeds…"; "Faith is the root; righteous conduct is its fruit. If a tree claims to
+have strong roots but never produces leaves, shade or fruit, its claim remains without visible proof."; "Prayer and charity are righteous deeds,
+but so are honesty at work..."), p.57 ("One sign of righteousness is that people feel safe around us. A neighbour does not fear our harm").
+Verse window (no music): lines 11–12 (God says: + 2:277). End question from choices the episode names (honesty at work / the neighbour).
+ASR: whisper-ar heard صالح at 5.85 s; at 16.9 / 20.3 / 58.4 s it heard السال / إليس / صلي, so صَالِح was re-generated alone (ar, speed 0.85,
+"صَالِح.", url_salih.txt; whisper-ar: صالح) and spliced at those three places from 0.2 s before its timestamp (splice_salih.py, level-matched);
+after the splice whisper-ar hears صالح at all three. Root letters heard as صاد / لام / ح.
+
+[curious] Hours of prayer, and still not righteous? Ask your neighbour. One word: صَالِح. [thoughtful] Its root, صَاد... لَام... حَاء... means sound: fit for its good purpose. Land is صَالِحَة when it can produce life. Water is صَالِح when it can be used safely. A deed is صَالِح when its effect is right and beneficial. So it's not merely about appearance. It's about the effect. God says: Surely, those who believe and do righteous deeds. Faith is the root. Righteous conduct is its fruit. [lowering their voice] Here's the hard part. A person may pray for a long time, and still harm his neighbour. Roots, but no fruit? The claim has no visible proof. [warm] One sign of righteousness: your neighbour feels safe around you. Prayer is a righteous deed. So is honesty at work. Hours of prayer, and a neighbour who feels safe: that is صَالِح. Where is goodness harder for you: at work, or next door? Tell me below. One Qur'anic word a day. Follow for tomorrow's.

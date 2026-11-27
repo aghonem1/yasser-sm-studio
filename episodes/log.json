@@ -320,6 +320,50 @@
     "2026-11-27_the-list-02_cover.jpg"
    ],
    "note": "First list beyond the books (Ahmed 27 Nov). 3:38 dropped (sources differ). English Saheeh International verbatim. Slot moved 22:30 -> 22:50 to swap in v2 with corrected tanween marks."
+  },
+  {
+   "track": "A",
+   "n": 10,
+   "word": "صَالِح",
+   "slug": "salih",
+   "date": "2026-11-28",
+   "status": "scheduled via Zernio (daily task, automatic posting)",
+   "book": "Ch.6 p.53–55 (Be People Who Bring Good: What Does Righteousness Mean?; Faith and Righteous Deeds, 2:277) + p.57 (A Righteous Person Makes Others Feel Safe)",
+   "verses": [
+    "2:277"
+   ],
+   "duration_s": 65.1,
+   "short_cut_s": 21.0,
+   "hook": "Hours of prayer, and still not righteous? Ask your neighbour.",
+   "hook_onscreen": "HOURS OF PRAYER, → NOT RIGHTEOUS?",
+   "hook_type": "real-life question",
+   "hook_score": 80.0,
+   "hook_score_start": 27.6,
+   "test": "first-3-seconds (ep08–11): hook spoken from 0.03 s, Arabic word on frame 1, clock hands spinning from frame 1, no branding animation before the hook (hook wording is a real-life question per the task brief)",
+   "end_question": "Where is goodness harder for you: at work, or next door? Tell me below.",
+   "zernio_post_ids": {
+    "episode_ig_fb": "6b0a10088ade68cf5d84c36d",
+    "episode_tt_yt": "6b0a10158ade68cf5d84c3bc",
+    "short_tt_yt": "6b0a102badce239f37b9a2af"
+   },
+   "dm_automation_ids": [
+    "6b0a1021884a7bdf4c2e159a",
+    "6b0a1022884a7bdf4c2e159b"
+   ],
+   "dm_target": "All reflections (https://yasserfares.com/reflections/): the yasserfares-site repo could not be added to this session and the site page could not be fetched, so no single matching reflection was chosen",
+   "scheduled_for": {
+    "episode": "2026-11-28T19:00:00+08:00",
+    "short_cut": "2026-11-28T21:30:00+08:00"
+   },
+   "files": [
+    "2026-11-28_the-mirror_one-word-10-salih_9x16_v1.mp4 / _cover.jpg",
+    "2026-11-28_the-mirror_one-word-10-salih_short_9x16_v1.mp4 / _short_cover.jpg"
+   ],
+   "short_cut": "0.00–4.45 s (hook) + 35.58–47.91 s (pray long, still harm the neighbour; roots but no fruit; the neighbour feels safe) + 60.88 s–end (follow line + end card); no verse",
+   "short_ig": "not posted: Zernio refused the 27 Nov IG Trial Reel ('Trial Reels require an Instagram account with 1,000+ followers') and learnings rule 1 keeps IG at one reel a day",
+   "check": "صَالِح re-taken (ar, speed 0.85) and spliced at 3 of 4 places (whisper-ar heard السال/إليس/صلي; after the splice صالح at all). Mix -14.0 LUFS, true peak -1.0 dB (short -14.0 / -1.8); music -240 dB in the verse window 25.73–30.18 s; parakeet transcribes every English line of the final mix.",
+   "music": "hijaz-v1",
+   "first_comments": "set via platformSpecificData.firstComment on Instagram, Facebook, YouTube (episode) and YouTube (short); TikTok has no first-comment field"
   }
  ]
 }

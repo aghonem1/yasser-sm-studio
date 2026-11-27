@@ -7,6 +7,7 @@ import {Ep06, TOTAL as T06} from './episodes/Ep06_Birr';
 import {Ep07, TOTAL as T07} from './episodes/Ep07_Ghuluw';
 import {Ep08, TOTAL as T08} from './episodes/Ep08_Ahsan';
 import {Ep09, TOTAL as T09} from './episodes/Ep09_Qist';
+import {Ep10, TOTAL as T10} from './episodes/Ep10_Salih';
 import {Web01R, TOTAL_R} from './episodes/Webinar01_Reel';
 import {Web01R1, TOTAL_R as TOTAL_R1} from './episodes/Webinar01_Story_R1';
 import {Web01R2, TOTAL_R as TOTAL_R2} from './episodes/Webinar01_Story_R2';
@@ -30,6 +31,7 @@ export const Root: React.FC = () => (<>
   <Composition id="ep07" component={Ep07} durationInFrames={Math.round(T07 * FPS)} fps={FPS} width={1080} height={1920} />
   <Composition id="ep08" component={Ep08} durationInFrames={Math.round(T08 * FPS)} fps={FPS} width={1080} height={1920} />
   <Composition id="ep09" component={Ep09} durationInFrames={Math.round(T09 * FPS)} fps={FPS} width={1080} height={1920} />
+  <Composition id="ep10" component={Ep10} durationInFrames={Math.round(T10 * FPS)} fps={FPS} width={1080} height={1920} />
   {/* Weekly quiz: The One Word Challenge */}
   <Composition id="q01" component={Q01} durationInFrames={Math.round(TQ01 * FPS)} fps={FPS} width={1080} height={1920} />
   <Composition id="l01" component={L01} durationInFrames={Math.round(TL01 * FPS)} fps={FPS} width={1080} height={1920} />

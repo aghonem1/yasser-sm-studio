@@ -20,7 +20,7 @@ Never invent a hadith, a scholarly position or a reference. Anything not in the 
 | 10 | طَيِّبَة | طاء ياء باء | Ch.4 p.34–35 | 14:24 | "One word can grow a tree." | blocked: verse.py SOURCES DISAGREE on 14:24 (26 Nov). Needs a manual check |
 | 11 | قِسْط | قاف سين طاء | Ch.3 p.29–30 | 4:135, 5:8 | "Your parents are wrong. Would you still testify against them?" (hook 25.8→80.0; aired as 09, 4:135 only) | done |
 | 12 | وِزْر | واو زاي راء | Ch.3 p.30 | 6:164 | "Nobody carries your group's guilt." | blocked: verse.py SOURCES DISAGREE on 6:164 (26 Nov). Needs a manual check |
-| 13 | صَالِح | صاد لام حاء | Ch.6 p.53–55 | 2:277, 2:220 | "Righteous isn't 'looks religious'." | todo |
+| 13 | صَالِح | صاد لام حاء | Ch.6 p.53–55 | 2:277, 2:220 | "Hours of prayer, and still not righteous? Ask your neighbour." (hook 27.6→80.0; aired as 10, 2:277 only) | done |
 | 14 | فَسَاد | فاء سين دال | Ch.6 p.59–60 | 2:11–12 | "'We're only reformers,' they said." | todo |
 | 15 | إِصْلَاح | صاد لام حاء | Ch.6 p.56 | 11:88 | "Fix what you can reach." | todo |
 | 16 | مُذَكِّر | ذال كاف راء | Ch.2 p.16 | 88:21–22 | "You are only a reminder." | todo |

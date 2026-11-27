@@ -3,39 +3,46 @@ import json, os, numpy as np
 D = os.environ["EP_DIR"]
 SP = json.load(open(f"{D}/spoken.json"))
 # (display text, first spoken idx, last spoken idx); tokens consume 1 spoken word unless listed in MERGE
-LINES = [   # ep09 qist (the last two lines are the follow line, spoken over the end card)
-    ('Your parents are wrong.', 0, 3),
-    ('Would you still testify against them?', 4, 9),
-    ("The Qur'an asks you to.", 10, 14),
-    ('One word: qisṭ.', 15, 17),
-    ('God says:', 18, 19),
-    ('“O you who believe,', 20, 23),
-    ('stand firmly for justice as witnesses for God,', 24, 31),
-    ('even if it is against yourselves,', 32, 37),
-    ('your parents or your closest relatives.”', 38, 43),
-    ('Qisṭ: a justice that gives every person his rightful due.', 44, 53),
-    ('Justice may mean admitting that someone close to you is wrong,', 54, 64),
-    ('and that an opponent is right.', 65, 70),
-    ('A witness for God, not for group prejudice.', 71, 78),
-    ("Here's the hard part.", 79, 82),
-    ('Prejudice teaches you to overlook goodness', 83, 88),
-    ('in anyone who differs from you.', 89, 94),
-    ('Then religion stops being a scale of justice,', 95, 102),
-    ('and becomes a lens that sees only the faults of others.', 103, 113),
-    ('Justice is a scale that stays true,', 114, 120),
-    ('whether the person before it is loved or disliked.', 121, 129),
-    ('Your parents, or a stranger:', 130, 134),
-    ("the measure doesn't change.", 135, 138),
-    ("One Qur'anic word a day.", 139, 143),
-    ("Follow so you don't miss tomorrow's.", 144, 149),
+LINES = [   # ep10 salih (the last two lines are the follow line, spoken over the end card)
+    ('Hours of prayer,', 0, 2),
+    ('and still not righteous?', 3, 6),
+    ('Ask your neighbour.', 7, 9),
+    ('One word: ṣāliḥ.', 10, 12),
+    ('Its root: ṣād, lām, ḥā,', 13, 17),
+    ('means sound: fit for its good purpose.', 18, 24),
+    ('Land is ṣāliḥah when it can produce life.', 25, 32),
+    ('Water is ṣāliḥ when it can be used safely.', 33, 41),
+    ('A deed is ṣāliḥ when its effect is right and beneficial.', 42, 52),
+    ("So it's not merely about appearance.", 53, 58),
+    ("It's about the effect.", 59, 62),
+    ('God says:', 63, 64),
+    ('“Surely, those who believe and do righteous deeds…”', 65, 72),
+    ('Faith is the root.', 73, 76),
+    ('Righteous conduct is its fruit.', 77, 81),
+    ("Here's the hard part.", 82, 85),
+    ('A person may pray for a long time,', 86, 93),
+    ('and still harm his neighbour.', 94, 98),
+    ('Roots, but no fruit?', 99, 102),
+    ('The claim has no visible proof.', 103, 108),
+    ('One sign of righteousness:', 109, 112),
+    ('your neighbour feels safe around you.', 113, 118),
+    ('Prayer is a righteous deed.', 119, 123),
+    ('So is honesty at work.', 124, 128),
+    ('Hours of prayer, and a neighbour who feels safe:', 129, 137),
+    ('that is ṣāliḥ.', 138, 140),
+    ('Where is goodness harder for you:', 141, 146),
+    ('at work, or next door?', 147, 151),
+    ('Tell me below.', 152, 154),
+    ("One Qur'anic word a day.", 155, 159),
+    ("Follow for tomorrow's.", 160, 162),
 ]
-VOICE_END_LINE = 22   # ep09: the end card starts with this line (the follow line); None = use PROMISE
-PROMISE = True   # last line is spoken during the end card: voice_end = end of the line before it
+VOICE_END_LINE = 29   # ep10: the end card starts with the follow line
+PROMISE = True
 MERGE = {}
-MAXG, KEEP_LONG = 0.32, {0: 0.45, 1: 0.42, 2: 0.36, 3: 0.45, 8: 0.5, 9: 0.42, 11: 0.4, 12: 0.45, 13: 0.5, 15: 0.4, 17: 0.55, 19: 0.45, 21: 0.9, 22: 0.4}
-LEAD = 0.03   # ep08: cut leading silence so the hook is spoken from ~0.0 s (learnings: first 3 seconds); None = keep
+MAXG, KEEP_LONG = 0.32, {1: 0.36, 2: 0.42, 3: 0.45, 5: 0.36, 8: 0.38, 10: 0.45, 12: 0.5, 14: 0.5, 15: 0.5, 17: 0.4, 19: 0.45, 23: 0.42, 25: 0.55, 27: 0.36, 28: 0.4}
+LEAD = 0.03
 ENDCARD = 3.2
-HOLD = 0.8   # ep08: the callback before the end card stays 0.8 s longer (Ahmed: it went by too fast)
+HOLD = 0.8
 VOICE_END_LINE = globals().get('VOICE_END_LINE')
 QUIET_DB = -42   # gap trimming only removes audio this quiet (added ep07: protects word tails)
 
