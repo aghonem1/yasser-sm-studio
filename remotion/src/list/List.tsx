@@ -39,6 +39,7 @@ const k = (t: number, a: number, d: number, e = oc) => e((t - a) / d);
 const HEART = (cx: number, cy: number, s: number) =>
   `M${cx} ${cy + 1.6 * s} C${cx - 1.9 * s} ${cy + 0.4 * s} ${cx - 1.6 * s} ${cy - 1.1 * s} ${cx - 0.6 * s} ${cy - 1.0 * s} C${cx - 0.25 * s} ${cy - 0.96 * s} ${cx - 0.05 * s} ${cy - 0.7 * s} ${cx} ${cy - 0.5 * s} C${cx + 0.05 * s} ${cy - 0.7 * s} ${cx + 0.25 * s} ${cy - 0.96 * s} ${cx + 0.6 * s} ${cy - 1.0 * s} C${cx + 1.6 * s} ${cy - 1.1 * s} ${cx + 1.9 * s} ${cy + 0.4 * s} ${cx} ${cy + 1.6 * s} Z`;
 const DROP = (x: number, y: number) => `M${x} ${y} q-13 24 0 32 q13 -8 0 -32`;
+const STAR = (x: number, y: number, r: number) => `M${x} ${y - r} Q${x} ${y} ${x + r} ${y} Q${x} ${y} ${x} ${y + r} Q${x} ${y} ${x - r} ${y} Q${x} ${y} ${x} ${y - r} Z`;
 const SYMBOLS: Record<string, [string, boolean?][]> = {
   seed: [['M40 300 H560'], ['M170 300 Q300 170 430 300'], [DROP(170, 70), true], [DROP(300, 40), true], [DROP(430, 80), true],
     ['M282 276 C274 258 298 246 312 256 C326 268 310 288 290 286 C286 285 284 282 282 276 Z', true], ['M120 330 h8 M250 340 h10 M380 335 h8 M480 328 h10']],
@@ -58,6 +59,17 @@ const SYMBOLS: Record<string, [string, boolean?][]> = {
     ['M235 225 V255 M270 205 V255 M300 200 V255 M330 205 V255 M365 225 V255'], [HEART(300, 110, 20), true]],
   scale: [['M300 100 V340'], ['M215 365 H385 M250 340 H350'], ['M130 140 H470'], ['M150 140 L105 245 M150 140 L195 245 M450 140 L405 245 M450 140 L495 245'],
     ['M90 245 Q150 290 210 245 Z'], ['M390 245 Q450 290 510 245 Z'], ['M300 88 m-14 0 a14 14 0 1 0 28 0 a14 14 0 1 0 -28 0', true]],
+  // L02 (du'as)
+  wing: [['M100 300 C170 150 330 85 505 75'], ['M505 75 Q440 135 472 158 Q398 198 440 224 Q356 258 392 284 Q280 304 100 300'],
+    ['M190 270 Q260 200 360 150 M250 288 Q330 235 420 200'], [HEART(240, 352, 24), true]],
+  moon: [['M291 65 A150 150 0 1 0 437 276 A128 128 0 0 1 291 65 Z'], [STAR(470, 90, 26), true], [STAR(520, 200, 18), true], [STAR(430, 320, 14), true]],
+  rings: [['M140 215 a110 110 0 1 0 220 0 a110 110 0 1 0 -220 0'], ['M240 215 a110 110 0 1 0 220 0 a110 110 0 1 0 -220 0'], [HEART(300, 215, 22), true]],
+  eye: [['M80 215 Q300 40 520 215 Q300 390 80 215 Z'], ['M300 215 m-78 0 a78 78 0 1 0 156 0 a78 78 0 1 0 -156 0'], [HEART(300, 218, 30), true]],
+  tree: [['M300 395 V235 M300 300 L235 240 M300 270 L362 210'], ['M300 60 C230 40 160 90 175 150 C120 175 140 255 215 250 C250 285 350 285 385 250 C460 255 480 175 425 150 C440 90 370 40 300 60 Z'],
+    ['M300 395 Q262 405 232 412 M300 395 Q338 405 368 412 M150 412 H450'], ['M240 130 m-11 0 a11 11 0 1 0 22 0 a11 11 0 1 0 -22 0 M350 110 m-11 0 a11 11 0 1 0 22 0 a11 11 0 1 0 -22 0 M330 200 m-11 0 a11 11 0 1 0 22 0 a11 11 0 1 0 -22 0', true]],
+  mat: [['M195 55 H405 V385 H195 Z'], ['M220 80 H380 V360 H220 Z'], ['M250 190 V140 Q300 80 350 140 V190'], ['M300 255 l26 32 l-26 32 l-26 -32 Z', true],
+    ['M210 385 v20 M240 385 v20 M270 385 v20 M300 385 v20 M330 385 v20 M360 385 v20 M390 385 v20']],
+  house: [['M60 400 H540'], ['M95 250 L300 85 L505 250'], ['M140 222 V400 H460 V222'], ['M262 400 V318 Q300 280 338 318 V400'], ['M368 262 h58 v58 h-58 Z', true], ['M180 262 h58 v58 h-58 Z']],
 };
 
 const Sketch: React.FC<{name: string; p: number; t: number; y: number; s?: number}> = ({name, p, t, y, s = 1}) => {
@@ -112,12 +124,12 @@ export const List: React.FC<{spec: any}> = ({spec}) => {
           {spec.hook.big}</div>
         <div style={{position: 'absolute', top: 800, left: 80, right: 80, textAlign: 'center', fontFamily: 'LCorm', fontSize: 78, lineHeight: 1.1, color: C.ink2}}>{spec.hook.sub}</div>
         <div style={{position: 'absolute', top: 1010, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 22}}>
-          {I.map((it, i) => <div key={i} dir="rtl" lang="ar" style={{fontFamily: 'LAmiri', fontSize: 50, color: i % 2 ? C.ink : C.acc,
-            opacity: 0.35 + 0.65 * clamp(Math.sin(t * 2.2 - i * 0.5) * 0.5 + 0.5)}}>{it.ar}</div>).slice(0, 5)}
+          {I.map((it, i) => <div key={i} dir="rtl" lang="ar" style={{fontFamily: it.ar_font === 'quran' ? 'LQuran' : 'LAmiri', fontSize: 50, color: i % 2 ? C.ink : C.acc,
+            opacity: 0.35 + 0.65 * clamp(Math.sin(t * 2.2 - i * 0.5) * 0.5 + 0.5)}}>{it.ar_intro || it.ar}</div>).slice(0, Math.ceil(N / 2))}
         </div>
         <div style={{position: 'absolute', top: 1095, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 22}}>
-          {I.map((it, i) => <div key={i} dir="rtl" lang="ar" style={{fontFamily: 'LAmiri', fontSize: 50, color: i % 2 ? C.ink : C.acc,
-            opacity: 0.35 + 0.65 * clamp(Math.sin(t * 2.2 - i * 0.5) * 0.5 + 0.5)}}>{it.ar}</div>).slice(5)}
+          {I.map((it, i) => <div key={i} dir="rtl" lang="ar" style={{fontFamily: it.ar_font === 'quran' ? 'LQuran' : 'LAmiri', fontSize: 50, color: i % 2 ? C.ink : C.acc,
+            opacity: 0.35 + 0.65 * clamp(Math.sin(t * 2.2 - i * 0.5) * 0.5 + 0.5)}}>{it.ar_intro || it.ar}</div>).slice(Math.ceil(N / 2))}
         </div>
         <div style={{position: 'absolute', top: 1235, left: 0, right: 0, textAlign: 'center', fontFamily: 'LHand', fontSize: 54, color: C.teal, transform: 'rotate(-2deg)'}}>{spec.hook.save}</div>
       </div>}
@@ -130,7 +142,8 @@ export const List: React.FC<{spec: any}> = ({spec}) => {
         return <div style={{position: 'absolute', inset: 0, opacity: o, transform: `translateX(${slide}px) rotate(${(1 - inP) * 1.5 - outP * 1.5}deg)`}}>
           <Badge n={qi + 1} of={N} p={k(lt, 0.1, 0.45, ob)} y={236} />
           <Sketch name={it.symbol} p={k(lt, 0.25, 2.0, (x) => clamp(x))} t={t} y={398} s={1.06} />
-          <div dir="rtl" lang="ar" style={{position: 'absolute', top: 880, left: 0, right: 0, textAlign: 'center', fontFamily: 'LAmiri', fontSize: 128, lineHeight: 1.45, color: C.ink,
+          <div dir="rtl" lang="ar" style={{position: 'absolute', top: it.ar_font === 'quran' ? 852 : 880, left: 40, right: 40, textAlign: 'center', fontFamily: it.ar_font === 'quran' ? 'LQuran' : 'LAmiri',
+            fontSize: it.ar_font === 'quran' ? Math.max(64, Math.min(104, 2300 / it.ar.length)) : 128, lineHeight: it.ar_font === 'quran' ? 1.75 : 1.45, color: C.ink,
             opacity: k(lt, 0.6, 0.4), transform: `scale(${0.85 + 0.15 * k(lt, 0.6, 0.5, ob)})`}}>{it.ar}</div>
           <div style={{position: 'absolute', top: 1085, left: 0, right: 0, textAlign: 'center', opacity: k(lt, 1.0, 0.4), transform: `translateY(${(1 - k(lt, 1.0, 0.4)) * 14}px)`}}>
             <span style={{fontFamily: 'LPop7', fontSize: 50, letterSpacing: 4, color: C.acc}}>{it.key}</span>

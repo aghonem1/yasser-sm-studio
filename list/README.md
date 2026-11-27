@@ -1,4 +1,4 @@
-# The List: weekly list reel (Wednesdays 20:00 Singapore, from 2 Dec 2026)
+# The List: list reel three times a week (Mon 12:30, Wed 20:00, Fri 12:30 Singapore, from 27 Nov 2026)
 
 One list reel a week on Instagram, Facebook, TikTok and YouTube. Modelled on @islaminsketches "Every prophet mentioned by name
 in the Qur'an, all 25" (studied 27 Nov 2026: 75.1K followers from 23 posts; that reel 1.9M views, 91.1K likes, 417 comments,
@@ -6,6 +6,38 @@ in the Qur'an, all 25" (studied 27 Nov 2026: 75.1K followers from 23 posts; that
 each card is very simple (number badge, the name in English and Arabic, one small drawn object, one line, a tiny source);
 the end card asks viewers to comment one item, and every comment says what to make next. Ahmed said yes on 27 Nov 2026.
 It sits outside the daily Track A vs Track B comparison (log it with `track: "list"`).
+
+## Style lock (Ahmed, 27 Nov 2026: "I love the style, make sure it's locked for all future videos")
+Every List reel uses `remotion/src/list/List.tsx` exactly as it looks in L01/L02. Do not change: the cream paper
+(`public/list/paper.jpg`) and the faint orange margin line; the palette (ink #25221f, orange #d8692d, teal #3f7b8c, mute #8f8271);
+the fonts (Poppins 500/600/700, Amiri Bold headwords, Amiri Quran for Qur'anic text, Cormorant Garamond Italic quotes,
+Caveat for the hand-written lines); the layout zones (series header 176, number badge 236, drawing 398–890, Arabic headword,
+KEYWORD · gloss line 1085, quote 1172, verse fragment + tiny source line 1365); the timing (intro 3.5 s, 8 s per card,
+end card 7.5 s, loop back to frame 1); the motions (page slide-in with a slight tilt, badge pop with overshoot, ink drawing
+itself stroke by stroke, word-by-word quote, chips dropping in on the end card); and the sound (scripts/list_audio.py, no music).
+Allowed changes are content only: the spec JSON, new SYMBOLS drawn in the same line style (7.5 px ink, 6.5 px orange accents,
+one orange accent per drawing), and the optional per-item fields `ar_font: "quran"` (Qur'anic headword) and `ar_intro`
+(one short word for the frame-1 rows). A real layout bug may be fixed only if L01 and L02 still render the same.
+
+## Three a week, themes across all five books (Ahmed, 27 Nov 2026: content does not have to be 100% from the books,
+## but it must support and complete the brand)
+The brand is Yasser Fares and his five books, so every list sits under one of their themes, using the book's own material
+where it has it and verified Qur'an (or a named reliable reference) where it does not:
+- **My Prayer**: salah, its words and its du'as (e.g. 7 Qur'anic du'as for your family; your whole prayer line by line).
+- **The Mirror**: how Muslims treat and speak to people who differ (e.g. 9 Qur'anic words; manners of Surah al-Hujurat).
+- **Hold Firmly**: one Ummah, the Qur'an first, disagreement without division.
+- **The Evil I**: the self, desire, arrogance and repentance (e.g. 7 du'as of the prophets after a mistake).
+- **The Language of Marital Repair**: marriage, mercy and repair at home (careful tone; Qur'an-only lists such as the verses on spouses).
+Rotate so no book's theme runs twice in a row (L01, Mirror, airs Wed 2 Dec; so L03 on Mon 30 Nov is The Evil I). Monday and Friday at 12:30, Wednesday at 20:00 (it avoids stacking on
+Track A's 19:00 and Track B's 23:15). Each item still follows the content rules above. Compare the lunchtime and evening
+slots in the audits.
+
+## Qur'anic text on screen: use the display form
+`quran/display.py` (27 Nov 2026): source B stores open fathatan/kasratan as U+0657/U+0656, which Amiri Quran draws as an
+inverted damma / a subscript alef. Pass every Arabic fragment through `display_text(text, "S:V")`: it swaps in the standard
+marks (U+08F0/U+08F2/U+08F1) and fails unless the result is a run of words of source A (KFGQPC Hafs). verse.py's EXCERPT
+output now does this itself. English renderings from a named translation are taken verbatim (Saheeh International:
+fawazahmed0/quran-api edition `eng-ummmuhammad` on raw.githubusercontent.com), and the source line says so.
 
 ## Content rules
 - Lists come from material already verified for the series: aired Track A words and Track B phrases, and Yasser's books
@@ -34,8 +66,9 @@ It sits outside the daily Track A vs Track B comparison (log it with `track: "li
 6. Captions in list/lNN_copy/ (ig, fb, tt, yt, yt_title, first_comment) through tools/ig humanize.py → detect.py → caption.py.
    IG/FB: "Write it in the comments and I'll DM you…" (FB "we'll message you"); TT/YT: the question only.
 7. Post as RUNBOOK "Posting through Zernio": IG+FB post (external_id `list-lNN`, firstComment listing the keywords) and
-   TT+YT post (`list-lNN-tt-yt`), both 20:00 Asia/Singapore on Wednesday.
-8. **Comment-to-DM: one automation per platform per post** (Zernio allows only one active automation per post), keywords =
+   TT+YT post (`list-lNN-tt-yt`), both at the day's slot (Mon/Fri 12:30, Wed 20:00 Asia/Singapore).
+8. **Comment-to-DM: one automation per platform per post** (for a list with no episodes, e.g. du'as, the DM carries all the
+   items' Arabic with references, no buttons, ≤ 1000 characters; add AMEEN/آمين and DUA/دعاء as keywords) (Zernio allows only one active automation per post), keywords =
    every item's keywords (ASCII + Arabic) plus READ/اقرأ/اقرا, `match_mode: "word"`, `typo_tolerance: true`; the DM lists
    every item's episode link (Instagram permalinks via `accounts_get_account_posts`), ≤ 640 characters with buttons;
    buttons "Free reflections" → https://yasserfares.com/reflections/ and the book page, both with
@@ -47,10 +80,15 @@ It sits outside the daily Track A vs Track B comparison (log it with `track: "li
 | # | List | Source | Status |
 |---|------|--------|--------|
 | L01 | 9 Qur'anic words that change how you see people | One Word 01–09, The Mirror | done (2 Dec 2026) |
-| L02 | Your whole prayer, line by line (takbir to salam) | My Prayer; trackb/phrases.json; Al-Fatihah via verse.py | todo |
-| L03 | The words of the adhan, and what each one asks of you | My Prayer Ch.1; phrases.json (verify every phrase) | todo |
-| L04 | 7 verses The Mirror uses about people who differ from you | The Mirror; verse.py | todo |
-| L05 | The week's One Word episodes, all in one place (repeat of L01 with the newest 6–9 words) | Track A log | todo |
+| L02 | 7 du'as from the Qur'an for your family | My Prayer theme; Qur'an + Saheeh International | done (27 Nov 2026) |
+| L03 | 6 du'as of the prophets after a mistake | The Evil I theme; Qur'an + Saheeh (check speakers in context) | todo |
+| L04 | Verses that say Muslims are one Ummah | Hold Firmly theme; Qur'an + the book's own lines | todo |
+| L05 | Your whole prayer, line by line (takbir to salam) | My Prayer; trackb/phrases.json; Al-Fatihah via verse.py | todo |
+| L06 | 8 manners Surah al-Hujurat teaches in 13 verses | The Mirror theme; Qur'an 49 via verse.py + Saheeh | todo |
+| L07 | What the Qur'an calls a marriage (the verses on spouses) | Marital Repair theme; Qur'an only, careful tone | todo |
+| L08 | The words of the adhan, and what each one asks of you | My Prayer Ch.1; phrases.json (verify every phrase) | todo |
+| L09 | 7 verses The Mirror uses about people who differ from you | The Mirror; verse.py | todo |
+| L10 | The newest One Word episodes, all in one place (like L01) | Track A log | todo |
 
 ## Results
 Compare saves, shares and comments per 1,000 views with Track A, Track B and the quiz in the Monday/Thursday audit.

@@ -251,12 +251,13 @@
    "zernio_post_id": "6b097b92d93e6b900476bd38",
    "zernio_post_id_tt_yt": "6b097b95206cf56851b648a3",
    "files": [
-    "2026-11-28_one-word-challenge-01_9x16_v1.mp4"
+    "2026-11-28_one-word-challenge-01_9x16_v2.mp4"
    ],
    "dm_automation_ids": [
     "6b097bb3f386809a7311bd58",
     "6b097bb3f386809a7311bd5c"
-   ]
+   ],
+   "note_27nov_v2": "v2: open fathatan in 20:44 shown with U+08F0 (quran/display.py)"
   },
   {
    "track": "list",
@@ -284,10 +285,41 @@
     "6b0988fa7d17c8813d76aeb2"
    ],
    "files": [
-    "2026-12-02_the-list-01_9x16_v1.mp4",
+    "2026-12-02_the-list-01_9x16_v2.mp4",
     "2026-12-02_the-list-01_cover.jpg"
    ],
-   "note": "Modelled on @islaminsketches (27 Nov study). No music (verse fragment on every card). Birr has no aired episode yet: DM says so."
+   "note": "Modelled on @islaminsketches (27 Nov study). No music (verse fragment on every card). Birr has no aired episode yet: DM says so.",
+   "note_27nov_v2": "v2: open fathatan in 20:44 and 49:13 shown with U+08F0 (quran/display.py)"
+  },
+  {
+   "track": "list",
+   "id": "l02",
+   "date": "2026-11-27",
+   "status": "scheduled",
+   "scheduled_for": "2026-11-27T22:50:00+08:00",
+   "duration_s": 67.0,
+   "title": "7 du'as from the Qur'an for your family",
+   "theme": "my-prayer",
+   "items": [
+    "17:24",
+    "14:41",
+    "7:151",
+    "25:74",
+    "46:15",
+    "14:40",
+    "71:28"
+   ],
+   "zernio_post_id": "6b098d0e8bfe8d0235df478d",
+   "zernio_post_id_tt_yt": "6b098d11c3454686aa7779ad",
+   "dm_automation_ids": [
+    "6b098d893bc8cf5a1d724c42",
+    "6b098d8ac44cb433a2b20dd1"
+   ],
+   "files": [
+    "2026-11-27_the-list-02_9x16_v2.mp4",
+    "2026-11-27_the-list-02_cover.jpg"
+   ],
+   "note": "First list beyond the books (Ahmed 27 Nov). 3:38 dropped (sources differ). English Saheeh International verbatim. Slot moved 22:30 -> 22:50 to swap in v2 with corrected tanween marks."
   }
  ]
 }

@@ -1,58 +1,188 @@
 {
-  "id": "l01",
-  "date": "2026-12-02",
-  "series": "THE LIST",
-  "episode": 1,
-  "hook": {
-    "kicker": "IN THE NEXT 90 SECONDS",
-    "big": "9 QUR'ANIC WORDS",
-    "sub": "that change how you see people",
-    "save": "Save this. You'll want it again."
+ "id": "l01",
+ "date": "2026-12-02",
+ "series": "THE LIST",
+ "episode": 1,
+ "hook": {
+  "kicker": "IN THE NEXT 90 SECONDS",
+  "big": "9 QUR'ANIC WORDS",
+  "sub": "that change how you see people",
+  "save": "Save this. You'll want it again."
+ },
+ "header": "9 WORDS THAT CHANGE HOW YOU SEE PEOPLE",
+ "items": [
+  {
+   "key": "KUFR",
+   "slug": "kufr",
+   "ar": "كُفْر",
+   "gloss": "to cover",
+   "line": "Covering can take place only when there is something present to be covered.",
+   "verse_ar": "أَعۡجَبَ ٱلۡكُفَّارَ نَبَاتُهُۥ",
+   "ref": "Qur'an 57:20",
+   "page": "The Mirror, p.8",
+   "symbol": "seed",
+   "keywords": [
+    "KUFR",
+    "كفر",
+    "KUFUR"
+   ],
+   "episode_ig": "https://www.instagram.com/reel/Df4cK5UqTCC/",
+   "reflection": "what-does-kufr-really-mean"
   },
-  "header": "9 WORDS THAT CHANGE HOW YOU SEE PEOPLE",
-  "items": [
-    {"key": "KUFR", "slug": "kufr", "ar": "كُفْر", "gloss": "to cover",
-      "line": "Covering can take place only when there is something present to be covered.",
-      "verse_ar": "أَعۡجَبَ ٱلۡكُفَّارَ نَبَاتُهُۥ", "ref": "Qur'an 57:20", "page": "The Mirror, p.8", "symbol": "seed",
-      "keywords": ["KUFR", "كفر", "KUFUR"], "episode_ig": "https://www.instagram.com/reel/Df4cK5UqTCC/", "reflection": "what-does-kufr-really-mean"},
-    {"key": "LAYYIN", "slug": "layyin", "ar": "لَيِّنًا", "gloss": "gentle",
-      "line": "Gentleness is not weakness; it is the strength to control oneself when anger asks to take control.",
-      "verse_ar": "فَقُولَا لَهُۥ قَوۡلٗا لَّيِّنٗا", "ref": "Qur'an 20:44", "page": "The Mirror, p.37", "symbol": "feather",
-      "keywords": ["LAYYIN", "LAYYINAN", "LAYIN", "لينا"], "episode_ig": "https://www.instagram.com/reel/Df9GaR7qDvI/", "reflection": null},
-    {"key": "TAARUF", "slug": "taaruf", "ar": "لِتَعَارَفُوا", "gloss": "so you may know one another",
-      "line": "Human diversity is therefore an invitation to understanding, not a licence for hostility.",
-      "verse_ar": "وَجَعَلۡنَٰكُمۡ شُعُوبٗا وَقَبَآئِلَ لِتَعَارَفُوٓاْ", "ref": "Qur'an 49:13", "page": "The Mirror, p.24", "symbol": "links",
-      "keywords": ["TAARUF", "TA'ARUF", "TAARAFU", "لتعارفوا"], "episode_ig": "https://www.instagram.com/reel/DgAg9JiK6dP/", "reflection": null},
-    {"key": "BALAGH", "slug": "al-balagh", "ar": "البَلَاغ", "gloss": "to deliver the message",
-      "line": "A person who reminds others points towards the truth but does not force them towards it.",
-      "verse_ar": "فَإِنَّمَا عَلَيۡكَ ٱلۡبَلَٰغُ", "ref": "Qur'an 13:40", "page": "The Mirror, p.16", "symbol": "letter",
-      "keywords": ["BALAGH", "AL-BALAGH", "ALBALAGH", "البلاغ"], "episode_ig": "https://www.instagram.com/reel/DgCSTCsKIh3/", "reflection": "can-we-judge-another-persons-heart"},
-    {"key": "IKRAH", "slug": "ikrah", "ar": "إِكْرَاه", "gloss": "compulsion",
-      "line": "The heart is not opened by force. It is opened by truth, wisdom and sincere reflection.",
-      "verse_ar": "لَآ إِكۡرَاهَ فِي ٱلدِّينِ", "ref": "Qur'an 2:256", "page": "The Mirror, p.17", "symbol": "heartlock",
-      "keywords": ["IKRAH", "IKRAAH", "اكراه"], "episode_ig": "https://www.instagram.com/reel/DgF6ivdqxcT/", "reflection": "can-we-judge-another-persons-heart"},
-    {"key": "BIRR", "slug": "birr", "ar": "بِرّ", "gloss": "generous kindness",
-      "line": "Justice keeps the balance straight; kindness fills life with warmth.",
-      "verse_ar": "أَن تَبَرُّوهُمۡ وَتُقۡسِطُوٓاْ إِلَيۡهِمۡ", "ref": "Qur'an 60:8", "page": "The Mirror, p.26", "symbol": "cup",
-      "keywords": ["BIRR", "BIR", "بر"], "episode_ig": null, "reflection": null},
-    {"key": "GHULUW", "slug": "ghuluw", "ar": "غُلُوّ", "gloss": "going beyond the limit",
-      "line": "Extremism means crossing those boundaries while imagining that one is protecting them.",
-      "verse_ar": "لَا تَغۡلُواْ فِي دِينِكُمۡ", "ref": "Qur'an 4:171", "page": "The Mirror, p.44", "symbol": "edge",
-      "keywords": ["GHULUW", "GHULU", "GHULUU", "غلو"], "episode_ig": "https://www.instagram.com/reel/DgKO7elK-Fe/", "reflection": null},
-    {"key": "AHSAN", "slug": "ahsan", "ar": "أَحْسَن", "gloss": "what is better",
-      "line": "A person may win an argument yet lose a heart.",
-      "verse_ar": "ٱدۡفَعۡ بِٱلَّتِي هِيَ أَحۡسَنُ", "ref": "Qur'an 41:34", "page": "The Mirror, p.36", "symbol": "bridge",
-      "keywords": ["AHSAN", "AHSIN", "احسن"], "episode_ig": "https://www.instagram.com/reel/DgM83eWhgp5/", "reflection": null},
-    {"key": "QIST", "slug": "qist", "ar": "قِسْط", "gloss": "justice, every person's due",
-      "line": "The believer stands as a witness for God, not as a witness for personal or group prejudice.",
-      "verse_ar": "كُونُواْ قَوَّٰمِينَ بِٱلۡقِسۡطِ", "ref": "Qur'an 4:135", "page": "The Mirror, p.30", "symbol": "scale",
-      "keywords": ["QIST", "QIST.", "قسط"], "episode_ig": "https://www.instagram.com/reel/DgPhr5RN41A/", "reflection": null}
-  ],
-  "end": {
-    "done": "THAT'S ALL 9.",
-    "ask": "Which word changed something for you?",
-    "cta": "COMMENT THE WORD",
-    "follow": "A new Qur'anic word every day. Follow."
+  {
+   "key": "LAYYIN",
+   "slug": "layyin",
+   "ar": "لَيِّنًا",
+   "gloss": "gentle",
+   "line": "Gentleness is not weakness; it is the strength to control oneself when anger asks to take control.",
+   "verse_ar": "فَقُولَا لَهُۥ قَوۡلࣰا لَّيِّنࣰا",
+   "ref": "Qur'an 20:44",
+   "page": "The Mirror, p.37",
+   "symbol": "feather",
+   "keywords": [
+    "LAYYIN",
+    "LAYYINAN",
+    "LAYIN",
+    "لينا"
+   ],
+   "episode_ig": "https://www.instagram.com/reel/Df9GaR7qDvI/",
+   "reflection": null
   },
-  "sources": "Lines verbatim from The Mirror (yasserfares-site/sources/the-mirror.txt, page footers). Arabic verse fragments checked word-for-word against both verse.py sources (A KFGQPC Hafs, B QuranEnc) on 27 Nov 2026; headwords as aired in One Word 01-09."
+  {
+   "key": "TAARUF",
+   "slug": "taaruf",
+   "ar": "لِتَعَارَفُوا",
+   "gloss": "so you may know one another",
+   "line": "Human diversity is therefore an invitation to understanding, not a licence for hostility.",
+   "verse_ar": "وَجَعَلۡنَٰكُمۡ شُعُوبࣰا وَقَبَآئِلَ لِتَعَارَفُوٓاْ",
+   "ref": "Qur'an 49:13",
+   "page": "The Mirror, p.24",
+   "symbol": "links",
+   "keywords": [
+    "TAARUF",
+    "TA'ARUF",
+    "TAARAFU",
+    "لتعارفوا"
+   ],
+   "episode_ig": "https://www.instagram.com/reel/DgAg9JiK6dP/",
+   "reflection": null
+  },
+  {
+   "key": "BALAGH",
+   "slug": "al-balagh",
+   "ar": "البَلَاغ",
+   "gloss": "to deliver the message",
+   "line": "A person who reminds others points towards the truth but does not force them towards it.",
+   "verse_ar": "فَإِنَّمَا عَلَيۡكَ ٱلۡبَلَٰغُ",
+   "ref": "Qur'an 13:40",
+   "page": "The Mirror, p.16",
+   "symbol": "letter",
+   "keywords": [
+    "BALAGH",
+    "AL-BALAGH",
+    "ALBALAGH",
+    "البلاغ"
+   ],
+   "episode_ig": "https://www.instagram.com/reel/DgCSTCsKIh3/",
+   "reflection": "can-we-judge-another-persons-heart"
+  },
+  {
+   "key": "IKRAH",
+   "slug": "ikrah",
+   "ar": "إِكْرَاه",
+   "gloss": "compulsion",
+   "line": "The heart is not opened by force. It is opened by truth, wisdom and sincere reflection.",
+   "verse_ar": "لَآ إِكۡرَاهَ فِي ٱلدِّينِ",
+   "ref": "Qur'an 2:256",
+   "page": "The Mirror, p.17",
+   "symbol": "heartlock",
+   "keywords": [
+    "IKRAH",
+    "IKRAAH",
+    "اكراه"
+   ],
+   "episode_ig": "https://www.instagram.com/reel/DgF6ivdqxcT/",
+   "reflection": "can-we-judge-another-persons-heart"
+  },
+  {
+   "key": "BIRR",
+   "slug": "birr",
+   "ar": "بِرّ",
+   "gloss": "generous kindness",
+   "line": "Justice keeps the balance straight; kindness fills life with warmth.",
+   "verse_ar": "أَن تَبَرُّوهُمۡ وَتُقۡسِطُوٓاْ إِلَيۡهِمۡ",
+   "ref": "Qur'an 60:8",
+   "page": "The Mirror, p.26",
+   "symbol": "cup",
+   "keywords": [
+    "BIRR",
+    "BIR",
+    "بر"
+   ],
+   "episode_ig": null,
+   "reflection": null
+  },
+  {
+   "key": "GHULUW",
+   "slug": "ghuluw",
+   "ar": "غُلُوّ",
+   "gloss": "going beyond the limit",
+   "line": "Extremism means crossing those boundaries while imagining that one is protecting them.",
+   "verse_ar": "لَا تَغۡلُواْ فِي دِينِكُمۡ",
+   "ref": "Qur'an 4:171",
+   "page": "The Mirror, p.44",
+   "symbol": "edge",
+   "keywords": [
+    "GHULUW",
+    "GHULU",
+    "GHULUU",
+    "غلو"
+   ],
+   "episode_ig": "https://www.instagram.com/reel/DgKO7elK-Fe/",
+   "reflection": null
+  },
+  {
+   "key": "AHSAN",
+   "slug": "ahsan",
+   "ar": "أَحْسَن",
+   "gloss": "what is better",
+   "line": "A person may win an argument yet lose a heart.",
+   "verse_ar": "ٱدۡفَعۡ بِٱلَّتِي هِيَ أَحۡسَنُ",
+   "ref": "Qur'an 41:34",
+   "page": "The Mirror, p.36",
+   "symbol": "bridge",
+   "keywords": [
+    "AHSAN",
+    "AHSIN",
+    "احسن"
+   ],
+   "episode_ig": "https://www.instagram.com/reel/DgM83eWhgp5/",
+   "reflection": null
+  },
+  {
+   "key": "QIST",
+   "slug": "qist",
+   "ar": "قِسْط",
+   "gloss": "justice, every person's due",
+   "line": "The believer stands as a witness for God, not as a witness for personal or group prejudice.",
+   "verse_ar": "كُونُواْ قَوَّٰمِينَ بِٱلۡقِسۡطِ",
+   "ref": "Qur'an 4:135",
+   "page": "The Mirror, p.30",
+   "symbol": "scale",
+   "keywords": [
+    "QIST",
+    "QIST.",
+    "قسط"
+   ],
+   "episode_ig": "https://www.instagram.com/reel/DgPhr5RN41A/",
+   "reflection": null
+  }
+ ],
+ "end": {
+  "done": "THAT'S ALL 9.",
+  "ask": "Which word changed something for you?",
+  "cta": "COMMENT THE WORD",
+  "follow": "A new Qur'anic word every day. Follow."
+ },
+ "sources": "Lines verbatim from The Mirror (yasserfares-site/sources/the-mirror.txt, page footers). Arabic verse fragments checked word-for-word against both verse.py sources (A KFGQPC Hafs, B QuranEnc) on 27 Nov 2026; headwords as aired in One Word 01-09."
 }

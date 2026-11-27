@@ -53,6 +53,10 @@ def main():
         # display: QuranEnc writes open dammatan as legacy U+065E, which Amiri Quran has no glyph for;
         # use the standard code point U+08F1 (the same mark in source A, already equated by canon()).
         ex = ex.replace("\u065E", "\u08F1")
+        # display form (27 Nov 2026): QuranEnc also writes open fathatan as U+0657 and open kasratan as U+0656, which
+        # Amiri Quran draws as an inverted damma / a subscript alef. Use the standard marks and check against source A.
+        from display import display_text
+        ex = display_text(ex, ref)
         print("EXCERPT:", ex)
         if "--save" in sys.argv:
             key = sys.argv[sys.argv.index("--save") + 1] if len(sys.argv) > sys.argv.index("--save") + 1 else ref

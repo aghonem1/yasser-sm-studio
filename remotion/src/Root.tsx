@@ -18,6 +18,7 @@ import {Web01, Web01S, TOTAL_FULL, TOTAL_SHORT} from './episodes/Webinar01_Khadi
 import {B01, TOTAL as TB01} from './trackb/B01_AllahuAkbar';
 import {Q01, TOTAL as TQ01} from './quiz/Q01';
 import {L01, TOTAL as TL01} from './list/L01';
+import {L02, TOTAL as TL02} from './list/L02';
 import {B02, TOTAL as TB02} from './trackb/B02_Bismillah';
 // Track B episodes: import {BNN, TOTAL as TBNN} from './trackb/BNN_<slug>';
 // Register each new episode here: import {EpNN, TOTAL as TNN} from './episodes/EpNN_<slug>';
@@ -32,6 +33,7 @@ export const Root: React.FC = () => (<>
   {/* Weekly quiz: The One Word Challenge */}
   <Composition id="q01" component={Q01} durationInFrames={Math.round(TQ01 * FPS)} fps={FPS} width={1080} height={1920} />
   <Composition id="l01" component={L01} durationInFrames={Math.round(TL01 * FPS)} fps={FPS} width={1080} height={1920} />
+  <Composition id="l02" component={L02} durationInFrames={Math.round(TL02 * FPS)} fps={FPS} width={1080} height={1920} />
   {/* Track B ("a phrase you say every day", light stick-figure style) */}
   <Composition id="b01" component={B01} durationInFrames={Math.round(TB01 * FPS)} fps={FPS} width={1080} height={1920} />
   <Composition id="b02" component={B02} durationInFrames={Math.round(TB02 * FPS)} fps={FPS} width={1080} height={1920} />

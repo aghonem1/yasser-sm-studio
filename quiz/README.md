@@ -13,7 +13,7 @@ It sits outside the daily Track A vs Track B comparison (log it with `track: "qu
 - Never: invented hadith or scholarly positions, hadith without collection and number checked against a reliable collection,
   fiqh rulings, contested or sectarian questions, questions about prophets' looks, anything that mocks a group. When unsure, drop it.
 - One clearly right answer per question; wrong options plausible but not tricky; no trick questions.
-- Arabic on screen: verse text only from verse.py / excerpts.json; phrases only from trackb/phrases.json.
+- Arabic on screen: verse text only from verse.py / excerpts.json, in the display form (quran/display.py, see RUNBOOK); phrases only from trackb/phrases.json.
 
 ## Make
 1. Write `quiz/qNN.json` (copy q01.json): 5 questions {q ≤ 110 chars, ar (optional), options ×4 ≤ 28 chars, correct index, explain ≤ 90 chars, source}, a bonus {q, answer, source}, end lines. Rotate the correct letter (not always B).

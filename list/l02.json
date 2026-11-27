@@ -1,0 +1,178 @@
+{
+ "id": "l02",
+ "date": "2026-11-27",
+ "series": "THE LIST",
+ "episode": 2,
+ "hook": {
+  "kicker": "IN THE NEXT 70 SECONDS",
+  "big": "7 QUR'ANIC DU'AS",
+  "sub": "for the people you love most",
+  "save": "Save this. Say one tonight."
+ },
+ "header": "7 QUR'ANIC DU'AS FOR YOUR FAMILY",
+ "items": [
+  {
+   "key": "PARENTS",
+   "slug": "parents",
+   "ar": "رَّبِّ ٱرۡحَمۡهُمَا",
+   "ar_font": "quran",
+   "ar_intro": "ٱرۡحَمۡهُمَا",
+   "gloss": "for your parents",
+   "line": "My Lord, have mercy upon them as they brought me up [when I was] small.",
+   "verse_ar": "رَّبِّ ٱرۡحَمۡهُمَا كَمَا رَبَّيَانِي صَغِيرࣰا",
+   "ref": "Qur'an 17:24",
+   "page": "Saheeh International",
+   "symbol": "wing",
+   "keywords": [
+    "PARENTS",
+    "PARENT",
+    "MOM",
+    "DAD",
+    "والدين",
+    "1"
+   ],
+   "episode_ig": null,
+   "reflection": null
+  },
+  {
+   "key": "FORGIVENESS",
+   "slug": "forgiveness",
+   "ar": "رَبَّنَا ٱغۡفِرۡ لِي",
+   "ar_font": "quran",
+   "ar_intro": "ٱغۡفِرۡ",
+   "gloss": "for you and your parents",
+   "line": "Our Lord, forgive me and my parents and the believers the Day the account is established.",
+   "verse_ar": "رَبَّنَا ٱغۡفِرۡ لِي وَلِوَٰلِدَيَّ وَلِلۡمُؤۡمِنِينَ يَوۡمَ يَقُومُ ٱلۡحِسَابُ",
+   "ref": "Qur'an 14:41 · Ibrahim's du'a",
+   "page": "Saheeh International",
+   "symbol": "moon",
+   "keywords": [
+    "FORGIVENESS",
+    "FORGIVE",
+    "2"
+   ],
+   "episode_ig": null,
+   "reflection": null
+  },
+  {
+   "key": "BROTHER",
+   "slug": "brother",
+   "ar": "رَبِّ ٱغۡفِرۡ لِي وَلِأَخِي",
+   "ar_font": "quran",
+   "ar_intro": "وَلِأَخِي",
+   "gloss": "for your siblings",
+   "line": "My Lord, forgive me and my brother and admit us into Your mercy, for You are the most merciful of the merciful.",
+   "verse_ar": "رَبِّ ٱغۡفِرۡ لِي وَلِأَخِي وَأَدۡخِلۡنَا فِي رَحۡمَتِكَ وَأَنتَ أَرۡحَمُ ٱلرَّٰحِمِينَ",
+   "ref": "Qur'an 7:151 · Musa's du'a",
+   "page": "Saheeh International",
+   "symbol": "rings",
+   "keywords": [
+    "BROTHER",
+    "SISTER",
+    "SIBLINGS",
+    "اخي",
+    "أخي",
+    "3"
+   ],
+   "episode_ig": null,
+   "reflection": null
+  },
+  {
+   "key": "SPOUSE",
+   "slug": "spouse",
+   "ar": "قُرَّةَ أَعۡيُنࣲ",
+   "ar_font": "quran",
+   "ar_intro": "قُرَّةَ",
+   "gloss": "for your spouse and children",
+   "line": "Our Lord, grant us from among our wives and offspring comfort to our eyes and make us an example for the righteous.",
+   "verse_ar": "رَبَّنَا هَبۡ لَنَا مِنۡ أَزۡوَٰجِنَا وَذُرِّيَّٰتِنَا قُرَّةَ أَعۡيُنࣲ",
+   "ref": "Qur'an 25:74",
+   "page": "Saheeh International",
+   "symbol": "eye",
+   "keywords": [
+    "SPOUSE",
+    "WIFE",
+    "HUSBAND",
+    "زوجي",
+    "زوجتي",
+    "4"
+   ],
+   "episode_ig": null,
+   "reflection": null
+  },
+  {
+   "key": "CHILDREN",
+   "slug": "children",
+   "ar": "وَأَصۡلِحۡ لِي فِي ذُرِّيَّتِيٓ",
+   "ar_font": "quran",
+   "ar_intro": "ذُرِّيَّتِيٓ",
+   "gloss": "for your children",
+   "line": "My Lord, enable me to be grateful for Your favor… and make righteous for me my offspring.",
+   "verse_ar": "رَبِّ أَوۡزِعۡنِيٓ أَنۡ أَشۡكُرَ نِعۡمَتَكَ",
+   "ref": "Qur'an 46:15",
+   "page": "Saheeh International",
+   "symbol": "tree",
+   "keywords": [
+    "CHILDREN",
+    "KIDS",
+    "CHILD",
+    "ذريتي",
+    "اولادي",
+    "أولادي",
+    "5"
+   ],
+   "episode_ig": null,
+   "reflection": null
+  },
+  {
+   "key": "PRAYER",
+   "slug": "prayer",
+   "ar": "رَبِّ ٱجۡعَلۡنِي مُقِيمَ ٱلصَّلَوٰةِ",
+   "ar_font": "quran",
+   "ar_intro": "ٱلصَّلَوٰةِ",
+   "gloss": "for your prayer and theirs",
+   "line": "My Lord, make me an establisher of prayer, and [many] from my descendants. Our Lord, and accept my supplication.",
+   "verse_ar": "رَبِّ ٱجۡعَلۡنِي مُقِيمَ ٱلصَّلَوٰةِ وَمِن ذُرِّيَّتِي رَبَّنَا وَتَقَبَّلۡ دُعَآءِ",
+   "ref": "Qur'an 14:40 · Ibrahim's du'a",
+   "page": "Saheeh International",
+   "symbol": "mat",
+   "keywords": [
+    "PRAYER",
+    "SALAH",
+    "SALAT",
+    "الصلاة",
+    "6"
+   ],
+   "episode_ig": null,
+   "reflection": null
+  },
+  {
+   "key": "HOME",
+   "slug": "home",
+   "ar": "وَلِمَن دَخَلَ بَيۡتِيَ مُؤۡمِنࣰا",
+   "ar_font": "quran",
+   "ar_intro": "بَيۡتِيَ",
+   "gloss": "for everyone in your home",
+   "line": "My Lord, forgive me and my parents and whoever enters my house a believer and the believing men and believing women.",
+   "verse_ar": "رَّبِّ ٱغۡفِرۡ لِي وَلِوَٰلِدَيَّ وَلِمَن دَخَلَ بَيۡتِيَ مُؤۡمِنࣰا وَلِلۡمُؤۡمِنِينَ وَٱلۡمُؤۡمِنَٰتِ",
+   "ref": "Qur'an 71:28 · Nuh's du'a",
+   "page": "Saheeh International",
+   "symbol": "house",
+   "keywords": [
+    "HOME",
+    "HOUSE",
+    "بيتي",
+    "7"
+   ],
+   "episode_ig": null,
+   "reflection": null
+  }
+ ],
+ "end": {
+  "done": "THAT'S ALL 7.",
+  "ask": "Which one will you say tonight?",
+  "cta": "COMMENT IT",
+  "follow": "Three lists a week. Follow for the next."
+ },
+ "sources": "Arabic: consecutive words checked identical in both quran/verse.py sources (A KFGQPC Hafs, B QuranEnc) on 27 Nov 2026; 3:38 dropped (sources differ). English: Saheeh International (fawazahmed0/quran-api edition eng-ummmuhammad), verbatim; 46:15 shortened with an ellipsis. Speakers: 14:35 (Abraham), 71:26 (Noah), 7:151 [Moses] in Saheeh."
+}
