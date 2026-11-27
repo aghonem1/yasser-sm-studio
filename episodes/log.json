@@ -257,6 +257,37 @@
     "6b097bb3f386809a7311bd58",
     "6b097bb3f386809a7311bd5c"
    ]
+  },
+  {
+   "track": "list",
+   "id": "l01",
+   "date": "2026-12-02",
+   "status": "scheduled",
+   "scheduled_for": "2026-12-02T20:00:00+08:00",
+   "duration_s": 83.0,
+   "title": "9 Qur'anic words that change how you see people",
+   "items": [
+    "kufr",
+    "layyin",
+    "taaruf",
+    "al-balagh",
+    "ikrah",
+    "birr",
+    "ghuluw",
+    "ahsan",
+    "qist"
+   ],
+   "zernio_post_id": "6b0988dee98bfec1548655fe",
+   "zernio_post_id_tt_yt": "6b0988e1e98bfec154865614",
+   "dm_automation_ids": [
+    "6b0988fa496d47edebd1b6ae",
+    "6b0988fa7d17c8813d76aeb2"
+   ],
+   "files": [
+    "2026-12-02_the-list-01_9x16_v1.mp4",
+    "2026-12-02_the-list-01_cover.jpg"
+   ],
+   "note": "Modelled on @islaminsketches (27 Nov study). No music (verse fragment on every card). Birr has no aired episode yet: DM says so."
   }
  ]
 }
