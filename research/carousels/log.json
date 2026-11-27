@@ -61,14 +61,16 @@
   "hook_score_after": 81.4,
   "zernio_post_ids": {
    "carousel": "6b0903ae44ad2f95b9cd7ad2",
-   "slideshow_reel": "6b0903be44ad2f95b9cd7b12"
+   "slideshow_reel": "6b0903be44ad2f95b9cd7b12",
+   "slideshow_youtube": "6b090fa70eaaeea2ebdacde9"
   },
   "scheduled_for": {
    "carousel": "2026-11-27T12:30:00+08:00",
-   "slideshow_reel": "2026-11-27T16:30:00+08:00"
+   "slideshow_reel": "2026-11-27T16:30:00+08:00",
+   "slideshow_youtube": "2026-11-27T16:30:00+08:00"
   },
   "source": "website",
   "reflection_published": "2026-11-27",
-  "note": "add_repo not available and the GitHub connector refused the site repo; Hostinger file reader refused. Reflection read from the live page through the web-fetch agent in short exact quotes. Carousel to IG, FB and TikTok photo mode (autoAddMusic); slideshow reel 16.0 s, -13.9 LUFS, no Qur'an slides so music throughout."
+  "note": "add_repo not available and the GitHub connector refused the site repo; Hostinger file reader refused. Reflection read from the live page through the web-fetch agent in short exact quotes. Carousel to IG, FB and TikTok photo mode (autoAddMusic); slideshow reel 16.0 s, -13.9 LUFS, no Qur'an slides so music throughout. YouTube Short of the slideshow added after the run at Ahmed's request (daily from 28 Nov)."
  }
 ]
