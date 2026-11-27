@@ -8,3 +8,6 @@ episodes/*/export/
 episodes_b/*/*.wav
 episodes_b/*/export/
 remotion/node_modules
+
+# carousel render scratch (finished files are copied to research/carousels/<date>_<slug>/)
+out/
