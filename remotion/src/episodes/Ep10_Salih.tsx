@@ -137,7 +137,7 @@ const Card: React.FC<{t: number; t0: number; t1: number; refTxt: string; ar: str
           return <span key={j} style={{display: 'inline-block', opacity: p, transform: `translateY(${(1 - p) * 10}px)`, color: lit ? '#a06a0c' : NAVY, transition: 'none'}}>{w}</span>;})}
         <span style={{color: BROWN}}>{'﴾'}</span>
       </div>
-      <div style={{fontFamily: F.it, fontSize: 35, lineHeight: 1.2, color: '#2c3550'}}>{lines.map((l, i) => <div key={i}>{l}</div>)}</div>
+      <div style={{fontFamily: F.it, fontSize: 35, lineHeight: 1.2, color: '#2c3550', marginTop: 14}}>{lines.map((l, i) => <div key={i}>{l}</div>)}</div>
     </div>
   );
 };
