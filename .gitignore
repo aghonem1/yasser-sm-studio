@@ -11,3 +11,4 @@ remotion/node_modules
 
 # carousel render scratch (finished files are copied to research/carousels/<date>_<slug>/)
 out/
+quiz/out/

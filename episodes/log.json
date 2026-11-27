@@ -232,6 +232,31 @@
     "2026-11-27_my-prayer_phrase-02-bismillah_9x16_v1_cover.jpg"
    ],
    "version": "v1 (kit v2)"
+  },
+  {
+   "track": "quiz",
+   "id": "q01",
+   "date": "2026-11-28",
+   "status": "scheduled",
+   "scheduled_for": "2026-11-28T20:00+08:00",
+   "duration_s": 62.0,
+   "questions": [
+    "kufr/farmers 57:20",
+    "layyin 20:44",
+    "balagh 13:40",
+    "qist 4:135",
+    "Allahu Akbar greater"
+   ],
+   "bonus": "surah without Bismillah → At-Tawbah",
+   "zernio_post_id": "6b097b92d93e6b900476bd38",
+   "zernio_post_id_tt_yt": "6b097b95206cf56851b648a3",
+   "files": [
+    "2026-11-28_one-word-challenge-01_9x16_v1.mp4"
+   ],
+   "dm_automation_ids": [
+    "6b097bb3f386809a7311bd58",
+    "6b097bb3f386809a7311bd5c"
+   ]
   }
  ]
 }

@@ -1,0 +1,58 @@
+{
+  "id": "q01",
+  "date": "2026-11-28",
+  "title": "THE ONE WORD CHALLENGE",
+  "episode": 1,
+  "questions": [
+    {
+      "q": "In Surah al-Hadid (57:20), who does the Qur'an call \"kuffar\"?",
+      "ar": "ٱلۡكُفَّارَ",
+      "options": ["Disbelievers", "Farmers", "Traders", "Soldiers"],
+      "correct": 1,
+      "explain": "Kufr means to cover. A farmer covers the seed with soil.",
+      "source": "The Mirror, Ch.1 (57:20; Arabic via quran/verse.py excerpt); One Word 01; reflection what-does-kufr-really-mean"
+    },
+    {
+      "q": "God sent Musa and Harun to Pharaoh. How were they told to speak to him?",
+      "ar": "قَوۡلٗا لَّيِّنٗا",
+      "options": ["Harshly", "Softly", "Only once", "Through a messenger"],
+      "correct": 1,
+      "explain": "\"Speak to him with gentle words\" (20:44). Even to Pharaoh.",
+      "source": "The Mirror, Ch.4 p.37–38 (20:44); One Word 02"
+    },
+    {
+      "q": "Surah ar-Ra'd (13:40) says the Prophet's duty was only to…",
+      "ar": "ٱلۡبَلَٰغُ",
+      "options": ["Judge people's hearts", "Force people to believe", "Deliver the message", "Count their deeds"],
+      "correct": 2,
+      "explain": "\"Your duty is only to deliver the message, and it is for Us to call them to account.\"",
+      "source": "The Mirror, Ch.2 p.16 (13:40); One Word 04"
+    },
+    {
+      "q": "4:135 tells you to stand for justice even if it is against…",
+      "ar": "قِسْط",
+      "options": ["Strangers only", "Your enemies only", "Your parents", "No one you love"],
+      "correct": 2,
+      "explain": "\"…even if it is against yourselves, your parents or your closest relatives.\"",
+      "source": "The Mirror, Ch.3 p.29–30 (4:135); One Word 09"
+    },
+    {
+      "q": "In My Prayer, \"Allahu Akbar\" means Allah is ___ than everything that fills your heart.",
+      "ar": "اللهُ أَكْبَرُ",
+      "options": ["Kinder", "Greater", "Closer", "Older"],
+      "correct": 1,
+      "explain": "Not only \"great\": greater than the fear, the desire and the sin you think is too big.",
+      "source": "My Prayer, Ch.4 p.31–32; Track B 01"
+    }
+  ],
+  "bonus": {
+    "q": "Which surah does NOT begin with Bismillah?",
+    "answer": "At-Tawbah (Surah 9)",
+    "source": "General knowledge, checked: every surah's text opens with the basmala except Surah 9 (Tanzil Uthmani text). Ties to Track B 02 Bismillah (27 Nov)."
+  },
+  "end": {
+    "score": "COMMENT YOUR SCORE",
+    "share": "Send this to a friend who'd get 5/5",
+    "follow": "Follow for a new word every day"
+  }
+}
