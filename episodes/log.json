@@ -150,7 +150,11 @@
    ],
    "version": "v2 (kit v2: camera, moods, walking, trails)",
    "note": "v1 (posts 6b084ed2…, 6b084ed4…) deleted before publishing after Ahmed: animation not close to the reference; rebuilt on kit v2 and published the same night.",
-   "music": "hijaz-v1"
+   "music": "hijaz-v1",
+   "dm_automation_ids": [
+    "6b08daf4b54a3398faed08e2",
+    "6b08daf59a920a81b422b3ae"
+   ]
   },
   {
    "track": "A",
@@ -188,7 +192,12 @@
    "short_cut": "0.00–16.93 s (hook + 4:135, music-free verse window) + 52.72 s–end (follow line + end card)",
    "check": "v1 qisṭ sounded like 'kist' (Ahmed, 27 Nov; whisper-ar had heard قست, so Arabic ASR cannot tell ق from ك here). v2: قِسْط re-generated alone (language ar, speed 0.85, 'قِسْط.'; url_qist.txt; whisper-ar: قسط), Ahmed picked this take over two others; spliced into voice_raw.wav at both places aligned on the ق burst (6.02 s and 17.58 s), level-matched; timeline and picture unchanged, re-mixed and re-muxed. Mix -14.0 LUFS, true peak -1.0 dB; music -240 dB in both verse windows.",
    "music": "hijaz-v1",
-   "first_comments": "set via platformSpecificData.firstComment on Instagram, Facebook, YouTube (episode); TikTok has no first-comment field"
+   "first_comments": "set via platformSpecificData.firstComment on Instagram, Facebook, YouTube (episode); TikTok has no first-comment field",
+   "dm_automation_ids": [
+    "6b08db27cf3b004dc29b1204",
+    "6b08db279c8db0e143e75116"
+   ],
+   "note_27nov": "IG/FB caption updated before publish: question + READ line (Ahmed 27 Nov)"
   }
  ]
 }
