@@ -50,5 +50,25 @@
   },
   "reflection_published": "2026-11-26",
   "note": "Site repo not attachable in this session (no add_repo); reflection text read from the live page via the Hostinger file reader. Highest-scoring hook (77.8, 'Your temptation won't say: disobey Allah') rejected: overstates the reflection's 'rarely'. Slideshow reel 16.0 s, music muted on slide 4 (Ta-Ha 20:120 translation). Media uploaded with direct PUT (200), no relay needed."
+ },
+ {
+  "date": "2026-11-27",
+  "slug": "how-can-wudu-prepare-the-heart-for-prayer",
+  "book": "My Prayer",
+  "slides": 10,
+  "cover_hook": "Does Wudu wash only your body?",
+  "hook_score_before": 37.8,
+  "hook_score_after": 81.4,
+  "zernio_post_ids": {
+   "carousel": "6b0903ae44ad2f95b9cd7ad2",
+   "slideshow_reel": "6b0903be44ad2f95b9cd7b12"
+  },
+  "scheduled_for": {
+   "carousel": "2026-11-27T12:30:00+08:00",
+   "slideshow_reel": "2026-11-27T16:30:00+08:00"
+  },
+  "source": "website",
+  "reflection_published": "2026-11-27",
+  "note": "add_repo not available and the GitHub connector refused the site repo; Hostinger file reader refused. Reflection read from the live page through the web-fetch agent in short exact quotes. Carousel to IG, FB and TikTok photo mode (autoAddMusic); slideshow reel 16.0 s, -13.9 LUFS, no Qur'an slides so music throughout."
  }
 ]
