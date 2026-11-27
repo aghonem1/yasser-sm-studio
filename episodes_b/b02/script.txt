@@ -1,0 +1,10 @@
+Track B · 02 · بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ — HeyGen script (Yasser clone 2c1e0005b48c4690a322867cea82a58f, one generation, 27 Nov 2026 SGT)
+Source: My Prayer, Ch.5 "Al-Fatihah - The Conversation That Maps the Way through Life" → "In the Name of Allah, the Entirely Merciful, the Especially Merciful", printed p.34
+("After the opening supplication, seeking refuge and the basmalah, al-Fatihah begins." "You are not merely repeating what memory has stored; you are entering a conversation."
+"You begin with the name of Allah, not with your strength, experience or worthiness. The basmalah releases the act from the illusion of independence: I begin with Allah,
+seeking His help, blessing and mercy. Mercy at the beginning opens the door of hope. You are not entering upon a distant, unfeeling power, but upon the Lord whose mercy embraces His servants.")
+Verse: 1:1 via quran/verse.py (both sources agree). Voice spelling = verse.py text with U+0671→U+0627 and U+06E1→U+0652 (mechanical, no typing).
+Verse windows (no music): the hook's بِسْمِ اللَّهِ, line 3 (the full verse), line 14 (بِسْمِ اللَّهِ).
+Hooks: round 1 best 83.0, round 2 best 85.6 (chosen).
+
+[curious] بِسْمِ اللَّهِ before الفَاتِحَة: you don't start with your strength. Not with your experience. Not with your worthiness. [sincere] بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ. [thoughtful] It frees you from an illusion: that you're doing this on your own. [warm] You begin with Allah, asking His help, His blessing, His mercy. And mercy, right at the start, opens the door of hope. You're not walking up to a distant, unfeeling power. You're coming to a Lord whose mercy embraces you. In your next prayer, don't just repeat it from memory. You're entering a conversation. بِسْمِ اللَّهِ. Not your strength. His name first. [curious] What do you lean on most: your strength, your experience, or your worthiness? One word below. One phrase from your prayer, every day. Follow for the next one.

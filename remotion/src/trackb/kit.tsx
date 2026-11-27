@@ -21,15 +21,16 @@ const FONTS: [string, string, string][] = [
   ['TBPop5', 'poppins-latin-500-normal.woff2', '500'], ['TBPop6', 'poppins-latin-600-normal.woff2', '600'],
   ['TBPop7', 'poppins-latin-700-normal.woff2', '700'], ['TBCairo7', 'cairo-arabic-700-normal.woff2', '700'],
   ['TBCairo8', 'cairo-arabic-800-normal.woff2', '800'], ['TBCairoL', 'cairo-latin-700-normal.woff2', '700'],
+  ['TBAmiriQ', 'fonts/AmiriQuran.ttf', '400'],   // B02+: Qur'anic text from quran/verse.py (Uthmani marks); OFL
 ];
 let fontsAsked = false;
 export const loadFonts = () => {
   if (fontsAsked || typeof document === 'undefined') return; fontsAsked = true;
   const h = delayRender('trackb-fonts');
-  Promise.all(FONTS.map(([fam, file, weight]) => new FontFace(fam, `url(${staticFile('fonts/trackb/' + file)})`, {weight})
+  Promise.all(FONTS.map(([fam, file, weight]) => new FontFace(fam, `url(${staticFile(file.includes('/') ? file : 'fonts/trackb/' + file)})`, {weight})
     .load().then((f) => (document as any).fonts.add(f)))).then(() => continueRender(h)).catch((e) => {console.error(e); continueRender(h);});
 };
-export const FT = {en: 'TBPop6', enB: 'TBPop7', enM: 'TBPop5', ar: 'TBCairo7, TBCairoL, TBPop6', arB: 'TBCairo8, TBCairoL, TBPop7'};
+export const FT = {en: 'TBPop6', enB: 'TBPop7', enM: 'TBPop5', ar: 'TBCairo7, TBCairoL, TBPop6', arB: 'TBCairo8, TBCairoL, TBPop7', quran: 'TBAmiriQ'};
 
 // ---------- easing / timing ----------
 export const clamp = (x: number, a = 0, b = 1) => Math.max(a, Math.min(b, x));
@@ -92,6 +93,13 @@ export const P: Record<string, Pose> = {
   sujud: {lean: 118, head: -45, aL: [60, 92], aR: [66, 95], lL: [10, -90], lR: [14, -88], seat: 0},
   sit: {lean: -6, head: 6, aL: [-32, -22], aR: [-24, -16], lL: [95, 88], lR: [92, 84], seat: 1},
   hug: {lean: 28, head: 52, aL: [62, 160], aR: [72, 170], lL: [118, -8], lR: [126, -2], seat: 1},
+  // B02 (27 Nov 2026)
+  flex: {lean: -4, head: -12, aL: [-22, -10], aR: [92, 178], lL: [-8, -4], lR: [8, 4], seat: 0},          // showing his strength
+  leanOn: {lean: 10, head: 6, aL: [-12, -6], aR: [52, 48], lL: [-6, -3], lR: [10, 5], seat: 0},          // leaning on a stack
+  proud: {lean: -8, head: -20, aL: [-26, -14], aR: [36, -150], lL: [-7, -4], lR: [7, 4], seat: 0},       // hand on chest, chin up
+  carry: {lean: 42, head: 14, aL: [-150, 158], aR: [-138, 168], lL: [-18, -6], lR: [26, 8], seat: 0},    // bent under a load on his back
+  dua: {lean: 2, head: -10, aL: [30, 104], aR: [44, 116], lL: [-5, -3], lR: [5, 3], seat: 0},            // hands open in front, asking
+  think: {lean: 2, head: 10, aL: [14, 70], aR: [26, 172], lL: [-5, -3], lR: [5, 3], seat: 0},            // hand to chin
 };
 export const lerpPose = (a: Pose, b: Pose, p: number): Pose => {
   p = clamp(p); const m = (x: number, y: number) => mix(x, y, p);
@@ -222,7 +230,7 @@ export const Tag: React.FC<{x: number; y: number; text: string; o?: number; c?: 
 // ---------- bilingual captions ----------
 // English appears word by word as it is spoken (line 0 is fully visible from frame 1: the hook),
 // the Arabic line fades in under it. Key words take the accent colour in both languages.
-export const Captions: React.FC<{t: number; L: Line[]; ar: string[]; keyEn: string[][]; keyAr: string[][]; top?: number; hide?: (i: number) => boolean; size?: number; force?: number; o?: number; ink?: string; inkAr?: string}> = ({t, L, ar, keyEn, keyAr, top = 285, hide, size = 58, force, o = 1, ink = C.ink, inkAr = '#4a4540'}) => {
+export const Captions: React.FC<{t: number; L: Line[]; ar: string[]; keyEn: string[][]; keyAr: string[][]; top?: number; hide?: (i: number) => boolean; size?: number; force?: number; o?: number; ink?: string; inkAr?: string; quranParts?: string[]}> = ({t, L, ar, keyEn, keyAr, top = 285, hide, size = 58, force, o = 1, ink = C.ink, inkAr = '#4a4540', quranParts = []}) => {
   let i = -1; for (let n = 0; n < L.length; n++) if (t >= L[n].start - 0.12) i = n;
   if (i < 0) i = 0;
   if (force !== undefined) i = force;
@@ -234,7 +242,7 @@ export const Captions: React.FC<{t: number; L: Line[]; ar: string[]; keyEn: stri
   const arIn = i === 0 ? 1 : k(t, line.start - 0.05, 0.3);
   // split Arabic around key phrases
   const parts: {s: string; key: boolean}[] = [];
-  {let rest = arT; const keys = keyAr[i] ?? [];
+  {let rest = arT; const keys = [...quranParts, ...(keyAr[i] ?? [])];
     while (rest.length) {
       let best = -1, kw = '';
       for (const q of keys) {const p = rest.indexOf(q); if (p >= 0 && (best < 0 || p < best)) {best = p; kw = q;}}
@@ -252,7 +260,7 @@ export const Captions: React.FC<{t: number; L: Line[]; ar: string[]; keyEn: stri
         })}
       </div>
       <div dir="rtl" lang="ar" style={{fontFamily: FT.ar, fontSize: size * 0.86, lineHeight: 1.5, color: inkAr, textAlign: 'center', opacity: arIn}}>
-        {parts.map((p, n) => <span key={n} style={{color: p.key ? C.acc : undefined, fontFamily: p.key ? FT.arB : undefined}}>{p.s}</span>)}
+        {parts.map((p, n) => {const q = quranParts.includes(p.s); return <span key={n} style={{color: p.key ? C.acc : undefined, fontFamily: q ? FT.quran : p.key ? FT.arB : undefined, fontSize: q ? '1.3em' : undefined}}>{p.s}</span>;})}
       </div>
     </div>
   );
@@ -392,11 +400,98 @@ export const Dome: React.FC<{x: number; r: number; p: number; c?: string; o?: nu
   </g>
 );
 // the phrase, word by word (RTL). enter[i] = time each word arrives; words drop in with a small overshoot
-export const PhraseWords: React.FC<{words: string[]; enter: number[]; t: number; y: number; size: number; o?: number; scale?: number; glow?: number; c?: string; out?: number}> = ({words, enter, t, y, size, o = 1, scale = 1, glow = 0, c = C.acc, out = 0}) => o <= 0.001 ? null : (
+export const PhraseWords: React.FC<{words: string[]; enter: number[]; t: number; y: number; size: number; o?: number; scale?: number; glow?: number; c?: string; out?: number; font?: string; swell?: number[]; stroke?: number}> = ({words, enter, t, y, size, o = 1, scale = 1, glow = 0, c = C.acc, out = 0, font = FT.arB, swell, stroke = 0}) => o <= 0.001 ? null : (
   <div dir="rtl" lang="ar" style={{position: 'absolute', left: 0, right: 0, top: y - size * 0.8, display: 'flex', justifyContent: 'center', gap: size * 0.28, opacity: o,
     transform: `scale(${scale})`, transformOrigin: `540px ${size * 0.8}px`}}>
-    {words.map((w, i) => {const p = clamp((t - enter[i]) / 0.42); const e = outBack(p); const q = clamp(out * 1.6 - i * 0.3);
-      return <span key={i} style={{display: 'inline-block', fontFamily: FT.arB, fontSize: size, lineHeight: 1.6, color: c, opacity: clamp(p * 2.5) * (1 - q),
-        transform: `translateY(${(1 - e) * -70 + q * -40}px) scale(${0.7 + 0.3 * e})`, textShadow: glow ? `0 0 ${40 * glow}px rgba(243,170,90,${0.7 * glow})` : undefined}}>{w}</span>;})}
+    {words.map((w, i) => {const p = clamp((t - enter[i]) / 0.42); const e = outBack(p); const q = clamp(out * Math.max(1.6, 1 + 0.3 * words.length) - i * 0.3);
+      return <span key={i} style={{display: 'inline-block', fontFamily: font, fontSize: size, lineHeight: 1.6, color: c, opacity: clamp(p * 2.5) * (1 - q),
+        transform: `translateY(${(1 - e) * -70 + q * -40}px) scale(${(0.7 + 0.3 * e) * (1 + (swell?.[i] ?? 0))})`, textShadow: glow ? `0 0 ${40 * glow}px rgba(243,170,90,${0.7 * glow})` : undefined, WebkitTextStroke: stroke ? `${stroke}px ${c}` : undefined}}>{w}</span>;})}
   </div>
+);
+
+
+// =====================================================================================
+// B02 props (27 Nov 2026): flat, inked, simple. (y = the ground line under the thing unless noted)
+// =====================================================================================
+export const Dumbbell: React.FC<{x: number; y: number; s?: number; rot?: number; o?: number; c?: string}> = ({x, y, s = 1, rot = 0, o = 1, c = C.ink}) => o <= 0.001 ? null : (
+  <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`} opacity={o}>   {/* centred on (x, y) */}
+    <rect x={-70} y={-7} width={140} height={14} rx={6} fill={c} />
+    {[-1, 1].map((d) => <g key={d}><rect x={d * 52 - 13} y={-42} width={26} height={84} rx={8} fill={c} /><rect x={d * 76 - 10} y={-30} width={20} height={60} rx={7} fill={C.acc} /></g>)}
+  </g>
+);
+// a stack of books; n = how many have landed (fractional = the top one falling in)
+export const Books: React.FC<{x: number; n: number; s?: number; o?: number}> = ({x, n, s = 1, o = 1}) => {
+  const cols = [C.teal, C.acc, '#8a6a4a', C.teal, '#c9a24a', C.acc, '#8a6a4a'], W0 = [170, 150, 176, 158, 166, 146, 160];
+  return o <= 0.001 ? null : (
+    <g transform={`translate(${x} ${GROUND}) scale(${s})`} opacity={o}>
+      {Array.from({length: Math.ceil(n)}).map((_, i) => {const f = clamp(n - i); const yy = -(i + 1) * 40 - (1 - outBack(f)) * 260; const w = W0[i % 7];
+        return <g key={i} opacity={clamp(f * 3)} transform={`translate(${(i % 2 ? 8 : -6)} ${yy}) rotate(${(i % 3 - 1) * 2})`}>
+          <rect x={-w / 2} y={0} width={w} height={36} rx={4} fill={cols[i % 7]} stroke={C.ink} strokeWidth={5} />
+          <line x1={-w / 2 + 14} x2={w / 2 - 14} y1={12} y2={12} stroke={C.white} strokeWidth={4} opacity={0.7} />
+        </g>;})}
+    </g>
+  );
+};
+export const Star: React.FC<{x: number; y: number; r: number; o?: number; c?: string; glow?: number}> = ({x, y, r, o = 1, c = '#e6a93b', glow = 0.5}) => o <= 0.001 || r <= 0 ? null : (
+  <g transform={`translate(${x} ${y})`} opacity={o}>
+    {glow > 0 && <circle r={r * 1.9} fill={C.sun} opacity={0.35 * glow} />}
+    <path d={Array.from({length: 10}).map((_, i) => {const a = -Math.PI / 2 + (i * Math.PI) / 5; const rr = i % 2 ? r * 0.45 : r; return `${i ? 'L' : 'M'}${(Math.cos(a) * rr).toFixed(1)} ${(Math.sin(a) * rr).toFixed(1)}`;}).join(' ') + ' Z'}
+      fill={c} stroke={C.ink} strokeWidth={4} strokeLinejoin="round" />
+  </g>
+);
+// a door standing on the road; open 0→1 swings the leaf, light pours out
+export const Door: React.FC<{x: number; open: number; o?: number; light?: number; ink?: string}> = ({x, open, o = 1, light = 1, ink = C.ink}) => {
+  const w = 210, h = 380, lo = clamp(open) * light;
+  return o <= 0.001 ? null : (
+    <g transform={`translate(${x} ${GROUND})`} opacity={o}>
+      {lo > 0 && <>
+        <circle cx={0} cy={-h / 2} r={420} fill={C.sun} opacity={0.35 * lo} />
+        <path d={`M${-w / 2} 0 L${w / 2} 0 L${-w / 2 - 520} 60 L${-w / 2 - 620} 60 Z`} fill={C.sun} opacity={0.55 * lo} />
+      </>}
+      <rect x={-w / 2} y={-h} width={w} height={h} fill={lo > 0 ? '#fff1d2' : '#d9c8ab'} />
+      {lo > 0 && <rect x={-w / 2} y={-h} width={w} height={h} fill={C.sun} opacity={0.7 * lo} />}
+      {/* the leaf, hinged on the left, swinging toward us */}
+      <g transform={`translate(${-w / 2} 0) scale(${1 - 0.86 * clamp(open)} 1)`}>
+        <rect x={0} y={-h} width={w} height={h} fill={C.teal} stroke={ink} strokeWidth={7} />
+        <rect x={24} y={-h + 30} width={w - 48} height={h * 0.38} rx={6} fill="none" stroke={ink} strokeWidth={5} opacity={0.5} />
+        <circle cx={w - 30} cy={-h * 0.46} r={9} fill={C.acc} />
+      </g>
+      <rect x={-w / 2 - 12} y={-h - 14} width={w + 24} height={h + 14} fill="none" stroke={ink} strokeWidth={10} strokeLinejoin="round" />
+    </g>
+  );
+};
+// a cold, distant tower on a hill (what the basmalah says you are NOT walking up to)
+export const Tower: React.FC<{x: number; sink?: number; o?: number; t: number}> = ({x, sink = 0, o = 1, t}) => o <= 0.001 ? null : (
+  <g opacity={o}>
+    <path d={`M${x - 900} ${GROUND} C ${x - 500} ${GROUND - 40}, ${x - 300} ${GROUND - 300}, ${x} ${GROUND - 320} C ${x + 300} ${GROUND - 300}, ${x + 500} ${GROUND - 40}, ${x + 900} ${GROUND} Z`} fill="#9aa3ad" />
+    <g transform={`translate(0 ${sink * 1300})`}>
+      <path d={`M${x - 110} ${GROUND - 300} L${x - 70} ${GROUND - 1350} L${x + 70} ${GROUND - 1350} L${x + 110} ${GROUND - 300} Z`} fill="#5d6874" />
+      <path d={`M${x - 70} ${GROUND - 1350} L${x} ${GROUND - 1480} L${x + 70} ${GROUND - 1350} Z`} fill="#4a5460" />
+      {[0, 1, 2, 3].map((i) => <line key={i} x1={x - 60 + i * 40} x2={x - 60 + i * 40} y1={GROUND - 1300} y2={GROUND - 360} stroke="#4a5460" strokeWidth={6} opacity={0.6} />)}
+    </g>
+    {/* cold wind */}
+    {[0, 1, 2, 3, 4].map((i) => {const ph = ((t * 0.45 + i * 0.21) % 1); const yy = GROUND - 1200 + i * 190;
+      return <path key={'w' + i} d={`M${x + 600 - ph * 1400} ${yy} q 80 -26 160 0 t 160 0`} stroke="#c9d3dc" strokeWidth={7} fill="none" strokeLinecap="round" opacity={0.8 * Math.sin(Math.PI * ph)} />;})}
+  </g>
+);
+export const Lantern: React.FC<{x: number; y: number; s?: number; o?: number; glow?: number; t: number}> = ({x, y, s = 1, o = 1, glow = 1, t}) => o <= 0.001 ? null : (
+  <g transform={`translate(${x} ${y}) scale(${s})`} opacity={o}>   {/* y = bottom of the lantern */}
+    <circle cy={-60} r={130} fill={C.sun} opacity={(0.4 + 0.06 * Math.sin(t * 6)) * glow} />
+    <path d="M-34 -10 L34 -10 L44 0 L-44 0 Z" fill={C.ink} />
+    <rect x={-30} y={-104} width={60} height={94} rx={8} fill="#ffe3a8" stroke={C.ink} strokeWidth={6} />
+    <path d="M0 -40 C -12 -58, 6 -70, 0 -86 C 14 -70, 12 -52, 0 -40 Z" fill={C.acc} />
+    <path d="M-38 -104 L38 -104 L22 -124 L-22 -124 Z" fill={C.ink} />
+    <path d="M-12 -124 C -12 -150, 12 -150, 12 -124" stroke={C.ink} strokeWidth={6} fill="none" />
+  </g>
+);
+// a prayer mat seen from the side (a thin strip on the ground)
+export const Mat: React.FC<{x: number; w?: number; o?: number; p?: number}> = ({x, w = 300, o = 1, p = 1}) => o <= 0.001 || p <= 0 ? null : (
+  <g opacity={o}><rect x={x - (w / 2) * p} y={GROUND - 10} width={w * p} height={14} rx={5} fill={C.teal} stroke={C.ink} strokeWidth={4} />
+    <rect x={x - (w / 2) * p + 10} y={GROUND - 6} width={Math.max(0, w * p - 20)} height={4} fill={C.acc} opacity={0.8} /></g>
+);
+// a looping arrow (reciting on autopilot, from memory)
+export const LoopGlyph: React.FC<{rot?: number; s?: number; c?: string}> = ({rot = 0, s = 1, c = C.ink}) => (
+  <g transform={`scale(${s}) rotate(${rot})`} fill="none" stroke={c} strokeWidth={7} strokeLinecap="round" strokeLinejoin="round">
+    <path d="M24 -18 A 30 30 0 1 0 28 12" /><path d="M28 -34 L25 -16 L42 -12" />
+  </g>
 );

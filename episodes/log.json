@@ -198,6 +198,40 @@
     "6b08db279c8db0e143e75116"
    ],
    "note_27nov": "IG/FB caption updated before publish: question + READ line (Ahmed 27 Nov)"
+  },
+  {
+   "track": "B",
+   "id": "b02",
+   "n": 2,
+   "word": "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ",
+   "slug": "bismillah",
+   "date": "2026-11-27",
+   "status": "scheduled",
+   "book": "My Prayer, Ch.5 'Al-Fatihah - The Conversation That Maps the Way through Life' → 'In the Name of Allah, the Entirely Merciful, the Especially Merciful', p.34",
+   "verses": [
+    "1:1"
+   ],
+   "duration_s": 52.1,
+   "hook": "Bismillah before Al-Fatihah: you don't start with your strength.",
+   "hook_type": "correction aimed at you",
+   "hook_score": 85.6,
+   "hook_score_start": 83.0,
+   "test": "Track B: music v2 (beat-free ambient bed) vs B01's Hijaz score; first Track B episode with the end question + READ comment-to-DM",
+   "music": "ambient-v2",
+   "end_question": "What do you lean on most: your strength, your experience, or your worthiness? One word below.",
+   "zernio_post_id": "6b091e5c3cfdc6eb62073cee",
+   "zernio_post_id_tt_yt": "6b091e6f3cfdc6eb62073d78",
+   "dm_automation_ids": [
+    "6b091e7afd137bbe44fdb208",
+    "6b091e7b045982c6b6993c46"
+   ],
+   "dm_reflection": "https://yasserfares.com/reflections/for-whom-am-i-standing/",
+   "scheduled_for": "2026-11-27T23:15+08:00",
+   "files": [
+    "2026-11-27_my-prayer_phrase-02-bismillah_9x16_v1.mp4",
+    "2026-11-27_my-prayer_phrase-02-bismillah_9x16_v1_cover.jpg"
+   ],
+   "version": "v1 (kit v2)"
   }
  ]
 }
