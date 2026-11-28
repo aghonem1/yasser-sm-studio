@@ -1,13 +1,46 @@
 [
  {
-  "slug": "what-does-kufr-really-mean",
-  "url": "https://yasserfares.com/reflections/what-does-kufr-really-mean/",
-  "title": "What does kufr really mean? — a reflection from The Mirror",
+  "slug": "is-it-our-duty-to-make-others-believe",
+  "url": "https://yasserfares.com/reflections/is-it-our-duty-to-make-others-believe/",
+  "title": "Is it our duty to make others believe? — a reflection from The Mirror",
   "dates": [
-   "2026-11-15"
+   "2026-11-28"
   ],
   "books": [
    "https://yasserfares.com/books/the-mirror/"
+  ]
+ },
+ {
+  "slug": "how-can-wudu-prepare-the-heart-for-prayer",
+  "url": "https://yasserfares.com/reflections/how-can-wudu-prepare-the-heart-for-prayer/",
+  "title": "How can wudu prepare the heart for prayer? — a reflection from My Prayer",
+  "dates": [
+   "2026-11-27"
+  ],
+  "books": [
+   "https://yasserfares.com/books/my-prayer/"
+  ]
+ },
+ {
+  "slug": "how-does-temptation-begin",
+  "url": "https://yasserfares.com/reflections/how-does-temptation-begin/",
+  "title": "How does temptation begin? — a reflection from The Evil I",
+  "dates": [
+   "2026-11-26"
+  ],
+  "books": [
+   "https://yasserfares.com/books/the-evil-i/"
+  ]
+ },
+ {
+  "slug": "how-should-we-weigh-differing-opinions",
+  "url": "https://yasserfares.com/reflections/how-should-we-weigh-differing-opinions/",
+  "title": "How should we weigh differing opinions? — a reflection from Hold Firmly",
+  "dates": [
+   "2026-11-25"
+  ],
+  "books": [
+   "https://yasserfares.com/books/hold-firmly/"
   ]
  },
  {
@@ -22,11 +55,22 @@
   ]
  },
  {
-  "slug": "is-it-our-duty-to-make-others-believe",
-  "url": "https://yasserfares.com/reflections/is-it-our-duty-to-make-others-believe/",
-  "title": "Is it our duty to make others believe? — a reflection from The Mirror",
+  "slug": "for-whom-am-i-standing",
+  "url": "https://yasserfares.com/reflections/for-whom-am-i-standing/",
+  "title": "For whom am I standing? — a reflection from My Prayer",
   "dates": [
-   "2026-11-28"
+   "2026-11-16"
+  ],
+  "books": [
+   "https://yasserfares.com/books/my-prayer/"
+  ]
+ },
+ {
+  "slug": "what-does-kufr-really-mean",
+  "url": "https://yasserfares.com/reflections/what-does-kufr-really-mean/",
+  "title": "What does kufr really mean? — a reflection from The Mirror",
+  "dates": [
+   "2026-11-15"
   ],
   "books": [
    "https://yasserfares.com/books/the-mirror/"
@@ -44,17 +88,6 @@
   ]
  },
  {
-  "slug": "how-should-we-weigh-differing-opinions",
-  "url": "https://yasserfares.com/reflections/how-should-we-weigh-differing-opinions/",
-  "title": "How should we weigh differing opinions? — a reflection from Hold Firmly",
-  "dates": [
-   "2026-11-25"
-  ],
-  "books": [
-   "https://yasserfares.com/books/hold-firmly/"
-  ]
- },
- {
   "slug": "allahu-akbar-greater-than-what",
   "url": "https://yasserfares.com/reflections/allahu-akbar-greater-than-what/",
   "title": "Allahu Akbar — greater than what? — a reflection from My Prayer",
@@ -66,44 +99,11 @@
   ]
  },
  {
-  "slug": "for-whom-am-i-standing",
-  "url": "https://yasserfares.com/reflections/for-whom-am-i-standing/",
-  "title": "For whom am I standing? — a reflection from My Prayer",
-  "dates": [
-   "2026-11-16"
-  ],
-  "books": [
-   "https://yasserfares.com/books/my-prayer/"
-  ]
- },
- {
-  "slug": "how-can-wudu-prepare-the-heart-for-prayer",
-  "url": "https://yasserfares.com/reflections/how-can-wudu-prepare-the-heart-for-prayer/",
-  "title": "How can wudu prepare the heart for prayer? — a reflection from My Prayer",
-  "dates": [
-   "2026-11-27"
-  ],
-  "books": [
-   "https://yasserfares.com/books/my-prayer/"
-  ]
- },
- {
   "slug": "is-the-self-our-greatest-enemy",
   "url": "https://yasserfares.com/reflections/is-the-self-our-greatest-enemy/",
   "title": "Is the self our greatest enemy? — a reflection from The Evil I",
   "dates": [
    "2026-11-15"
-  ],
-  "books": [
-   "https://yasserfares.com/books/the-evil-i/"
-  ]
- },
- {
-  "slug": "how-does-temptation-begin",
-  "url": "https://yasserfares.com/reflections/how-does-temptation-begin/",
-  "title": "How does temptation begin? — a reflection from The Evil I",
-  "dates": [
-   "2026-11-26"
   ],
   "books": [
    "https://yasserfares.com/books/the-evil-i/"

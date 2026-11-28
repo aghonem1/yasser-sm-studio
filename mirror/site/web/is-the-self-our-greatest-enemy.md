@@ -67,18 +67,18 @@ Keep reading
 
 ## More reflections
 
-The Mirror ·
-### What does kufr really mean?
+The Mirror · 28 Nov 2026 ·
+### Is it our duty to make others believe?
 
-The Mirror opens by going back to the root of one of the most carelessly used words in religious speech.
-Read the reflection · Hold Firmly ·
-### What about harmony within Islam?
+The Mirror turns from what we cannot see in another person to what we have actually been asked to do.
+Read the reflection · My Prayer · 27 Nov 2026 ·
+### How can wudu prepare the heart for prayer?
 
-Hold Firmly began with one line in a friend’s message, and with a decision about where to look for the answer.
-Read the reflection · My Prayer ·
-### Allahu Akbar — greater than what?
+The third chapter of My Prayer follows the water from limb to limb and asks what each one has been doing.
+Read the reflection · The Evil I · 26 Nov 2026 ·
+### How does temptation begin?
 
-My Prayer starts before the prayer does, with two words most of us have heard thousands of times.
+The second chapter of The Evil I finds the start of Adam’s fall a moment before his hand reached the tree.
 Read the reflection ·
 
 Watch and follow
