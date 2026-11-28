@@ -72,5 +72,27 @@
   "source": "website",
   "reflection_published": "2026-11-27",
   "note": "add_repo not available and the GitHub connector refused the site repo; Hostinger file reader refused. Reflection read from the live page through the web-fetch agent in short exact quotes. Carousel to IG, FB and TikTok photo mode (autoAddMusic); slideshow reel 16.0 s, -13.9 LUFS, no Qur'an slides so music throughout. YouTube Short of the slideshow added after the run at Ahmed's request (daily from 28 Nov)."
+ },
+ {
+  "date": "2026-11-28",
+  "slug": "is-it-our-duty-to-make-others-believe",
+  "book": "The Mirror",
+  "slides": 10,
+  "cover_hook": "Even the Prophet didn't control hearts",
+  "hook_score_before": 51.0,
+  "hook_score_after": 59.6,
+  "zernio_post_ids": {
+   "carousel": "6b0a4425264373082372087a",
+   "slideshow_reel": "6b0a443d007f190329a560bd",
+   "slideshow_youtube": "6b0a443e79a74de29b25b8b7"
+  },
+  "scheduled_for": {
+   "carousel": "2026-11-28T12:30:00+08:00",
+   "slideshow_reel": "2026-11-28T16:30:00+08:00",
+   "slideshow_youtube": "2026-11-28T16:30:00+08:00"
+  },
+  "source": "mirror",
+  "reflection_published": "2026-11-28",
+  "note": "10:17 scheduled run stopped (no add_repo, GitHub connector refused the site repo, web fetch unanswered). Built in a live session from the new in-repo site mirror (mirror-site.yml). Slideshow 16.0 s, -13.9 LUFS, music zeroed under slide 5 (English quotation of 88:21-22)."
  }
 ]
