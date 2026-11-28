@@ -115,12 +115,18 @@ def parse(page):
 def main():
     os.makedirs(OUT, exist_ok=True)
     listing = get(BASE + "/reflections/")
+    with open(os.path.join(OUT, "_list.html"), "w", encoding="utf-8") as f:
+        f.write(listing)
     slugs = []
-    for m in re.finditer(r'href="(?:https://yasserfares\.com)?/reflections/([a-z0-9][a-z0-9-]*)/?"', listing):
-        if m.group(1) not in slugs:
-            slugs.append(m.group(1))
+    # absolute (/reflections/x/, https://yasserfares.com/reflections/x) or relative (x/, ./x/) links, either quote
+    for m in re.finditer(r'href=["\']([^"\'#?]+)["\']', listing):
+        href = m.group(1)
+        mm = re.search(r'(?:^|/)reflections/([a-z0-9][a-z0-9-]*)/?(?:index\.html)?$', href) or \
+            re.fullmatch(r'(?:\./)?([a-z0-9][a-z0-9-]*-[a-z0-9-]+)/?(?:index\.html)?', href)
+        if mm and mm.group(1) not in slugs:
+            slugs.append(mm.group(1))
     if not slugs:
-        sys.exit("no reflection links found on /reflections/ (page layout changed?)")
+        sys.exit(f"no reflection links found on /reflections/ ({len(listing)} bytes saved to {OUT}/_list.html)")
     index = []
     for slug in slugs:
         url = f"{BASE}/reflections/{slug}/"
