@@ -28,6 +28,8 @@ def get(url):
             time.sleep(5)
 
 
+MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+          "November", "December"]
 BLOCK = {"p", "div", "section", "article", "li", "br", "tr", "figure", "figcaption", "h1", "h2", "h3", "h4", "h5", "h6",
          "blockquote", "ul", "ol", "hr", "header", "footer", "main", "aside", "table"}
 SKIP = {"script", "style", "noscript", "svg", "nav", "form", "button", "template"}
@@ -51,8 +53,9 @@ class Text(HTMLParser):
             self.dates.append(a["datetime"])
         if tag == "meta" and a.get("property") in ("article:published_time", "og:published_time"):
             self.dates.append(a.get("content", ""))
-        if tag == "a" and re.match(r"^(https://yasserfares\.com)?/books/[^/]+/?", a.get("href", "")):
-            href = a["href"] if a["href"].startswith("http") else BASE + a["href"]
+        mb = re.match(r"^(?:https://yasserfares\.com|(?:\.\./)+|/)?/?books/([a-z0-9-]+)/?$", a.get("href", "")) if tag == "a" else None
+        if mb:
+            href = f"{BASE}/books/{mb.group(1)}/"
             if href not in self.books:
                 self.books.append(href)
         if tag == "blockquote":
@@ -74,6 +77,8 @@ class Text(HTMLParser):
             self.quote = max(0, self.quote - 1)
         if tag in BLOCK:
             self.parts.append("\n")
+        elif tag in ("span", "td", "th"):
+            self.parts.append(" · ")
 
     def handle_data(self, d):
         if self._in_title:
@@ -99,7 +104,7 @@ class Text(HTMLParser):
 
 def main_part(page):
     """The <main> (or <article>) element if the page has one, else the whole page."""
-    for tag in ("article", "main"):
+    for tag in ("main", "article"):
         m = re.search(rf"<{tag}\b.*?</{tag}>", page, re.S | re.I)
         if m:
             return m.group(0)
@@ -133,7 +138,11 @@ def main():
         page = get(url)
         whole, body = parse(page)
         title = html.unescape(whole.title).strip()
-        dates = sorted(set(d for d in whole.dates if d))
+        dates = set(d for d in whole.dates if d)
+        dates |= set(re.findall(r'"datePublished"\s*:\s*"([^"]+)"', page))
+        for d, mon, y in re.findall(r"\b(\d{1,2}) (January|February|March|April|May|June|July|August|September|October|November|December) (20\d\d)\b", body.text()[:3000]):
+            dates.add(f"{y}-{MONTHS.index(mon) + 1:02d}-{int(d):02d}")
+        dates = sorted(dates)
         fm = ["---", f"url: {url}", f"page_title: {json.dumps(title, ensure_ascii=False)}",
               f"dates_on_page: {json.dumps(dates)}", f"book_links: {json.dumps(whole.books)}",
               "source: website (mirrored by tools/mirror_site.py; text as the page prints it)", "---", ""]
