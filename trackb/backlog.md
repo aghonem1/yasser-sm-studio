@@ -9,7 +9,7 @@ Hooks below are working ideas: write 5, score with tools/ig/hookscore.py, keep t
 |---|---|---|---|---|---|---|
 | B01 | Allahu Akbar (opening takbir) | phrases.json: takbir | Ch.4 "The Opening Takbir: From the Call to the Answer" p.31–32 | – | "Allahu Akbar is not only 'Allah is great.' You've been saying 'greater.'" (37.8→93.8) | done (pilot, 26 Nov) |
 | B02 | Bismillah al-Rahman al-Rahim | verse.py 1:1 | Ch.5 "In the Name of Allah, the Entirely Merciful…" p.34 | 1:1 | "Bismillah before Al-Fatihah: you don't start with your strength." (83.0→85.6) | done (27 Nov) |
-| B03 | Al-hamdu lillahi Rabb al-'alamin | verse.py 1:2 | Ch.5 "All praise belongs to Allah, Lord of all worlds" p.35 | 1:2 | "Before you ask Him for anything, you praise. Why?" | todo |
+| B03 | Al-hamdu lillahi Rabb al-'alamin | verse.py 1:2 | Ch.5 "All praise belongs to Allah, Lord of all worlds" p.35 | 1:2 | "Alhamdulillah isn't only 'thank you.' You didn't make yourself, Allah did." (52.2→93.8) | done (28 Nov) |
 | B04 | Al-Rahman al-Rahim | verse.py 1:3 | Ch.5 "The Entirely Merciful, the Especially Merciful" p.35 | 1:3 | "Mercy, twice, in one breath. Why twice?" | todo |
 | B05 | Maliki yawm al-din | verse.py 1:4 | Ch.5 "Master of the Day of Judgement" p.36 | 1:4 | "Right after mercy: judgement. Why that order?" | todo |
 | B06 | Iyyaka na'budu | verse.py 1:5 | Ch.5 "You alone we worship" p.36 | 1:5 | "'You alone.' Then who else have you been working for?" | todo |

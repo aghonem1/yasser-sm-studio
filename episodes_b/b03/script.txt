@@ -1,0 +1,12 @@
+Track B · 03 · ٱلۡحَمۡدُ لِلَّهِ رَبِّ ٱلۡعَٰلَمِينَ — HeyGen script (Yasser clone 2c1e0005b48c4690a322867cea82a58f, one generation, 28 Nov 2026 SGT)
+Source: My Prayer, Ch.5 "Al-Fatihah - The Conversation That Maps the Way through Life" → "All praise belongs to Allah, Lord of all worlds", printed p.35
+("Praise is wider than gratitude for a single blessing. It is praise of Allah for His perfection, His acts, His wisdom and His gifts. When you say al-hamdu lillah,
+you return every blessing and merit to its true Source and free the heart from the illusion that you made yourself by yourself. Then you say: Lord of all worlds.
+The Rabb is the Owner, Sustainer, Nurturer and Director who brings His creation through its stages. You are not in an abandoned universe and not in a life without
+care. You have a Lord who created you, provided for you, nurtured you through blessings, trials and guidance, and who is Lord of every world you know and every world
+beyond your knowledge.")
+Verse: 1:2 via quran/verse.py (both sources agree). Voice spelling = verse.py text with U+0671→U+0627 and U+06E1→U+0652 (mechanical, no typing).
+Verse windows (no music): the hook's الحمد لله, line 2 (the full verse), line 7 ("Lord of all worlds", Arabic caption رَبِّ ٱلۡعَٰلَمِينَ), line 15 (الحمد لله).
+Hooks: round 1 best 52.2, round 2 best 93.8 (chosen). ASR (ar) on src and final mix: "الحمد لله", "الحمد لله رب العالمين", "الحمد لله".
+
+[curious] الْحَمْدُ لِلَّهِ isn't only "thank you." You didn't make yourself, Allah did. [thoughtful] It's praise for His perfection, His acts, His wisdom, His gifts. [sincere] الْحَمْدُ لِلَّهِ رَبِّ الْعَٰلَمِينَ. [warm] Your job. Your degree. Your success. Saying it returns each one to its true Source, and frees your heart from an illusion: that you made yourself by yourself. Then: Lord of all worlds. Your Owner and Sustainer, who brings you through every stage. You're not in an abandoned universe. You have a Lord who nurtured you through blessings, trials and guidance. Next prayer, as you say it, return one blessing to Him. الْحَمْدُ لِلَّهِ. Every blessing, back to its Source. [curious] Which do you credit to yourself: your job, your degree, or your success? One word below. One phrase from your prayer, every day. Follow for the next one.

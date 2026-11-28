@@ -21,6 +21,7 @@ import {Q01, TOTAL as TQ01} from './quiz/Q01';
 import {L01, TOTAL as TL01} from './list/L01';
 import {L02, TOTAL as TL02} from './list/L02';
 import {B02, TOTAL as TB02} from './trackb/B02_Bismillah';
+import {B03, TOTAL as TB03} from './trackb/B03_Alhamdulillah';
 // Track B episodes: import {BNN, TOTAL as TBNN} from './trackb/BNN_<slug>';
 // Register each new episode here: import {EpNN, TOTAL as TNN} from './episodes/EpNN_<slug>';
 export const Root: React.FC = () => (<>
@@ -39,6 +40,7 @@ export const Root: React.FC = () => (<>
   {/* Track B ("a phrase you say every day", light stick-figure style) */}
   <Composition id="b01" component={B01} durationInFrames={Math.round(TB01 * FPS)} fps={FPS} width={1080} height={1920} />
   <Composition id="b02" component={B02} durationInFrames={Math.round(TB02 * FPS)} fps={FPS} width={1080} height={1920} />
+  <Composition id="b03" component={B03} durationInFrames={Math.round(TB03 * FPS)} fps={FPS} width={1080} height={1920} />
   {/* webinar teaser: full 16:9 explainer and the 9:16 short cut */}
   <Composition id="web01" component={Web01} durationInFrames={Math.round(TOTAL_FULL * FPS)} fps={FPS} width={1920} height={1080} />
   <Composition id="web01s" component={Web01S} durationInFrames={Math.round(TOTAL_SHORT * FPS)} fps={FPS} width={1080} height={1920} />

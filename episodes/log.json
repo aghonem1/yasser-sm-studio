@@ -365,6 +365,40 @@
    "music": "hijaz-v1",
    "first_comments": "set via platformSpecificData.firstComment on Instagram, Facebook, YouTube (episode) and YouTube (short); TikTok has no first-comment field",
    "v3_28nov": "Ahmed (28 Nov, before publishing): the transition into the re-taken ṣāliḥ was broken and abrupt, and some text overlapped. Audio: splice_salih.py v2 time-stretches the take's word (pitch kept) into the original slot, keeps the original onset, room tone instead of digital silence, 12 ms overlap crossfades; whisper-ar hears صالح at all three, parakeet reads the sentences straight through. Picture: clock beside the mat on frame 1, transliteration clear of the Arabic word, panel labels clear of the drawings, caption key words no longer clip the italic d, no stray root/leaf dots, no dashed slots across branches, deed labels beside the fruit, shield above the roof, arrow stops before the house, OR clear of the cards, APPEARANCE strike visible. All three posts updated to v3 / short v2 before publishing."
+  },
+  {
+   "track": "B",
+   "id": "b03",
+   "n": 3,
+   "word": "ٱلۡحَمۡدُ لِلَّهِ رَبِّ ٱلۡعَٰلَمِينَ",
+   "slug": "alhamdulillah",
+   "date": "2026-11-28",
+   "status": "scheduled",
+   "book": "My Prayer, Ch.5 'Al-Fatihah - The Conversation That Maps the Way through Life' → 'All praise belongs to Allah, Lord of all worlds', p.35",
+   "verses": [
+    "1:2"
+   ],
+   "duration_s": 58.9,
+   "hook": "Alhamdulillah isn't only \"thank you.\" You didn't make yourself, Allah did.",
+   "hook_type": "correction aimed at you",
+   "hook_score": 93.8,
+   "hook_score_start": 52.2,
+   "test": "Track B: music v2 (beat-free ambient bed), second episode; end question + READ comment-to-DM",
+   "music": "ambient-v2",
+   "end_question": "Which do you credit to yourself: your job, your degree, or your success? One word below.",
+   "zernio_post_id": "6b0a70903b985d7fb47e2f72",
+   "zernio_post_id_tt_yt": "6b0a70a33b985d7fb47e2fbd",
+   "dm_automation_ids": [
+    "6b0a70b2ef90b236269f4929",
+    "6b0a70b282eea19e474f69c7"
+   ],
+   "dm_reflection": "https://yasserfares.com/reflections/for-whom-am-i-standing/",
+   "scheduled_for": "2026-11-28T23:15+08:00",
+   "files": [
+    "2026-11-28_my-prayer_phrase-03-alhamdulillah_9x16_v1.mp4",
+    "2026-11-28_my-prayer_phrase-03-alhamdulillah_9x16_v1_cover.jpg"
+   ],
+   "version": "v1 (kit v2)"
   }
  ]
 }

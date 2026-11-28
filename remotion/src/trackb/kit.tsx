@@ -495,3 +495,72 @@ export const LoopGlyph: React.FC<{rot?: number; s?: number; c?: string}> = ({rot
     <path d="M24 -18 A 30 30 0 1 0 28 12" /><path d="M28 -34 L25 -16 L42 -12" />
   </g>
 );
+
+
+// =====================================================================================
+// B03 props (28 Nov 2026): flat, inked, simple. (x, y = centre of the bottom edge unless noted)
+// =====================================================================================
+export const Gift: React.FC<{x: number; y: number; s?: number; o?: number; rot?: number; glow?: number; c?: string}> = ({x, y, s = 1, o = 1, rot = 0, glow = 0, c = C.acc}) => o <= 0.001 || s <= 0 ? null : (
+  <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`} opacity={o}>
+    {glow > 0 && <circle cy={-60} r={120} fill={C.sun} opacity={0.45 * glow} />}
+    <rect x={-60} y={-100} width={120} height={100} rx={6} fill={c} stroke={C.ink} strokeWidth={6} />
+    <rect x={-70} y={-124} width={140} height={30} rx={6} fill={c} stroke={C.ink} strokeWidth={6} />
+    <rect x={-11} y={-124} width={22} height={124} fill={C.white} stroke={C.ink} strokeWidth={4} />
+    <path d="M0 -124 C -30 -170, -70 -150, -40 -126 M0 -124 C 30 -170, 70 -150, 40 -126" stroke={C.ink} strokeWidth={7} fill="none" strokeLinecap="round" />
+  </g>
+);
+export const Briefcase: React.FC<{x: number; y: number; s?: number; o?: number; rot?: number; glow?: number}> = ({x, y, s = 1, o = 1, rot = 0, glow = 0}) => o <= 0.001 || s <= 0 ? null : (
+  <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`} opacity={o}>
+    {glow > 0 && <circle cy={-55} r={120} fill={C.sun} opacity={0.45 * glow} />}
+    <path d="M-30 -104 L-30 -122 Q -30 -132 -20 -132 L 20 -132 Q 30 -132 30 -122 L 30 -104" stroke={C.ink} strokeWidth={8} fill="none" />
+    <rect x={-80} y={-106} width={160} height={106} rx={12} fill="#8a6a4a" stroke={C.ink} strokeWidth={6} />
+    <line x1={-80} x2={80} y1={-62} y2={-62} stroke={C.ink} strokeWidth={5} />
+    <rect x={-14} y={-72} width={28} height={20} rx={4} fill={C.acc} stroke={C.ink} strokeWidth={4} />
+  </g>
+);
+export const GradCap: React.FC<{x: number; y: number; s?: number; o?: number; rot?: number; glow?: number; t?: number}> = ({x, y, s = 1, o = 1, rot = 0, glow = 0, t = 0}) => o <= 0.001 || s <= 0 ? null : (
+  <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`} opacity={o}>   {/* y = bottom of the cap band */}
+    {glow > 0 && <circle cy={-40} r={115} fill={C.sun} opacity={0.45 * glow} />}
+    <path d="M-48 0 L-48 -34 L48 -34 L48 0 Q 0 16 -48 0 Z" fill={C.ink} />
+    <path d="M0 -76 L104 -44 L0 -12 L-104 -44 Z" fill={C.ink} stroke={C.ink} strokeWidth={4} strokeLinejoin="round" />
+    <path d={`M0 -44 L78 -40 L${80 + 3 * Math.sin(t * 3)} 6`} stroke={C.acc} strokeWidth={5} fill="none" strokeLinecap="round" />
+    <circle cx={80 + 3 * Math.sin(t * 3)} cy={12} r={9} fill={C.acc} />
+  </g>
+);
+// a self-built pedestal of stones; n = how many have landed, crumble 0→1 scatters them
+export const Blocks: React.FC<{x: number; n: number; crumble?: number; s?: number; o?: number}> = ({x, n, crumble = 0, s = 1, o = 1}) => o <= 0.001 || n <= 0 ? null : (
+  <g transform={`translate(${x} ${GROUND}) scale(${s})`} opacity={o}>
+    {Array.from({length: Math.ceil(n)}).map((_, i) => {const f = clamp(n - i); const w = 200 - i * 14; const yy = -(i + 1) * 58 - (1 - outBack(f)) * 200;
+      const dir = i % 2 ? 1 : -1; const cx = dir * crumble * (60 + i * 55), cy = crumble * crumble * (i + 1) * 58 * 0.95, cr = dir * crumble * (20 + i * 9);
+      return <g key={i} opacity={clamp(f * 3) * (1 - clamp((crumble - 0.7) / 0.3))} transform={`translate(${cx} ${yy + cy}) rotate(${cr})`}>
+        <rect x={-w / 2} y={0} width={w} height={54} rx={6} fill="#a49686" stroke={C.ink} strokeWidth={5} />
+        <path d={`M${-w / 2 + 30} 14 L${-w / 2 + 60} 30 M${w / 2 - 50} 10 L${w / 2 - 30} 36`} stroke={C.ink} strokeWidth={4} opacity={0.4} strokeLinecap="round" />
+      </g>;})}
+  </g>
+);
+// bars closing around a heart (screen/world space centre x, y); open 0→1 the bars fall away
+export const HeartCage: React.FC<{x: number; y: number; r: number; open?: number; o?: number; c?: string}> = ({x, y, r, open = 0, o = 1, c = C.ink}) => o <= 0.001 ? null : (
+  <g transform={`translate(${x} ${y})`} opacity={o}>
+    {[-2, -1, 0, 1, 2].map((i) => {const fx = i * r * 0.42; const fall = clamp(open * 1.3 - Math.abs(i) * 0.1);
+      return <line key={i} x1={fx + i * fall * 50} y1={-r * 1.1 + fall * 260} x2={fx + i * fall * 80} y2={r * 1.1 + fall * 260} stroke={c} strokeWidth={7} strokeLinecap="round" opacity={1 - fall} />;})}
+    <rect x={-r * 1.05} y={-r * 1.15 + open * 200} width={r * 2.1} height={10} rx={4} fill={c} opacity={1 - clamp(open * 1.5)} />
+    <rect x={-r * 1.05} y={r * 1.08 + open * 280} width={r * 2.1} height={10} rx={4} fill={c} opacity={1 - clamp(open * 1.5)} />
+  </g>
+);
+// many worlds in the sky (world space); p 0→1 they pop in one by one
+export const Worlds: React.FC<{p: number; t: number; o?: number; list: [number, number, number, string, boolean][]}> = ({p, t, o = 1, list}) => o <= 0.001 || p <= 0 ? null : (
+  <g opacity={o}>
+    {list.map(([wx, wy, r, col, ring], i) => {const q = outBack(clamp(p * list.length * 0.6 - i * 0.5)); if (q <= 0) return null; const yy = wy + 10 * Math.sin(t * 0.9 + i);
+      return <g key={i} transform={`translate(${wx} ${yy}) scale(${q})`}>
+        <circle r={r * 1.6} fill={col} opacity={0.15} />
+        {ring && <ellipse rx={r * 1.7} ry={r * 0.42} fill="none" stroke={C.ink} strokeWidth={6} transform="rotate(-18)" />}
+        <circle r={r} fill={col} stroke={C.ink} strokeWidth={6} />
+        <path d={`M${-r * 0.6} ${-r * 0.2} q ${r * 0.4} ${-r * 0.25} ${r * 0.8} 0`} stroke={C.white} strokeWidth={5} fill="none" opacity={0.6} strokeLinecap="round" />
+        {ring && <path d={`M${-r * 1.7 * 0.95} ${r * 0.42 * 0.3} A ${r * 1.7} ${r * 0.42} 0 0 0 ${r * 1.7 * 0.95} ${-r * 0.42 * 0.3}`} fill="none" stroke={C.ink} strokeWidth={6} transform="rotate(-18)" />}
+      </g>;})}
+  </g>
+);
+// a glowing dot rising (a blessing returned to its Source)
+export const Rise: React.FC<{x: number; y: number; r?: number; o?: number}> = ({x, y, r = 14, o = 1}) => o <= 0.001 ? null : (
+  <g opacity={o}><circle cx={x} cy={y} r={r * 3} fill={C.sun} opacity={0.35} /><circle cx={x} cy={y} r={r} fill={C.white} /></g>
+);
