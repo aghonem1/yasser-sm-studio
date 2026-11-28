@@ -1,0 +1,52 @@
+# Mirror of the website's reflections (and, with a token, the book texts) inside THIS repo, so scheduled
+# Claude tasks never depend on attaching aghonem1/yasserfares-site or on web-fetch permission prompts.
+#   With secret SITE_REPO_TOKEN (fine-grained, read-only "Contents" on aghonem1/yasserfares-site):
+#     mirror/site/content/reflections/*.md and mirror/site/sources/*.txt, exact copies from the site repo.
+#   Always (no token needed): mirror/site/web/<slug>.md|.html + index.json from the live site (tools/mirror_site.py).
+# Runs on a schedule around the daily reflection (~08:45 SGT) and on demand (workflow_dispatch), e.g. from a task
+# via the GitHub connector: actions_run_trigger run_workflow mirror-site.yml ref main.
+name: mirror-site
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '55 0 * * *'   # 08:55 SGT
+    - cron: '25 1 * * *'   # 09:25 SGT
+    - cron: '55 1 * * *'   # 09:55 SGT
+    - cron: '30 4 * * *'   # 12:30 SGT
+    - cron: '30 10 * * *'  # 18:30 SGT
+permissions:
+  contents: write
+concurrency: { group: mirror-site, cancel-in-progress: false }
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - name: Copy from the site repo (if a token is set)
+        env:
+          TOKEN: ${{ secrets.SITE_REPO_TOKEN }}
+        run: |
+          set -uo pipefail
+          if [ -z "${TOKEN:-}" ]; then echo "SITE_REPO_TOKEN not set: live-site mirror only"; exit 0; fi
+          if git clone --depth 1 "https://x-access-token:${TOKEN}@github.com/aghonem1/yasserfares-site" /tmp/site; then
+            mkdir -p mirror/site/content mirror/site
+            rm -rf mirror/site/content/reflections mirror/site/sources
+            cp -r /tmp/site/content/reflections mirror/site/content/reflections
+            [ -d /tmp/site/sources ] && cp -r /tmp/site/sources mirror/site/sources
+            git -C /tmp/site log -1 --format='%H %cI' > mirror/site/REPO_COMMIT
+          else
+            echo "::warning::clone of aghonem1/yasserfares-site failed (token expired or lacks access)"
+          fi
+      - name: Mirror the live site
+        run: python3 tools/mirror_site.py mirror/site/web || echo "::warning::live-site mirror failed"
+      - name: Commit
+        run: |
+          date -u +%FT%TZ > /tmp/stamp
+          git config user.name "site-mirror"; git config user.email "site-mirror@users.noreply.github.com"
+          git add mirror/site
+          if git diff --cached --quiet; then echo "no change"; exit 0; fi
+          cp /tmp/stamp mirror/site/UPDATED_AT; git add mirror/site/UPDATED_AT
+          git commit -m "mirror: yasserfares.com reflections $(cat /tmp/stamp)"
+          for i in 1 2 3 4 5; do git pull --rebase origin main && git push origin HEAD:main && exit 0; sleep $((i*5)); done
+          exit 1
