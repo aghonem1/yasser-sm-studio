@@ -163,7 +163,7 @@ const Caption: React.FC<{t: number; i: number}> = ({t, i}) => {
           {r.map(([w, s], j) => {
             const p = k(t, s - 0.08, 0.28, outCubic); const key = w === KEY[i];
             return <span key={j} style={{fontFamily: key ? F.it : F.body, fontSize: key ? 88 : 62, lineHeight: '86px', fontStyle: key ? 'italic' : 'normal', fontWeight: key ? 600 : 400,
-              display: 'inline-block', opacity: p, transform: `translateY(${(1 - p) * 16}px)`, paddingRight: key ? 6 : 0,
+              display: 'inline-block', opacity: p, transform: `translateY(${(1 - p) * 16}px)`, ...(key ? {padding: '0.16em 0.22em 0.04em 0.08em', margin: '-0.16em -0.14em -0.04em -0.08em'} : {}),
               ...(key ? goldText : {color: CREAM}), filter: 'drop-shadow(0 3px 6px rgba(0,0,0,.6))'}}>{w}</span>;
           })}
         </div>
@@ -341,7 +341,7 @@ const ArW: React.FC<{y: number; size: number; o?: number; zoom?: number; x?: num
   </div>
 );
 const Translit: React.FC<{y: number; o?: number; size?: number}> = ({y, o = 1, size = 50}) => o <= 0 ? null :
-  <Line1 y={y}><span style={{opacity: o, fontFamily: F.it, fontStyle: 'italic', fontWeight: 600, fontSize: size, color: CREAM}}>ṣāliḥ · <span style={GOLDT}>righteous</span></span></Line1>;
+  <Line1 y={y}><span style={{opacity: o, fontFamily: F.it, fontStyle: 'italic', fontWeight: 600, fontSize: size, color: CREAM}}>ṣāliḥ · <span style={{...GOLDT, padding: '0.12em 0.2em 0.04em 0.06em', margin: '-0.12em -0.14em -0.04em -0.06em'}}>righteous</span></span></Line1>;
 
 // ---------- drawings ----------
 // prayer mat: rounded rug with a mihrab arch, inner border and fringe (drawn, not an icon)
@@ -381,9 +381,9 @@ const House: React.FC<{x: number; y: number; size: number; p: number; crack?: nu
       <path d={`M ${x + size * 0.05} ${y - size * 0.28} L ${x - size * 0.06} ${y - size * 0.12} L ${x + size * 0.07} ${y + 0.0 * size} L ${x - size * 0.04} ${y + size * 0.14} L ${x + size * 0.05} ${y + size * 0.3}`}
         pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - clamp(crack)} stroke={RED} strokeWidth={8} fill="none" strokeLinejoin="round" strokeLinecap="round" />
     </svg>}
-    {shield > 0 && <div style={{transform: `scale(${Math.min(1.06, 0.5 + 0.5 * shield)})`, transformOrigin: `${x}px ${y - size * 0.62}px`, opacity: clamp(shield * 2), position: 'absolute', left: 0, top: 0, width: W, height: H}}>
-      <Glow x={x} y={y - size * 0.62} r={size * 0.42} o={0.8} />
-      <Icon name="shield-heart" x={x} y={y - size * 0.62} size={size * 0.42} p={1} sw={6} c={GOLDL} glow={0.8} />
+    {shield > 0 && <div style={{transform: `scale(${Math.min(1.06, 0.5 + 0.5 * shield)})`, transformOrigin: `${x}px ${y - size * 0.74}px`, opacity: clamp(shield * 2), position: 'absolute', left: 0, top: 0, width: W, height: H}}>
+      <Glow x={x} y={y - size * 0.74} r={size * 0.36} o={0.8} />
+      <Icon name="shield-heart" x={x} y={y - size * 0.74} size={size * 0.38} p={1} sw={6} c={GOLDL} glow={0.8} />
     </div>}
   </div>
 );
@@ -408,13 +408,13 @@ const Tree: React.FC<{x: number; y: number; s: number; trunk: number; roots: num
       <ellipse cx={0} cy={18} rx={280} ry={150} fill="url(#soilR)" opacity={clamp(trunk * 2 + roots * 2)} />
       <line x1={-230} y1={0} x2={230} y2={0} stroke={SAND} strokeWidth={3 / s} opacity={0.55 * clamp(trunk * 2 + roots * 2)} />
       {rootGlow > 0 && <ellipse cx={0} cy={80} rx={190} ry={95} fill="url(#haloW)" opacity={rootGlow} />}
-      {TR.map((d, j) => <path key={j} d={d} pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - clamp(roots * 1.4 - j * 0.08)} stroke={rootGlow > 0.3 ? GOLDL : GOLD}
+      {TR.map((d, j) => clamp(roots * 1.4 - j * 0.08) <= 0.002 ? null : <path key={j} d={d} pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - clamp(roots * 1.4 - j * 0.08)} stroke={rootGlow > 0.3 ? GOLDL : GOLD}
         strokeWidth={(j < 4 ? 11 : 7) / Math.sqrt(s)} fill="none" strokeLinecap="round" />)}
-      <path d="M 0 2 C -6 -80 6 -160 0 -236" pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - clamp(trunk)} stroke="url(#leafG)" strokeWidth={30} fill="none" strokeLinecap="round" />
-      <path d="M 0 2 C -6 -80 6 -160 0 -236" pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - clamp(trunk)} stroke={GOLDL} strokeWidth={4} fill="none" strokeLinecap="round" opacity={0.6} />
-      {TB.map((d, j) => <path key={j} d={d} pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - clamp(branch * 1.5 - j * 0.1)} stroke={GOLDL}
+      {trunk > 0.002 && <path d="M 0 2 C -6 -80 6 -160 0 -236" pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - clamp(trunk)} stroke="url(#leafG)" strokeWidth={30} fill="none" strokeLinecap="round" />}
+      {trunk > 0.002 && <path d="M 0 2 C -6 -80 6 -160 0 -236" pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - clamp(trunk)} stroke={GOLDL} strokeWidth={4} fill="none" strokeLinecap="round" opacity={0.6} />}
+      {TB.map((d, j) => clamp(branch * 1.5 - j * 0.1) <= 0.002 ? null : <path key={j} d={d} pathLength={1} strokeDasharray="1 1" strokeDashoffset={1 - clamp(branch * 1.5 - j * 0.1)} stroke={GOLDL}
         strokeWidth={j < 2 ? 12 : 9} fill="none" strokeLinecap="round" />)}
-      {LEAF.map(([lx, ly, r], j) => {const p = clamp(leaves * 1.8 - j * 0.045); return p <= 0 ? null :
+      {LEAF.map(([lx, ly, r], j) => {const p = clamp(leaves * 1.8 - j * 0.045); return p <= 0.12 ? null :
         <ellipse key={j} cx={lx} cy={ly} rx={24 * p} ry={12 * p} transform={`rotate(${r} ${lx} ${ly})`} fill="url(#leafG)" stroke={GOLDL} strokeWidth={1.5} opacity={0.88} />;})}
       {slots > 0 && FRUIT.map(([fx, fy], j) => <g key={'s' + j} opacity={slots}><circle cx={fx} cy={fy + 14} r={26} fill="rgba(13,23,42,.6)" stroke={CREAM} strokeWidth={4} strokeDasharray="8 7" opacity={0.85} />
         <text x={fx} y={fy + 27} textAnchor="middle" fontFamily="YFCinzelB" fontSize={34} fill={RED}>?</text></g>)}
@@ -440,7 +440,7 @@ const SceneHook: React.FC<{t: number}> = ({t}) => {
   const tN = wt(2, 'neighbour');
   const slide = inOut((t - ST[2] + 0.15) / 0.55);              // mat moves left for the house
   const house = sp(t, ST[2] - 0.05, 13, 130);
-  const out = quint((t - ST[3] + 0.5) / 0.3);                 // headline, mat, house leave for "one word"
+  const out = quint((t - ST[3] + 0.3) / 0.25);                 // headline, mat, house leave for "one word"
   const z = inOut((t - ST[3] + 0.2) / 0.6);                     // the word moves to the centre and grows
   const tiles = [['ص', 'ṣād', wt(4, 'ṣād')], ['ل', 'lām', wt(4, 'lām')], ['ح', 'ḥā', wt(4, 'ḥā')]] as const;
   const tilesOut = inQuint((t - ST[5] + 0.3) / 0.28);
@@ -449,21 +449,21 @@ const SceneHook: React.FC<{t: number}> = ({t}) => {
   const kIn = sp(t, ST[5] - 0.05, 14, 110), tF = wt(5, 'fit');
   const kx = lerp(200, 430, inOut((t - ST[5] - 0.2) / (tF - ST[5] + 0.1)));
   const open = t > tF + 0.15, ok = outQuint((t - tF - 0.15) / 0.4), lab = outQuint((t - tF + 0.05) / 0.4);
-  const mx = lerp(CX, 320, slide);
+  const mx = lerp(CX, 300, slide);
   return (
     <AbsoluteFill style={{opacity: 1 - leave}}>
       <div style={{opacity: 1 - out, transform: `translateY(${-40 * out}px)`}}>
         <Line1 y={384}><span style={{fontFamily: F.cinzelB, fontSize: 82, letterSpacing: '0.06em', color: CREAM}}>HOURS OF PRAYER,</span></Line1>
         <Line1 y={482}><KType text="NOT RIGHTEOUS?" t={t} tin={ST[1] - 0.1} size={80} color={GOLDT} /></Line1>
-        <Clock x={mx} y={852} r={64} t={t} />
-        <Mat x={mx} y={1105} w={240} h={320} />
+        <Clock x={mx - 195} y={990} r={64} t={t} />
+        <Mat x={mx + 45} y={1085} w={240} h={320} />
         <House x={790} y={1030} size={330} p={house} />
         <Tag x={790} y={1225} p={outQuint((t - tN + 0.25) / 0.4)} c={GOLDL} size={30} w={460}>YOUR NEIGHBOUR</Tag>
       </div>
-      <Line1 y={420}><KType text="ONE WORD" t={t} tin={ST[3] - 0.24} tout={wt(5, 'sound') - 0.45} size={84} color={GOLDT} /></Line1>
+      <Line1 y={420}><KType text="ONE WORD" t={t} tin={ST[3] - 0.1} tout={wt(5, 'sound') - 0.45} size={84} color={GOLDT} /></Line1>
       <Line1 y={420}><KType text="SOUND" t={t} tin={wt(5, 'sound') - 0.15} size={96} color={GOLDT} /></Line1>
       <ArW y={lerp(598, 560, z)} size={lerp(112, 150, z)} zoom={z} />
-      <Translit y={790} o={outQuint((t - wt(3, 'ṣāliḥ') + 0.1) / 0.4)} />
+      <Translit y={832} o={outQuint((t - wt(3, 'ṣāliḥ') + 0.1) / 0.4)} />
       <div style={{opacity: 1 - tilesOut}}>
         {tiles.map(([c, n, tt], j) => {
           const p = sp(t, tt - 0.12, 12, 170);
@@ -475,11 +475,11 @@ const SceneHook: React.FC<{t: number}> = ({t}) => {
         })}
       </div>
       {kIn > 0 && <div style={{opacity: clamp(kIn * 2)}}>
-        <Glow x={650} y={1040} r={200} o={0.4 + 0.4 * ok} />
-        <Icon name={open ? 'lock-open' : 'lock'} x={660} y={1030} size={270} p={clamp(kIn * 1.3)} sw={8} c={GOLDL} />
-        {!open && <Icon name="key" x={kx - 20} y={1060} size={170} p={clamp(kIn * 1.3)} sw={7} c={CREAM} rot={45} glow={0} />}
-        <CheckMark x={850} y={930} s={90} p={ok} />
-        <Tag x={CX} y={1190} p={lab} c={GOLDL} size={32} w={900}>FIT FOR ITS PURPOSE</Tag>
+        <Glow x={650} y={1075} r={180} o={0.4 + 0.4 * ok} />
+        <Icon name={open ? 'lock-open' : 'lock'} x={660} y={1070} size={240} p={clamp(kIn * 1.3)} sw={8} c={GOLDL} />
+        {!open && <Icon name="key" x={kx - 20} y={1095} size={160} p={clamp(kIn * 1.3)} sw={7} c={CREAM} rot={45} glow={0} />}
+        <CheckMark x={845} y={985} s={80} p={ok} />
+        <Tag x={CX} y={1212} p={lab} c={GOLDL} size={32} w={900}>FIT FOR ITS PURPOSE</Tag>
       </div>}
     </AbsoluteFill>
   );
@@ -489,7 +489,7 @@ const SceneHook: React.FC<{t: number}> = ({t}) => {
 const PAN = [{x: 60, ln: 6, h: 'LAND', r: 'PRODUCES LIFE'}, {x: 390, ln: 7, h: 'WATER', r: 'SAFE TO USE'}, {x: 720, ln: 8, h: 'A DEED', r: 'BENEFICIAL'}];
 const ScenePanels: React.FC<{t: number}> = ({t}) => {
   const top = outQuint((t - ST[6] + 0.2) / 0.4);
-  const PY = 640, PH = 560;
+  const PY = 630, PH = 590;
   return (
     <AbsoluteFill>
       <ArW y={372} size={96} o={top} />
@@ -497,7 +497,7 @@ const ScenePanels: React.FC<{t: number}> = ({t}) => {
         const p = sp(t, ST[pn.ln] - 0.12, 13, 140);
         if (p <= 0) return null;
         const ck = outQuint((t - (pn.ln === 6 ? wt(6, 'life') : pn.ln === 7 ? wt(7, 'safely') : wt(8, 'beneficial')) + 0.05) / 0.35);
-        const cx = pn.x + 150, cy = PY + 270;
+        const cx = pn.x + 150, cy = PY + 235;
         const g = clamp((t - ST[pn.ln] - 0.25) / 1.4);
         return <div key={j} style={{position: 'absolute', left: 0, top: 0, width: W, height: H, opacity: clamp(p * 2), transform: `translateY(${(1 - Math.min(1, p)) * 30}px)`}}>
           <Glass x={pn.x} y={PY} w={300} h={PH} o={1} active={0.25 + 0.5 * ck} />
@@ -518,11 +518,11 @@ const ScenePanels: React.FC<{t: number}> = ({t}) => {
             </>;
           })()}
           {j === 2 && <>
-            <Ripples x={cx} y={cy + 30} t={t} t0={wt(8, 'effect') - 0.2} r={150} />
+            <Ripples x={cx} y={cy + 30} t={t} t0={wt(8, 'effect') - 0.2} r={118} />
             <Icon name="heart-handshake" x={cx} y={cy + 30} size={175} p={clamp(g * 1.6)} sw={7} c={GOLDL} />
           </>}
-          <div style={{position: 'absolute', left: pn.x, top: PY + 432, width: 300, textAlign: 'center', fontFamily: F.cinzelB, fontSize: 27, letterSpacing: '0.04em', color: GOLDL, opacity: ck}}>{pn.r}</div>
-          <CheckMark x={cx} y={PY + 505} s={60} p={ck} />
+          <div style={{position: 'absolute', left: pn.x, top: PY + 468, width: 300, textAlign: 'center', fontFamily: F.cinzelB, fontSize: 25, letterSpacing: '0.03em', color: GOLDL, opacity: ck}}>{pn.r}</div>
+          <CheckMark x={cx} y={PY + 540} s={54} p={ck} />
         </div>;
       })}
     </AbsoluteFill>
@@ -532,11 +532,11 @@ const ScenePanels: React.FC<{t: number}> = ({t}) => {
 // ---------- scene C: appearance ✗ | the effect ✓ ----------
 const SceneEffect: React.FC<{t: number}> = ({t}) => {
   const L = sp(t, ST[9] - 0.1, 13, 140), R = sp(t, ST[10] - 0.15, 13, 140);
-  const xL = outQuint((t - wt(9, 'appearance') - 0.1) / 0.35), ok = outQuint((t - wt(10, 'effect') + 0.05) / 0.4);
+  const xL = outQuint((t - wt(9, 'appearance') + 0.1) / 0.35), ok = outQuint((t - wt(10, 'effect') + 0.05) / 0.4);
   const div = outQuint((t - ST[10] + 0.1) / 0.5);
   return (
     <AbsoluteFill>
-      <div style={{opacity: 1 - inQuint((t - ST[10] + 0.42) / 0.25)}}><Line1 y={410}><StrikeIn p={xL} sw={11}><KType text="APPEARANCE" t={t} tin={ST[9] - 0.05} size={84} color={{color: CREAM}} /></StrikeIn></Line1></div>
+      <div style={{opacity: 1 - inQuint((t - ST[10] + 0.3) / 0.2)}}><Line1 y={410}><StrikeIn p={xL} sw={11}><KType text="APPEARANCE" t={t} tin={ST[9] - 0.05} size={84} color={{color: CREAM}} /></StrikeIn></Line1></div>
       <Line1 y={410}><KType text="THE EFFECT" t={t} tin={ST[10] - 0.12} size={96} color={GOLDT} /></Line1>
       <div style={{position: 'absolute', left: CX - 2, top: 640, width: 4, height: 600 * div, background: `linear-gradient(180deg, ${CREAM}00, ${CREAM}88, ${CREAM}00)`}} />
       <div style={{position: 'absolute', left: 0, top: 0, width: W, height: H, opacity: clamp(L * 2) * (1 - 0.45 * clamp(R)), transform: `scale(${Math.min(1.04, 0.8 + 0.2 * L)})`, transformOrigin: '290px 930px'}}>
@@ -563,9 +563,9 @@ const SceneEffect: React.FC<{t: number}> = ({t}) => {
 const SceneVerseTree: React.FC<{t: number}> = ({t}) => {
   const tB = wt(12, 'believe'), tR = wt(12, 'righteous');
   const big = inOut((t - ST[13] + 0.35) / 0.7);                // after the card leaves, the tree grows to the full zone
-  const x = CX, y = lerp(1128, 1060, big), s = lerp(0.95, 1.22, big);
+  const x = CX, y = lerp(1120, 1040, big), s = lerp(0.95, 1.18, big);
   const trunk = clamp((t - ST[12] - 0.1) / 1.0), roots = clamp((t - tB + 0.2) / 1.1);
-  const branch = clamp((t - wt(12, 'do') + 0.1) / 1.0), leaves = clamp((t - tR) / 1.4);
+  const branch = clamp((t - wt(12, 'do') + 0.1) / 1.0), leaves = clamp((t - wt(12, 'do') - 0.85) / 1.3);
   const rg = win(t, wt(13, 'root') - 0.25, ST[14] + 0.6, 0.35, 0.5);
   const fr = [0, 1, 2, 3, 4].map((j) => sp(t, wt(14, 'fruit') - 0.3 + j * 0.12, 11, 170));
   const lR = outQuint((t - wt(13, 'root') + 0.15) / 0.4), lF = outQuint((t - wt(14, 'fruit') + 0.05) / 0.4);
@@ -629,7 +629,7 @@ const SceneBare: React.FC<{t: number}> = ({t}) => {
     <AbsoluteFill style={{opacity: clamp(p * 2)}}>
       <Line1 y={410}><KType text="NO FRUIT?" t={t} tin={ST[18] - 0.05} tout={tP - 0.5} size={96} color={GOLDT} /></Line1>
       <Line1 y={410}><KType text="NO VISIBLE PROOF" t={t} tin={tP - 0.2} size={74} color={{color: RED}} /></Line1>
-      <Tree x={CX} y={1060} s={1.22} trunk={1} roots={1} branch={1} leaves={0} rootGlow={0.85} slots={sl} />
+      <Tree x={CX} y={1040} s={1.18} trunk={1} roots={1} branch={1} leaves={0} rootGlow={0.85} />
       {mo > 0 && <div style={{opacity: mo}}><Icon name="search" x={mx} y={my} size={190} p={1} sw={7} c={CREAM} glow={0.3} /></div>}
       <Mark kind="x" x={880} y={600} size={70} p={xP} sw={11} />
     </AbsoluteFill>
@@ -643,9 +643,9 @@ const SceneSafe: React.FC<{t: number}> = ({t}) => {
   return (
     <AbsoluteFill>
       <Line1 y={410}><KType text="ONE SIGN" t={t} tin={ST[20] - 0.05} size={96} color={GOLDT} /></Line1>
-      <House x={CX} y={1030} size={400} p={h} shield={sh} light={lt} />
-      <Tag x={CX} y={1225} p={ok} c={GOLDL} size={34} w={960}>YOUR NEIGHBOUR FEELS SAFE</Tag>
-      <CheckMark x={820} y={1140} s={80} p={ok} />
+      <House x={CX} y={1000} size={390} p={h} shield={sh} light={lt} />
+      <Tag x={CX} y={1178} p={ok} c={GOLDL} size={34} w={960}>YOUR NEIGHBOUR FEELS SAFE</Tag>
+      <CheckMark x={830} y={1100} s={76} p={ok} />
     </AbsoluteFill>
   );
 };
@@ -655,21 +655,21 @@ const SceneDeeds: React.FC<{t: number}> = ({t}) => {
   const p = sp(t, ST[22] - 0.15, 13, 140);
   const f1 = sp(t, wt(22, 'prayer') - 0.15, 11, 170), f2 = sp(t, wt(23, 'honesty') - 0.15, 11, 170);
   const c1 = outQuint((t - wt(22, 'deed') + 0.05) / 0.35), c2 = outQuint((t - wt(23, 'work') + 0.05) / 0.35);
-  const S = 1.22, GX = CX, GY = 1060;
+  const S = 1.18, GX = CX, GY = 1040;
   const fp = (j: number) => [GX + FRUIT[j][0] * S, GY + (FRUIT[j][1] + 14) * S];
   const [ax, ay] = fp(0), [bx, by] = fp(1);
   return (
     <AbsoluteFill style={{opacity: clamp(p * 2)}}>
       <Line1 y={410}><KType text="RIGHTEOUS DEEDS" t={t} tin={ST[22] - 0.05} size={74} color={GOLDT} /></Line1>
       <Tree x={GX} y={GY} s={S} trunk={1} roots={1} branch={1} leaves={clamp(p)} fruit={[f1, f2]} rootGlow={0.35} />
-      <div style={{position: 'absolute', left: 40, top: ay + 46, width: 360, opacity: clamp(f1 * 2)}}>
+      <div style={{position: 'absolute', left: 40, top: ay - 26, width: 262, textAlign: 'right', opacity: clamp(f1 * 2)}}>
         <div style={{fontFamily: F.cinzelB, fontSize: 40, letterSpacing: '0.1em', color: GOLDL}}>PRAYER</div>
       </div>
-      <CheckMark x={ax - 80} y={ay - 10} s={62} p={c1} />
-      <div style={{position: 'absolute', right: 40, top: by + 46, width: 380, textAlign: 'right', opacity: clamp(f2 * 2)}}>
+      <CheckMark x={72} y={ay - 2} s={56} p={c1} />
+      <div style={{position: 'absolute', left: 790, top: by - 44, width: 230, textAlign: 'left', opacity: clamp(f2 * 2)}}>
         <div style={{fontFamily: F.cinzelB, fontSize: 36, letterSpacing: '0.06em', color: GOLDL, lineHeight: 1.15}}>HONESTY<br />AT WORK</div>
       </div>
-      <CheckMark x={bx + 80} y={by - 10} s={62} p={c2} />
+      <CheckMark x={1030} y={by - 2} s={52} p={c2} />
     </AbsoluteFill>
   );
 };
@@ -693,7 +693,7 @@ const SceneCallback: React.FC<{t: number}> = ({t}) => {
       <Clock x={290} y={800} r={64} t={t} />
       <Mat x={290} y={1065} w={240} h={320} />
       <House x={810} y={1030} size={340} p={1} shield={sh} light={1} />
-      <Arrow x0={430} y0={1010} cx={560} cy={880} x1={640} y1={1000} p={arr} w={11} />
+      <Arrow x0={428} y0={1010} cx={540} cy={890} x1={618} y1={1012} p={arr} w={11} />
     </AbsoluteFill>
   );
 };
@@ -705,7 +705,7 @@ const SceneAsk: React.FC<{t: number}> = ({t}) => {
   const or = outQuint((t - wt(27, 'or') + 0.05) / 0.3);
   const tell = sp(t, ST[28] - 0.1, 12, 150);
   const Card2: React.FC<{x: number; p: number; icon: string; label: string; hi: number}> = ({x, p, icon, label, hi}) => p <= 0 ? null :
-    <div style={{position: 'absolute', left: x, top: 660, width: 400, height: 430, opacity: clamp(p * 2), transform: `scale(${Math.min(1.04, 0.75 + 0.25 * p) + 0.05 * hi})`}}>
+    <div style={{position: 'absolute', left: x, top: 660, width: 400, height: 430, opacity: clamp(p * 2), transform: `scale(${Math.min(1.03, 0.75 + 0.25 * p) + 0.025 * hi})`}}>
       <Glass x={0} y={0} w={400} h={430} o={1} active={0.3 + 0.7 * hi} />
       <Icon name={icon} x={200} y={185} size={210} p={clamp(p * 1.3)} sw={7} c={GOLDL} />
       <div style={{position: 'absolute', top: 340, width: 400, textAlign: 'center', fontFamily: F.cinzelB, fontSize: 44, letterSpacing: '0.08em', color: CREAM}}>{label}</div>
@@ -714,10 +714,10 @@ const SceneAsk: React.FC<{t: number}> = ({t}) => {
     <AbsoluteFill>
       <Line1 y={384}><KType text="WHERE IS GOODNESS" t={t} tin={ST[26] - 0.08} size={62} color={{color: CREAM}} /></Line1>
       <Line1 y={470}><KType text="HARDER?" t={t} tin={wt(26, 'harder') - 0.15} size={104} color={GOLDT} /></Line1>
-      <Card2 x={70} p={a} icon="users" label="AT WORK" hi={ha} />
-      <Card2 x={610} p={b} icon="home" label="NEXT DOOR" hi={hb} />
-      {or > 0 && <div style={{position: 'absolute', left: CX - 46, top: 830, width: 92, height: 92, borderRadius: '50%', opacity: or, display: 'flex', alignItems: 'center', justifyContent: 'center',
-        background: NAVY, boxShadow: `inset 0 0 0 3px ${GOLD}`, fontFamily: F.cinzelB, fontSize: 32, color: GOLDL}}>OR</div>}
+      <Card2 x={50} p={a} icon="users" label="AT WORK" hi={ha} />
+      <Card2 x={630} p={b} icon="home" label="NEXT DOOR" hi={hb} />
+      {or > 0 && <div style={{position: 'absolute', left: CX - 38, top: 837, width: 76, height: 76, borderRadius: '50%', opacity: or, display: 'flex', alignItems: 'center', justifyContent: 'center',
+        background: NAVY, boxShadow: `inset 0 0 0 3px ${GOLD}`, fontFamily: F.cinzelB, fontSize: 28, color: GOLDL}}>OR</div>}
       {tell > 0 && <div style={{opacity: clamp(tell * 2)}}>
         <Icon name="message-circle" x={300} y={1180} size={86} p={clamp(tell * 1.3)} sw={6} c={GOLDL} />
         <div style={{position: 'absolute', left: 360, top: 1150, fontFamily: F.cinzelB, fontSize: 44, letterSpacing: '0.1em', ...GOLDT}}>TELL ME BELOW</div>

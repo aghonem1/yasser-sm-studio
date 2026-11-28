@@ -332,7 +332,7 @@
    "verses": [
     "2:277"
    ],
-   "duration_s": 65.1,
+   "duration_s": 64.5,
    "short_cut_s": 21.0,
    "hook": "Hours of prayer, and still not righteous? Ask your neighbour.",
    "hook_onscreen": "HOURS OF PRAYER, → NOT RIGHTEOUS?",
@@ -356,14 +356,15 @@
     "short_cut": "2026-11-28T21:30:00+08:00"
    },
    "files": [
-    "2026-11-28_the-mirror_one-word-10-salih_9x16_v2.mp4 / _cover.jpg",
-    "2026-11-28_the-mirror_one-word-10-salih_short_9x16_v1.mp4 / _short_cover.jpg"
+    "2026-11-28_the-mirror_one-word-10-salih_9x16_v3.mp4 / _v3_cover.jpg",
+    "2026-11-28_the-mirror_one-word-10-salih_short_9x16_v2.mp4 / _short_v2_cover.jpg"
    ],
-   "short_cut": "0.00–4.45 s (hook) + 35.58–47.91 s (pray long, still harm the neighbour; roots but no fruit; the neighbour feels safe) + 60.88 s–end (follow line + end card); no verse",
+   "short_cut": "0.00–4.45 s (hook) + 35.16–47.49 s (pray long, still harm the neighbour; roots but no fruit; the neighbour feels safe) + 60.23 s–end (follow line + end card); no verse",
    "short_ig": "not posted: Zernio refused the 27 Nov IG Trial Reel ('Trial Reels require an Instagram account with 1,000+ followers') and learnings rule 1 keeps IG at one reel a day",
    "check": "صَالِح re-taken (ar, speed 0.85) and spliced at 3 of 4 places (whisper-ar heard السال/إليس/صلي; after the splice صالح at all). Mix -14.0 LUFS, true peak -1.0 dB (short -14.0 / -1.8); music -240 dB in the verse window 25.73–30.18 s; parakeet transcribes every English line of the final mix. v2: a kasra of the verse line touched the English rendering on the 2:277 card; frames 750–920 re-rendered with more space and spliced in, both episode posts updated to v2 before publishing.",
    "music": "hijaz-v1",
-   "first_comments": "set via platformSpecificData.firstComment on Instagram, Facebook, YouTube (episode) and YouTube (short); TikTok has no first-comment field"
+   "first_comments": "set via platformSpecificData.firstComment on Instagram, Facebook, YouTube (episode) and YouTube (short); TikTok has no first-comment field",
+   "v3_28nov": "Ahmed (28 Nov, before publishing): the transition into the re-taken ṣāliḥ was broken and abrupt, and some text overlapped. Audio: splice_salih.py v2 time-stretches the take's word (pitch kept) into the original slot, keeps the original onset, room tone instead of digital silence, 12 ms overlap crossfades; whisper-ar hears صالح at all three, parakeet reads the sentences straight through. Picture: clock beside the mat on frame 1, transliteration clear of the Arabic word, panel labels clear of the drawings, caption key words no longer clip the italic d, no stray root/leaf dots, no dashed slots across branches, deed labels beside the fruit, shield above the roof, arrow stops before the house, OR clear of the cards, APPEARANCE strike visible. All three posts updated to v3 / short v2 before publishing."
   }
  ]
 }
