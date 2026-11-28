@@ -1,10 +1,20 @@
 ---
 url: https://yasserfares.com/reflections/how-should-we-weigh-differing-opinions/
 page_title: "How should we weigh differing opinions? — a reflection from Hold Firmly"
-dates_on_page: []
-book_links: []
+dates_on_page: ["2026-11-25"]
+book_links: ["https://yasserfares.com/books/hold-firmly/"]
 source: website (mirrored by tools/mirror_site.py; text as the page prints it)
 ---
+Home / Reflections / How should we weigh differing opinions?
+
+A reflection from Hold Firmly
+
+# How should we weigh differing opinions?
+
+Before its first chapter, Hold Firmly says how it will weigh every idea, including its own.
+
+Yasser Fares · 25 November 2026 · 2 minute read ·
+
 Before its first chapter, Hold Firmly sets out its method, and it starts by saying what the book is not. It is not a history of Muslim disagreements, a comparison of the schools of thought, or a ruling on whose juristic or theological opinions are stronger.
 
 What it offers instead is a return to the Qur’an, so that we might see the Ummah as its Lord sees it. The work of scholars, thinkers and jurists is treated with respect, as human effort that may bring great benefit and that remains subject to the Book of Allah, never above it. The authentic Sunnah is named as the practical explanation of the Qur’an. So the book does not begin with an idea and then search the Qur’an for support. It begins with the Qur’an and asks what Allah wants from us.
@@ -25,14 +35,54 @@ The second concerns the reader. The author does not ask for agreement. He asks e
 
 Drawn from Hold Firmly: “Methodology”, the statement of method between the introduction and Chapter One.
 
+·
+
 Continue in the book
 
 This reflection is a few minutes from Hold Firmly. The book carries the thought through, chapter by chapter.
 
 See what the book coversGet the first chapter free
 
-ShareWhatsAppTelegramFacebookX
+Share · WhatsAppTelegramFacebookX
 
 ### Get the next reflection by email
 
 One short reflection a week, drawn from the books. Unsubscribe any time.
+
+·
+
+·
+
+From the book
+
+#### Hold Firmly
+
+Unite, Not Divide
+
+See the book
+
+Keep reading
+
+## More reflections
+
+The Mirror ·
+### What does kufr really mean?
+
+The Mirror opens by going back to the root of one of the most carelessly used words in religious speech.
+Read the reflection · Hold Firmly ·
+### What about harmony within Islam?
+
+Hold Firmly began with one line in a friend’s message, and with a decision about where to look for the answer.
+Read the reflection · My Prayer ·
+### Allahu Akbar — greater than what?
+
+My Prayer starts before the prayer does, with two words most of us have heard thousands of times.
+Read the reflection ·
+
+Watch and follow
+
+## Follow for the next one
+
+Short reflections on video and in pictures, and longer talks. Each one leads back to a page here.
+
+YouTube@yasser_fares · Talks and longer reflections. · Instagram@yasserfares_ · Short reflections and carousels. · TikTok@yasser_fares · Short reflections on video. · Facebookyasser1fares · Updates, events and community. ·

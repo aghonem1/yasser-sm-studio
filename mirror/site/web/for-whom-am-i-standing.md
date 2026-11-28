@@ -1,10 +1,20 @@
 ---
 url: https://yasserfares.com/reflections/for-whom-am-i-standing/
 page_title: "For whom am I standing? — a reflection from My Prayer"
-dates_on_page: []
-book_links: []
+dates_on_page: ["2026-11-16"]
+book_links: ["https://yasserfares.com/books/my-prayer/"]
 source: website (mirrored by tools/mirror_site.py; text as the page prints it)
 ---
+Home / Reflections / For whom am I standing?
+
+A reflection from My Prayer
+
+# For whom am I standing?
+
+Between hearing the call and starting the prayer comes the intention. My Prayer treats it as something simpler, and deeper, than a sentence to get right.
+
+Yasser Fares · 16 November 2026 · 2 minute read ·
+
 Between hearing the call and beginning the prayer there is a small step that many of us turn into a struggle. The second chapter of My Prayer is about that step, the intention, and it begins by taking the difficulty out of it.
 
 Niyyah, the chapter says, is not a hard sentence to be assembled correctly. It is the heart knowing what it is doing and turning to Allah alone. If you rise knowing which prayer you are about to offer, and meaning to obey your Lord, the intention is already there. The book adds a gentle warning: repeating it over and over can open a door to anxiety, when the aim was only for the heart to gather itself calmly.
@@ -29,14 +39,54 @@ That is why the chapter ends by widening what intention means. It is not one mom
 
 Drawn from My Prayer: Chapter Two, “Answering the Call — Intention and Response”.
 
+·
+
 Continue in the book
 
 This reflection is a few minutes from My Prayer. The book carries the thought through, chapter by chapter.
 
 See what the book coversGet the first chapter free
 
-ShareWhatsAppTelegramFacebookX
+Share · WhatsAppTelegramFacebookX
 
 ### Get the next reflection by email
 
 One short reflection a week, drawn from the books. Unsubscribe any time.
+
+·
+
+·
+
+From the book
+
+#### My Prayer
+
+From the Call to a Life of Light
+
+See the book
+
+Keep reading
+
+## More reflections
+
+The Mirror ·
+### What does kufr really mean?
+
+The Mirror opens by going back to the root of one of the most carelessly used words in religious speech.
+Read the reflection · Hold Firmly ·
+### What about harmony within Islam?
+
+Hold Firmly began with one line in a friend’s message, and with a decision about where to look for the answer.
+Read the reflection · My Prayer ·
+### Allahu Akbar — greater than what?
+
+My Prayer starts before the prayer does, with two words most of us have heard thousands of times.
+Read the reflection ·
+
+Watch and follow
+
+## Follow for the next one
+
+Short reflections on video and in pictures, and longer talks. Each one leads back to a page here.
+
+YouTube@yasser_fares · Talks and longer reflections. · Instagram@yasserfares_ · Short reflections and carousels. · TikTok@yasser_fares · Short reflections on video. · Facebookyasser1fares · Updates, events and community. ·

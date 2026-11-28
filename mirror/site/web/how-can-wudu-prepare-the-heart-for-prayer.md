@@ -1,10 +1,20 @@
 ---
 url: https://yasserfares.com/reflections/how-can-wudu-prepare-the-heart-for-prayer/
 page_title: "How can wudu prepare the heart for prayer? — a reflection from My Prayer"
-dates_on_page: []
-book_links: []
+dates_on_page: ["2026-11-27"]
+book_links: ["https://yasserfares.com/books/my-prayer/"]
 source: website (mirrored by tools/mirror_site.py; text as the page prints it)
 ---
+Home / Reflections / How can wudu prepare the heart for prayer?
+
+A reflection from My Prayer
+
+# How can wudu prepare the heart for prayer?
+
+The third chapter of My Prayer follows the water from limb to limb and asks what each one has been doing.
+
+Yasser Fares · 27 November 2026 · 2 minute read ·
+
 After the call and the intention comes water. The third chapter of My Prayer calls water a visible mercy. As the believer approaches it, the book says, wudu can be received as a movement from the dust of the road towards the clarity of standing before Allah, and from scattered senses towards a gathered heart.
 
 The chapter is careful about what it offers. The meanings it attaches to each limb are not special prayers to recite while washing, nor alternatives to the known rulings of wudu. They are pauses for reflection, so that the water passes over the heart as it passes over the body.
@@ -21,14 +31,54 @@ In this way, the book says, wudu gathers the whole person. It also names a test.
 
 Drawn from My Prayer: Chapter Three, “Wudu — Cleansing the Body, Awakening the Soul”, the whole chapter.
 
+·
+
 Continue in the book
 
 This reflection is a few minutes from My Prayer. The book carries the thought through, chapter by chapter.
 
 See what the book coversGet the first chapter free
 
-ShareWhatsAppTelegramFacebookX
+Share · WhatsAppTelegramFacebookX
 
 ### Get the next reflection by email
 
 One short reflection a week, drawn from the books. Unsubscribe any time.
+
+·
+
+·
+
+From the book
+
+#### My Prayer
+
+From the Call to a Life of Light
+
+See the book
+
+Keep reading
+
+## More reflections
+
+The Mirror ·
+### What does kufr really mean?
+
+The Mirror opens by going back to the root of one of the most carelessly used words in religious speech.
+Read the reflection · Hold Firmly ·
+### What about harmony within Islam?
+
+Hold Firmly began with one line in a friend’s message, and with a decision about where to look for the answer.
+Read the reflection · My Prayer ·
+### Allahu Akbar — greater than what?
+
+My Prayer starts before the prayer does, with two words most of us have heard thousands of times.
+Read the reflection ·
+
+Watch and follow
+
+## Follow for the next one
+
+Short reflections on video and in pictures, and longer talks. Each one leads back to a page here.
+
+YouTube@yasser_fares · Talks and longer reflections. · Instagram@yasserfares_ · Short reflections and carousels. · TikTok@yasser_fares · Short reflections on video. · Facebookyasser1fares · Updates, events and community. ·
